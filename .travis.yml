@@ -1,0 +1,10 @@
+jobs:
+  include:
+    - name: 'Game Service'
+      language: java
+      jdk: openjdk13
+      before_script: cd server/game-service
+      script: mvn verify
+      cache:
+        directories:
+          - $HOME/.m2

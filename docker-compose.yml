@@ -1,0 +1,7 @@
+version: '3'
+services:
+  game-service:
+    build: server/game-service
+    ports:
+      - "8081:8081"
+    restart: always
