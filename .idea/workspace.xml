@@ -2,26 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2a8b3561-4da9-4e14-a5e7-6a297d1b6780" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/Game.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/board/Board.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Bishop.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/King.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Knight.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Pawn.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Piece.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/PieceFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/PieceType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Queen.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Rook.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/player/Player.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/player/PlayerColor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/position/Position.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/game/board/BoardTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/game/piece/PieceFactoryTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/game/piece/KnightTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/game/piece/PawnTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/game/position/PositionTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.travis.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.travis.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/board/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/board/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Bishop.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Bishop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/King.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/King.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Knight.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Knight.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Pawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Pawn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Piece.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Queen.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Queen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Rook.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Rook.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/position/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/position/Position.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/game/board/BoardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/game/board/BoardTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -32,9 +27,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Enum" />
         <option value="Class" />
+        <option value="package.json" />
+        <option value="Interface" />
         <option value="JUnit5 Test Class" />
       </list>
     </option>
@@ -61,8 +57,9 @@
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
-      <recent name="com.chess.gameservice.game.board" />
       <recent name="com.chess.gameservice.game.piece" />
+      <recent name="com.chess.gameservice.game.position" />
+      <recent name="com.chess.gameservice.game.board" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -80,7 +77,39 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Docker.docker-compose.yml: Compose Deployment">
+  <component name="RunManager" selected="JUnit.KnightTest.getAvailableMovesOutOfBounds">
+    <configuration name="KnightTest.getAvailableMoves" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="game-service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.chess.gameservice.game.piece.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.chess.gameservice.game.piece" />
+      <option name="MAIN_CLASS_NAME" value="com.chess.gameservice.game.piece.KnightTest" />
+      <option name="METHOD_NAME" value="getAvailableMoves" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="KnightTest.getAvailableMovesOutOfBounds" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="game-service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.chess.gameservice.game.piece.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.chess.gameservice.game.piece" />
+      <option name="MAIN_CLASS_NAME" value="com.chess.gameservice.game.piece.KnightTest" />
+      <option name="METHOD_NAME" value="getAvailableMovesOutOfBounds" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="GameServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="server" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.chess.gameservice.GameServiceApplication" />
@@ -112,11 +141,15 @@
     </configuration>
     <list>
       <item itemvalue="Docker.Unnamed" />
-      <item itemvalue="Spring Boot.GameServiceApplication" />
       <item itemvalue="Docker.docker-compose.yml: Compose Deployment" />
+      <item itemvalue="Spring Boot.GameServiceApplication" />
+      <item itemvalue="JUnit.KnightTest.getAvailableMoves" />
+      <item itemvalue="JUnit.KnightTest.getAvailableMovesOutOfBounds" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.KnightTest.getAvailableMovesOutOfBounds" />
+        <item itemvalue="JUnit.KnightTest.getAvailableMoves" />
         <item itemvalue="Docker.docker-compose.yml: Compose Deployment" />
       </list>
     </recent_temporary>
@@ -155,7 +188,8 @@
       <workItem from="1573162134590" duration="1299000" />
       <workItem from="1573163438380" duration="2236000" />
       <workItem from="1573165719658" duration="100000" />
-      <workItem from="1573165830818" duration="10957000" />
+      <workItem from="1573165830818" duration="13403000" />
+      <workItem from="1573229011040" duration="15414000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed travis config">
       <created>1573168640930</created>
@@ -164,7 +198,28 @@
       <option name="project" value="LOCAL" />
       <updated>1573168640930</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Added Piece classes, Piece factory and board class">
+      <created>1573177609053</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1573177609053</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Added Piece classes, Piece factory and board class">
+      <created>1573177677889</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1573177677889</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Added Piece classes, Piece factory and board class">
+      <created>1573177712217</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1573177712217</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -175,7 +230,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
@@ -183,6 +240,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Fixed travis config" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed travis config" />
+    <MESSAGE value="Added Piece classes, Piece factory and board class" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Piece classes, Piece factory and board class" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
 </project>

@@ -3,8 +3,11 @@ package com.chess.gameservice.game.board;
 import com.chess.gameservice.game.piece.Piece;
 import com.chess.gameservice.game.piece.PieceFactory;
 import com.chess.gameservice.game.piece.PieceType;
+import com.chess.gameservice.game.position.Position;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.ArrayList;
 
 @Getter
 @Setter
@@ -43,5 +46,13 @@ public class Board {
                 board[1 - i][j] = PieceFactory.buildPiece(playerInitialState[i][j]);
             }
         }
+    }
+
+    public boolean isBoardPositionEmpty(Position position) {
+        return board[position.getX()][position.getY()] == null;
+    }
+
+    public ArrayList<Position> getAvailableMoves(Position position) {
+        return board[position.getX()][position.getY()].getAvailableMoves(this, position);
     }
 }
