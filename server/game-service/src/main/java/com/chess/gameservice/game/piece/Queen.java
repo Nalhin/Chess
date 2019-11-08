@@ -12,7 +12,7 @@ public class Queen extends Piece {
     }
 
     @Override
-    public boolean isMoveLegal(Position currentPosition, Position movePosition) {
+    public boolean isMoveLegal(Position currentPosition, Position movePosition, Board board) {
         return false;
     }
 }

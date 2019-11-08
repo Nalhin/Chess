@@ -11,12 +11,11 @@ public class King extends Piece {
     public ArrayList<Position> getAvailableMoves(Board board, Position initialPosition) {
         var availableMoves = new ArrayList<Position>();
 
-
         return availableMoves;
     }
 
     @Override
-    public boolean isMoveLegal(Position currentPosition, Position movePosition) {
+    public boolean isMoveLegal(Position currentPosition, Position movePosition, Board board) {
         return false;
     }
 }

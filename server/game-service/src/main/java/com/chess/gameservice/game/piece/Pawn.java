@@ -24,7 +24,7 @@ public class Pawn extends Piece {
     }
 
     @Override
-    public boolean isMoveLegal(Position currentPosition, Position destinationPosition) {
+    public boolean isMoveLegal(Position currentPosition, Position destinationPosition, Board board) {
         var direction = getDirection();
 
         if (!destinationPosition.isWithinBounds()) {

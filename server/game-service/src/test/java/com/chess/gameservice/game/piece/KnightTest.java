@@ -15,7 +15,7 @@ class KnightTest {
 
     @BeforeEach
     void setUp() {
-        Piece[][] testBoard = new Piece[8][8];
+        var testBoard = new Piece[8][8];
         board = new Board();
         board.setBoard(testBoard);
     }
@@ -24,7 +24,7 @@ class KnightTest {
     void getAvailableMoves() {
         var knight = new Knight();
         var knightPosition = new Position(4, 4);
-        ArrayList<Position> expectedMoves = new ArrayList<>();
+        var expectedMoves = new ArrayList<Position>();
         int[] positionsX = {2, 2, 3, 5, 6, 6, 5, 3};
         int[] positionsY = {3, 5, 6, 6, 5, 3, 2, 2};
         for (int i = 0; i < positionsX.length; i++) {
@@ -79,12 +79,12 @@ class KnightTest {
         var knight = new Knight();
 
         var destinationPositionLegal = new Position(3, 2);
-        assertTrue(knight.isMoveLegal(currentPosition, destinationPositionLegal));
+        assertTrue(knight.isMoveLegal(currentPosition, destinationPositionLegal, board));
 
         var destinationPositionIllegal = new Position(3, 3);
-        assertFalse(knight.isMoveLegal(currentPosition, destinationPositionIllegal));
+        assertFalse(knight.isMoveLegal(currentPosition, destinationPositionIllegal, board));
 
         var destinationPositionOutOfBounds = new Position(-1, 0);
-        assertFalse(knight.isMoveLegal(currentPosition, destinationPositionOutOfBounds));
+        assertFalse(knight.isMoveLegal(currentPosition, destinationPositionOutOfBounds, board));
     }
 }

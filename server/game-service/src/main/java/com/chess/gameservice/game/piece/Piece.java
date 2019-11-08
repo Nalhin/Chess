@@ -16,6 +16,6 @@ public abstract class Piece {
 
     public abstract ArrayList<Position> getAvailableMoves(Board board, Position initialPosition);
 
-    public abstract boolean isMoveLegal(Position currentPosition, Position destinationPosition);
+    public abstract boolean isMoveLegal(Position currentPosition, Position destinationPosition, Board board);
 
 }

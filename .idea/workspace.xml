@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2a8b3561-4da9-4e14-a5e7-6a297d1b6780" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/game/piece/KnightTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/game/piece/PawnTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/game/position/PositionTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/game/piece/RookTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/board/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/board/Board.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Bishop.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Bishop.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/King.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/King.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Knight.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Knight.java" afterDir="false" />
@@ -15,8 +11,9 @@
       <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Piece.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Queen.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Queen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Rook.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Rook.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/position/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/position/Position.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/game/board/BoardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/game/board/BoardTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/game/piece/KnightTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/game/piece/KnightTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/game/piece/PawnTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/game/piece/PawnTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/game/piece/PieceFactoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/game/piece/PieceFactoryTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -189,7 +186,7 @@
       <workItem from="1573163438380" duration="2236000" />
       <workItem from="1573165719658" duration="100000" />
       <workItem from="1573165830818" duration="13403000" />
-      <workItem from="1573229011040" duration="15414000" />
+      <workItem from="1573229011040" duration="19722000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed travis config">
       <created>1573168640930</created>
@@ -219,7 +216,14 @@
       <option name="project" value="LOCAL" />
       <updated>1573177712217</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Added Pawn and Knight move logic and tests.">
+      <created>1573248244443</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1573248244443</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -241,7 +245,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Fixed travis config" />
     <MESSAGE value="Added Piece classes, Piece factory and board class" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Piece classes, Piece factory and board class" />
+    <MESSAGE value="Added Pawn and Knight move logic and tests." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Pawn and Knight move logic and tests." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>

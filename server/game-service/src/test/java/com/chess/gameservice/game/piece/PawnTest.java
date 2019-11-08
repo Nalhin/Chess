@@ -16,7 +16,7 @@ class PawnTest {
 
     @BeforeEach
     void setUp() {
-        Piece[][] testBoard = new Piece[8][8];
+        var testBoard = new Piece[8][8];
         board = new Board();
         board.setBoard(testBoard);
     }
@@ -98,13 +98,13 @@ class PawnTest {
         pawn.setPlayerColor(PlayerColor.WHITE);
 
         var destinationPositionLegal = new Position(7, 1);
-        assertTrue(pawn.isMoveLegal(currentPosition, destinationPositionLegal));
+        assertTrue(pawn.isMoveLegal(currentPosition, destinationPositionLegal, board));
 
         var destinationPositionIllegal = new Position(7, 2);
-        assertFalse(pawn.isMoveLegal(currentPosition, destinationPositionIllegal));
+        assertFalse(pawn.isMoveLegal(currentPosition, destinationPositionIllegal, board));
 
         var destinationPositionOutOfBounds = new Position(8, 1);
-        assertFalse(pawn.isMoveLegal(currentPosition, destinationPositionOutOfBounds));
+        assertFalse(pawn.isMoveLegal(currentPosition, destinationPositionOutOfBounds, board));
     }
 
     @Test
@@ -114,13 +114,13 @@ class PawnTest {
         pawn.setPlayerColor(PlayerColor.BLACK);
 
         var destinationPositionLegal = new Position(0, 1);
-        assertTrue(pawn.isMoveLegal(currentPosition, destinationPositionLegal));
+        assertTrue(pawn.isMoveLegal(currentPosition, destinationPositionLegal, board));
 
         var destinationPositionIllegal = new Position(0, 2);
-        assertFalse(pawn.isMoveLegal(currentPosition, destinationPositionIllegal));
+        assertFalse(pawn.isMoveLegal(currentPosition, destinationPositionIllegal, board));
 
         var destinationPositionOutOfBounds = new Position(-1, 0);
-        assertFalse(pawn.isMoveLegal(currentPosition, destinationPositionOutOfBounds));
+        assertFalse(pawn.isMoveLegal(currentPosition, destinationPositionOutOfBounds, board));
     }
 
     @Test
@@ -131,7 +131,7 @@ class PawnTest {
         pawn.move();
 
         var destinationPositionIllegal = new Position(7, 2);
-        assertFalse(pawn.isMoveLegal(currentPosition, destinationPositionIllegal));
+        assertFalse(pawn.isMoveLegal(currentPosition, destinationPositionIllegal, board));
     }
 
     @Test
@@ -142,7 +142,7 @@ class PawnTest {
         pawn.move();
 
         var destinationPositionIllegal = new Position(0, 2);
-        assertFalse(pawn.isMoveLegal(currentPosition, destinationPositionIllegal));
+        assertFalse(pawn.isMoveLegal(currentPosition, destinationPositionIllegal, board));
 
     }
 }

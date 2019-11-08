@@ -13,7 +13,7 @@ public class Bishop extends Piece {
     }
 
     @Override
-    public boolean isMoveLegal(Position currentPosition, Position movePosition) {
+    public boolean isMoveLegal(Position currentPosition, Position movePosition, Board board) {
         return false;
     }
 }
