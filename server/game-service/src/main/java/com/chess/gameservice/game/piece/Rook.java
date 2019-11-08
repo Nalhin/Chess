@@ -12,34 +12,33 @@ public class Rook extends Piece {
 
         var x = initialPosition.getX();
         var y = initialPosition.getY();
-        while (x-- > 0) {
-            if (board.getBoard()[x][y] != null) {
+
+        for (int i = x + 1; i <= 7; i++) {
+            if (board.getBoard()[i][y] != null) {
                 break;
             }
-            availableMoves.add(new Position(x, y));
+            availableMoves.add(new Position(i, y));
         }
 
-        x = initialPosition.getX();
-        while (x++ < 7) {
-            if (board.getBoard()[x][y] != null) {
+        for (int i = y + 1; i <= 7; i++) {
+            if (board.getBoard()[x][i] != null) {
                 break;
             }
-            availableMoves.add(new Position(x, y));
+            availableMoves.add(new Position(x, i));
         }
 
-        x = initialPosition.getX();
-        while (y-- > 0) {
-            if (board.getBoard()[x][y] != null) {
+        for (int i = x - 1; i >= 0; i--) {
+            if (board.getBoard()[i][y] != null) {
                 break;
             }
-            availableMoves.add(new Position(x, y));
+            availableMoves.add(new Position(i, y));
         }
-        y = initialPosition.getY();
-        while (y++ < 7) {
-            if (board.getBoard()[x][y] != null) {
+
+        for (int i = y - 1; i >= 0; i--) {
+            if (board.getBoard()[x][i] != null) {
                 break;
             }
-            availableMoves.add(new Position(x, y));
+            availableMoves.add(new Position(x, i));
         }
         return availableMoves;
     }
