@@ -2,9 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2a8b3561-4da9-4e14-a5e7-6a297d1b6780" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/Game.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/board/Board.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Bishop.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/King.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Knight.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Pawn.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Piece.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/PieceFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/PieceType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Queen.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Rook.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/player/Player.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/player/PlayerColor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/position/Position.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/game/board/BoardTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/game/piece/PieceFactoryTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.travis.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.travis.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/game-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/pom.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -13,20 +29,44 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Enum" />
+        <option value="Class" />
+        <option value="JUnit5 Test Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1TIylRrj9JBXjYDoChLgvBcgUoF" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="jdk.selected.JAVA_MODULE" value="11" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/server" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.chess.gameservice.game.board" />
+      <recent name="com.chess.gameservice.game.piece" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -115,8 +155,16 @@
       <workItem from="1573162134590" duration="1299000" />
       <workItem from="1573163438380" duration="2236000" />
       <workItem from="1573165719658" duration="100000" />
-      <workItem from="1573165830818" duration="2785000" />
+      <workItem from="1573165830818" duration="10957000" />
     </task>
+    <task id="LOCAL-00001" summary="Fixed travis config">
+      <created>1573168640930</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1573168640930</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -132,5 +180,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Fixed travis config" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed travis config" />
   </component>
 </project>
