@@ -22,16 +22,10 @@ public class Rook extends Piece {
 
     @Override
     public boolean isMoveLegal(Position currentPosition, Position destinationPosition, Board board) {
-        if (!destinationPosition.isWithinBounds()) {
+        if (isMoveImpossible(currentPosition, destinationPosition)) {
             return false;
         }
-        if (currentPosition.getX() == destinationPosition.getX()) {
-            return true;
-        }
-        if (currentPosition.getY() == destinationPosition.getY()) {
-            return true;
-        }
-        return false;
+        return isLineMoveLegal(currentPosition, destinationPosition, board);
     }
 
 }

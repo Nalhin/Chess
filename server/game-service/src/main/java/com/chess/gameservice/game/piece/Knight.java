@@ -28,7 +28,7 @@ public class Knight extends Piece {
 
     @Override
     public boolean isMoveLegal(Position currentPosition, Position destinationPosition, Board board) {
-        if (!destinationPosition.isWithinBounds()) {
+        if (isMoveImpossible(currentPosition, destinationPosition)) {
             return false;
         }
 

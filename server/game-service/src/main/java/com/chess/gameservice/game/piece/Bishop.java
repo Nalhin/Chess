@@ -24,14 +24,10 @@ public class Bishop extends Piece {
 
     @Override
     public boolean isMoveLegal(Position currentPosition, Position destinationPosition, Board board) {
-        if (!destinationPosition.isWithinBounds()) {
+        if (isMoveImpossible(currentPosition, destinationPosition)) {
             return false;
         }
-        if (Math.abs(currentPosition.getX() - destinationPosition.getX()) ==
-                Math.abs(currentPosition.getY() - destinationPosition.getY())) {
-            return true;
-        }
-        return false;
+        return isDiagonalMoveLegal(currentPosition, destinationPosition, board);
     }
 
 }

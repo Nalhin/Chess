@@ -2,12 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2a8b3561-4da9-4e14-a5e7-6a297d1b6780" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/game/piece/KingTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/game/piece/QueenTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Bishop.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Bishop.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/King.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/King.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Knight.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Knight.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Pawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Pawn.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Piece.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Queen.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Queen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Rook.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Rook.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,9 +22,9 @@
       <list>
         <option value="Enum" />
         <option value="package.json" />
-        <option value="Interface" />
         <option value="Class" />
         <option value="JUnit5 Test Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -44,7 +46,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="copyright.filetypes.JAVA" />
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
@@ -165,11 +167,11 @@
     <list>
       <item itemvalue="Docker.Unnamed" />
       <item itemvalue="Docker.docker-compose.yml: Compose Deployment" />
-      <item itemvalue="Spring Boot.GameServiceApplication" />
       <item itemvalue="JUnit.KnightTest.getAvailableMoves" />
       <item itemvalue="JUnit.KnightTest.getAvailableMovesOutOfBounds" />
       <item itemvalue="JUnit.RookTest.getAvailableMoves" />
       <item itemvalue="JUnit.BishopTest.getAvailableMoves" />
+      <item itemvalue="Spring Boot.GameServiceApplication" />
     </list>
     <recent_temporary>
       <list>
@@ -216,7 +218,8 @@
       <workItem from="1573163438380" duration="2236000" />
       <workItem from="1573165719658" duration="100000" />
       <workItem from="1573165830818" duration="13403000" />
-      <workItem from="1573229011040" duration="30764000" />
+      <workItem from="1573229011040" duration="30919000" />
+      <workItem from="1573303020068" duration="6118000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed travis config">
       <created>1573168640930</created>
@@ -274,7 +277,14 @@
       <option name="project" value="LOCAL" />
       <updated>1573262405620</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Added logic and tests for king and queen classes.">
+      <created>1573265373746</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1573265373746</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -300,7 +310,8 @@
     <MESSAGE value="Added Rook logic and tests." />
     <MESSAGE value="Rook logic refactor." />
     <MESSAGE value="Added bishop logic and tests, rook logic refactor (methods reused for bishop and queen)." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added bishop logic and tests, rook logic refactor (methods reused for bishop and queen)." />
+    <MESSAGE value="Added logic and tests for king and queen classes." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added logic and tests for king and queen classes." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>

@@ -27,18 +27,12 @@ public class King extends Piece {
 
     @Override
     public boolean isMoveLegal(Position currentPosition, Position destinationPosition, Board board) {
-        if (!destinationPosition.isWithinBounds()) {
+        if (isMoveImpossible(currentPosition, destinationPosition)) {
             return false;
         }
-        if (currentPosition.equals(destinationPosition)) {
-            return false;
-        }
-        if (Math.abs(currentPosition.getX() - destinationPosition.getX()) <= 1
+        return Math.abs(currentPosition.getX() - destinationPosition.getX()) <= 1
                 && Math.abs(currentPosition.getX() - destinationPosition.getX()) >= 0
                 && Math.abs(currentPosition.getY() - destinationPosition.getY()) <= 1
-                && Math.abs(currentPosition.getX() - destinationPosition.getX()) >= 0) {
-            return true;
-        }
-        return false;
+                && Math.abs(currentPosition.getX() - destinationPosition.getX()) >= 0;
     }
 }
