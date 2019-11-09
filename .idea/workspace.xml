@@ -2,13 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2a8b3561-4da9-4e14-a5e7-6a297d1b6780" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/game/piece/BishopTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/game/piece/KingTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/game/piece/QueenTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/board/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/board/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Bishop.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Bishop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/King.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/King.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Piece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Rook.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Rook.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/game/piece/RookTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/game/piece/RookTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Queen.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Queen.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,9 +19,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Class" />
         <option value="package.json" />
         <option value="Interface" />
+        <option value="Class" />
         <option value="JUnit5 Test Class" />
       </list>
     </option>
@@ -217,7 +216,7 @@
       <workItem from="1573163438380" duration="2236000" />
       <workItem from="1573165719658" duration="100000" />
       <workItem from="1573165830818" duration="13403000" />
-      <workItem from="1573229011040" duration="27780000" />
+      <workItem from="1573229011040" duration="30764000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed travis config">
       <created>1573168640930</created>
@@ -268,7 +267,14 @@
       <option name="project" value="LOCAL" />
       <updated>1573256895243</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Added bishop logic and tests, rook logic refactor (methods reused for bishop and queen).">
+      <created>1573262405620</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1573262405620</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -293,7 +299,8 @@
     <MESSAGE value="Added Pawn and Knight move logic and tests." />
     <MESSAGE value="Added Rook logic and tests." />
     <MESSAGE value="Rook logic refactor." />
-    <option name="LAST_COMMIT_MESSAGE" value="Rook logic refactor." />
+    <MESSAGE value="Added bishop logic and tests, rook logic refactor (methods reused for bishop and queen)." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added bishop logic and tests, rook logic refactor (methods reused for bishop and queen)." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>

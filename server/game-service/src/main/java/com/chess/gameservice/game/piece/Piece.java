@@ -38,5 +38,4 @@ public abstract class Piece {
 
     public abstract boolean isMoveLegal(Position currentPosition, Position destinationPosition, Board board);
 
-
 }
