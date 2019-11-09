@@ -10,38 +10,15 @@ public class Rook extends Piece {
     public ArrayList<Position> getAvailableMoves(Board board, Position initialPosition) {
         var availableMoves = new ArrayList<Position>();
 
-        var x = initialPosition.getX();
-        var y = initialPosition.getY();
-
-        for (int i = x + 1; i <= 7; i++) {
-            if (board.getBoard()[i][y] != null) {
-                break;
-            }
-            availableMoves.add(new Position(i, y));
+        int[] dx = {1, 0, -1, 0};
+        int[] dy = {0, 1, 0, -1};
+        for (int i = 0; i < dx.length; i++) {
+            availableMoves.addAll(getMovesInDirection(board, initialPosition, dx[i], dy[i]));
         }
 
-        for (int i = y + 1; i <= 7; i++) {
-            if (board.getBoard()[x][i] != null) {
-                break;
-            }
-            availableMoves.add(new Position(x, i));
-        }
-
-        for (int i = x - 1; i >= 0; i--) {
-            if (board.getBoard()[i][y] != null) {
-                break;
-            }
-            availableMoves.add(new Position(i, y));
-        }
-
-        for (int i = y - 1; i >= 0; i--) {
-            if (board.getBoard()[x][i] != null) {
-                break;
-            }
-            availableMoves.add(new Position(x, i));
-        }
         return availableMoves;
     }
+
 
     @Override
     public boolean isMoveLegal(Position currentPosition, Position destinationPosition, Board board) {

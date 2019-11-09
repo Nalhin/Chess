@@ -55,4 +55,5 @@ public class Board {
     public ArrayList<Position> getAvailableMoves(Position position) {
         return board[position.getX()][position.getY()].getAvailableMoves(this, position);
     }
+
 }

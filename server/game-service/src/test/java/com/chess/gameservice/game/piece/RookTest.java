@@ -36,6 +36,28 @@ class RookTest {
     }
 
     @Test
+    void getAvailableMovesPathBlocked() {
+        var boardWithPathBlocked = board.getBoard();
+        boardWithPathBlocked[6][4] = new Rook();
+        boardWithPathBlocked[4][7] = new Rook();
+        boardWithPathBlocked[4][2] = new Rook();
+        board.setBoard(boardWithPathBlocked);
+
+        var rook = new Rook();
+        var rookPosition = new Position(4, 4);
+        var expectedMoves = new ArrayList<Position>();
+        int[] positionsX = {5, 4, 4, 3, 2, 1, 0, 4};
+        int[] positionsY = {4, 5, 6, 4, 4, 4, 4, 3};
+        for (int i = 0; i < positionsX.length; i++) {
+            expectedMoves.add(new Position(positionsX[i], positionsY[i]));
+        }
+
+        var availableMoves = rook.getAvailableMoves(board, rookPosition);
+
+        assertArrayEquals(expectedMoves.toArray(), availableMoves.toArray());
+    }
+
+    @Test
     void isMoveLegalXAxis() {
         var currentPosition = new Position(4, 1);
         var rook = new Rook();
