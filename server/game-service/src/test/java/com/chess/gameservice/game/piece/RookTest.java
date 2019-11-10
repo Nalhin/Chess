@@ -1,6 +1,7 @@
 package com.chess.gameservice.game.piece;
 
 import com.chess.gameservice.game.board.Board;
+import com.chess.gameservice.game.player.PlayerColor;
 import com.chess.gameservice.game.position.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,7 +22,7 @@ class RookTest {
 
     @Test
     void getAvailableMoves() {
-        var rook = new Rook();
+        var rook = new Rook(PlayerColor.BLACK);
         var rookPosition = new Position(4, 4);
         var expectedMoves = new ArrayList<Position>();
         int[] positionsX = {5, 6, 7, 4, 4, 4, 3, 2, 1, 0, 4, 4, 4, 4};
@@ -38,12 +39,12 @@ class RookTest {
     @Test
     void getAvailableMovesPathBlocked() {
         var boardWithPathBlocked = board.getBoard();
-        boardWithPathBlocked[6][4] = new Rook();
-        boardWithPathBlocked[4][7] = new Rook();
-        boardWithPathBlocked[4][2] = new Rook();
+        boardWithPathBlocked[6][4] = new Rook(PlayerColor.BLACK);
+        boardWithPathBlocked[4][7] = new Rook(PlayerColor.BLACK);
+        boardWithPathBlocked[4][2] = new Rook(PlayerColor.BLACK);
         board.setBoard(boardWithPathBlocked);
 
-        var rook = new Rook();
+        var rook = new Rook(PlayerColor.BLACK);
         var rookPosition = new Position(4, 4);
         var expectedMoves = new ArrayList<Position>();
         int[] positionsX = {5, 4, 4, 3, 2, 1, 0, 4};
@@ -60,7 +61,7 @@ class RookTest {
     @Test
     void isMoveLegalXAxis() {
         var currentPosition = new Position(4, 1);
-        var rook = new Rook();
+        var rook = new Rook(PlayerColor.BLACK);
 
         var destinationPositionLegal = new Position(7, 1);
         assertTrue(rook.isMoveLegal(currentPosition, destinationPositionLegal, board));
@@ -75,7 +76,7 @@ class RookTest {
     @Test
     void isMoveLegalYAxis() {
         var currentPosition = new Position(4, 1);
-        var rook = new Rook();
+        var rook = new Rook(PlayerColor.BLACK);
 
         var destinationPositionLegal = new Position(4, 6);
         assertTrue(rook.isMoveLegal(currentPosition, destinationPositionLegal, board));

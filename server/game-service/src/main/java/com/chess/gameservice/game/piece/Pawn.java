@@ -3,11 +3,24 @@ package com.chess.gameservice.game.piece;
 import com.chess.gameservice.game.board.Board;
 import com.chess.gameservice.game.player.PlayerColor;
 import com.chess.gameservice.game.position.Position;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 
+@Setter
+@Getter
+@NoArgsConstructor
 public class Pawn extends Piece {
+
+    @JsonIgnore
     private boolean isFirstMove = true;
+
+    Pawn(PlayerColor playerColor) {
+        super(playerColor);
+    }
 
     @Override
     public ArrayList<Position> getAvailableMoves(Board board, Position initialPosition) {
@@ -40,9 +53,7 @@ public class Pawn extends Piece {
     }
 
     private int getDirection() {
-        var playerColor = super.getPlayerColor();
-
-        return playerColor == PlayerColor.BLACK ? -1 : 1;
+        return getPlayerColor() == PlayerColor.BLACK ? -1 : 1;
     }
 
     //TODO

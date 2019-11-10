@@ -1,6 +1,7 @@
 package com.chess.gameservice.game.piece;
 
 import com.chess.gameservice.game.board.Board;
+import com.chess.gameservice.game.player.PlayerColor;
 import com.chess.gameservice.game.position.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,7 +23,7 @@ class KnightTest {
 
     @Test
     void getAvailableMoves() {
-        var knight = new Knight();
+        var knight = new Knight(PlayerColor.BLACK);
         var knightPosition = new Position(4, 4);
         var expectedMoves = new ArrayList<Position>();
         int[] positionsX = {2, 2, 3, 5, 6, 6, 5, 3};
@@ -39,10 +40,10 @@ class KnightTest {
     @Test
     void getAvailableMovesPositionTaken() {
         var boardWithPositionTaken = board.getBoard();
-        boardWithPositionTaken[2][3] = new Knight();
-        boardWithPositionTaken[5][6] = new Knight();
+        boardWithPositionTaken[2][3] = new Knight(PlayerColor.BLACK);
+        boardWithPositionTaken[5][6] = new Knight(PlayerColor.BLACK);
         board.setBoard(boardWithPositionTaken);
-        var knight = new Knight();
+        var knight = new Knight(PlayerColor.BLACK);
         var knightPosition = new Position(4, 4);
         ArrayList<Position> expectedMoves = new ArrayList<>();
         int[] positionsX = {2, 3, 6, 6, 5, 3};
@@ -58,7 +59,7 @@ class KnightTest {
 
     @Test
     void getAvailableMovesOutOfBounds() {
-        var knight = new Knight();
+        var knight = new Knight(PlayerColor.BLACK);
         var knightPosition = new Position(7, 7);
         ArrayList<Position> expectedMoves = new ArrayList<>();
         int[] positionsX = {5, 6};
@@ -76,7 +77,7 @@ class KnightTest {
     @Test
     void isMoveLegal() {
         var currentPosition = new Position(1, 1);
-        var knight = new Knight();
+        var knight = new Knight(PlayerColor.BLACK);
 
         var destinationPositionLegal = new Position(3, 2);
         assertTrue(knight.isMoveLegal(currentPosition, destinationPositionLegal, board));

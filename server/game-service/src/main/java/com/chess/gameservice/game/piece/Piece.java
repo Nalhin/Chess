@@ -3,16 +3,24 @@ package com.chess.gameservice.game.piece;
 import com.chess.gameservice.game.board.Board;
 import com.chess.gameservice.game.player.PlayerColor;
 import com.chess.gameservice.game.position.Position;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "type")
 public abstract class Piece {
 
     private PlayerColor playerColor;
+
+    public Piece(PlayerColor playerColor) {
+        this.playerColor = playerColor;
+    }
 
     static ArrayList<Position> getMovesInDirection(Board board, Position initialPosition, int dx, int dy) {
         var availableMoves = new ArrayList<Position>();

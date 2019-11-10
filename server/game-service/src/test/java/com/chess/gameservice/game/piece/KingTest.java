@@ -1,6 +1,7 @@
 package com.chess.gameservice.game.piece;
 
 import com.chess.gameservice.game.board.Board;
+import com.chess.gameservice.game.player.PlayerColor;
 import com.chess.gameservice.game.position.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,7 +22,7 @@ class KingTest {
 
     @Test
     void getAvailableMoves() {
-        var king = new King();
+        var king = new King(PlayerColor.BLACK);
         var bishopPosition = new Position(4, 4);
         var expectedMoves = new ArrayList<Position>();
         int[] positionsX = {5, 5, 4, 3, 3, 3, 4, 5};
@@ -38,7 +39,7 @@ class KingTest {
     @Test
     void isMoveLegal() {
         var currentPosition = new Position(0, 1);
-        var king = new King();
+        var king = new King(PlayerColor.BLACK);
 
         var destinationPositionLegal = new Position(1, 1);
         assertTrue(king.isMoveLegal(currentPosition, destinationPositionLegal, board));

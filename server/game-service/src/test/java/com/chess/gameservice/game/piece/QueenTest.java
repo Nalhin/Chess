@@ -1,6 +1,7 @@
 package com.chess.gameservice.game.piece;
 
 import com.chess.gameservice.game.board.Board;
+import com.chess.gameservice.game.player.PlayerColor;
 import com.chess.gameservice.game.position.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,7 +22,7 @@ class QueenTest {
 
     @Test
     void getAvailableMoves() {
-        var queen = new Queen();
+        var queen = new Queen(PlayerColor.BLACK);
         var queenPosition = new Position(4, 4);
         var expectedMoves = new ArrayList<Position>();
         int[] positionsX = {5, 6, 7, 5, 6, 7, 4, 4, 4, 3,
@@ -40,7 +41,7 @@ class QueenTest {
     @Test
     void isMoveLegalXAxis() {
         var currentPosition = new Position(4, 1);
-        var queen = new Queen();
+        var queen = new Queen(PlayerColor.BLACK);
 
         var destinationPositionLegal = new Position(7, 1);
         assertTrue(queen.isMoveLegal(currentPosition, destinationPositionLegal, board));
@@ -55,7 +56,7 @@ class QueenTest {
     @Test
     void isMoveLegalXDiagonal() {
         var currentPosition = new Position(4, 1);
-        var queen = new Queen();
+        var queen = new Queen(PlayerColor.BLACK);
 
         var destinationPositionLegal = new Position(6, 3);
         assertTrue(queen.isMoveLegal(currentPosition, destinationPositionLegal, board));

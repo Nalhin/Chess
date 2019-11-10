@@ -1,11 +1,22 @@
 package com.chess.gameservice.game.piece;
 
 import com.chess.gameservice.game.board.Board;
+import com.chess.gameservice.game.player.PlayerColor;
 import com.chess.gameservice.game.position.Position;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 
+@Setter
+@Getter
+@NoArgsConstructor
 public class Queen extends Piece {
+    Queen(PlayerColor playerColor) {
+        super(playerColor);
+    }
+
     @Override
     public ArrayList<Position> getAvailableMoves(Board board, Position initialPosition) {
 

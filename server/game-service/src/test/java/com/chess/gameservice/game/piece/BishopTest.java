@@ -1,6 +1,7 @@
 package com.chess.gameservice.game.piece;
 
 import com.chess.gameservice.game.board.Board;
+import com.chess.gameservice.game.player.PlayerColor;
 import com.chess.gameservice.game.position.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,7 +22,7 @@ class BishopTest {
 
     @Test
     void getAvailableMoves() {
-        var bishop = new Bishop();
+        var bishop = new Bishop(PlayerColor.BLACK);
         var bishopPosition = new Position(4, 3);
         var expectedMoves = new ArrayList<Position>();
         int[] positionsX = {5, 6, 7, 3, 2, 1, 0, 3, 2, 1, 5, 6, 7};
@@ -38,12 +39,12 @@ class BishopTest {
     @Test
     void getAvailableMovesPathBlocked() {
         var boardWithPathBlocked = board.getBoard();
-        boardWithPathBlocked[6][5] = new Bishop();
-        boardWithPathBlocked[2][1] = new Bishop();
-        boardWithPathBlocked[7][0] = new Bishop();
+        boardWithPathBlocked[6][5] = new Bishop(PlayerColor.BLACK);
+        boardWithPathBlocked[2][1] = new Bishop(PlayerColor.BLACK);
+        boardWithPathBlocked[7][0] = new Bishop(PlayerColor.BLACK);
         board.setBoard(boardWithPathBlocked);
 
-        var bishop = new Bishop();
+        var bishop = new Bishop(PlayerColor.BLACK);
         var bishopPosition = new Position(4, 3);
         var expectedMoves = new ArrayList<Position>();
         int[] positionsX = {5, 3, 2, 1, 0, 3, 5, 6};
@@ -61,7 +62,7 @@ class BishopTest {
     @Test
     void isMoveLegal() {
         var currentPosition = new Position(4, 1);
-        var bishop = new Bishop();
+        var bishop = new Bishop(PlayerColor.BLACK);
 
         var destinationPositionLegal = new Position(6, 3);
         assertTrue(bishop.isMoveLegal(currentPosition, destinationPositionLegal, board));
