@@ -1,0 +1,6 @@
+{
+  "skipCI": false,
+  "hooks": {
+    "precommit": "lint-staged"
+  }
+}

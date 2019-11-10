@@ -70,7 +70,6 @@ class WebSocketTest {
 
         stompSession.subscribe(SUBSCRIBE_CREATE_BOARD_ENDPOINT + uuid, new CreateGameStompFrameHandler());
         stompSession.send(SEND_CREATE_BOARD_ENDPOINT + uuid, null);
-
         Board board = completableFutureBoard.get(10, SECONDS);
         assertNotNull(board);
     }

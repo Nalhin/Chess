@@ -1,5 +1,21 @@
 jobs:
   include:
+    - name: 'Web application'
+      language: node_js
+      node_js: '10.8'
+      before_install:
+        - cd app
+      install:
+        - npm install
+      script:
+        - npm run test:cov
+      after_script:
+        - npx codecov@3
+      cache:
+        directories:
+          - ~/.npm
+          - ~/.cache
+
     - name: 'Game Service'
       language: java
       jdk: openjdk13
