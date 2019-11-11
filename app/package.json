@@ -11,14 +11,18 @@
   "dependencies": {
     "@emotion/core": "^10.0.15",
     "@emotion/styled": "^10.0.15",
+    "@stomp/rx-stomp": "^0.3.4",
+    "@stomp/stompjs": "^5.4.2",
     "immer": "^4.0.0",
     "lodash": "^4.17.15",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-redux": "^7.1.0",
     "react-router-dom": "^5.0.1",
+    "redux": "^4.0.4",
     "redux-devtools-extension": "^2.13.8",
     "redux-saga": "^1.0.5",
+    "rxjs": "^6.5.3",
     "typescript": "^3.6.3"
   },
   "devDependencies": {

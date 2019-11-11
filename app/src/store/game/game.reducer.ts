@@ -16,12 +16,15 @@ const gameReducer: Reducer<GameState, GameActions> = (
       case GameActionTypes.INIT_GAME_REQUESTED:
         break;
       case GameActionTypes.INIT_GAME_SUCCEEDED:
+        // @ts-ignore
+        draft.board = action.payload.board;
         break;
       case GameActionTypes.INIT_GAME_FAILED:
         break;
       case GameActionTypes.GET_AVAILABLE_MOVES_REQUESTED:
         break;
       case GameActionTypes.GET_AVAILABLE_MOVES_SUCCEEDED:
+        draft.availableMoves = action.payload.availableMoves;
         break;
       case GameActionTypes.GET_AVAILABLE_MOVES_FAILED:
         break;

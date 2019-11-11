@@ -3,6 +3,8 @@ package com.chess.gameservice.game.piece;
 import com.chess.gameservice.game.board.Board;
 import com.chess.gameservice.game.player.PlayerColor;
 import com.chess.gameservice.game.position.Position;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,10 +12,22 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 
+
+
+
 @Getter
 @Setter
 @NoArgsConstructor
-@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "type")
+@JsonIgnoreProperties("firstMove")
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type", visible = true)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Pawn.class, name = "PAWN"),
+        @JsonSubTypes.Type(value = Knight.class, name = "KNIGHT"),
+        @JsonSubTypes.Type(value = Bishop.class, name = "BISHOP"),
+        @JsonSubTypes.Type(value = Rook.class, name = "ROOK"),
+        @JsonSubTypes.Type(value = Queen.class, name = "QUEEN"),
+        @JsonSubTypes.Type(value = King.class, name = "KING"),
+})
 public abstract class Piece {
 
     private PlayerColor playerColor;
@@ -83,7 +97,6 @@ public abstract class Piece {
                                                    Board board, int dx, int dy) {
 
         var position = new Position(currentPosition.getX(), currentPosition.getY());
-
         do {
             position.setX(position.getX() + dx);
             position.setY(position.getY() + dy);
@@ -92,7 +105,6 @@ public abstract class Piece {
                 return false;
             }
         } while (!destinationPosition.equals(position));
-
         return true;
     }
 

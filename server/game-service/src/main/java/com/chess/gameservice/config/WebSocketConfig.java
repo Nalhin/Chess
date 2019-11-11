@@ -17,6 +17,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     }
 
     public void registerStompEndpoints(StompEndpointRegistry stompEndpointRegistry) {
-        stompEndpointRegistry.addEndpoint("/game").withSockJS();
+        stompEndpointRegistry.addEndpoint("/game").setAllowedOrigins("*").withSockJS();
     }
 }

@@ -1,8 +1,7 @@
 import { SagaIterator } from 'redux-saga';
-import { all } from 'redux-saga/effects';
+import { all, fork } from 'redux-saga/effects';
+import { gameRootSaga } from './game/game.saga';
 
 export function* rootSaga(): SagaIterator {
-  yield all([
-
-  ]);
+  yield all([fork(gameRootSaga)]);
 }
