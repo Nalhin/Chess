@@ -10,7 +10,9 @@ const stompConfig = {
   heartbeatOutgoing: 4000,
 };
 
-export const stomp = new RxStomp();
-
-stomp.activate();
-stomp.configure(stompConfig);
+export const stompFactory = (): RxStomp => {
+  const rxStomp = new RxStomp();
+  rxStomp.configure(stompConfig);
+  rxStomp.activate();
+  return rxStomp;
+};

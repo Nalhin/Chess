@@ -5,9 +5,9 @@ import {
   initGameSucceeded,
   makeMoveSucceeded,
 } from './game.actions';
-import { stomp } from '../stompClient';
+import { RxStomp } from '@stomp/rx-stomp';
 
-export const connectToGameSubscription = (gameId: string) => {
+export const connectToGameSubscription = (stomp: RxStomp, gameId: string) => {
   return stomp
     .watch(`/topic/board/${gameId}`)
     .pipe(
@@ -19,12 +19,15 @@ export const connectToGameSubscription = (gameId: string) => {
         };
       }),
     )
-    .subscribe(payload => {
-      store.dispatch(initGameSucceeded(payload.body.board));
-    });
+    .subscribe(
+      payload => {
+        store.dispatch(initGameSucceeded(payload.body.board));
+      },
+      error => {},
+    );
 };
 
-export const moveSubscription = (gameId: string) => {
+export const moveSubscription = (stomp: RxStomp, gameId: string) => {
   return stomp
     .watch(`/topic/move/${gameId}`)
     .pipe(
@@ -32,12 +35,15 @@ export const moveSubscription = (gameId: string) => {
         return JSON.parse(message.body);
       }),
     )
-    .subscribe(payload => {
-      store.dispatch(makeMoveSucceeded(payload.board));
-    });
+    .subscribe(
+      payload => {
+        store.dispatch(makeMoveSucceeded(payload.board));
+      },
+      error => {},
+    );
 };
 
-export const availableMovesSubscription = (gameId: string) => {
+export const availableMovesSubscription = (stomp: RxStomp, gameId: string) => {
   return stomp
     .watch(`/topic/available-moves/${gameId}`)
     .pipe(
@@ -45,7 +51,10 @@ export const availableMovesSubscription = (gameId: string) => {
         return JSON.parse(message.body);
       }),
     )
-    .subscribe(payload => {
-      store.dispatch(GetAvailableMovesSucceeded(payload.availableMoves));
-    });
+    .subscribe(
+      payload => {
+        store.dispatch(GetAvailableMovesSucceeded(payload.availableMoves));
+      },
+      error => {},
+    );
 };

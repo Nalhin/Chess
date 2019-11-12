@@ -2,30 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1a7ea4df-7109-434c-b6f4-b656b4a0d49c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/pages/GameRoom/Game/Cell.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/pages/GameRoom/Game/Game.container.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/pages/GameRoom/Game/Game.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/pages/GameRoom/GameRoom.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/pages/Pages.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/pages/__tests__/Pages.test.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/store/game/game.subscriptions.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/store/rootAction.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/store/stompClient.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/test/utils/renderWithRouter.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/test/utils/renderWithStore.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/components/GameEventListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/store/game/__tests__/game.subscriptions.test.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/test/fixtures/fakeGameId.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/test/fixtures/messages/fakeAvailableMovesMessage.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/test/fixtures/messages/fakeBoardMessage.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/test/utils/MockStomp.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/test/utils/mockStore.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.travis.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.travis.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/jest.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/jest.config.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/store/game/game.reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/game.reducer.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/store/game/game.saga.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/game.saga.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/store/rootReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/rootReducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/store/rootSaga.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/rootSaga.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/config/WebSocketConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/config/WebSocketConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/Piece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/PieceType.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/piece/PieceType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/player/PlayerColor.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/player/PlayerColor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/store/game/game.subscriptions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/game.subscriptions.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/store/stompClient.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/stompClient.ts" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -132,9 +121,9 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Spring Boot.GameServiceApplication" />
       <item itemvalue="JUnit.WebSocketTest.testAvailableMovesEndpoint" />
       <item itemvalue="JUnit.WebSocketTest.testMoveEndpoint" />
+      <item itemvalue="Spring Boot.GameServiceApplication" />
     </list>
     <recent_temporary>
       <list>
@@ -165,7 +154,8 @@
       <updated>1573392118981</updated>
       <workItem from="1573392124068" duration="20301000" />
       <workItem from="1573431206637" duration="1453000" />
-      <workItem from="1573487692664" duration="12373000" />
+      <workItem from="1573487692664" duration="12585000" />
+      <workItem from="1573561289912" duration="3183000" />
     </task>
     <task id="LOCAL-00001" summary="Added gameService and corresponding websocket end points with tests.">
       <created>1573412510081</created>

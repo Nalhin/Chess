@@ -6,7 +6,7 @@ import {
   InitGameRequestedAction,
   MakeMoveRequestedAction,
 } from './game.types';
-import { stomp } from '../stompClient';
+import { stompFactory } from '../stompClient';
 import {
   availableMovesSubscription,
   connectToGameSubscription,
@@ -22,15 +22,14 @@ export function* gameRootSaga(): SagaIterator {
 const gameId = '094657c6-a1b5-4c5b-bec7-6221bc11f69c';
 
 function* initGameSaga(action: InitGameRequestedAction): SagaIterator {
-  connectToGameSubscription(gameId);
-
+  const stomp = stompFactory();
+  connectToGameSubscription(stomp, gameId);
   stomp.publish({
     destination: `/app/create/${gameId}`,
   });
   yield take(GameActionTypes.INIT_GAME_SUCCEEDED);
-
-  moveSubscription(gameId);
-  availableMovesSubscription(gameId);
+  moveSubscription(stomp, gameId);
+  availableMovesSubscription(stomp, gameId);
   stomp.publish({
     destination: `/app/available-moves/${gameId}/1#0`,
   });
