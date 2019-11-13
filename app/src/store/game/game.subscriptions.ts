@@ -7,8 +7,8 @@ import {
 } from './game.actions';
 import { RxStomp } from '@stomp/rx-stomp';
 
-export const connectToGameSubscription = (stomp: RxStomp, gameId: string) => {
-  return stomp
+export const connectToGameSubscription = (game: RxStomp, gameId: string) => {
+  return game
     .watch(`/topic/board/${gameId}`)
     .pipe(
       map(message => {
@@ -27,8 +27,8 @@ export const connectToGameSubscription = (stomp: RxStomp, gameId: string) => {
     );
 };
 
-export const moveSubscription = (stomp: RxStomp, gameId: string) => {
-  return stomp
+export const moveSubscription = (game: RxStomp, gameId: string) => {
+  return game
     .watch(`/topic/move/${gameId}`)
     .pipe(
       map(message => {
@@ -43,9 +43,9 @@ export const moveSubscription = (stomp: RxStomp, gameId: string) => {
     );
 };
 
-export const availableMovesSubscription = (stomp: RxStomp, gameId: string) => {
-  return stomp
-    .watch(`/topic/available-moves/${gameId}`)
+export const availableMovesSubscription = (game: RxStomp, gameId: string) => {
+  return game
+    .watch(`/user/queue/available-moves/${gameId}`)
     .pipe(
       map(message => {
         return JSON.parse(message.body);

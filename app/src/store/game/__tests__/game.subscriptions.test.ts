@@ -1,3 +1,4 @@
+// @ts-nocheck
 import {
   availableMovesSubscription,
   connectToGameSubscription,
@@ -21,10 +22,9 @@ beforeEach(() => {
 describe('ConnectToGameSubscription', () => {
   it('Should dispatch actions correctly', () => {
     const messages = [fakeBoardMessage, fakeBoardMessage];
-    const stomp = new MockStomp(messages);
 
-    // @ts-ignore
-    connectToGameSubscription(stomp, fakeGameId);
+    const mockStomp = new MockStomp(messages);
+    connectToGameSubscription(mockStomp, fakeGameId);
 
     expect(mockDispatchedActions.length).toBe(2);
   });
@@ -32,10 +32,9 @@ describe('ConnectToGameSubscription', () => {
 
 describe('moveSubscription', () => {
   const messages = [fakeBoardMessage, fakeBoardMessage];
-  const stomp = new MockStomp(messages);
 
-  // @ts-ignore
-  moveSubscription(stomp, fakeGameId);
+  const mockStomp = new MockStomp(messages);
+  moveSubscription(mockStomp, fakeGameId);
 
   expect(mockDispatchedActions.length).toBe(2);
 });
@@ -43,10 +42,9 @@ describe('moveSubscription', () => {
 describe('availableMovesSubscription', () => {
   it('Should dispatch actions correctly', () => {
     const messages = [fakeAvailableMovesMessage, fakeAvailableMovesMessage];
-    const stomp = new MockStomp(messages);
 
-    // @ts-ignore
-    availableMovesSubscription(stomp, fakeGameId);
+    const mockStomp = new MockStomp(messages);
+    availableMovesSubscription(mockStomp, fakeGameId);
 
     expect(mockDispatchedActions.length).toBe(2);
   });

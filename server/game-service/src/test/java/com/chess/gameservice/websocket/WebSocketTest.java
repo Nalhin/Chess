@@ -42,7 +42,7 @@ class WebSocketTest {
     private static final String SEND_CREATE_BOARD_ENDPOINT = "/app/create/";
     private static final String SUBSCRIBE_MOVE_ENDPOINT = "/topic/move/";
     private static final String SEND_MOVE_ENDPOINT = "/app/move/";
-    private static final String SUBSCRIBE_AVAILABLE_MOVES_ENDPOINT = "/topic/available-moves/";
+    private static final String SUBSCRIBE_AVAILABLE_MOVES_ENDPOINT = "/user/queue/available-moves/";
     private static final String SEND_AVAILABLE_MOVES_ENDPOINT = "/app/available-moves/";
 
 

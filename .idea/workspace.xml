@@ -2,19 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1a7ea4df-7109-434c-b6f4-b656b4a0d49c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/store/game/__tests__/game.subscriptions.test.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/test/fixtures/fakeGameId.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/test/fixtures/messages/fakeAvailableMovesMessage.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/test/fixtures/messages/fakeBoardMessage.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/test/utils/MockStomp.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/test/utils/mockStore.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.travis.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.travis.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/jest.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/jest.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/pages/GameRoom/Game/Cell.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/pages/GameRoom/Game/Cell.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/pages/GameRoom/Game/Game.container.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/pages/GameRoom/Game/Game.container.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/pages/GameRoom/Game/Game.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/pages/GameRoom/Game/Game.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/pages/Pages.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/pages/Pages.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/store/game/__tests__/game.subscriptions.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/__tests__/game.subscriptions.test.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/store/game/game.saga.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/game.saga.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/store/game/game.subscriptions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/game.subscriptions.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/store/stompClient.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/stompClient.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/config/WebSocketConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/config/WebSocketConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/controller/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/websocket/WebSocketTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/websocket/WebSocketTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -127,8 +127,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.WebSocketTest.testMoveEndpoint" />
         <item itemvalue="JUnit.WebSocketTest.testAvailableMovesEndpoint" />
+        <item itemvalue="JUnit.WebSocketTest.testMoveEndpoint" />
       </list>
     </recent_temporary>
   </component>
@@ -155,7 +155,8 @@
       <workItem from="1573392124068" duration="20301000" />
       <workItem from="1573431206637" duration="1453000" />
       <workItem from="1573487692664" duration="12585000" />
-      <workItem from="1573561289912" duration="3183000" />
+      <workItem from="1573561289912" duration="6268000" />
+      <workItem from="1573638417622" duration="323000" />
     </task>
     <task id="LOCAL-00001" summary="Added gameService and corresponding websocket end points with tests.">
       <created>1573412510081</created>
@@ -195,23 +196,13 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/websocket/WebSocketTest.java</url>
-          <line>79</line>
-          <option name="timeStamp" value="6" />
+          <line>139</line>
+          <option name="timeStamp" value="11" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/websocket/WebSocketTest.java</url>
-          <line>80</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/websocket/WebSocketTest.java</url>
-          <line>115</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/websocket/WebSocketTest.java</url>
-          <line>120</line>
-          <option name="timeStamp" value="10" />
+          <line>144</line>
+          <option name="timeStamp" value="12" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -3,7 +3,10 @@ import { bindActionCreators, Dispatch } from 'redux';
 import Game from './Game';
 import { AppState } from '../../../store/rootReducer';
 import { RootAction } from '../../../store/rootAction';
-import { initGameRequested } from '../../../store/game/game.actions';
+import {
+  initGameRequested,
+  makeMoveFailed,
+} from '../../../store/game/game.actions';
 
 const mapStateToProps = (state: AppState) => {
   const board = state.game.board;
@@ -17,6 +20,7 @@ const mapDispatchToProps = (dispatch: Dispatch<RootAction>) =>
   bindActionCreators(
     {
       initGame: initGameRequested,
+      makeMoveFailed,
     },
     dispatch,
   );
