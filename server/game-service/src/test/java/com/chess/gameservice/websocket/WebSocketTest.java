@@ -1,8 +1,8 @@
 package com.chess.gameservice.websocket;
 
 
+import com.chess.gameservice.availablemoves.AvailableMoves;
 import com.chess.gameservice.game.board.Board;
-import com.chess.gameservice.models.AvailableMoves;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

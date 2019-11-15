@@ -1,9 +1,9 @@
 package com.chess.gameservice.service;
 
+import com.chess.gameservice.availablemoves.AvailableMoves;
 import com.chess.gameservice.game.board.Board;
 import com.chess.gameservice.game.piece.Pawn;
 import com.chess.gameservice.game.position.Position;
-import com.chess.gameservice.models.AvailableMoves;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,8 +14,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GameServiceTest {
 
-    GameService gameService;
-    UUID gameId = new UUID(8, 8);
+    private GameService gameService;
+    private UUID gameId = new UUID(8, 8);
 
     @BeforeEach
     void setUp() {

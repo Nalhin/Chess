@@ -1,9 +1,9 @@
 package com.chess.gameservice.service;
 
+import com.chess.gameservice.availablemoves.AvailableMoves;
 import com.chess.gameservice.game.Game;
 import com.chess.gameservice.game.board.Board;
 import com.chess.gameservice.game.position.Position;
-import com.chess.gameservice.models.AvailableMoves;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;

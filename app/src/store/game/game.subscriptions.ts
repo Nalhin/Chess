@@ -12,10 +12,9 @@ export const connectToGameSubscription = (game: RxStomp, gameId: string) => {
     .watch(`/topic/board/${gameId}`)
     .pipe(
       map(message => {
-        const { body, command } = message;
+        const { body } = message;
         return {
           body: JSON.parse(body),
-          command,
         };
       }),
     )
