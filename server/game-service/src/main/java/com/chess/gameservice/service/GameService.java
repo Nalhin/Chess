@@ -1,9 +1,10 @@
 package com.chess.gameservice.service;
 
-import com.chess.gameservice.availablemoves.AvailableMoves;
 import com.chess.gameservice.game.Game;
-import com.chess.gameservice.game.board.Board;
+import com.chess.gameservice.game.player.Player;
 import com.chess.gameservice.game.position.Position;
+import com.chess.gameservice.moves.AvailableMoves;
+import com.chess.gameservice.moves.PlayerMove;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -15,11 +16,24 @@ public class GameService {
 
     private HashMap<UUID, Game> games = new HashMap<>();
 
-    public Board createGame(UUID gameId) {
-        var game = new Game();
-        games.put(gameId, new Game());
+    public synchronized Game initialConnect(UUID gameId, String playerName) {
+        Game game = games.get(gameId);
 
-        return game.getBoard();
+        if (game == null) {
+            games.put(gameId, null);
+            game = new Game();
+            var player = new Player(playerName);
+            game.setRandomPlayer(player);
+            games.put(gameId, game);
+
+            return null;
+        }
+
+        var player = new Player(playerName);
+        game.setOtherPlayer(player);
+        game.initGame();
+        return game;
+
     }
 
     public AvailableMoves getAvailableMoves(UUID gameId, Position position) {
@@ -29,12 +43,11 @@ public class GameService {
         return availableMoves;
     }
 
-    public Board move(UUID gameId, Position initialPosition, Position destinationPosition) {
+    public Game makeMove(UUID gameId, PlayerMove playerMove, String playerName) {
         var game = games.get(gameId);
-        var board = game.getBoard();
+        var player = new Player(playerName);
+        game.makeMove(playerMove, player);
 
-        board.movePiece(initialPosition, destinationPosition);
-
-        return board;
+        return game;
     }
 }

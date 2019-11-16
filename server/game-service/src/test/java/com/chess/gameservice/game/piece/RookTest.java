@@ -17,7 +17,7 @@ class RookTest {
     void setUp() {
         var testBoard = new Piece[8][8];
         board = new Board();
-        board.setBoard(testBoard);
+        board.setState(testBoard);
     }
 
     @Test
@@ -38,11 +38,11 @@ class RookTest {
 
     @Test
     void getAvailableMovesPathBlocked() {
-        var boardWithPathBlocked = board.getBoard();
+        var boardWithPathBlocked = board.getState();
         boardWithPathBlocked[6][4] = new Rook(PlayerColor.BLACK);
         boardWithPathBlocked[4][7] = new Rook(PlayerColor.BLACK);
         boardWithPathBlocked[4][2] = new Rook(PlayerColor.BLACK);
-        board.setBoard(boardWithPathBlocked);
+        board.setState(boardWithPathBlocked);
 
         var rook = new Rook(PlayerColor.BLACK);
         var rookPosition = new Position(4, 4);

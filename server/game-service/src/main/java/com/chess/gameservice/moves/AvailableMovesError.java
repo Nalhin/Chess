@@ -1,4 +1,4 @@
-package com.chess.gameservice.availablemoves;
+package com.chess.gameservice.moves;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -6,5 +6,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AvailableMovesError {
-    String error;
+    private String error;
 }

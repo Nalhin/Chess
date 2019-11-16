@@ -22,22 +22,22 @@ class BoardTest {
     @Test
     void constructorWhiteTest() {
 
-        assertTrue(board.getBoard()[0][0] instanceof Rook);
-        assertTrue(board.getBoard()[1][0] instanceof Pawn);
-        assertTrue(board.getBoard()[1][7] instanceof Pawn);
-        assertTrue(board.getBoard()[0][7] instanceof Rook);
-        assertTrue(board.getBoard()[0][4] instanceof King);
-        assertTrue(board.getBoard()[0][3] instanceof Queen);
+        assertTrue(board.getState()[0][0] instanceof Rook);
+        assertTrue(board.getState()[1][0] instanceof Pawn);
+        assertTrue(board.getState()[1][7] instanceof Pawn);
+        assertTrue(board.getState()[0][7] instanceof Rook);
+        assertTrue(board.getState()[0][4] instanceof King);
+        assertTrue(board.getState()[0][3] instanceof Queen);
     }
 
     @Test
     void constructorBlackTest() {
-        assertTrue(board.getBoard()[7][0] instanceof Rook);
-        assertTrue(board.getBoard()[6][0] instanceof Pawn);
-        assertTrue(board.getBoard()[6][7] instanceof Pawn);
-        assertTrue(board.getBoard()[7][7] instanceof Rook);
-        assertTrue(board.getBoard()[7][4] instanceof King);
-        assertTrue(board.getBoard()[7][3] instanceof Queen);
+        assertTrue(board.getState()[7][0] instanceof Rook);
+        assertTrue(board.getState()[6][0] instanceof Pawn);
+        assertTrue(board.getState()[6][7] instanceof Pawn);
+        assertTrue(board.getState()[7][7] instanceof Rook);
+        assertTrue(board.getState()[7][4] instanceof King);
+        assertTrue(board.getState()[7][3] instanceof Queen);
     }
 
     @Test
@@ -57,7 +57,7 @@ class BoardTest {
         var legalDestinationPosition = new Position(3, 0);
 
         board.movePiece(pawnPosition, legalDestinationPosition);
-        var newPawnPosition = board.getBoard()[legalDestinationPosition.getX()][legalDestinationPosition.getY()];
+        var newPawnPosition = board.getState()[legalDestinationPosition.getX()][legalDestinationPosition.getY()];
 
         assertTrue(newPawnPosition instanceof Pawn);
     }
@@ -67,11 +67,9 @@ class BoardTest {
         var pawnPosition = new Position(1, 0);
         var illegalDestinationPosition = new Position(4, 0);
 
-        assertThrows(IllegalArgumentException.class, () -> {
-            board.movePiece(pawnPosition, illegalDestinationPosition);
-        });
+        assertThrows(IllegalArgumentException.class, () -> board.movePiece(pawnPosition, illegalDestinationPosition));
 
-        var newPawnPosition = board.getBoard()[illegalDestinationPosition.getX()][illegalDestinationPosition.getY()];
+        var newPawnPosition = board.getState()[illegalDestinationPosition.getX()][illegalDestinationPosition.getY()];
         assertNull(newPawnPosition);
     }
 

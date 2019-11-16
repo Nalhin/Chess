@@ -6,8 +6,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
+public
 class GameStartedMessage extends Message<Game> {
-    GameStartedMessage() {
+    public GameStartedMessage() {
         type = MessageTypes.GAME_STARTED;
     }
 }

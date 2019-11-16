@@ -19,7 +19,7 @@ class PlayedMovedMessageTest {
     @Test
     void testJsonConversion() throws JsonProcessingException, JSONException {
         var game = new Game();
-        var playedMovedMessage = new PlayedMovedMessage();
+        var playedMovedMessage = new PlayerMovedMessage();
         playedMovedMessage.setPayload(game);
 
         var actual = objectMapper.writeValueAsString(playedMovedMessage);

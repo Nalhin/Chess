@@ -18,7 +18,7 @@ class KnightTest {
     void setUp() {
         var testBoard = new Piece[8][8];
         board = new Board();
-        board.setBoard(testBoard);
+        board.setState(testBoard);
     }
 
     @Test
@@ -39,10 +39,10 @@ class KnightTest {
 
     @Test
     void getAvailableMovesPositionTaken() {
-        var boardWithPositionTaken = board.getBoard();
+        var boardWithPositionTaken = board.getState();
         boardWithPositionTaken[2][3] = new Knight(PlayerColor.BLACK);
         boardWithPositionTaken[5][6] = new Knight(PlayerColor.BLACK);
-        board.setBoard(boardWithPositionTaken);
+        board.setState(boardWithPositionTaken);
         var knight = new Knight(PlayerColor.BLACK);
         var knightPosition = new Position(4, 4);
         ArrayList<Position> expectedMoves = new ArrayList<>();

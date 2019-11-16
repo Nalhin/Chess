@@ -9,9 +9,9 @@ import {
 import {
   availableMovesSubscription,
   connectToGameSubscription,
-  moveSubscription,
 } from './game.subscriptions';
 import { stompFactory } from '../stompClient';
+import { userName } from './name';
 
 export function* gameRootSaga(): SagaIterator {
   yield all([
@@ -27,20 +27,21 @@ function* initGameSaga(action: InitGameRequestedAction): SagaIterator {
   const gameSubscription = connectToGameSubscription(game, gameId);
 
   game.publish({
-    destination: `/app/create/${gameId}`,
+    destination: `/app/connect/${gameId}`,
+    headers: { name: userName },
   });
 
   yield take(GameActionTypes.INIT_GAME_SUCCEEDED);
-  const move = moveSubscription(game, gameId);
   const availableMoves = availableMovesSubscription(game, gameId);
 
   game.publish({
-    destination: `/app/available-moves/${gameId}/1#0`,
+    destination: `/app/available-moves/${gameId}`,
+    body: JSON.stringify({ x: 1, y: 2 }),
+    headers: { name: userName },
   });
 
   yield take(GameActionTypes.MAKE_MOVE_FAILED);
   gameSubscription.unsubscribe();
-  move.unsubscribe();
   availableMoves.unsubscribe();
   game.deactivate();
 }

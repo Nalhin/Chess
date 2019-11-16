@@ -17,7 +17,7 @@ class BishopTest {
     void setUp() {
         var testBoard = new Piece[8][8];
         board = new Board();
-        board.setBoard(testBoard);
+        board.setState(testBoard);
     }
 
     @Test
@@ -38,11 +38,11 @@ class BishopTest {
 
     @Test
     void getAvailableMovesPathBlocked() {
-        var boardWithPathBlocked = board.getBoard();
+        var boardWithPathBlocked = board.getState();
         boardWithPathBlocked[6][5] = new Bishop(PlayerColor.BLACK);
         boardWithPathBlocked[2][1] = new Bishop(PlayerColor.BLACK);
         boardWithPathBlocked[7][0] = new Bishop(PlayerColor.BLACK);
-        board.setBoard(boardWithPathBlocked);
+        board.setState(boardWithPathBlocked);
 
         var bishop = new Bishop(PlayerColor.BLACK);
         var bishopPosition = new Position(4, 3);

@@ -6,8 +6,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-class PlayedMovedMessage extends Message<Game> {
-    PlayedMovedMessage() {
+public class PlayerMovedMessage extends Message<Game> {
+    public PlayerMovedMessage() {
         type = MessageTypes.PLAYER_MOVED;
     }
 }

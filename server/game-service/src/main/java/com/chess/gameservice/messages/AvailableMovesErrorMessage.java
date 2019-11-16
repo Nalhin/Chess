@@ -1,6 +1,6 @@
 package com.chess.gameservice.messages;
 
-import com.chess.gameservice.availablemoves.AvailableMovesError;
+import com.chess.gameservice.moves.AvailableMovesError;
 import lombok.Getter;
 import lombok.Setter;
 

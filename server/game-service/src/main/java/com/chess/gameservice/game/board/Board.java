@@ -21,10 +21,10 @@ public class Board {
                     {PieceType.ROOK, PieceType.KNIGHT, PieceType.BISHOP, PieceType.QUEEN,
                             PieceType.KING, PieceType.BISHOP, PieceType.KNIGHT, PieceType.ROOK}};
 
-    private Piece[][] board;
+    private Piece[][] state;
 
     public Board() {
-        board = new Piece[8][8];
+        state = new Piece[8][8];
         populateBoard();
     }
 
@@ -37,7 +37,7 @@ public class Board {
         int z = 0;
         for (int i = 6; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                board[i][j] = PieceFactory.buildPiece(playerInitialState[z][j], PlayerColor.BLACK);
+                state[i][j] = PieceFactory.buildPiece(playerInitialState[z][j], PlayerColor.BLACK);
             }
             z++;
         }
@@ -46,25 +46,25 @@ public class Board {
     private void populateWhite() {
         for (int i = 1; i >= 0; i--) {
             for (int j = 7; j >= 0; j--) {
-                board[1 - i][j] = PieceFactory.buildPiece(playerInitialState[i][j], PlayerColor.WHITE);
+                state[1 - i][j] = PieceFactory.buildPiece(playerInitialState[i][j], PlayerColor.WHITE);
             }
         }
     }
 
     public boolean isBoardPositionEmpty(Position position) {
-        return board[position.getX()][position.getY()] == null;
+        return state[position.getX()][position.getY()] == null;
     }
 
     public ArrayList<Position> getAvailableMoves(Position position) {
-        return board[position.getX()][position.getY()].getAvailableMoves(this, position);
+        return state[position.getX()][position.getY()].getAvailableMoves(this, position);
     }
 
     public void movePiece(Position initialPosition, Position destination) {
-        var piece = board[initialPosition.getX()][initialPosition.getY()];
+        var piece = state[initialPosition.getX()][initialPosition.getY()];
 
         if (piece.isMoveLegal(initialPosition, destination, this)) {
-            board[destination.getX()][destination.getY()] = piece;
-            board[initialPosition.getX()][initialPosition.getY()] = null;
+            state[destination.getX()][destination.getY()] = piece;
+            state[initialPosition.getX()][initialPosition.getY()] = null;
         } else throw new IllegalArgumentException("Illegal move.");
     }
 }

@@ -18,7 +18,7 @@ class PawnTest {
     void setUp() {
         var testBoard = new Piece[8][8];
         board = new Board();
-        board.setBoard(testBoard);
+        board.setState(testBoard);
     }
 
     @Test
