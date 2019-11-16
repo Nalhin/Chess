@@ -2,48 +2,40 @@ import { SagaIterator } from '@redux-saga/core';
 import { all, setContext, take, takeEvery } from '@redux-saga/core/effects';
 import {
   GameActionTypes,
+  GameBaseActionTypes,
   GetAvailableMovesRequestedAction,
   InitGameRequestedAction,
   MakeMoveRequestedAction,
 } from './game.types';
 import {
-  availableMovesSubscription,
-  connectToGameSubscription,
+  gamePersonalSubscription,
+  gameStateSubscription,
 } from './game.subscriptions';
 import { stompFactory } from '../stompClient';
 import { userName } from './name';
+import { gameId } from './gameId';
 
 export function* gameRootSaga(): SagaIterator {
   yield all([
-    yield takeEvery(GameActionTypes.INIT_GAME_REQUESTED, initGameSaga),
+    yield takeEvery(GameBaseActionTypes.INIT_GAME_REQUESTED, initGameSaga),
   ]);
 }
 
-const gameId = '094657c6-a1b5-4c5b-bec7-6221bc11f69c';
-
 function* initGameSaga(action: InitGameRequestedAction): SagaIterator {
-  const game = stompFactory();
-  yield setContext({ game });
-  const gameSubscription = connectToGameSubscription(game, gameId);
+  const gameStomp = stompFactory();
+  yield setContext({ gameStomp });
+  const gameSubscription = gameStateSubscription(gameStomp, gameId);
+  const availableMoves = gamePersonalSubscription(gameStomp, gameId);
 
-  game.publish({
+  gameStomp.publish({
     destination: `/app/connect/${gameId}`,
     headers: { name: userName },
   });
 
-  yield take(GameActionTypes.INIT_GAME_SUCCEEDED);
-  const availableMoves = availableMovesSubscription(game, gameId);
-
-  game.publish({
-    destination: `/app/available-moves/${gameId}`,
-    body: JSON.stringify({ x: 1, y: 2 }),
-    headers: { name: userName },
-  });
-
-  yield take(GameActionTypes.MAKE_MOVE_FAILED);
+  yield take(GameActionTypes.GAME_OVER);
   gameSubscription.unsubscribe();
   availableMoves.unsubscribe();
-  game.deactivate();
+  gameStomp.deactivate();
 }
 
 function* getAvailableMovesSaga(

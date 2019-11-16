@@ -1,13 +1,15 @@
 // @ts-nocheck
 import {
-  availableMovesSubscription,
-  connectToGameSubscription,
-  moveSubscription,
+  gamePersonalSubscription,
+  gameStateSubscription,
 } from '../game.subscriptions';
 import MockStomp from '../../../../test/utils/MockStomp';
-import { fakeBoardMessage } from '../../../../test/fixtures/messages/fakeBoardMessage';
 import { fakeGameId } from '../../../../test/fixtures/fakeGameId';
-import { fakeAvailableMovesMessage } from '../../../../test/fixtures/messages/fakeAvailableMovesMessage';
+import { fakeStartGameMessage } from '../../../../test/fixtures/game/messages/fakeStartGameMessage';
+import { fakePlayerMovedMessage } from '../../../../test/fixtures/game/messages/fakePlayerMovedMessage';
+import { fakeGameOverMessage } from '../../../../test/fixtures/game/messages/fakeGameOverMessage';
+import { fakeAvailableMovesErrorMessage } from '../../../../test/fixtures/game/messages/fakeAvailableMovesErrorMessage';
+import { fakeAvailableMovesMessage } from '../../../../test/fixtures/game/messages/fakeAvailableMovesMessage';
 
 const mockDispatchedActions = [];
 
@@ -19,32 +21,30 @@ beforeEach(() => {
   mockDispatchedActions.length = 0;
 });
 
-describe('ConnectToGameSubscription', () => {
+describe('gameStateSubscriptions', () => {
   it('Should dispatch actions correctly', () => {
-    const messages = [fakeBoardMessage, fakeBoardMessage];
+    const messages = [
+      fakeStartGameMessage,
+      fakePlayerMovedMessage,
+      fakeGameOverMessage,
+    ];
 
     const mockStomp = new MockStomp(messages);
-    connectToGameSubscription(mockStomp, fakeGameId);
+    gameStateSubscription(mockStomp, fakeGameId);
 
-    expect(mockDispatchedActions.length).toBe(2);
+    expect(mockDispatchedActions.length).toBe(3);
   });
 });
 
-describe('moveSubscription', () => {
-  const messages = [fakeBoardMessage, fakeBoardMessage];
-
-  const mockStomp = new MockStomp(messages);
-  moveSubscription(mockStomp, fakeGameId);
-
-  expect(mockDispatchedActions.length).toBe(2);
-});
-
-describe('availableMovesSubscription', () => {
+describe('gamePersonalSubscription', () => {
   it('Should dispatch actions correctly', () => {
-    const messages = [fakeAvailableMovesMessage, fakeAvailableMovesMessage];
+    const messages = [
+      fakeAvailableMovesMessage,
+      fakeAvailableMovesErrorMessage,
+    ];
 
     const mockStomp = new MockStomp(messages);
-    availableMovesSubscription(mockStomp, fakeGameId);
+    gamePersonalSubscription(mockStomp, fakeGameId);
 
     expect(mockDispatchedActions.length).toBe(2);
   });

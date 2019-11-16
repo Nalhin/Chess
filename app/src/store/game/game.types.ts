@@ -1,12 +1,17 @@
 import { Board } from '../../inferfaces/board';
-import { Piece } from '../../inferfaces/piece';
+import { Game } from '../../inferfaces/game';
+import { BoardPosition } from '../../inferfaces/boardPosition';
+import { AvailableMoves } from '../../inferfaces/availableMoves';
 
 export interface GameState {
-  readonly board: Piece[][];
-  readonly availableMoves: Position[];
+  readonly game: Game;
+  readonly selectedPiece: {
+    position: BoardPosition;
+    availableMoves: AvailableMoves;
+  };
 }
 
-export enum GameActionTypes {
+export enum GameBaseActionTypes {
   INIT_GAME_REQUESTED = 'INIT_GAME_REQUESTED',
   INIT_GAME_SUCCEEDED = 'INIT_GAME_SUCCEEDED',
   INIT_GAME_FAILED = 'INIT_GAME_FAILED',
@@ -18,57 +23,114 @@ export enum GameActionTypes {
   MAKE_MOVE_FAILED = 'MAKE_MOVE_FAILED',
 }
 
+export enum GamePersonalSubscriptionActionTypes {
+  AVAILABLE_MOVES = 'AVAILABLE_MOVES',
+  AVAILABLE_MOVES_ERROR = 'AVAILABLE_MOVES_ERROR',
+}
+
+export enum GameStateSubscriptionActionTypes {
+  GAME_STARTED = 'GAME_STARTED',
+  PLAYER_MOVED = 'PLAYER_MOVED',
+  GAME_OVER = 'GAME_OVER',
+}
+
+export const GameSubscriptionActionTypes = {
+  ...GamePersonalSubscriptionActionTypes,
+  ...GameStateSubscriptionActionTypes,
+};
+
+export const GameActionTypes = {
+  ...GameBaseActionTypes,
+  ...GameSubscriptionActionTypes,
+};
+
+export interface GameStartedSubscriptionAction {
+  type: typeof GameStateSubscriptionActionTypes.GAME_STARTED;
+  payload: {
+    game: Game;
+  };
+}
+
+export interface PlayerMovedSubscriptionAction {
+  type: typeof GameStateSubscriptionActionTypes.PLAYER_MOVED;
+  payload: {
+    game: Game;
+  };
+}
+
+export interface GameOverSubscriptionAction {
+  type: typeof GameStateSubscriptionActionTypes.GAME_OVER;
+  payload: {
+    game: Game;
+  };
+}
+
+export interface AvailableMovesSubscriptionAction {
+  type: typeof GamePersonalSubscriptionActionTypes.AVAILABLE_MOVES;
+  payload: {
+    availableMoves: AvailableMoves;
+  };
+}
+
+export interface AvailableMovesErrorSubscriptionAction {
+  type: typeof GamePersonalSubscriptionActionTypes.AVAILABLE_MOVES_ERROR;
+  payload: {
+    error: string;
+  };
+}
+
 export interface InitGameRequestedAction {
-  type: typeof GameActionTypes.INIT_GAME_REQUESTED;
+  type: typeof GameBaseActionTypes.INIT_GAME_REQUESTED;
 }
 
 export interface InitGameSucceededAction {
-  type: typeof GameActionTypes.INIT_GAME_SUCCEEDED;
+  type: typeof GameBaseActionTypes.INIT_GAME_SUCCEEDED;
   payload: {
     board: Board;
   };
 }
 
 export interface InitGameFailedAction {
-  type: typeof GameActionTypes.INIT_GAME_FAILED;
+  type: typeof GameBaseActionTypes.INIT_GAME_FAILED;
 }
 
 export interface GetAvailableMovesRequestedAction {
-  type: typeof GameActionTypes.GET_AVAILABLE_MOVES_REQUESTED;
+  type: typeof GameBaseActionTypes.GET_AVAILABLE_MOVES_REQUESTED;
   payload: {
-    initialPosition: Position;
+    initialPosition: BoardPosition;
   };
 }
 
 export interface GetAvailableMovesSucceededAction {
-  type: typeof GameActionTypes.GET_AVAILABLE_MOVES_SUCCEEDED;
+  type: typeof GameBaseActionTypes.GET_AVAILABLE_MOVES_SUCCEEDED;
   payload: {
-    availableMoves: Position[];
+    availableMoves: BoardPosition[];
   };
 }
 
 export interface GetAvailableMovesFailedAction {
-  type: typeof GameActionTypes.GET_AVAILABLE_MOVES_FAILED;
+  type: typeof GameBaseActionTypes.GET_AVAILABLE_MOVES_FAILED;
 }
 
 export interface MakeMoveRequestedAction {
-  type: typeof GameActionTypes.MAKE_MOVE_REQUESTED;
+  type: typeof GameBaseActionTypes.MAKE_MOVE_REQUESTED;
   payload: {
-    initialPosition: Position;
-    destinationPosition: Position;
+    initialPosition: BoardPosition;
+    destinationPosition: BoardPosition;
   };
 }
 
 export interface MakeMoveSucceededAction {
-  type: typeof GameActionTypes.MAKE_MOVE_SUCCEEDED;
+  type: typeof GameBaseActionTypes.MAKE_MOVE_SUCCEEDED;
   payload: {
     board: Board;
   };
 }
 
 export interface MakeMoveFailedAction {
-  type: typeof GameActionTypes.MAKE_MOVE_FAILED;
+  type: typeof GameBaseActionTypes.MAKE_MOVE_FAILED;
 }
+
 export type GameActions =
   | InitGameRequestedAction
   | InitGameSucceededAction
@@ -78,4 +140,9 @@ export type GameActions =
   | GetAvailableMovesFailedAction
   | MakeMoveRequestedAction
   | MakeMoveSucceededAction
-  | MakeMoveFailedAction;
+  | MakeMoveFailedAction
+  | GameStartedSubscriptionAction
+  | PlayerMovedSubscriptionAction
+  | GameOverSubscriptionAction
+  | AvailableMovesSubscriptionAction
+  | AvailableMovesErrorSubscriptionAction;

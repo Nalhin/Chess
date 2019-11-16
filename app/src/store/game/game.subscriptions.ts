@@ -1,28 +1,49 @@
 import { map } from 'rxjs/operators';
 import store from '../store';
-import { GetAvailableMovesSucceeded, initGameSucceeded } from './game.actions';
+import {
+  availableMoves,
+  availableMovesError,
+  gameOver,
+  gameStarted,
+  playerMoved,
+} from './game.actions';
 import { RxStomp } from '@stomp/rx-stomp';
-import { userName } from './name';
+import {
+  GamePersonalSubscriptionActionTypes,
+  GameStateSubscriptionActionTypes,
+} from './game.types';
 
-export const connectToGameSubscription = (game: RxStomp, gameId: string) => {
+export const gameStateSubscription = (game: RxStomp, gameId: string) => {
   return game
     .watch(`/topic/state/${gameId}`)
     .pipe(
       map(message => {
+        console.log(message);
         return JSON.parse(message.body);
       }),
     )
     .subscribe(
       data => {
-        console.log(data);
-        //@ts-ignore
-        store.dispatch(initGameSucceeded(data.payload.board.board));
+        const { payload, type } = data;
+        switch (type) {
+          case GameStateSubscriptionActionTypes.GAME_STARTED:
+            store.dispatch(gameStarted(payload));
+            break;
+          case GameStateSubscriptionActionTypes.PLAYER_MOVED:
+            store.dispatch(playerMoved(payload));
+            break;
+          case GameStateSubscriptionActionTypes.GAME_OVER:
+            store.dispatch(gameOver(payload));
+            break;
+          default:
+            break;
+        }
       },
       error => {},
     );
 };
 
-export const availableMovesSubscription = (game: RxStomp, gameId: string) => {
+export const gamePersonalSubscription = (game: RxStomp, gameId: string) => {
   return game
     .watch(`/user/queue/personal/${gameId}`)
     .pipe(
@@ -31,9 +52,18 @@ export const availableMovesSubscription = (game: RxStomp, gameId: string) => {
       }),
     )
     .subscribe(
-      payload => {
-        console.log(payload);
-        store.dispatch(GetAvailableMovesSucceeded(payload.availableMoves));
+      data => {
+        const { payload, type } = data;
+        switch (type) {
+          case GamePersonalSubscriptionActionTypes.AVAILABLE_MOVES:
+            store.dispatch(availableMoves(payload.availableMoves));
+            break;
+          case GamePersonalSubscriptionActionTypes.AVAILABLE_MOVES_ERROR:
+            store.dispatch(availableMovesError(payload.availableMoves));
+            break;
+          default:
+            break;
+        }
       },
       error => {},
     );

@@ -1,112 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1a7ea4df-7109-434c-b6f4-b656b4a0d49c" name="Default Changelist" comment="Refactored game websocket logic and websocket unit tests.">
-      <change afterPath="$PROJECT_DIR$/app/src/store/game/name.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/moves/PlayerMove.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/controller/GameControllerTestIntegrationTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/game/GameTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_classic_1_2_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_classic_1_2_3.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_core_1_2_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_core_1_2_3.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_classmate_1_5_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_classmate_1_5_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_10_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_10_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_10_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_10_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_10_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_10_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_jdk8_2_10_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_jdk8_2_10_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_jsr310_2_10_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_jsr310_2_10_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_module_jackson_module_parameter_names_2_10_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_module_jackson_module_parameter_names_2_10_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_jayway_jsonpath_json_path_2_4_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_jayway_jsonpath_json_path_2_4_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_vaadin_external_google_android_json_0_0_20131108_vaadin1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_vaadin_external_google_android_json_0_0_20131108_vaadin1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__jakarta_activation_jakarta_activation_api_1_2_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__jakarta_activation_jakarta_activation_api_1_2_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__jakarta_annotation_jakarta_annotation_api_1_3_5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__jakarta_annotation_jakarta_annotation_api_1_3_5.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__jakarta_validation_jakarta_validation_api_2_0_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__jakarta_validation_jakarta_validation_api_2_0_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__jakarta_xml_bind_jakarta_xml_bind_api_2_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__jakarta_xml_bind_jakarta_xml_bind_api_2_3_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_bytebuddy_byte_buddy_1_10_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_bytebuddy_byte_buddy_1_10_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_bytebuddy_byte_buddy_agent_1_10_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_bytebuddy_byte_buddy_agent_1_10_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_minidev_accessors_smart_1_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_minidev_accessors_smart_1_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_minidev_json_smart_2_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_minidev_json_smart_2_3.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_api_2_12_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_api_2_12_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_to_slf4j_2_12_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_to_slf4j_2_12_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_core_9_0_27.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_core_9_0_27.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_el_9_0_27.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_el_9_0_27.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_websocket_9_0_27.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_websocket_9_0_27.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apiguardian_apiguardian_api_1_1_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apiguardian_apiguardian_api_1_1_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_assertj_assertj_core_3_13_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_assertj_assertj_core_3_13_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_2_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_2_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_validator_hibernate_validator_6_0_17_Final.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_validator_hibernate_validator_6_0_17_Final.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_logging_jboss_logging_3_4_1_Final.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_logging_jboss_logging_3_4_1_Final.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_5_5_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_5_5_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_api_5_5_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_api_5_5_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_engine_5_5_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_engine_5_5_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_params_5_5_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_params_5_5_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_5_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_5_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_5_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_5_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_mockito_mockito_core_3_1_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mockito_mockito_core_3_1_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_mockito_mockito_junit_jupiter_3_1_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mockito_mockito_junit_jupiter_3_1_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_objenesis_objenesis_2_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_objenesis_objenesis_2_6.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_opentest4j_opentest4j_1_2_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_opentest4j_opentest4j_1_2_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_ow2_asm_asm_5_0_4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_ow2_asm_asm_5_0_4.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_projectlombok_lombok_1_18_10.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_projectlombok_lombok_1_18_10.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_skyscreamer_jsonassert_1_5_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_skyscreamer_jsonassert_1_5_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_jul_to_slf4j_1_7_28.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_jul_to_slf4j_1_7_28.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_28.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_28.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_2_2_0_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_2_2_0_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_autoconfigure_2_2_0_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_autoconfigure_2_2_0_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_devtools_2_2_0_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_devtools_2_2_0_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_2_2_0_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_2_2_0_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_json_2_2_0_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_json_2_2_0_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_logging_2_2_0_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_logging_2_2_0_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_test_2_2_0_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_test_2_2_0_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_tomcat_2_2_0_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_tomcat_2_2_0_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_validation_2_2_0_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_validation_2_2_0_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_web_2_2_0_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_web_2_2_0_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_websocket_2_2_0_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_websocket_2_2_0_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_test_2_2_0_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_test_2_2_0_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_test_autoconfigure_2_2_0_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_test_autoconfigure_2_2_0_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aop_5_2_0_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aop_5_2_0_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_beans_5_2_0_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_beans_5_2_0_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_5_2_0_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_5_2_0_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_core_5_2_0_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_core_5_2_0_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_expression_5_2_0_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_expression_5_2_0_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jcl_5_2_0_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jcl_5_2_0_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_messaging_5_2_0_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_messaging_5_2_0_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_test_5_2_0_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_test_5_2_0_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_web_5_2_0_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_web_5_2_0_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_webmvc_5_2_0_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_webmvc_5_2_0_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_websocket_5_2_0_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_websocket_5_2_0_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_xmlunit_xmlunit_core_2_6_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_xmlunit_xmlunit_core_2_6_3.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_yaml_snakeyaml_1_25.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_yaml_snakeyaml_1_25.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="1a7ea4df-7109-434c-b6f4-b656b4a0d49c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/src/inferfaces/boardPosition.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/inferfaces/game.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/store/game/__tests__/game.reducer.test.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/store/game/__tests__/game.saga.test.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/store/game/gameId.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/test/fixtures/game/availableMoves.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/test/fixtures/game/availableMovesError.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/test/fixtures/game/board.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/test/fixtures/game/boardPosition.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/test/fixtures/game/game.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/test/fixtures/game/messages/fakeAvailableMovesErrorMessage.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/test/fixtures/game/messages/fakeAvailableMovesMessage.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/test/fixtures/game/messages/fakeGameOverMessage.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/test/fixtures/game/messages/fakePlayerMovedMessage.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/test/fixtures/game/messages/fakeStartGameMessage.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/inferfaces/board.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/inferfaces/board.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/inferfaces/piece.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/inferfaces/piece.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/inferfaces/player.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/inferfaces/player.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/inferfaces/position.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/pages/GameRoom/Game/Game.container.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/pages/GameRoom/Game/Game.container.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/store/game/__tests__/game.subscriptions.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/__tests__/game.subscriptions.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/store/game/game.actions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/game.actions.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/store/game/game.api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/inferfaces/availableMoves.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/store/game/game.reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/game.reducer.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/store/game/game.saga.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/game.saga.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/store/game/game.subscriptions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/game.subscriptions.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/availablemoves/AvailableMoves.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/moves/AvailableMoves.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/availablemoves/AvailableMovesError.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/moves/AvailableMovesError.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/controller/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/GameState.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/board/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/board/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/player/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/player/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/player/Players.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/player/Players.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/messages/AvailableMovesErrorMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/messages/AvailableMovesErrorMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/messages/AvailableMovesMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/messages/AvailableMovesMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/messages/GameStartedMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/messages/GameStartedMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/messages/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/messages/Message.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/store/game/game.types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/game.types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/test/fixtures/messages/fakeAvailableMovesMessage.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/test/fixtures/messages/fakeBoardMessage.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/tsconfig.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/messages/MessageTypes.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/messages/MessageTypes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/messages/PlayedMovedMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/messages/PlayerMovedMessage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/service/GameService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/service/GameService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/game/board/BoardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/game/board/BoardTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/game/piece/BishopTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/game/piece/BishopTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/game/piece/KingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/game/piece/KingTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/game/piece/KnightTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/game/piece/KnightTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/game/piece/PawnTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/game/piece/PawnTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/game/piece/QueenTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/game/piece/QueenTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/game/piece/RookTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/game/piece/RookTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/messages/AvailableMovesErrorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/messages/AvailableMovesErrorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/messages/AvailableMovesMessageTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/messages/AvailableMovesMessageTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/messages/PlayedMovedMessageTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/messages/PlayedMovedMessageTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/service/GameServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/service/GameServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/websocket/WebSocketTest.java" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -223,7 +152,7 @@
       <workItem from="1573762516445" duration="658000" />
       <workItem from="1573844056467" duration="23610000" />
       <workItem from="1573906986962" duration="12672000" />
-      <workItem from="1573922190875" duration="5320000" />
+      <workItem from="1573922190875" duration="6623000" />
     </task>
     <task id="LOCAL-00001" summary="Added gameService and corresponding websocket end points with tests.">
       <created>1573412510081</created>
@@ -239,7 +168,14 @@
       <option name="project" value="LOCAL" />
       <updated>1573856694789</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Refactored game websocket logic and websocket unit tests.">
+      <created>1573931038176</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1573931038176</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -1,10 +1,15 @@
 import { PlayerColor } from './player';
 
 export enum PieceType {
-  PAWN = 1, KNIGHT = 2, BISHOP = 3, ROOK = 4, QUEEN = 5, KING = 6
+  PAWN = 'PAWN',
+  KNIGHT = 'KNIGHT',
+  BISHOP = 'BISHOP',
+  ROOK = 'ROOK',
+  QUEEN = 'QUEEN',
+  KING = 'KING',
 }
 
 export interface Piece {
-  type: typeof PieceType,
-  playerColor: typeof PlayerColor
+  type: PieceType;
+  playerColor: PlayerColor;
 }

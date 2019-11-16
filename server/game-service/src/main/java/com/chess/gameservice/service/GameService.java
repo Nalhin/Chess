@@ -32,8 +32,8 @@ public class GameService {
         var player = new Player(playerName);
         game.setOtherPlayer(player);
         game.initGame();
-        return game;
 
+        return game;
     }
 
     public AvailableMoves getAvailableMoves(UUID gameId, Position position) {

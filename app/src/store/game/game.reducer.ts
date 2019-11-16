@@ -1,10 +1,28 @@
 import { GameActions, GameActionTypes, GameState } from './game.types';
 import { Reducer } from 'react';
 import produce from 'immer';
+import { Player } from '../../inferfaces/player';
+import { GamePhase } from '../../inferfaces/game';
+import { BoardPosition } from '../../inferfaces/boardPosition';
 
 export const GAME_INITIAL_STATE: GameState = {
-  board: [[]],
-  availableMoves: [],
+  game: {
+    board: { state: [[]] },
+    currentTurn: {} as Player,
+    gameState: GamePhase.WAITING_FOR_PLAYERS,
+    graveyards: {
+      whiteGraveyard: [],
+      blackGraveyard: [],
+    },
+    players: {
+      whitePlayer: {} as Player,
+      blackPlayer: {} as Player,
+    },
+  },
+  selectedPiece: {
+    position: {} as BoardPosition,
+    availableMoves: [],
+  },
 };
 
 const gameReducer: Reducer<GameState, GameActions> = (
@@ -13,26 +31,19 @@ const gameReducer: Reducer<GameState, GameActions> = (
 ) => {
   return produce(state, draft => {
     switch (action.type) {
-      case GameActionTypes.INIT_GAME_REQUESTED:
+      case GameActionTypes.GAME_STARTED:
+        draft.game = action.payload.game;
         break;
-      case GameActionTypes.INIT_GAME_SUCCEEDED:
-        // @ts-ignore
-        draft.board = action.payload.board;
+      case GameActionTypes.PLAYER_MOVED:
+        draft.game = action.payload.game;
         break;
-      case GameActionTypes.INIT_GAME_FAILED:
+      case GameActionTypes.GAME_OVER:
+        draft.game = action.payload.game;
         break;
-      case GameActionTypes.GET_AVAILABLE_MOVES_REQUESTED:
+      case GameActionTypes.AVAILABLE_MOVES:
+        draft.selectedPiece.availableMoves = action.payload.availableMoves;
         break;
-      case GameActionTypes.GET_AVAILABLE_MOVES_SUCCEEDED:
-        draft.availableMoves = action.payload.availableMoves;
-        break;
-      case GameActionTypes.GET_AVAILABLE_MOVES_FAILED:
-        break;
-      case GameActionTypes.MAKE_MOVE_REQUESTED:
-        break;
-      case GameActionTypes.MAKE_MOVE_SUCCEEDED:
-        break;
-      case GameActionTypes.MAKE_MOVE_FAILED:
+      case GameActionTypes.AVAILABLE_MOVES_ERROR:
         break;
       default:
         break;

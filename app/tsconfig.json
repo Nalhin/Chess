@@ -3,7 +3,7 @@
     "outDir": "./dist",
     "noImplicitAny": true,
     "module": "esnext",
-    "target": "es5",
+    "target": "es6",
     "sourceMap": true,
     "moduleResolution": "node",
     "jsx": "react",
@@ -11,8 +11,8 @@
   },
   "exclude": [
     "node_modules",
-    "dist",    "src/**/__tests__/**test.ts"
-
+    "dist",
+    "src/**/__tests__/**test.ts"
   ],
   "include": [
     "src/**/*"

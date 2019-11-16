@@ -1,5 +1,11 @@
 import {
-  GameActionTypes,
+  AvailableMovesErrorSubscriptionAction,
+  AvailableMovesSubscriptionAction,
+  GameBaseActionTypes,
+  GameOverSubscriptionAction,
+  GamePersonalSubscriptionActionTypes,
+  GameStartedSubscriptionAction,
+  GameStateSubscriptionActionTypes,
   GetAvailableMovesFailedAction,
   GetAvailableMovesRequestedAction,
   GetAvailableMovesSucceededAction,
@@ -9,51 +15,94 @@ import {
   MakeMoveFailedAction,
   MakeMoveRequestedAction,
   MakeMoveSucceededAction,
+  PlayerMovedSubscriptionAction,
 } from './game.types';
 import { Board } from '../../inferfaces/board';
+import { Game } from '../../inferfaces/game';
+import { AvailableMoves } from '../../inferfaces/availableMoves';
+import { BoardPosition } from '../../inferfaces/boardPosition';
+
+export const gameStarted = (game: Game): GameStartedSubscriptionAction => ({
+  type: GameStateSubscriptionActionTypes.GAME_STARTED,
+  payload: {
+    game,
+  },
+});
+
+export const playerMoved = (game: Game): PlayerMovedSubscriptionAction => ({
+  type: GameStateSubscriptionActionTypes.PLAYER_MOVED,
+  payload: {
+    game,
+  },
+});
+
+export const gameOver = (game: Game): GameOverSubscriptionAction => ({
+  type: GameStateSubscriptionActionTypes.GAME_OVER,
+  payload: {
+    game,
+  },
+});
+
+export const availableMoves = (
+  availableMoves: AvailableMoves,
+): AvailableMovesSubscriptionAction => ({
+  type: GamePersonalSubscriptionActionTypes.AVAILABLE_MOVES,
+  payload: {
+    availableMoves,
+  },
+});
+
+export const availableMovesError = (
+  error: string,
+): AvailableMovesErrorSubscriptionAction => ({
+  type: GamePersonalSubscriptionActionTypes.AVAILABLE_MOVES_ERROR,
+  payload: {
+    error,
+  },
+});
 
 export const initGameRequested = (): InitGameRequestedAction => ({
-  type: GameActionTypes.INIT_GAME_REQUESTED,
+  type: GameBaseActionTypes.INIT_GAME_REQUESTED,
 });
 
 export const initGameSucceeded = (board: Board): InitGameSucceededAction => ({
-  type: GameActionTypes.INIT_GAME_SUCCEEDED,
+  type: GameBaseActionTypes.INIT_GAME_SUCCEEDED,
   payload: {
     board,
   },
 });
 
 export const initGameFailed = (): InitGameFailedAction => ({
-  type: GameActionTypes.INIT_GAME_FAILED,
+  type: GameBaseActionTypes.INIT_GAME_FAILED,
 });
 
 export const getAvailableMovesRequested = (
-  initialPosition: Position,
+  initialPosition: BoardPosition,
 ): GetAvailableMovesRequestedAction => ({
-  type: GameActionTypes.GET_AVAILABLE_MOVES_REQUESTED,
+  type: GameBaseActionTypes.GET_AVAILABLE_MOVES_REQUESTED,
   payload: {
     initialPosition,
   },
 });
 
 export const GetAvailableMovesSucceeded = (
-  availableMoves: Position[],
+  availableMoves: AvailableMoves,
 ): GetAvailableMovesSucceededAction => ({
-  type: GameActionTypes.GET_AVAILABLE_MOVES_SUCCEEDED,
+  type: GameBaseActionTypes.GET_AVAILABLE_MOVES_SUCCEEDED,
   payload: {
     availableMoves,
   },
 });
 
 export const GetAvailableMovesFailed = (): GetAvailableMovesFailedAction => ({
-  type: GameActionTypes.GET_AVAILABLE_MOVES_FAILED,
+  type: GameBaseActionTypes.GET_AVAILABLE_MOVES_FAILED,
 });
 
 export const makeMoveRequested = (
-  initialPosition: Position,
-  destinationPosition: Position,
+  initialPosition: BoardPosition,
+  destinationPosition: BoardPosition,
 ): MakeMoveRequestedAction => ({
-  type: GameActionTypes.MAKE_MOVE_REQUESTED,
+  type: GameBaseActionTypes.MAKE_MOVE_REQUESTED,
   payload: {
     initialPosition,
     destinationPosition,
@@ -61,12 +110,12 @@ export const makeMoveRequested = (
 });
 
 export const makeMoveSucceeded = (board: Board): MakeMoveSucceededAction => ({
-  type: GameActionTypes.MAKE_MOVE_SUCCEEDED,
+  type: GameBaseActionTypes.MAKE_MOVE_SUCCEEDED,
   payload: {
     board,
   },
 });
 
 export const makeMoveFailed = (): MakeMoveFailedAction => ({
-  type: GameActionTypes.MAKE_MOVE_FAILED,
+  type: GameBaseActionTypes.MAKE_MOVE_FAILED,
 });

@@ -9,7 +9,7 @@ import {
 } from '../../../store/game/game.actions';
 
 const mapStateToProps = (state: AppState) => {
-  const board = state.game.board;
+  const board = state.game.game.board.state;
 
   return {
     board,
