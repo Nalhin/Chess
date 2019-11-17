@@ -14,15 +14,6 @@ import { fakeAvailableMovesError } from '../../../../test/fixtures/game/availabl
 import { fakeBoardPosition } from '../../../../test/fixtures/game/boardPosition';
 
 describe('Game Reducer', () => {
-  it('Should return the initial state', () => {
-    const expectedState = {
-      ...GAME_INITIAL_STATE,
-    };
-
-    const reducer = gameReducer(undefined, availableMoves([]));
-
-    expect(reducer).toEqual(expectedState);
-  });
   it('Should handle GAME_STARTED action type', () => {
     const initialState = {
       ...GAME_INITIAL_STATE,
@@ -71,9 +62,10 @@ describe('Game Reducer', () => {
     };
     const expectedState = produce(GAME_INITIAL_STATE, draft => {
       draft.selectedPiece.availableMoves = fakeAvailableMoves;
+      draft.selectedPiece.position = fakeBoardPosition;
     });
 
-    const action = availableMoves(fakeAvailableMoves);
+    const action = availableMoves(fakeAvailableMoves, fakeBoardPosition);
     const reducer = gameReducer(initialState, action);
 
     expect(reducer).toEqual(expectedState);

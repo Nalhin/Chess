@@ -11,7 +11,13 @@ const StyledGameContainer = styled.div`
   grid-template-rows: repeat(8, 1fr);
 `;
 
-const Game: React.FC<GameProps> = ({ board, initGame, getAvailableMoves }) => {
+const Game: React.FC<GameProps> = ({
+  board,
+  initGame,
+  getAvailableMoves,
+  selectedPosition,
+  availableMoves,
+}) => {
   React.useEffect(() => {
     initGame();
   }, [initGame]);
@@ -19,14 +25,20 @@ const Game: React.FC<GameProps> = ({ board, initGame, getAvailableMoves }) => {
   return (
     <StyledGameContainer>
       {board.map((row, x) =>
-        row.map((cell, y) => (
-          <Cell
-            getAvailableMoves={getAvailableMoves}
-            key={`${x}#${y}`}
-            position={{ x: x, y: y }}
-            type={cell && cell.type}
-          />
-        )),
+        row.map((cell, y) => {
+          return (
+            <Cell
+              getAvailableMoves={getAvailableMoves}
+              isSelected={selectedPosition.x == x && selectedPosition.y == y}
+              isMoveAvailable={availableMoves.some(
+                item => item.x == x && item.y == y,
+              )}
+              key={`${x}#${y}`}
+              position={{ x: x, y: y }}
+              type={cell && cell.type}
+            />
+          );
+        }),
       )}
     </StyledGameContainer>
   );

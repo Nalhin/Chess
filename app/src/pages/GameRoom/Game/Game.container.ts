@@ -10,9 +10,12 @@ import {
 
 const mapStateToProps = (state: AppState) => {
   const board = state.game.game.board.state;
-
+  const selectedPosition = state.game.selectedPiece.position;
+  const availableMoves = state.game.selectedPiece.availableMoves;
   return {
     board,
+    selectedPosition,
+    availableMoves,
   };
 };
 

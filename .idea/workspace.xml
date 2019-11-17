@@ -3,22 +3,21 @@
   <component name="ChangeListManager">
     <list default="true" id="1a7ea4df-7109-434c-b6f4-b656b4a0d49c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/pages/GameRoom/Game/Cell.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/pages/GameRoom/Game/Cell.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/pages/GameRoom/Game/Game.container.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/pages/GameRoom/Game/Game.container.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/pages/GameRoom/Game/Game.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/pages/GameRoom/Game/Game.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/store/game/__tests__/game.reducer.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/__tests__/game.reducer.test.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/store/game/__tests__/game.saga.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/__tests__/game.saga.test.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/store/game/game.actions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/game.actions.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/store/game/game.reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/game.reducer.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/store/game/game.saga.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/game.saga.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/store/game/game.subscriptions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/game.subscriptions.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/store/game/game.types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/game.types.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/store/stompClient.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/stompClient.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/test/utils/MockStomp.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/test/utils/MockStomp.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/test/utils/mockStore.ts" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/controller/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/board/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/board/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/moves/AvailableMoves.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/moves/AvailableMoves.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/service/GameService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/service/GameService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/messages/AvailableMovesMessageTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/messages/AvailableMovesMessageTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/service/GameServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/service/GameServiceTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -33,8 +32,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Class" />
         <option value="JUnit5 Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -137,6 +136,7 @@
       <workItem from="1573906986962" duration="12672000" />
       <workItem from="1573922190875" duration="7220000" />
       <workItem from="1573940726715" duration="3299000" />
+      <workItem from="1573993544963" duration="2574000" />
     </task>
     <task id="LOCAL-00001" summary="Added gameService and corresponding websocket end points with tests.">
       <created>1573412510081</created>

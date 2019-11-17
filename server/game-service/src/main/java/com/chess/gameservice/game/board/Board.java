@@ -56,7 +56,11 @@ public class Board {
     }
 
     public ArrayList<Position> getAvailableMoves(Position position) {
-        return state[position.getX()][position.getY()].getAvailableMoves(this, position);
+        var piece = state[position.getX()][position.getY()];
+        if (piece != null) {
+            return state[position.getX()][position.getY()].getAvailableMoves(this, position);
+        }
+        return new ArrayList<>();
     }
 
     public void movePiece(Position initialPosition, Position destination) {

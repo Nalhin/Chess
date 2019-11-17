@@ -10,5 +10,5 @@ import java.util.ArrayList;
 public class AvailableMoves {
 
     private ArrayList<Position> availableMoves;
-
+    private Position position;
 }

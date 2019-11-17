@@ -43,8 +43,10 @@ public class GameController {
     @MessageMapping("/move/{gameId}")
     @SendTo("/topic/state/{gameId}")
     public Message move(@DestinationVariable String gameId, @Payload PlayerMove playerMove, @Header("name") String name) {
-        Game game = gameService.makeMove(UUID.fromString(gameId), playerMove, name);
 
+
+
+        Game game = gameService.makeMove(UUID.fromString(gameId), playerMove, name);
         var playerMovedMessage = new PlayerMovedMessage();
         playerMovedMessage.setPayload(game);
         return playerMovedMessage;

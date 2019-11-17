@@ -48,6 +48,7 @@ class GameServiceTest {
         expectedMoves.add(new Position(2, 7));
         expectedMoves.add(new Position(3, 7));
         var expectedAvailableMoves = new AvailableMoves();
+        expectedAvailableMoves.setPosition(pawnPosition);
         expectedAvailableMoves.setAvailableMoves(expectedMoves);
 
         var availableMoves = gameService.getAvailableMoves(gameId, pawnPosition);

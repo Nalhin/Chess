@@ -20,8 +20,8 @@ export const GAME_INITIAL_STATE: GameState = {
     },
   },
   selectedPiece: {
-    position: {} as BoardPosition,
     availableMoves: [],
+    position: {} as BoardPosition,
   },
 };
 
@@ -41,7 +41,7 @@ const gameReducer: Reducer<GameState, GameActions> = (
         draft.game = action.payload.game;
         break;
       case GameActionTypes.AVAILABLE_MOVES:
-        draft.selectedPiece.availableMoves = action.payload.availableMoves;
+        draft.selectedPiece = action.payload;
         break;
       case GameActionTypes.AVAILABLE_MOVES_ERROR:
         break;

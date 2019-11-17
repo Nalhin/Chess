@@ -46,10 +46,12 @@ export const gameOver = (game: Game): GameOverSubscriptionAction => ({
 
 export const availableMoves = (
   availableMoves: AvailableMoves,
+  position: BoardPosition,
 ): AvailableMovesSubscriptionAction => ({
   type: GamePersonalSubscriptionActionTypes.AVAILABLE_MOVES,
   payload: {
     availableMoves,
+    position,
   },
 });
 

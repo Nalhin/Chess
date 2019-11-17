@@ -39,6 +39,7 @@ public class GameService {
     public AvailableMoves getAvailableMoves(UUID gameId, Position position) {
         var game = games.get(gameId);
         var availableMoves = new AvailableMoves();
+        availableMoves.setPosition(position);
         availableMoves.setAvailableMoves(game.getBoard().getAvailableMoves(position));
         return availableMoves;
     }

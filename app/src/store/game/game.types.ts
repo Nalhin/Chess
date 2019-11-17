@@ -70,6 +70,7 @@ export interface AvailableMovesSubscriptionAction {
   type: typeof GamePersonalSubscriptionActionTypes.AVAILABLE_MOVES;
   payload: {
     availableMoves: AvailableMoves;
+    position: BoardPosition;
   };
 }
 

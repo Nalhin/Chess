@@ -1,5 +1,5 @@
 import { SagaIterator } from '@redux-saga/core';
-import { all, put, take, takeEvery } from '@redux-saga/core/effects';
+import { all, take, takeEvery } from '@redux-saga/core/effects';
 import {
   GameActionTypes,
   GameBaseActionTypes,
@@ -13,7 +13,6 @@ import {
 } from './game.subscriptions';
 import { userName } from './name';
 import { gameId } from './gameId';
-import { setSelectedPiece } from './game.actions';
 import { StompSingleton } from '../stompClient';
 
 export function* gameRootSaga(): SagaIterator {
@@ -53,19 +52,8 @@ function* getAvailableMovesSaga(
   gameStomp.publish({
     destination: `/app/available-moves/${gameId}`,
     headers: { name: userName },
-    body: JSON.stringify({
-      position: initialPosition,
-    }),
+    body: JSON.stringify(initialPosition),
   });
-
-  gameStomp.publish({
-    destination: `/app/move/${gameId}`,
-    headers: { name: userName },
-    body: JSON.stringify({
-      playerMove: { initialPosition, destinationPosition: initialPosition },
-    }),
-  });
-  yield put(setSelectedPiece(initialPosition));
 }
 
 function* makeMoveSaga(action: MakeMoveRequestedAction): SagaIterator {

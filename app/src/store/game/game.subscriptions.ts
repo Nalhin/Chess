@@ -55,7 +55,9 @@ export const gamePersonalSubscription = (game: RxStomp, gameId: string) => {
         const { payload, type } = data;
         switch (type) {
           case GamePersonalSubscriptionActionTypes.AVAILABLE_MOVES:
-            store.dispatch(availableMoves(payload.availableMoves));
+            store.dispatch(
+              availableMoves(payload.availableMoves, payload.position),
+            );
             break;
           case GamePersonalSubscriptionActionTypes.AVAILABLE_MOVES_ERROR:
             store.dispatch(availableMovesError(payload.availableMoves));

@@ -28,12 +28,13 @@ class AvailableMovesMessageTest {
         var availableMoves = new AvailableMoves();
         var positions = new ArrayList<Position>();
         positions.add(position);
+        availableMoves.setPosition(position);
         availableMoves.setAvailableMoves(positions);
         var availableMovesMessage = new AvailableMovesMessage();
         availableMovesMessage.setPayload(availableMoves);
 
         var expected = "{type:\"" + MessageTypes.AVAILABLE_MOVES + "\"," +
-                "\"payload\":{\"availableMoves\":[{\"x\":" + x + ",\"y\":" + y + "}]}}";
+                "\"payload\":{\"position\":{\"x\":"+x+",\"y\":"+y+"},\"availableMoves\":[{\"x\":" + x + ",\"y\":" + y + "}]}}";
         var actual = objectMapper.writeValueAsString(availableMovesMessage);
 
         JSONAssert.assertEquals(expected, actual, true);
