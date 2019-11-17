@@ -16,6 +16,7 @@ const mapStateToProps = (state: AppState) => {
   const selectedPosition = state.game.selectedPiece.position;
   const availableMoves = state.game.selectedPiece.availableMoves;
   const graveyards = state.game.gameState.board.graveyards;
+  const error = state.game.error;
   const isCurrentTurn = isCurrentTurnSelector(state);
   return {
     board,
@@ -24,6 +25,7 @@ const mapStateToProps = (state: AppState) => {
     currentTurn,
     isCurrentTurn,
     graveyards,
+    error,
   };
 };
 

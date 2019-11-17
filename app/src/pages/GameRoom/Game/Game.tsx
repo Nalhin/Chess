@@ -3,6 +3,7 @@ import { GameContainerProps } from './Game.container';
 import Cell from './Cell';
 import styled from '@emotion/styled';
 import Graveyard from './Graveyard';
+import { PlayerColor } from '../../../inferfaces/player';
 
 interface GameProps extends GameContainerProps {}
 
@@ -28,6 +29,7 @@ const Game: React.FC<GameProps> = ({
   currentTurn,
   isCurrentTurn,
   graveyards,
+  error,
 }) => {
   React.useEffect(() => {
     initGame();
@@ -35,26 +37,27 @@ const Game: React.FC<GameProps> = ({
 
   return (
     <div>
-      <div>{currentTurn}</div>
+      <div>{error}</div>
+      <div>
+        {currentTurn == PlayerColor.WHITE ? 'White turn' : 'Black turn'}
+      </div>
       <Graveyard pieces={graveyards.blackGraveyard} />
       <StyledGameContainer isCurrentTurn={isCurrentTurn}>
         {board.map((row, x) =>
-          row.map((cell, y) => {
-            return (
-              <Cell
-                getAvailableMoves={getAvailableMoves}
-                isSelected={selectedPosition.x == x && selectedPosition.y == y}
-                isMoveAvailable={availableMoves.some(
-                  item => item.x == x && item.y == y,
-                )}
-                makeMove={makeMove}
-                key={`${x}#${y}`}
-                position={{ x: x, y: y }}
-                type={cell && cell.type}
-                playerColor={cell && cell.playerColor}
-              />
-            );
-          }),
+          row.map((cell, y) => (
+            <Cell
+              getAvailableMoves={getAvailableMoves}
+              isSelected={selectedPosition.x == x && selectedPosition.y == y}
+              isMoveAvailable={availableMoves.some(
+                item => item.x == x && item.y == y,
+              )}
+              makeMove={makeMove}
+              key={`${x}#${y}`}
+              position={{ x: x, y: y }}
+              type={cell && cell.type}
+              playerColor={cell && cell.playerColor}
+            />
+          )),
         )}
       </StyledGameContainer>
       <Graveyard pieces={graveyards.whiteGraveyard} />

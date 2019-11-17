@@ -53,7 +53,7 @@ public class Pawn extends Piece {
     }
 
     private int getDirection() {
-        return getPlayerColor() == PlayerColor.BLACK ? -1 : 1;
+        return getPlayerColor() == PlayerColor.WHITE ? -1 : 1;
     }
 
     //TODO

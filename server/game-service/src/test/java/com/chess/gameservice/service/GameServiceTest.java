@@ -60,12 +60,12 @@ class GameServiceTest {
     void move() {
         gameService.initialConnect(gameId, firstPlayerName);
         gameService.initialConnect(gameId, secondPlayerName);
-        var initialPosition = new Position(1, 7);
-        var destinationPosition = new Position(2, 7);
+        var initialPosition = new Position(6, 7);
+        var destinationPosition = new Position(5, 7);
         var playerMove = new PlayerMove(initialPosition, destinationPosition);
 
         var gameAfterMove = gameService.makeMove(gameId, playerMove, firstPlayerName);
 
-        assertTrue(gameAfterMove.getBoard().getState()[2][7] instanceof Pawn);
+        assertTrue(gameAfterMove.getBoard().getState()[5][7] instanceof Pawn);
     }
 }

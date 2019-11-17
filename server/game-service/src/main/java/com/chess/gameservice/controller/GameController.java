@@ -2,11 +2,9 @@ package com.chess.gameservice.controller;
 
 import com.chess.gameservice.game.Game;
 import com.chess.gameservice.game.position.Position;
-import com.chess.gameservice.messages.AvailableMovesMessage;
-import com.chess.gameservice.messages.GameStartedMessage;
-import com.chess.gameservice.messages.Message;
-import com.chess.gameservice.messages.PlayerMovedMessage;
+import com.chess.gameservice.messages.*;
 import com.chess.gameservice.moves.AvailableMoves;
+import com.chess.gameservice.moves.AvailableMovesError;
 import com.chess.gameservice.moves.PlayerMove;
 import com.chess.gameservice.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,13 +39,21 @@ public class GameController {
     }
 
     @MessageMapping("/move/{gameId}")
-    @SendTo("/topic/state/{gameId}")
-    public Message move(@DestinationVariable String gameId, @Payload PlayerMove playerMove, @Header("name") String name) {
+    public void move(@DestinationVariable String gameId, @Payload PlayerMove playerMove, @Header("name") String name, @Header("simpSessionId") String sessionId) {
+        try {
+            Game game = gameService.makeMove(UUID.fromString(gameId), playerMove, name);
+            var playerMovedMessage = new PlayerMovedMessage();
+            playerMovedMessage.setPayload(game);
+            simpMessagingTemplate.convertAndSend("/topic/state/" + gameId, playerMovedMessage);
 
-        Game game = gameService.makeMove(UUID.fromString(gameId), playerMove, name);
-        var playerMovedMessage = new PlayerMovedMessage();
-        playerMovedMessage.setPayload(game);
-        return playerMovedMessage;
+        } catch (IllegalArgumentException e) {
+            SimpMessageHeaderAccessor headerAccessor = SimpMessageHeaderAccessor.create(SimpMessageType.MESSAGE);
+            headerAccessor.setSessionId(sessionId);
+            headerAccessor.setLeaveMutable(true);
+            var availableMovesErrorMessage = new AvailableMovesErrorMessage();
+            availableMovesErrorMessage.setPayload(new AvailableMovesError(e.getMessage()));
+            simpMessagingTemplate.convertAndSendToUser(sessionId, "/queue/personal/" + gameId, availableMovesErrorMessage, headerAccessor.getMessageHeaders());
+        }
     }
 
     @MessageMapping("/available-moves/{gameId}")

@@ -35,20 +35,20 @@ public class Board {
         populateBlack();
     }
 
-    private void populateBlack() {
+    private void populateWhite() {
         int z = 0;
         for (int i = 6; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                state[i][j] = PieceFactory.buildPiece(playerInitialState[z][j], PlayerColor.BLACK);
+                state[i][j] = PieceFactory.buildPiece(playerInitialState[z][j], PlayerColor.WHITE);
             }
             z++;
         }
     }
 
-    private void populateWhite() {
+    private void populateBlack() {
         for (int i = 1; i >= 0; i--) {
             for (int j = 7; j >= 0; j--) {
-                state[1 - i][j] = PieceFactory.buildPiece(playerInitialState[i][j], PlayerColor.WHITE);
+                state[1 - i][j] = PieceFactory.buildPiece(playerInitialState[i][j], PlayerColor.BLACK);
             }
         }
     }

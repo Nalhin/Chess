@@ -18,6 +18,5 @@ export interface Game {
   };
   currentTurn: PlayerColor;
   gamePhase: GamePhase;
-
   players: Players;
 }

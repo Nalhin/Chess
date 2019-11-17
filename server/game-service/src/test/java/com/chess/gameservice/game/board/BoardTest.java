@@ -54,8 +54,8 @@ class BoardTest {
 
     @Test
     void movePieceTest() {
-        var pawnPosition = new Position(1, 0);
-        var legalDestinationPosition = new Position(3, 0);
+        var pawnPosition = new Position(6, 0);
+        var legalDestinationPosition = new Position(5, 0);
 
         board.movePiece(pawnPosition, legalDestinationPosition, PlayerColor.WHITE);
         var newPawnPosition = board.getState()[legalDestinationPosition.getX()][legalDestinationPosition.getY()];
@@ -68,7 +68,7 @@ class BoardTest {
         var pawnPosition = new Position(1, 0);
         var destinationPosition = new Position(2, 0);
 
-        assertThrows(IllegalArgumentException.class, () -> board.movePiece(pawnPosition, destinationPosition,PlayerColor.BLACK));
+        assertThrows(IllegalArgumentException.class, () -> board.movePiece(pawnPosition, destinationPosition,PlayerColor.WHITE));
 
         var newPawnPosition = board.getState()[destinationPosition.getX()][destinationPosition.getY()];
         assertNull(newPawnPosition);

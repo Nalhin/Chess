@@ -6,9 +6,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
+public
 class AvailableMovesErrorMessage extends Message<AvailableMovesError> {
 
-    AvailableMovesErrorMessage() {
+    public AvailableMovesErrorMessage() {
         type = MessageTypes.AVAILABLE_MOVES_ERROR;
     }
 }

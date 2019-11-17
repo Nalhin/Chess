@@ -95,9 +95,9 @@ class GameControllerTestIntegrationTest {
         startGame();
         blockingQueue.poll(10, SECONDS);
 
-        var moves = objectMapper.writeValueAsBytes(new PlayerMove(new Position(1, 0), new Position(2, 0)));
+        var moves = objectMapper.writeValueAsBytes(new PlayerMove(new Position(6, 0), new Position(5, 0)));
         stompHeaders.setDestination(MOVE_ENDPOINT + gameId);
-        stompHeaders.set("name", "test");
+        stompHeaders.set("name", "test1");
         stompSession.send(stompHeaders, moves);
 
         var message = blockingQueue.poll(10, SECONDS);

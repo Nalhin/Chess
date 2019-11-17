@@ -9,6 +9,7 @@ export interface GameState {
     position: BoardPosition;
     availableMoves: AvailableMoves;
   };
+  readonly error: string;
 }
 
 export enum GameBaseActionTypes {

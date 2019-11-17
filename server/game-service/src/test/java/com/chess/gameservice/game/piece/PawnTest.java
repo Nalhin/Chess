@@ -23,7 +23,7 @@ class PawnTest {
 
     @Test
     void getAvailableMovesIsBlack() {
-        var pawn = new Pawn(PlayerColor.BLACK);
+        var pawn = new Pawn(PlayerColor.WHITE);
         var pawnPosition = new Position(2, 2);
         var expectedMoves = new ArrayList<Position>();
         int[] positionsX = {1, 0};
@@ -39,7 +39,7 @@ class PawnTest {
 
     @Test
     void getAvailableMovesIsWhite() {
-        var pawn = new Pawn(PlayerColor.WHITE);
+        var pawn = new Pawn(PlayerColor.BLACK);
         var pawnPosition = new Position(2, 2);
         var expectedMoves = new ArrayList<Position>();
         int[] positionsX = {3, 4};
@@ -55,7 +55,7 @@ class PawnTest {
 
     @Test
     void getAvailableMovesIsBlackNotFirstMove() {
-        var pawn = new Pawn(PlayerColor.BLACK);
+        var pawn = new Pawn(PlayerColor.WHITE);
         pawn.move();
         var pawnPosition = new Position(2, 2);
         var expectedMoves = new ArrayList<Position>();
@@ -73,7 +73,7 @@ class PawnTest {
     @Test
     void getAvailableMovesIsWhiteNotFirstMove() {
         var pawn = new Pawn(PlayerColor.BLACK);
-        pawn.setPlayerColor(PlayerColor.WHITE);
+        pawn.setPlayerColor(PlayerColor.BLACK);
         pawn.move();
         var pawnPosition = new Position(2, 2);
         var expectedMoves = new ArrayList<Position>();
@@ -91,7 +91,7 @@ class PawnTest {
     @Test
     void isMoveLegalWhite() {
         var currentPosition = new Position(6, 1);
-        var pawn = new Pawn(PlayerColor.WHITE);
+        var pawn = new Pawn(PlayerColor.BLACK);
 
         var destinationPositionLegal = new Position(7, 1);
         assertTrue(pawn.isMoveLegal(currentPosition, destinationPositionLegal, board));
@@ -106,7 +106,7 @@ class PawnTest {
     @Test
     void isMoveLegalBlack() {
         var currentPosition = new Position(1, 1);
-        var pawn = new Pawn(PlayerColor.BLACK);
+        var pawn = new Pawn(PlayerColor.WHITE);
 
         var destinationPositionLegal = new Position(0, 1);
         assertTrue(pawn.isMoveLegal(currentPosition, destinationPositionLegal, board));
@@ -121,7 +121,7 @@ class PawnTest {
     @Test
     void isMoveLegalWhiteNotFirstMove() {
         var currentPosition = new Position(5, 1);
-        var pawn = new Pawn(PlayerColor.WHITE);
+        var pawn = new Pawn(PlayerColor.BLACK);
         pawn.move();
 
         var destinationPositionIllegal = new Position(7, 2);
@@ -131,7 +131,7 @@ class PawnTest {
     @Test
     void isMoveLegalBlackNotFirstMove() {
         var currentPosition = new Position(2, 1);
-        var pawn = new Pawn(PlayerColor.BLACK);
+        var pawn = new Pawn(PlayerColor.WHITE);
         pawn.move();
 
         var destinationPositionIllegal = new Position(0, 2);

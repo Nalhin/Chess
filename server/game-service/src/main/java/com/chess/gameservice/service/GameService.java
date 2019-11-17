@@ -2,6 +2,7 @@ package com.chess.gameservice.service;
 
 import com.chess.gameservice.game.Game;
 import com.chess.gameservice.game.player.Player;
+import com.chess.gameservice.game.player.PlayerColor;
 import com.chess.gameservice.game.position.Position;
 import com.chess.gameservice.moves.AvailableMoves;
 import com.chess.gameservice.moves.PlayerMove;
@@ -23,14 +24,14 @@ public class GameService {
             games.put(gameId, null);
             game = new Game();
             var player = new Player(playerName);
-            game.setRandomPlayer(player);
+            game.setPlayer(player,PlayerColor.WHITE);
             games.put(gameId, game);
 
             return null;
         }
 
         var player = new Player(playerName);
-        game.setOtherPlayer(player);
+        game.setPlayer(player, PlayerColor.BLACK);
         game.initGame();
 
         return game;

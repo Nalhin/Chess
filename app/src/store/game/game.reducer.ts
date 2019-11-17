@@ -25,6 +25,7 @@ export const GAME_INITIAL_STATE: GameState = {
     availableMoves: [],
     position: {} as BoardPosition,
   },
+  error: '',
 };
 
 const gameReducer: Reducer<GameState, GameActions> = (
@@ -47,9 +48,7 @@ const gameReducer: Reducer<GameState, GameActions> = (
         draft.selectedPiece = action.payload;
         break;
       case GameActionTypes.AVAILABLE_MOVES_ERROR:
-        break;
-      case GameActionTypes.SET_SELECTED_PIECE:
-        draft.selectedPiece.position = action.payload.position;
+        draft.error = action.payload.error;
         break;
       default:
         break;
