@@ -21,6 +21,7 @@ export enum GameBaseActionTypes {
   MAKE_MOVE_REQUESTED = 'MAKE_MOVE_REQUESTED',
   MAKE_MOVE_SUCCEEDED = 'MAKE_MOVE_SUCCEEDED',
   MAKE_MOVE_FAILED = 'MAKE_MOVE_FAILED',
+  SET_SELECTED_PIECE = 'SET_SELECTED_PIECE',
 }
 
 export enum GamePersonalSubscriptionActionTypes {
@@ -76,6 +77,13 @@ export interface AvailableMovesErrorSubscriptionAction {
   type: typeof GamePersonalSubscriptionActionTypes.AVAILABLE_MOVES_ERROR;
   payload: {
     error: string;
+  };
+}
+
+export interface SetSelectedPieceAction {
+  type: typeof GameBaseActionTypes.SET_SELECTED_PIECE;
+  payload: {
+    position: BoardPosition;
   };
 }
 
@@ -145,4 +153,5 @@ export type GameActions =
   | PlayerMovedSubscriptionAction
   | GameOverSubscriptionAction
   | AvailableMovesSubscriptionAction
-  | AvailableMovesErrorSubscriptionAction;
+  | AvailableMovesErrorSubscriptionAction
+  | SetSelectedPieceAction;

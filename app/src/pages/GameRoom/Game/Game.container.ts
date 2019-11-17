@@ -4,8 +4,8 @@ import Game from './Game';
 import { AppState } from '../../../store/rootReducer';
 import { RootAction } from '../../../store/rootAction';
 import {
+  getAvailableMovesRequested,
   initGameRequested,
-  makeMoveFailed,
 } from '../../../store/game/game.actions';
 
 const mapStateToProps = (state: AppState) => {
@@ -20,7 +20,7 @@ const mapDispatchToProps = (dispatch: Dispatch<RootAction>) =>
   bindActionCreators(
     {
       initGame: initGameRequested,
-      makeMoveFailed,
+      getAvailableMoves: getAvailableMovesRequested,
     },
     dispatch,
   );

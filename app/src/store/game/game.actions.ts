@@ -16,6 +16,7 @@ import {
   MakeMoveRequestedAction,
   MakeMoveSucceededAction,
   PlayerMovedSubscriptionAction,
+  SetSelectedPieceAction,
 } from './game.types';
 import { Board } from '../../inferfaces/board';
 import { Game } from '../../inferfaces/game';
@@ -58,6 +59,15 @@ export const availableMovesError = (
   type: GamePersonalSubscriptionActionTypes.AVAILABLE_MOVES_ERROR,
   payload: {
     error,
+  },
+});
+
+export const setSelectedPiece = (
+  position: BoardPosition,
+): SetSelectedPieceAction => ({
+  type: GameBaseActionTypes.SET_SELECTED_PIECE,
+  payload: {
+    position,
   },
 });
 

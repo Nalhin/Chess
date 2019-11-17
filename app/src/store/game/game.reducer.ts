@@ -45,6 +45,9 @@ const gameReducer: Reducer<GameState, GameActions> = (
         break;
       case GameActionTypes.AVAILABLE_MOVES_ERROR:
         break;
+      case GameActionTypes.SET_SELECTED_PIECE:
+        draft.selectedPiece.position = action.payload.position;
+        break;
       default:
         break;
     }

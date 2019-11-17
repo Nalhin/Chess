@@ -2,40 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1a7ea4df-7109-434c-b6f4-b656b4a0d49c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/inferfaces/boardPosition.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/inferfaces/game.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/store/game/__tests__/game.reducer.test.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/store/game/__tests__/game.saga.test.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/store/game/gameId.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/test/fixtures/game/availableMoves.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/test/fixtures/game/availableMovesError.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/test/fixtures/game/board.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/test/fixtures/game/boardPosition.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/test/fixtures/game/game.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/test/fixtures/game/messages/fakeAvailableMovesErrorMessage.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/test/fixtures/game/messages/fakeAvailableMovesMessage.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/test/fixtures/game/messages/fakeGameOverMessage.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/test/fixtures/game/messages/fakePlayerMovedMessage.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/test/fixtures/game/messages/fakeStartGameMessage.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/inferfaces/board.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/inferfaces/board.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/inferfaces/piece.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/inferfaces/piece.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/inferfaces/player.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/inferfaces/player.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/inferfaces/position.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/pages/GameRoom/Game/Cell.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/pages/GameRoom/Game/Cell.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/pages/GameRoom/Game/Game.container.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/pages/GameRoom/Game/Game.container.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/store/game/__tests__/game.subscriptions.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/__tests__/game.subscriptions.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/pages/GameRoom/Game/Game.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/pages/GameRoom/Game/Game.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/store/game/__tests__/game.reducer.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/__tests__/game.reducer.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/store/game/__tests__/game.saga.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/__tests__/game.saga.test.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/store/game/game.actions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/game.actions.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/store/game/game.api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/inferfaces/availableMoves.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/store/game/game.reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/game.reducer.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/store/game/game.saga.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/game.saga.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/store/game/game.subscriptions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/game.subscriptions.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/store/game/game.types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/game.types.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/test/fixtures/messages/fakeAvailableMovesMessage.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/test/fixtures/messages/fakeBoardMessage.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/tsconfig.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/messages/MessageTypes.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/messages/MessageTypes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/service/GameService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/service/GameService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/store/stompClient.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/stompClient.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/test/utils/MockStomp.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/test/utils/MockStomp.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/test/utils/mockStore.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/controller/GameController.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -152,7 +135,8 @@
       <workItem from="1573762516445" duration="658000" />
       <workItem from="1573844056467" duration="23610000" />
       <workItem from="1573906986962" duration="12672000" />
-      <workItem from="1573922190875" duration="6623000" />
+      <workItem from="1573922190875" duration="7220000" />
+      <workItem from="1573940726715" duration="3299000" />
     </task>
     <task id="LOCAL-00001" summary="Added gameService and corresponding websocket end points with tests.">
       <created>1573412510081</created>

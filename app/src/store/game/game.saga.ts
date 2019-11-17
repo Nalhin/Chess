@@ -1,5 +1,5 @@
 import { SagaIterator } from '@redux-saga/core';
-import { all, setContext, take, takeEvery } from '@redux-saga/core/effects';
+import { all, put, take, takeEvery } from '@redux-saga/core/effects';
 import {
   GameActionTypes,
   GameBaseActionTypes,
@@ -11,19 +11,25 @@ import {
   gamePersonalSubscription,
   gameStateSubscription,
 } from './game.subscriptions';
-import { stompFactory } from '../stompClient';
 import { userName } from './name';
 import { gameId } from './gameId';
+import { setSelectedPiece } from './game.actions';
+import { StompSingleton } from '../stompClient';
 
 export function* gameRootSaga(): SagaIterator {
   yield all([
     yield takeEvery(GameBaseActionTypes.INIT_GAME_REQUESTED, initGameSaga),
+    yield takeEvery(
+      GameBaseActionTypes.GET_AVAILABLE_MOVES_REQUESTED,
+      getAvailableMovesSaga,
+    ),
+    yield takeEvery(GameBaseActionTypes.MAKE_MOVE_REQUESTED, makeMoveSaga),
   ]);
 }
 
-function* initGameSaga(action: InitGameRequestedAction): SagaIterator {
-  const gameStomp = stompFactory();
-  yield setContext({ gameStomp });
+export function* initGameSaga(action: InitGameRequestedAction): SagaIterator {
+  const gameStomp = StompSingleton.getInstance();
+
   const gameSubscription = gameStateSubscription(gameStomp, gameId);
   const availableMoves = gamePersonalSubscription(gameStomp, gameId);
 
@@ -40,6 +46,37 @@ function* initGameSaga(action: InitGameRequestedAction): SagaIterator {
 
 function* getAvailableMovesSaga(
   action: GetAvailableMovesRequestedAction,
-): SagaIterator {}
+): SagaIterator {
+  const gameStomp = StompSingleton.getInstance();
 
-function* makeMoveSaga(action: MakeMoveRequestedAction): SagaIterator {}
+  const { initialPosition } = action.payload;
+  gameStomp.publish({
+    destination: `/app/available-moves/${gameId}`,
+    headers: { name: userName },
+    body: JSON.stringify({
+      position: initialPosition,
+    }),
+  });
+
+  gameStomp.publish({
+    destination: `/app/move/${gameId}`,
+    headers: { name: userName },
+    body: JSON.stringify({
+      playerMove: { initialPosition, destinationPosition: initialPosition },
+    }),
+  });
+  yield put(setSelectedPiece(initialPosition));
+}
+
+function* makeMoveSaga(action: MakeMoveRequestedAction): SagaIterator {
+  const gameStomp = StompSingleton.getInstance();
+
+  const { initialPosition, destinationPosition } = action.payload;
+  gameStomp.publish({
+    destination: `/app/move/${gameId}`,
+    headers: { name: userName },
+    body: JSON.stringify({
+      playerMove: { initialPosition, destinationPosition },
+    }),
+  });
+}

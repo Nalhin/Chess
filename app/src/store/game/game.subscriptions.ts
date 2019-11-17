@@ -18,7 +18,6 @@ export const gameStateSubscription = (game: RxStomp, gameId: string) => {
     .watch(`/topic/state/${gameId}`)
     .pipe(
       map(message => {
-        console.log(message);
         return JSON.parse(message.body);
       }),
     )

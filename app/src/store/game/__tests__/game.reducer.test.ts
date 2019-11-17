@@ -5,11 +5,13 @@ import {
   gameOver,
   gameStarted,
   playerMoved,
+  setSelectedPiece,
 } from '../game.actions';
 import produce from 'immer';
 import { fakeGame } from '../../../../test/fixtures/game/game';
 import { fakeAvailableMoves } from '../../../../test/fixtures/game/availableMoves';
 import { fakeAvailableMovesError } from '../../../../test/fixtures/game/availableMovesError';
+import { fakeBoardPosition } from '../../../../test/fixtures/game/boardPosition';
 
 describe('Game Reducer', () => {
   it('Should return the initial state', () => {
@@ -83,6 +85,19 @@ describe('Game Reducer', () => {
     const expectedState = { ...GAME_INITIAL_STATE };
 
     const action = availableMovesError(fakeAvailableMovesError);
+    const reducer = gameReducer(initialState, action);
+
+    expect(reducer).toEqual(expectedState);
+  });
+  it('Should handle SET_SELECTED_PIECE action type', () => {
+    const initialState = {
+      ...GAME_INITIAL_STATE,
+    };
+    const expectedState = produce(GAME_INITIAL_STATE, draft => {
+      draft.selectedPiece.position = fakeBoardPosition;
+    });
+
+    const action = setSelectedPiece(fakeBoardPosition);
     const reducer = gameReducer(initialState, action);
 
     expect(reducer).toEqual(expectedState);

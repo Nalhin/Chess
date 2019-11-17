@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { PieceType } from '../../../inferfaces/piece';
+import { BoardPosition } from '../../../inferfaces/boardPosition';
 
 const StyledCell = styled.div`
   width: 100px;
@@ -12,11 +13,17 @@ const StyledCell = styled.div`
 `;
 
 interface CellProps {
-  type: typeof PieceType;
+  type: PieceType;
+  getAvailableMoves: (position: BoardPosition) => void;
+  position: BoardPosition;
 }
 
-const Cell: React.FC<CellProps> = ({ type }) => {
-  return <StyledCell>{type}</StyledCell>;
+const Cell: React.FC<CellProps> = ({ type, getAvailableMoves, position }) => {
+  const handleGetAvailableMoves = React.useCallback(() => {
+    getAvailableMoves(position);
+  }, [position]);
+
+  return <StyledCell onClick={handleGetAvailableMoves}>{type}</StyledCell>;
 };
 
 export default Cell;

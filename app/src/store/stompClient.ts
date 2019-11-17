@@ -10,9 +10,21 @@ const stompConfig = {
   heartbeatOutgoing: 4000,
 };
 
-export const stompFactory = (): RxStomp => {
+const stompFactory = (): RxStomp => {
   const rxStomp = new RxStomp();
   rxStomp.configure(stompConfig);
   rxStomp.activate();
   return rxStomp;
 };
+
+export class StompSingleton {
+  private static instance?: RxStomp;
+  static getInstance() {
+    if (StompSingleton.instance) {
+      return StompSingleton.instance;
+    }
+    StompSingleton.instance = stompFactory();
+
+    return StompSingleton.instance;
+  }
+}
