@@ -1,19 +1,18 @@
-import { fakeBoard } from './board';
-import { Game } from '../../../src/inferfaces/game';
+import { Game, GamePhase } from '../../../src/inferfaces/game';
+import { PlayerColor } from '../../../src/inferfaces/player';
 
 export const fakeGame: Game = {
-  board: { ...fakeBoard },
+  board: {
+    state: [[]],
+    graveyards: {
+      whiteGraveyard: [],
+      blackGraveyard: [],
+    },
+  },
+  currentTurn: PlayerColor.WHITE,
+  gamePhase: GamePhase.WAITING_FOR_PLAYERS,
   players: {
-    whitePlayer: {
-      name: '19sz5n',
-    },
-    blackPlayer: {
-      name: '4l900c',
-    },
+    whitePlayer: { name: 'name' },
+    blackPlayer: { name: 'name' },
   },
-  graveyards: null,
-  currentTurn: {
-    name: '19sz5n',
-  },
-  gameState: 'STARTED',
 };

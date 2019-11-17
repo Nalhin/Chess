@@ -2,10 +2,12 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { PieceType } from '../../../inferfaces/piece';
 import { BoardPosition } from '../../../inferfaces/boardPosition';
+import { PlayerColor } from '../../../inferfaces/player';
 
 interface StyledCellProps {
   isSelected: boolean;
   isMoveAvailable: boolean;
+  playerColor: PlayerColor;
 }
 
 const StyledCell = styled.div`
@@ -15,8 +17,23 @@ const StyledCell = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  ${(props: StyledCellProps) => props.isSelected && 'background:red'}
-  ${(props: StyledCellProps) => props.isMoveAvailable && 'background:yellow'}
+  color: ${(props: StyledCellProps) => {
+    switch (props.playerColor) {
+      case PlayerColor.BLACK:
+        return 'black';
+      case PlayerColor.WHITE:
+        return 'white';
+    }
+  }};
+  background: ${(props: StyledCellProps) => {
+    if (props.isSelected) {
+      return 'red';
+    }
+    if (props.isMoveAvailable) {
+      return 'yellow';
+    }
+    return 'lightblue';
+  }};
 `;
 
 interface CellProps {
@@ -25,6 +42,8 @@ interface CellProps {
   isMoveAvailable: boolean;
   getAvailableMoves: (position: BoardPosition) => void;
   position: BoardPosition;
+  makeMove: (position: BoardPosition) => void;
+  playerColor: PlayerColor;
 }
 
 const Cell: React.FC<CellProps> = ({
@@ -33,15 +52,23 @@ const Cell: React.FC<CellProps> = ({
   position,
   isSelected,
   isMoveAvailable,
+  makeMove,
+  playerColor,
 }) => {
-  const handleGetAvailableMoves = React.useCallback(() => {
-    getAvailableMoves(position);
+  const handleOnClick = React.useCallback(() => {
+    if (isMoveAvailable) {
+      makeMove(position);
+    } else {
+      getAvailableMoves(position);
+    }
   }, [position]);
+
   return (
     <StyledCell
       isSelected={isSelected}
       isMoveAvailable={isMoveAvailable}
-      onClick={handleGetAvailableMoves}
+      onClick={handleOnClick}
+      playerColor={playerColor}
     >
       {type}
     </StyledCell>

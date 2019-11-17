@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class Bishop extends Piece {
 
     Bishop(PlayerColor playerColor) {
-        super(playerColor);
+        super(playerColor,PieceType.BISHOP);
     }
 
     @Override

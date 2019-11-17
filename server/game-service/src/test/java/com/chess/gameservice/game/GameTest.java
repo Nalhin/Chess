@@ -1,6 +1,9 @@
 package com.chess.gameservice.game;
 
 import com.chess.gameservice.game.player.Player;
+import com.chess.gameservice.game.player.PlayerColor;
+import com.chess.gameservice.game.position.Position;
+import com.chess.gameservice.moves.PlayerMove;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -36,7 +39,23 @@ class GameTest {
 
         game.initGame();
 
-        assertEquals(Game.GameState.STARTED, game.gameState);
-        assertEquals(player, game.getCurrentTurn());
+        assertEquals(Game.GamePhase.STARTED, game.gamePhase);
+        assertEquals(PlayerColor.WHITE, game.getCurrentTurn());
+    }
+
+    @Test
+    void makeMove(){
+        var game = new Game();
+
+        var testName = "testname";
+        var player = new Player(testName);
+        game.setRandomPlayer(player);
+        game.setOtherPlayer(player);
+
+        game.initGame();
+
+        game.makeMove(new PlayerMove(new Position(1,1),new Position(2,1)),game.getPlayers().getWhitePlayer());
+
+        assertEquals(game.getCurrentTurn(),PlayerColor.BLACK);
     }
 }

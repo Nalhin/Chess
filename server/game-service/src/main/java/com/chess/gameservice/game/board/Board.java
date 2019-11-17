@@ -1,5 +1,6 @@
 package com.chess.gameservice.game.board;
 
+import com.chess.gameservice.game.graveyard.Graveyards;
 import com.chess.gameservice.game.piece.Piece;
 import com.chess.gameservice.game.piece.PieceFactory;
 import com.chess.gameservice.game.piece.PieceType;
@@ -21,6 +22,7 @@ public class Board {
                     {PieceType.ROOK, PieceType.KNIGHT, PieceType.BISHOP, PieceType.QUEEN,
                             PieceType.KING, PieceType.BISHOP, PieceType.KNIGHT, PieceType.ROOK}};
 
+    private Graveyards graveyards = new Graveyards();
     private Piece[][] state;
 
     public Board() {
@@ -51,24 +53,39 @@ public class Board {
         }
     }
 
+    private Piece getPieceByPosition(Position position){
+        return state[position.getX()][position.getY()];
+    }
+
     public boolean isBoardPositionEmpty(Position position) {
         return state[position.getX()][position.getY()] == null;
     }
 
     public ArrayList<Position> getAvailableMoves(Position position) {
-        var piece = state[position.getX()][position.getY()];
+        var piece = getPieceByPosition(position);
         if (piece != null) {
-            return state[position.getX()][position.getY()].getAvailableMoves(this, position);
+            return piece.getAvailableMoves(this, position);
         }
         return new ArrayList<>();
     }
 
-    public void movePiece(Position initialPosition, Position destination) {
-        var piece = state[initialPosition.getX()][initialPosition.getY()];
+    public void movePiece(Position initialPosition, Position destination, PlayerColor playerColor) {
+        var piece = getPieceByPosition(initialPosition);
+
+        if(piece.getPlayerColor() != playerColor){
+            throw new IllegalArgumentException("Wrong piece color.");
+        }
 
         if (piece.isMoveLegal(initialPosition, destination, this)) {
+            var removedPiece = getPieceByPosition(destination);
+
+            if (removedPiece != null) {
+                graveyards.addPieceToCorrectGraveyard(removedPiece);
+            }
+
             state[destination.getX()][destination.getY()] = piece;
             state[initialPosition.getX()][initialPosition.getY()] = null;
+
         } else throw new IllegalArgumentException("Illegal move.");
     }
 }

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class King extends Piece {
 
     King(PlayerColor playerColor) {
-        super(playerColor);
+        super(playerColor,PieceType.KING);
     }
 
     @Override

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 @NoArgsConstructor
 public class Queen extends Piece {
     Queen(PlayerColor playerColor) {
-        super(playerColor);
+        super(playerColor,PieceType.QUEEN);
     }
 
     @Override

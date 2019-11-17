@@ -19,7 +19,7 @@ public class Pawn extends Piece {
     private boolean isFirstMove = true;
 
     Pawn(PlayerColor playerColor) {
-        super(playerColor);
+        super(playerColor,PieceType.PAWN);
     }
 
     @Override

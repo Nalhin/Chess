@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class Knight extends Piece {
 
     Knight(PlayerColor playerColor) {
-        super(playerColor);
+        super(playerColor,PieceType.KNIGHT);
     }
 
     @Override

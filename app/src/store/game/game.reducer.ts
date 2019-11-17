@@ -1,19 +1,21 @@
 import { GameActions, GameActionTypes, GameState } from './game.types';
 import { Reducer } from 'react';
 import produce from 'immer';
-import { Player } from '../../inferfaces/player';
+import { Player, PlayerColor } from '../../inferfaces/player';
 import { GamePhase } from '../../inferfaces/game';
 import { BoardPosition } from '../../inferfaces/boardPosition';
 
 export const GAME_INITIAL_STATE: GameState = {
-  game: {
-    board: { state: [[]] },
-    currentTurn: {} as Player,
-    gameState: GamePhase.WAITING_FOR_PLAYERS,
-    graveyards: {
-      whiteGraveyard: [],
-      blackGraveyard: [],
+  gameState: {
+    board: {
+      state: [[]],
+      graveyards: {
+        whiteGraveyard: [],
+        blackGraveyard: [],
+      },
     },
+    currentTurn: PlayerColor.WHITE,
+    gamePhase: GamePhase.WAITING_FOR_PLAYERS,
     players: {
       whitePlayer: {} as Player,
       blackPlayer: {} as Player,
@@ -32,13 +34,14 @@ const gameReducer: Reducer<GameState, GameActions> = (
   return produce(state, draft => {
     switch (action.type) {
       case GameActionTypes.GAME_STARTED:
-        draft.game = action.payload.game;
+        draft.gameState = action.payload.game;
         break;
       case GameActionTypes.PLAYER_MOVED:
-        draft.game = action.payload.game;
+        draft.gameState = action.payload.game;
+        draft.selectedPiece = GAME_INITIAL_STATE.selectedPiece;
         break;
       case GameActionTypes.GAME_OVER:
-        draft.game = action.payload.game;
+        draft.gameState = action.payload.game;
         break;
       case GameActionTypes.AVAILABLE_MOVES:
         draft.selectedPiece = action.payload;

@@ -48,7 +48,6 @@ public class GameService {
         var game = games.get(gameId);
         var player = new Player(playerName);
         game.makeMove(playerMove, player);
-
         return game;
     }
 }

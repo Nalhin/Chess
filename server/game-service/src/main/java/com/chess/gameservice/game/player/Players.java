@@ -6,6 +6,17 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Players {
-    Player whitePlayer;
-    Player blackPlayer;
+    private Player whitePlayer;
+    private Player blackPlayer;
+
+    public Player getPlayerByColor(PlayerColor playerColor){
+        switch (playerColor){
+            case WHITE:
+                return whitePlayer;
+            case BLACK:
+                return blackPlayer;
+            default:
+                return null;
+        }
+    }
 }

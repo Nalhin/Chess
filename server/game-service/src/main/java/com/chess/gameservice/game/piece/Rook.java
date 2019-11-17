@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class Rook extends Piece {
 
     Rook(PlayerColor playerColor) {
-        super(playerColor);
+        super(playerColor,PieceType.ROOK);
     }
 
     @Override

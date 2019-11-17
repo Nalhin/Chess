@@ -6,16 +6,24 @@ import { RootAction } from '../../../store/rootAction';
 import {
   getAvailableMovesRequested,
   initGameRequested,
+  makeMoveRequested,
 } from '../../../store/game/game.actions';
+import { isCurrentTurnSelector } from '../../../store/game/game.selectors';
 
 const mapStateToProps = (state: AppState) => {
-  const board = state.game.game.board.state;
+  const board = state.game.gameState.board.state;
+  const currentTurn = state.game.gameState.currentTurn;
   const selectedPosition = state.game.selectedPiece.position;
   const availableMoves = state.game.selectedPiece.availableMoves;
+  const graveyards = state.game.gameState.board.graveyards;
+  const isCurrentTurn = isCurrentTurnSelector(state);
   return {
     board,
     selectedPosition,
     availableMoves,
+    currentTurn,
+    isCurrentTurn,
+    graveyards,
   };
 };
 
@@ -24,6 +32,7 @@ const mapDispatchToProps = (dispatch: Dispatch<RootAction>) =>
     {
       initGame: initGameRequested,
       getAvailableMoves: getAvailableMovesRequested,
+      makeMove: makeMoveRequested,
     },
     dispatch,
   );

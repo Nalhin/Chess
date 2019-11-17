@@ -21,6 +21,7 @@ describe('initGameSaga', () => {
 
     testSaga(initGameSaga)
       .next()
+      .next({ name: 'xd' })
       .take(GameActionTypes.GAME_OVER)
       .next()
       .isDone();

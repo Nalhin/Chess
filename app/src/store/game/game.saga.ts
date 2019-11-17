@@ -1,5 +1,5 @@
 import { SagaIterator } from '@redux-saga/core';
-import { all, take, takeEvery } from '@redux-saga/core/effects';
+import { all, select, take, takeEvery } from '@redux-saga/core/effects';
 import {
   GameActionTypes,
   GameBaseActionTypes,
@@ -11,9 +11,10 @@ import {
   gamePersonalSubscription,
   gameStateSubscription,
 } from './game.subscriptions';
-import { userName } from './name';
 import { gameId } from './gameId';
 import { StompSingleton } from '../stompClient';
+import { getSelectedPiece } from './game.selectors';
+import { userSelector } from '../user/user.selectors';
 
 export function* gameRootSaga(): SagaIterator {
   yield all([
@@ -32,9 +33,11 @@ export function* initGameSaga(action: InitGameRequestedAction): SagaIterator {
   const gameSubscription = gameStateSubscription(gameStomp, gameId);
   const availableMoves = gamePersonalSubscription(gameStomp, gameId);
 
+  const { name } = yield select(userSelector);
+
   gameStomp.publish({
     destination: `/app/connect/${gameId}`,
-    headers: { name: userName },
+    headers: { name },
   });
 
   yield take(GameActionTypes.GAME_OVER);
@@ -47,11 +50,12 @@ function* getAvailableMovesSaga(
   action: GetAvailableMovesRequestedAction,
 ): SagaIterator {
   const gameStomp = StompSingleton.getInstance();
+  const { name } = yield select(userSelector);
 
   const { initialPosition } = action.payload;
   gameStomp.publish({
     destination: `/app/available-moves/${gameId}`,
-    headers: { name: userName },
+    headers: { name: name },
     body: JSON.stringify(initialPosition),
   });
 }
@@ -59,12 +63,13 @@ function* getAvailableMovesSaga(
 function* makeMoveSaga(action: MakeMoveRequestedAction): SagaIterator {
   const gameStomp = StompSingleton.getInstance();
 
-  const { initialPosition, destinationPosition } = action.payload;
+  const initialPosition = yield select(getSelectedPiece);
+  const { name } = yield select(userSelector);
+
+  const { destinationPosition } = action.payload;
   gameStomp.publish({
     destination: `/app/move/${gameId}`,
-    headers: { name: userName },
-    body: JSON.stringify({
-      playerMove: { initialPosition, destinationPosition },
-    }),
+    headers: { name },
+    body: JSON.stringify({ initialPosition, destinationPosition }),
   });
 }

@@ -111,12 +111,10 @@ export const GetAvailableMovesFailed = (): GetAvailableMovesFailedAction => ({
 });
 
 export const makeMoveRequested = (
-  initialPosition: BoardPosition,
   destinationPosition: BoardPosition,
 ): MakeMoveRequestedAction => ({
   type: GameBaseActionTypes.MAKE_MOVE_REQUESTED,
   payload: {
-    initialPosition,
     destinationPosition,
   },
 });

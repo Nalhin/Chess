@@ -1,5 +1,6 @@
 import { Piece } from './piece';
-import { Player } from './player';
+import { PlayerColor } from './player';
+import { Players } from './players';
 
 export enum GamePhase {
   WAITING_FOR_PLAYERS = 'WAITING_FOR_PLAYERS',
@@ -8,15 +9,15 @@ export enum GamePhase {
 }
 
 export interface Game {
-  board: { state: Piece[][] };
-  currentTurn: Player;
-  gameState: GamePhase;
-  graveyards: {
-    whiteGraveyard: Piece[];
-    blackGraveyard: Piece[];
+  board: {
+    state: Piece[][];
+    graveyards: {
+      whiteGraveyard: Piece[];
+      blackGraveyard: Piece[];
+    };
   };
-  players: {
-    whitePlayer: Player;
-    blackPlayer: Player;
-  };
+  currentTurn: PlayerColor;
+  gamePhase: GamePhase;
+
+  players: Players;
 }

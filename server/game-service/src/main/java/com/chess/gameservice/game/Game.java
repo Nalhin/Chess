@@ -1,7 +1,6 @@
 package com.chess.gameservice.game;
 
 import com.chess.gameservice.game.board.Board;
-import com.chess.gameservice.game.graveyard.Graveyards;
 import com.chess.gameservice.game.player.Player;
 import com.chess.gameservice.game.player.PlayerColor;
 import com.chess.gameservice.game.player.Players;
@@ -15,15 +14,14 @@ import java.util.Random;
 @Getter
 @Setter
 public class Game {
-    enum GameState {
+    enum GamePhase {
         WAITING_FOR_PLAYERS, STARTED, GAME_OVER
     }
 
     Board board = new Board();
     Players players = new Players();
-    Graveyards graveyards;
-    Player currentTurn;
-    GameState gameState = GameState.WAITING_FOR_PLAYERS;
+    PlayerColor currentTurn;
+    GamePhase gamePhase = GamePhase.WAITING_FOR_PLAYERS;
 
 
     public void setRandomPlayer(Player player) {
@@ -44,14 +42,26 @@ public class Game {
         }
     }
 
-    public void makeMove(PlayerMove playerMove, Player player) {
-        if (currentTurn.equals(player)) {
-            board.movePiece(playerMove.getInitialPosition(), playerMove.getDestinationPosition());
+    public void makeMove(PlayerMove playerMove, Player player){
+        if (players.getPlayerByColor(currentTurn).equals(player)) {
+            board.movePiece(playerMove.getInitialPosition(), playerMove.getDestinationPosition(),currentTurn);
+            changeTurn();
+        }
+    }
+
+    private void changeTurn() {
+        switch (currentTurn) {
+            case BLACK:
+                currentTurn = PlayerColor.WHITE;
+                break;
+            case WHITE:
+                currentTurn = PlayerColor.BLACK;
+                break;
         }
     }
 
     public void initGame() {
-        gameState = GameState.STARTED;
-        currentTurn = players.getWhitePlayer();
+        gamePhase = GamePhase.STARTED;
+        currentTurn = PlayerColor.WHITE;
     }
 }

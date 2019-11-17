@@ -19,7 +19,7 @@ describe('Game Reducer', () => {
       ...GAME_INITIAL_STATE,
     };
     const expectedState = produce(GAME_INITIAL_STATE, draft => {
-      draft.game = fakeGame;
+      draft.gameState = fakeGame;
     });
 
     const action = gameStarted(fakeGame);
@@ -33,7 +33,7 @@ describe('Game Reducer', () => {
       ...GAME_INITIAL_STATE,
     };
     const expectedState = produce(GAME_INITIAL_STATE, draft => {
-      draft.game = fakeGame;
+      draft.gameState = fakeGame;
     });
 
     const action = playerMoved(fakeGame);
@@ -47,7 +47,7 @@ describe('Game Reducer', () => {
       ...GAME_INITIAL_STATE,
     };
     const expectedState = produce(GAME_INITIAL_STATE, draft => {
-      draft.game = fakeGame;
+      draft.gameState = fakeGame;
     });
 
     const action = gameOver(fakeGame);

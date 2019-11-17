@@ -4,7 +4,7 @@ import { BoardPosition } from '../../inferfaces/boardPosition';
 import { AvailableMoves } from '../../inferfaces/availableMoves';
 
 export interface GameState {
-  readonly game: Game;
+  readonly gameState: Game;
   readonly selectedPiece: {
     position: BoardPosition;
     availableMoves: AvailableMoves;
@@ -124,7 +124,6 @@ export interface GetAvailableMovesFailedAction {
 export interface MakeMoveRequestedAction {
   type: typeof GameBaseActionTypes.MAKE_MOVE_REQUESTED;
   payload: {
-    initialPosition: BoardPosition;
     destinationPosition: BoardPosition;
   };
 }

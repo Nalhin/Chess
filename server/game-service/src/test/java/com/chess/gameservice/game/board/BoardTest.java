@@ -4,6 +4,7 @@ import com.chess.gameservice.game.piece.King;
 import com.chess.gameservice.game.piece.Pawn;
 import com.chess.gameservice.game.piece.Queen;
 import com.chess.gameservice.game.piece.Rook;
+import com.chess.gameservice.game.player.PlayerColor;
 import com.chess.gameservice.game.position.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -56,10 +57,21 @@ class BoardTest {
         var pawnPosition = new Position(1, 0);
         var legalDestinationPosition = new Position(3, 0);
 
-        board.movePiece(pawnPosition, legalDestinationPosition);
+        board.movePiece(pawnPosition, legalDestinationPosition, PlayerColor.WHITE);
         var newPawnPosition = board.getState()[legalDestinationPosition.getX()][legalDestinationPosition.getY()];
 
         assertTrue(newPawnPosition instanceof Pawn);
+    }
+
+    @Test
+    void movePieceWrongColor(){
+        var pawnPosition = new Position(1, 0);
+        var destinationPosition = new Position(2, 0);
+
+        assertThrows(IllegalArgumentException.class, () -> board.movePiece(pawnPosition, destinationPosition,PlayerColor.BLACK));
+
+        var newPawnPosition = board.getState()[destinationPosition.getX()][destinationPosition.getY()];
+        assertNull(newPawnPosition);
     }
 
     @Test
@@ -67,7 +79,7 @@ class BoardTest {
         var pawnPosition = new Position(1, 0);
         var illegalDestinationPosition = new Position(4, 0);
 
-        assertThrows(IllegalArgumentException.class, () -> board.movePiece(pawnPosition, illegalDestinationPosition));
+        assertThrows(IllegalArgumentException.class, () -> board.movePiece(pawnPosition, illegalDestinationPosition,PlayerColor.WHITE));
 
         var newPawnPosition = board.getState()[illegalDestinationPosition.getX()][illegalDestinationPosition.getY()];
         assertNull(newPawnPosition);
