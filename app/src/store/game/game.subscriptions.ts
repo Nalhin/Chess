@@ -59,7 +59,7 @@ export const gamePersonalSubscription = (game: RxStomp, gameId: string) => {
               availableMoves(payload.availableMoves, payload.position),
             );
             break;
-          case GamePersonalSubscriptionActionTypes.AVAILABLE_MOVES_ERROR:
+          case GamePersonalSubscriptionActionTypes.GAME_ERROR:
             store.dispatch(availableMovesError(payload.error));
             break;
           default:

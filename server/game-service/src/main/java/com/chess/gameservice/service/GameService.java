@@ -4,8 +4,8 @@ import com.chess.gameservice.game.Game;
 import com.chess.gameservice.game.player.Player;
 import com.chess.gameservice.game.player.PlayerColor;
 import com.chess.gameservice.game.position.Position;
-import com.chess.gameservice.moves.AvailableMoves;
-import com.chess.gameservice.moves.PlayerMove;
+import com.chess.gameservice.models.AvailableMoves;
+import com.chess.gameservice.models.PlayerMove;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -24,7 +24,7 @@ public class GameService {
             games.put(gameId, null);
             game = new Game();
             var player = new Player(playerName);
-            game.setPlayer(player,PlayerColor.WHITE);
+            game.setPlayer(player, PlayerColor.WHITE);
             games.put(gameId, game);
 
             return null;
@@ -37,11 +37,12 @@ public class GameService {
         return game;
     }
 
-    public AvailableMoves getAvailableMoves(UUID gameId, Position position) {
+    public AvailableMoves getAvailableMoves(UUID gameId, Position position, String name) {
         var game = games.get(gameId);
+        var player = new Player(name);
         var availableMoves = new AvailableMoves();
         availableMoves.setPosition(position);
-        availableMoves.setAvailableMoves(game.getBoard().getAvailableMoves(position));
+        availableMoves.setAvailableMoves(game.getAvailableMoves(position, player));
         return availableMoves;
     }
 

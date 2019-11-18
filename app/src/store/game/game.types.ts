@@ -27,7 +27,7 @@ export enum GameBaseActionTypes {
 
 export enum GamePersonalSubscriptionActionTypes {
   AVAILABLE_MOVES = 'AVAILABLE_MOVES',
-  AVAILABLE_MOVES_ERROR = 'AVAILABLE_MOVES_ERROR',
+  GAME_ERROR = 'AVAILABLE_MOVES_ERROR',
 }
 
 export enum GameStateSubscriptionActionTypes {
@@ -76,7 +76,7 @@ export interface AvailableMovesSubscriptionAction {
 }
 
 export interface AvailableMovesErrorSubscriptionAction {
-  type: typeof GamePersonalSubscriptionActionTypes.AVAILABLE_MOVES_ERROR;
+  type: typeof GamePersonalSubscriptionActionTypes.GAME_ERROR;
   payload: {
     error: string;
   };

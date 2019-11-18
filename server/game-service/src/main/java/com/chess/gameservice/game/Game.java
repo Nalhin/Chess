@@ -4,9 +4,12 @@ import com.chess.gameservice.game.board.Board;
 import com.chess.gameservice.game.player.Player;
 import com.chess.gameservice.game.player.PlayerColor;
 import com.chess.gameservice.game.player.Players;
-import com.chess.gameservice.moves.PlayerMove;
+import com.chess.gameservice.game.position.Position;
+import com.chess.gameservice.models.PlayerMove;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.ArrayList;
 
 
 @Getter
@@ -27,9 +30,14 @@ public class Game {
     }
 
     public void makeMove(PlayerMove playerMove, Player player){
-        if (players.getPlayerByColor(currentTurn).equals(player)) {
-            board.movePiece(playerMove.getInitialPosition(), playerMove.getDestinationPosition(),currentTurn);
-            changeTurn();
+        checkIfPlayerTurn(player);
+        board.movePiece(playerMove.getInitialPosition(), playerMove.getDestinationPosition(), currentTurn);
+        changeTurn();
+    }
+
+    private void checkIfPlayerTurn(Player player) throws IllegalArgumentException {
+        if (!players.getPlayerByColor(currentTurn).equals(player)) {
+            throw new IllegalArgumentException("Wrong turn.");
         }
     }
 
@@ -42,6 +50,11 @@ public class Game {
                 currentTurn = PlayerColor.BLACK;
                 break;
         }
+    }
+
+    public ArrayList<Position> getAvailableMoves(Position position, Player player) {
+        checkIfPlayerTurn(player);
+        return board.getAvailableMoves(position);
     }
 
     public void initGame() {

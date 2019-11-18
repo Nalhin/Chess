@@ -58,7 +58,7 @@ export const availableMoves = (
 export const availableMovesError = (
   error: string,
 ): AvailableMovesErrorSubscriptionAction => ({
-  type: GamePersonalSubscriptionActionTypes.AVAILABLE_MOVES_ERROR,
+  type: GamePersonalSubscriptionActionTypes.GAME_ERROR,
   payload: {
     error,
   },

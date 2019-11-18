@@ -3,26 +3,34 @@ package com.chess.gameservice.game;
 import com.chess.gameservice.game.player.Player;
 import com.chess.gameservice.game.player.PlayerColor;
 import com.chess.gameservice.game.position.Position;
-import com.chess.gameservice.moves.PlayerMove;
+import com.chess.gameservice.models.PlayerMove;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class GameTest {
 
+    private Game game;
+    private Player firstPlayer;
+    private Player secondPlayer;
+    private final String firstPlayerName = "firstPlayerName";
+    private final String secondPlayerName = "secondPlayerName";
+
     @BeforeEach
     void setUp() {
+        game = new Game();
+        firstPlayer = new Player(firstPlayerName);
+        secondPlayer = new Player(secondPlayerName);
     }
 
     @Test
     void initGame() {
-        var game = new Game();
-
-        var testName = "testname";
-        var player = new Player(testName);
-        game.setPlayer(player,PlayerColor.WHITE);
-        game.setPlayer(player,PlayerColor.BLACK);
+        game.setPlayer(firstPlayer, PlayerColor.WHITE);
+        game.setPlayer(secondPlayer, PlayerColor.BLACK);
 
         game.initGame();
 
@@ -31,18 +39,53 @@ class GameTest {
     }
 
     @Test
-    void makeMove(){
-        var game = new Game();
+    void makeMove() {
+        game.setPlayer(firstPlayer, PlayerColor.WHITE);
+        game.setPlayer(secondPlayer, PlayerColor.BLACK);
+        var playerMove = new PlayerMove(new Position(6, 1), new Position(5, 1));
 
-        var testName = "testname";
-        var player = new Player(testName);
-        game.setPlayer(player,PlayerColor.WHITE);
-        game.setPlayer(player,PlayerColor.BLACK);
+        game.initGame();
+        game.makeMove(playerMove, firstPlayer);
+
+        assertEquals(game.getCurrentTurn(), PlayerColor.BLACK);
+    }
+
+    @Test
+    void makeMoveShouldThrowErrorIfNotPlayerTurn() {
+        game.setPlayer(firstPlayer, PlayerColor.WHITE);
+        game.setPlayer(secondPlayer, PlayerColor.BLACK);
+        var playerMove = new PlayerMove(new Position(1, 0), new Position(2, 0));
 
         game.initGame();
 
-        game.makeMove(new PlayerMove(new Position(6,1),new Position(5,1)),game.getPlayers().getWhitePlayer());
-
-        assertEquals(game.getCurrentTurn(),PlayerColor.BLACK);
+        assertThrows(IllegalArgumentException.class, () -> game.makeMove(playerMove, secondPlayer));
     }
+
+    @Test
+    void getAvailableMoves() {
+        game.setPlayer(firstPlayer, PlayerColor.WHITE);
+        game.setPlayer(secondPlayer, PlayerColor.BLACK);
+        var position = new Position(6, 0);
+        var expectedMoves = new ArrayList<Position>();
+        expectedMoves.add(new Position(5, 0));
+        expectedMoves.add(new Position(4, 0));
+
+        game.initGame();
+        var actualMoves = game.getAvailableMoves(position, firstPlayer);
+
+        assertEquals(expectedMoves, actualMoves);
+    }
+
+
+    @Test
+    void getAvailableMovesShouldThrowErrorIfNotPlayerTurn() {
+        game.setPlayer(firstPlayer, PlayerColor.WHITE);
+        game.setPlayer(secondPlayer, PlayerColor.BLACK);
+        var position = new Position(6, 1);
+
+        game.initGame();
+
+        assertThrows(IllegalArgumentException.class, () -> game.getAvailableMoves(position, secondPlayer));
+    }
+
 }

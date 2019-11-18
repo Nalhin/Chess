@@ -2,13 +2,19 @@ package com.chess.gameservice.controller;
 
 import com.chess.gameservice.game.Game;
 import com.chess.gameservice.game.position.Position;
-import com.chess.gameservice.messages.*;
-import com.chess.gameservice.moves.AvailableMoves;
-import com.chess.gameservice.moves.AvailableMovesError;
-import com.chess.gameservice.moves.PlayerMove;
+import com.chess.gameservice.messages.AvailableMovesMessage;
+import com.chess.gameservice.messages.GameErrorMessage;
+import com.chess.gameservice.messages.GameStartedMessage;
+import com.chess.gameservice.messages.PlayerMovedMessage;
+import com.chess.gameservice.models.AvailableMoves;
+import com.chess.gameservice.models.GameError;
+import com.chess.gameservice.models.PlayerMove;
 import com.chess.gameservice.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.handler.annotation.*;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
+import org.springframework.messaging.handler.annotation.Header;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessageType;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -39,7 +45,7 @@ public class GameController {
     }
 
     @MessageMapping("/move/{gameId}")
-    public void move(@DestinationVariable String gameId, @Payload PlayerMove playerMove, @Header("name") String name, @Header("simpSessionId") String sessionId) {
+    public void makeMove(@DestinationVariable String gameId, @Payload PlayerMove playerMove, @Header("name") String name, @Header("simpSessionId") String sessionId) {
         try {
             Game game = gameService.makeMove(UUID.fromString(gameId), playerMove, name);
             var playerMovedMessage = new PlayerMovedMessage();
@@ -47,26 +53,29 @@ public class GameController {
             simpMessagingTemplate.convertAndSend("/topic/state/" + gameId, playerMovedMessage);
 
         } catch (IllegalArgumentException e) {
-            SimpMessageHeaderAccessor headerAccessor = SimpMessageHeaderAccessor.create(SimpMessageType.MESSAGE);
+            var headerAccessor = SimpMessageHeaderAccessor.create(SimpMessageType.MESSAGE);
             headerAccessor.setSessionId(sessionId);
-            headerAccessor.setLeaveMutable(true);
-            var availableMovesErrorMessage = new AvailableMovesErrorMessage();
-            availableMovesErrorMessage.setPayload(new AvailableMovesError(e.getMessage()));
-            simpMessagingTemplate.convertAndSendToUser(sessionId, "/queue/personal/" + gameId, availableMovesErrorMessage, headerAccessor.getMessageHeaders());
+
+            var errorMessage = new GameErrorMessage();
+            errorMessage.setPayload(new GameError(e.getMessage()));
+            simpMessagingTemplate.convertAndSendToUser(sessionId, "/queue/personal/" + gameId, errorMessage, headerAccessor.getMessageHeaders());
         }
     }
 
     @MessageMapping("/available-moves/{gameId}")
-    public void availableMoves(@DestinationVariable String gameId, @Payload Position position, @Header("simpSessionId") String sessionId) {
-        AvailableMoves availableMoves = gameService.getAvailableMoves(UUID.fromString(gameId), position);
-
-        SimpMessageHeaderAccessor headerAccessor = SimpMessageHeaderAccessor.create(SimpMessageType.MESSAGE);
+    public void availableMoves(@DestinationVariable String gameId, @Payload Position position, @Header("name") String name, @Header("simpSessionId") String sessionId) {
+        var headerAccessor = SimpMessageHeaderAccessor.create(SimpMessageType.MESSAGE);
         headerAccessor.setSessionId(sessionId);
-        headerAccessor.setLeaveMutable(true);
+        try {
+            AvailableMoves availableMoves = gameService.getAvailableMoves(UUID.fromString(gameId), position, name);
+            var availableMovesMessage = new AvailableMovesMessage();
+            availableMovesMessage.setPayload(availableMoves);
+            simpMessagingTemplate.convertAndSendToUser(sessionId, "/queue/personal/" + gameId, availableMovesMessage, headerAccessor.getMessageHeaders());
+        } catch (IllegalArgumentException e) {
+            var errorMessage = new GameErrorMessage();
+            errorMessage.setPayload(new GameError(e.getMessage()));
+            simpMessagingTemplate.convertAndSendToUser(sessionId, "/queue/personal/" + gameId, errorMessage, headerAccessor.getMessageHeaders());
+        }
 
-        var availableMovesMessage = new AvailableMovesMessage();
-        availableMovesMessage.setPayload(availableMoves);
-        simpMessagingTemplate.convertAndSendToUser(sessionId, "/queue/personal/" + gameId, availableMovesMessage, headerAccessor.getMessageHeaders())
-        ;
     }
 }

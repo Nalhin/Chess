@@ -69,7 +69,7 @@ describe('Game Reducer', () => {
 
     expect(reducer).toEqual(expectedState);
   });
-  it('Should handle AVAILABLE_MOVES_ERROR action type', () => {
+  it('Should handle GAME_ERROR action type', () => {
     const initialState = {
       ...GAME_INITIAL_STATE,
     };

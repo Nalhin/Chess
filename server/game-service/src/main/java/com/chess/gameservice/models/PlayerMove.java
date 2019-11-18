@@ -1,4 +1,4 @@
-package com.chess.gameservice.moves;
+package com.chess.gameservice.models;
 
 import com.chess.gameservice.game.position.Position;
 import lombok.Getter;

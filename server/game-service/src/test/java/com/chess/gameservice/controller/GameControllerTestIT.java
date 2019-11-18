@@ -2,12 +2,13 @@ package com.chess.gameservice.controller;
 
 import com.chess.gameservice.game.position.Position;
 import com.chess.gameservice.messages.MessageTypes;
-import com.chess.gameservice.moves.PlayerMove;
+import com.chess.gameservice.models.PlayerMove;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -29,9 +30,11 @@ import java.util.concurrent.TimeoutException;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+@Tag("integration-test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class GameControllerTestIntegrationTest {
+class GameControllerTestIT {
 
     @LocalServerPort
     private int port;
@@ -44,8 +47,11 @@ class GameControllerTestIntegrationTest {
     private final String SUBSCRIBE_PERSONAL_ENDPOINT = "/user/queue/personal/";
 
     private final String CONNECT_TO_GAME_ENDPOINT = "/app/connect/";
-    private final String MOVE_ENDPOINT = "/app/move/";
+    private final String MAKE_MOVE_ENDPOINT = "/app/move/";
     private final String AVAILABLE_MOVES_ENDPOINT = "/app/available-moves/";
+
+    private final String firstPlayerName = "firstPlayerName";
+    private final String secondPlayerName = "secondPlayerName";
 
     private LinkedBlockingDeque<JSONObject> blockingQueue;
 
@@ -67,12 +73,14 @@ class GameControllerTestIntegrationTest {
         objectMapper = new ObjectMapper();
     }
 
-    void startGame() {
+    void startGame() throws InterruptedException {
         stompHeaders.setDestination(CONNECT_TO_GAME_ENDPOINT + gameId);
-        stompHeaders.set("name", "test");
+        stompHeaders.set("name", firstPlayerName);
         stompSession.send(stompHeaders, null);
 
-        stompHeaders.set("name", "test1");
+        Thread.sleep(1000); //Ensure that first player connects first
+
+        stompHeaders.set("name", secondPlayerName);
         stompSession.send(stompHeaders, null);
     }
 
@@ -89,19 +97,38 @@ class GameControllerTestIntegrationTest {
 
 
     @Test
-    void move() throws InterruptedException, JSONException, JsonProcessingException {
+    void makeMove() throws InterruptedException, JSONException, JsonProcessingException {
         var subscription = stompSession.subscribe(SUBSCRIBE_STATE_ENDPOINT + gameId, new CreateStompFrameHandler());
 
         startGame();
         blockingQueue.poll(10, SECONDS);
 
-        var moves = objectMapper.writeValueAsBytes(new PlayerMove(new Position(6, 0), new Position(5, 0)));
-        stompHeaders.setDestination(MOVE_ENDPOINT + gameId);
-        stompHeaders.set("name", "test1");
-        stompSession.send(stompHeaders, moves);
+        var playerMove = objectMapper.writeValueAsBytes(new PlayerMove(new Position(6, 0), new Position(5, 0)));
+        stompHeaders.setDestination(MAKE_MOVE_ENDPOINT + gameId);
+        stompHeaders.set("name", firstPlayerName);
+        stompSession.send(stompHeaders, playerMove);
 
         var message = blockingQueue.poll(10, SECONDS);
-        assertEquals(message.get("type"), MessageTypes.PLAYER_MOVED.toString());
+        assertNotNull(message);
+        assertEquals(MessageTypes.PLAYER_MOVED.toString(), message.get("type"));
+        subscription.unsubscribe();
+    }
+
+    @Test
+    void makeMoveError() throws InterruptedException, JSONException, JsonProcessingException {
+        var subscription = stompSession.subscribe(SUBSCRIBE_PERSONAL_ENDPOINT + gameId, new CreateStompFrameHandler());
+
+        startGame();
+        blockingQueue.poll(10, SECONDS);
+
+        var playerMove = objectMapper.writeValueAsBytes(new PlayerMove(new Position(1, 0), new Position(2, 0)));
+        stompHeaders.setDestination(MAKE_MOVE_ENDPOINT + gameId);
+        stompHeaders.set("name", firstPlayerName);
+        stompSession.send(stompHeaders, playerMove);
+
+        var message = blockingQueue.poll(10, SECONDS);
+        assertNotNull(message);
+        assertEquals(MessageTypes.GAME_ERROR.toString(), message.get("type"));
         subscription.unsubscribe();
     }
 
@@ -112,11 +139,32 @@ class GameControllerTestIntegrationTest {
         startGame();
         blockingQueue.poll(10, SECONDS);
 
-        var move = objectMapper.writeValueAsBytes(new Position(1, 0));
-        stompSession.send(AVAILABLE_MOVES_ENDPOINT + gameId, move);
+        var move = objectMapper.writeValueAsBytes(new Position(6, 0));
+        stompHeaders.setDestination(AVAILABLE_MOVES_ENDPOINT + gameId);
+        stompHeaders.set("name", firstPlayerName);
+        stompSession.send(stompHeaders, move);
 
         var message = blockingQueue.poll(10, SECONDS);
-        assertEquals(message.get("type"), MessageTypes.AVAILABLE_MOVES.toString());
+        assertNotNull(message);
+        assertEquals(MessageTypes.AVAILABLE_MOVES.toString(), message.get("type"));
+        subscription.unsubscribe();
+    }
+
+    @Test
+    void availableMovesError() throws InterruptedException, JsonProcessingException, JSONException {
+        var subscription = stompSession.subscribe(SUBSCRIBE_PERSONAL_ENDPOINT + gameId, new CreateStompFrameHandler());
+
+        startGame();
+        blockingQueue.poll(10, SECONDS);
+
+        var move = objectMapper.writeValueAsBytes(new Position(1, 0));
+        stompHeaders.setDestination(AVAILABLE_MOVES_ENDPOINT + gameId);
+        stompHeaders.set("name", secondPlayerName);
+        stompSession.send(stompHeaders, move);
+
+        var message = blockingQueue.poll(10, SECONDS);
+        assertNotNull(message);
+        assertEquals(MessageTypes.GAME_ERROR.toString(), message.get("type"));
         subscription.unsubscribe();
     }
 

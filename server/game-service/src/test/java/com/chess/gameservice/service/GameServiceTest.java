@@ -3,8 +3,8 @@ package com.chess.gameservice.service;
 import com.chess.gameservice.game.Game;
 import com.chess.gameservice.game.piece.Pawn;
 import com.chess.gameservice.game.position.Position;
-import com.chess.gameservice.moves.AvailableMoves;
-import com.chess.gameservice.moves.PlayerMove;
+import com.chess.gameservice.models.AvailableMoves;
+import com.chess.gameservice.models.PlayerMove;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -51,7 +51,7 @@ class GameServiceTest {
         expectedAvailableMoves.setPosition(pawnPosition);
         expectedAvailableMoves.setAvailableMoves(expectedMoves);
 
-        var availableMoves = gameService.getAvailableMoves(gameId, pawnPosition);
+        var availableMoves = gameService.getAvailableMoves(gameId, pawnPosition, firstPlayerName);
 
         assertEquals(expectedAvailableMoves, availableMoves);
     }
