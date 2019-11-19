@@ -4,6 +4,7 @@ import { testSaga } from 'redux-saga-test-plan';
 import { GameActionTypes } from '../game.types';
 import { initGameSaga } from '../game.saga';
 import MockStomp from '../../../../test/utils/MockStomp';
+import { initGameRequested } from '../game.actions';
 
 jest.mock('../../stompClient', () => ({
   StompSingleton: {
@@ -18,8 +19,9 @@ describe('initGameSaga', () => {
     stomp.StompSingleton.getInstance.mockImplementation(() => {
       return mockStomp;
     });
+    const action = initGameRequested('1');
 
-    testSaga(initGameSaga)
+    testSaga(initGameSaga, action)
       .next()
       .next({ name: 'xd' })
       .take(GameActionTypes.GAME_OVER)

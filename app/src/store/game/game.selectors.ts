@@ -4,7 +4,9 @@ import { userSelector } from '../user/user.selectors';
 import { createSelector } from 'reselect';
 import { isEqual } from 'lodash';
 
-export const getSelectedPiece = (state: AppState) =>
+export const gameIdSelector = (state: AppState) => state.game.gameId;
+
+export const selectedPieceSelector = (state: AppState) =>
   state.game.selectedPiece.position;
 
 const gamePlayersSelector = (state: AppState) => state.game.gameState.players;

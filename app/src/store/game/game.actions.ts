@@ -73,8 +73,11 @@ export const setSelectedPiece = (
   },
 });
 
-export const initGameRequested = (): InitGameRequestedAction => ({
+export const initGameRequested = (id: string): InitGameRequestedAction => ({
   type: GameBaseActionTypes.INIT_GAME_REQUESTED,
+  payload: {
+    id,
+  },
 });
 
 export const initGameSucceeded = (board: Board): InitGameSucceededAction => ({

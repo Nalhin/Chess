@@ -2,31 +2,26 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1a7ea4df-7109-434c-b6f4-b656b4a0d49c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations/Game_Service_Application.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations/Game_Service_Integration_Test.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations/Game_Service_Test.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations/Game_Service_Unit_Test.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations/Run_All_Containers.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/test/fixtures/game/gameId.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/game-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/Game_Service_Application.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/Game_Service_Application.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/pages/GameRoom/Game/Game.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/pages/GameRoom/Game/Game.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/store/game/__tests__/game.reducer.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/__tests__/game.reducer.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/store/game/__tests__/game.saga.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/__tests__/game.saga.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/store/game/__tests__/game.subscriptions.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/__tests__/game.subscriptions.test.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/store/game/game.actions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/game.actions.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/store/game/game.reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/game.reducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/store/game/game.subscriptions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/game.subscriptions.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/store/game/game.saga.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/game.saga.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/store/game/game.selectors.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/game.selectors.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/store/game/game.types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/game.types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/store/game/gameId.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/store/stompClient.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/stompClient.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/test/fixtures/fakeGameId.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/game-service/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/controller/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/game/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/messages/AvailableMovesErrorMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/messages/GameErrorMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/messages/AvailableMovesMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/messages/AvailableMovesMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/messages/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/messages/Message.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/messages/MessageTypes.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/messages/MessageTypes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/moves/AvailableMoves.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/models/AvailableMoves.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/moves/AvailableMovesError.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/models/GameError.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/moves/PlayerMove.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/models/PlayerMove.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/service/GameService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/service/GameService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/controller/GameControllerTestIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/controller/GameControllerTestIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/game/GameTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/game/GameTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/messages/AvailableMovesErrorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/messages/GameErrorMessageTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/messages/AvailableMovesMessageTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/messages/AvailableMovesMessageTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/service/GameServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/service/GameServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/resources/application.properties" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -36,6 +31,9 @@
   </component>
   <component name="CodeInsightWorkspaceSettings">
     <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
+  <component name="CompilerWorkspaceConfiguration">
+    <option name="MAKE_PROJECT_ON_SAVE" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -75,11 +73,13 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/docker-compose.yml" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="ts.external.directory.path" value="E:\Jetbrains\apps\IDEA-U\ch-0\192.7142.36\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
@@ -108,6 +108,7 @@
   </component>
   <component name="RunManager" selected="Spring Boot.Game Service Application">
     <list>
+      <item itemvalue="Docker.Run All Containers" />
       <item itemvalue="JUnit.Game Service Integration Test" />
       <item itemvalue="JUnit.Game Service Test" />
       <item itemvalue="JUnit.Game Service Unit Test" />
@@ -118,7 +119,28 @@
     <option name="allServicesViewState">
       <serviceView>
         <treeState>
-          <expand />
+          <expand>
+            <path>
+              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@13e86a31" type="9fbbdea:ServiceModel$ServiceNode" />
+            </path>
+            <path>
+              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@13e86a31" type="9fbbdea:ServiceModel$ServiceNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@63c322bc" type="9fbbdea:ServiceModel$ServiceNode" />
+            </path>
+            <path>
+              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@13e86a31" type="9fbbdea:ServiceModel$ServiceNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@63c322bc" type="9fbbdea:ServiceModel$ServiceNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@344fe9e0" type="9fbbdea:ServiceModel$ServiceNode" />
+            </path>
+            <path>
+              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@13e86a31" type="9fbbdea:ServiceModel$ServiceNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@30a055d1" type="9fbbdea:ServiceModel$ServiceNode" />
+            </path>
+          </expand>
           <select />
         </treeState>
       </serviceView>
@@ -147,7 +169,7 @@
       <workItem from="1573940726715" duration="3299000" />
       <workItem from="1573993544963" duration="17327000" />
       <workItem from="1574100271025" duration="11000" />
-      <workItem from="1574100300693" duration="8996000" />
+      <workItem from="1574100300693" duration="17452000" />
     </task>
     <task id="LOCAL-00001" summary="Added gameService and corresponding websocket end points with tests.">
       <created>1573412510081</created>
@@ -177,7 +199,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574100492487</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Added error handling for game controllers.">
+      <created>1574115030903</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1574115030903</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -202,7 +231,8 @@
     <MESSAGE value="Added message types." />
     <MESSAGE value="Refactored game websocket logic and websocket unit tests." />
     <MESSAGE value="Fixed intelij config." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed intelij config." />
+    <MESSAGE value="Added error handling for game controllers." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added error handling for game controllers." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>

@@ -4,8 +4,7 @@ import Cell from './Cell';
 import styled from '@emotion/styled';
 import Graveyard from './Graveyard';
 import { PlayerColor } from '../../../inferfaces/player';
-
-interface GameProps extends GameContainerProps {}
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 
 interface StyledGameContainerProps {
   isCurrentTurn: boolean;
@@ -19,6 +18,14 @@ const StyledGameContainer = styled.div`
     props.isCurrentTurn && 'border:5px red solid'}
 `;
 
+interface GameRouterProps {
+  id: string;
+}
+
+interface GameProps
+  extends GameContainerProps,
+    RouteComponentProps<GameRouterProps> {}
+
 const Game: React.FC<GameProps> = ({
   board,
   initGame,
@@ -30,9 +37,10 @@ const Game: React.FC<GameProps> = ({
   isCurrentTurn,
   graveyards,
   error,
+  match,
 }) => {
   React.useEffect(() => {
-    initGame();
+    initGame(match.params.id);
   }, [initGame]);
 
   return (
@@ -65,4 +73,4 @@ const Game: React.FC<GameProps> = ({
   );
 };
 
-export default Game;
+export default withRouter(Game);

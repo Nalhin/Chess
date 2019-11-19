@@ -66,6 +66,7 @@ public class GameController {
     public void availableMoves(@DestinationVariable String gameId, @Payload Position position, @Header("name") String name, @Header("simpSessionId") String sessionId) {
         var headerAccessor = SimpMessageHeaderAccessor.create(SimpMessageType.MESSAGE);
         headerAccessor.setSessionId(sessionId);
+
         try {
             AvailableMoves availableMoves = gameService.getAvailableMoves(UUID.fromString(gameId), position, name);
             var availableMovesMessage = new AvailableMovesMessage();

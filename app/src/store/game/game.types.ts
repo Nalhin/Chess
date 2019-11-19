@@ -10,6 +10,7 @@ export interface GameState {
     availableMoves: AvailableMoves;
   };
   readonly error: string;
+  readonly gameId: string;
 }
 
 export enum GameBaseActionTypes {
@@ -91,6 +92,9 @@ export interface SetSelectedPieceAction {
 
 export interface InitGameRequestedAction {
   type: typeof GameBaseActionTypes.INIT_GAME_REQUESTED;
+  payload: {
+    id: string;
+  };
 }
 
 export interface InitGameSucceededAction {

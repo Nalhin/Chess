@@ -4,12 +4,12 @@ import {
   gameStateSubscription,
 } from '../game.subscriptions';
 import MockStomp from '../../../../test/utils/MockStomp';
-import { fakeGameId } from '../../../../test/fixtures/fakeGameId';
 import { fakeStartGameMessage } from '../../../../test/fixtures/game/messages/fakeStartGameMessage';
 import { fakePlayerMovedMessage } from '../../../../test/fixtures/game/messages/fakePlayerMovedMessage';
 import { fakeGameOverMessage } from '../../../../test/fixtures/game/messages/fakeGameOverMessage';
 import { fakeAvailableMovesErrorMessage } from '../../../../test/fixtures/game/messages/fakeAvailableMovesErrorMessage';
 import { fakeAvailableMovesMessage } from '../../../../test/fixtures/game/messages/fakeAvailableMovesMessage';
+import { fakeGameId } from '../../../../test/fixtures/game/gameId';
 
 const mockDispatchedActions = [];
 

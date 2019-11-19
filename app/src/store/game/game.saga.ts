@@ -11,9 +11,8 @@ import {
   gamePersonalSubscription,
   gameStateSubscription,
 } from './game.subscriptions';
-import { gameId } from './gameId';
 import { StompSingleton } from '../stompClient';
-import { getSelectedPiece } from './game.selectors';
+import { gameIdSelector, selectedPieceSelector } from './game.selectors';
 import { userSelector } from '../user/user.selectors';
 
 export function* gameRootSaga(): SagaIterator {
@@ -30,11 +29,12 @@ export function* gameRootSaga(): SagaIterator {
 export function* initGameSaga(action: InitGameRequestedAction): SagaIterator {
   const gameStomp = StompSingleton.getInstance();
 
+  const gameId = action.payload.id;
+
   const gameSubscription = gameStateSubscription(gameStomp, gameId);
   const availableMoves = gamePersonalSubscription(gameStomp, gameId);
 
   const { name } = yield select(userSelector);
-
   gameStomp.publish({
     destination: `/app/connect/${gameId}`,
     headers: { name },
@@ -50,12 +50,15 @@ function* getAvailableMovesSaga(
   action: GetAvailableMovesRequestedAction,
 ): SagaIterator {
   const gameStomp = StompSingleton.getInstance();
-  const { name } = yield select(userSelector);
+  const [gameId, user] = yield all([
+    select(gameIdSelector),
+    select(userSelector),
+  ]);
 
   const { initialPosition } = action.payload;
   gameStomp.publish({
     destination: `/app/available-moves/${gameId}`,
-    headers: { name: name },
+    headers: { name: user.name },
     body: JSON.stringify(initialPosition),
   });
 }
@@ -63,13 +66,16 @@ function* getAvailableMovesSaga(
 function* makeMoveSaga(action: MakeMoveRequestedAction): SagaIterator {
   const gameStomp = StompSingleton.getInstance();
 
-  const initialPosition = yield select(getSelectedPiece);
-  const { name } = yield select(userSelector);
+  const [initialPosition, gameId, user] = yield all([
+    select(selectedPieceSelector),
+    select(gameIdSelector),
+    select(userSelector),
+  ]);
 
   const { destinationPosition } = action.payload;
   gameStomp.publish({
     destination: `/app/move/${gameId}`,
-    headers: { name },
+    headers: { name: user.name },
     body: JSON.stringify({ initialPosition, destinationPosition }),
   });
 }

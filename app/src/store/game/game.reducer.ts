@@ -1,4 +1,9 @@
-import { GameActions, GameActionTypes, GameState } from './game.types';
+import {
+  GameActions,
+  GameActionTypes,
+  GameBaseActionTypes,
+  GameState,
+} from './game.types';
 import { Reducer } from 'react';
 import produce from 'immer';
 import { Player, PlayerColor } from '../../inferfaces/player';
@@ -26,6 +31,7 @@ export const GAME_INITIAL_STATE: GameState = {
     position: {} as BoardPosition,
   },
   error: '',
+  gameId: '',
 };
 
 const gameReducer: Reducer<GameState, GameActions> = (
@@ -34,6 +40,9 @@ const gameReducer: Reducer<GameState, GameActions> = (
 ) => {
   return produce(state, draft => {
     switch (action.type) {
+      case GameBaseActionTypes.INIT_GAME_REQUESTED:
+        draft.gameId = action.payload.id;
+        break;
       case GameActionTypes.GAME_STARTED:
         draft.gameState = action.payload.game;
         break;
