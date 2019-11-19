@@ -7,14 +7,17 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="game-service" />
+        <module name="chat-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="chat-service" target="13" />
       <module name="game-service" target="13" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="chat-service" options="-parameters" />
       <module name="game-service" options="-parameters" />
     </option>
   </component>

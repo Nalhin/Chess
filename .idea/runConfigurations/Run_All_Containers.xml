@@ -2,6 +2,7 @@
   <configuration default="false" name="Run All Containers" type="docker-deploy" factoryName="docker-compose.yml" server-name="Docker">
     <deployment type="docker-compose.yml">
       <settings>
+        <option name="commandLineOptions" value="--build" />
         <option name="sourceFilePath" value="docker-compose.yml" />
       </settings>
     </deployment>

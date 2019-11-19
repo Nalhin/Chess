@@ -10,6 +10,7 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/server/game-service/pom.xml" />
+        <option value="$PROJECT_DIR$/server/chat-service/pom.xml" />
       </list>
     </option>
   </component>
