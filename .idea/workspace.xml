@@ -1,27 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1a7ea4df-7109-434c-b6f4-b656b4a0d49c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations/Run_All_Containers.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/test/fixtures/game/gameId.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/game-service/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/Game_Service_Application.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/Game_Service_Application.xml" afterDir="false" />
+    <list default="true" id="1a7ea4df-7109-434c-b6f4-b656b4a0d49c" name="Default Changelist" comment="Added error handling for game controllers.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/pages/GameRoom/Game/Game.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/pages/GameRoom/Game/Game.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/store/game/__tests__/game.reducer.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/__tests__/game.reducer.test.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/store/game/__tests__/game.saga.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/__tests__/game.saga.test.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/store/game/__tests__/game.subscriptions.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/__tests__/game.subscriptions.test.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/store/game/game.actions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/game.actions.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/store/game/game.reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/game.reducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/store/game/game.saga.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/game.saga.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/store/game/game.selectors.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/game.selectors.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/store/game/game.types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/game.types.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/store/game/gameId.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/store/stompClient.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/stompClient.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/test/fixtures/fakeGameId.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/controller/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/controller/GameControllerTestIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/controller/GameControllerTestIntegrationTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -169,7 +151,8 @@
       <workItem from="1573940726715" duration="3299000" />
       <workItem from="1573993544963" duration="17327000" />
       <workItem from="1574100271025" duration="11000" />
-      <workItem from="1574100300693" duration="17452000" />
+      <workItem from="1574100300693" duration="17669000" />
+      <workItem from="1574122586088" duration="735000" />
     </task>
     <task id="LOCAL-00001" summary="Added gameService and corresponding websocket end points with tests.">
       <created>1573412510081</created>
