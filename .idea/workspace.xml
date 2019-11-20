@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1a7ea4df-7109-434c-b6f4-b656b4a0d49c" name="Default Changelist" comment="Added error handling for game controllers.">
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/krisw.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.travis.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.travis.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/chat-service/src/main/java/com/chess/chatservice/controllers/ChatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/chat-service/src/main/java/com/chess/chatservice/controllers/ChatController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/chat-service/src/test/java/com/chess/chatservice/controllers/ChatControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/chat-service/src/test/java/com/chess/chatservice/controllers/ChatControllerTest.java" afterDir="false" />
+    <list default="true" id="1a7ea4df-7109-434c-b6f4-b656b4a0d49c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/server/chat-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/server/chat-service/pom.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -180,7 +176,7 @@
       <workItem from="1574122586088" duration="735000" />
       <workItem from="1574157651093" duration="5274000" />
       <workItem from="1574246592512" duration="66000" />
-      <workItem from="1574246692756" duration="863000" />
+      <workItem from="1574246692756" duration="1036000" />
     </task>
     <task id="LOCAL-00001" summary="Added gameService and corresponding websocket end points with tests.">
       <created>1573412510081</created>
@@ -217,7 +213,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574115030903</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Fixed chat service integration test.">
+      <created>1574247612750</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1574247612750</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -243,7 +246,8 @@
     <MESSAGE value="Refactored game websocket logic and websocket unit tests." />
     <MESSAGE value="Fixed intelij config." />
     <MESSAGE value="Added error handling for game controllers." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added error handling for game controllers." />
+    <MESSAGE value="Fixed chat service integration test." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed chat service integration test." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
