@@ -18,10 +18,9 @@ public class ChatController {
         this.chatService = chatService;
     }
 
-    @MessageMapping("/topic/chat/{chatId}")
-    @SendTo("/chat/{chatId}")
+    @MessageMapping("/chat/{chatId}")
+    @SendTo("/topic/chat/{chatId}")
     public Message sendMessage(@DestinationVariable String chatId, @Payload Message message) {
-
         return message;
     }
 
