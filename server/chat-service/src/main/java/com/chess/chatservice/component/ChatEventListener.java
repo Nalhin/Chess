@@ -7,11 +7,11 @@ import org.springframework.web.socket.messaging.SessionConnectedEvent;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
 @Component
-public class ChessEventListener {
+public class ChatEventListener {
 
     private final SimpMessageSendingOperations messagingTemplate;
 
-    public ChessEventListener(SimpMessageSendingOperations messagingTemplate) {
+    public ChatEventListener(SimpMessageSendingOperations messagingTemplate) {
         this.messagingTemplate = messagingTemplate;
     }
 

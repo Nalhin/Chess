@@ -2,7 +2,29 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1a7ea4df-7109-434c-b6f4-b656b4a0d49c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/server/chat-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/server/chat-service/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/inferfaces/chatMessage.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/store/chat/__tests__/chat.reducer.test.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/store/chat/__tests__/chat.subscriptions.test.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/store/chat/chat.actions.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/store/chat/chat.reducer.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/store/chat/chat.subscriptions.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/store/chat/chat.types.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/test/fixtures/chat/chatId.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/test/fixtures/chat/chatMessage.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/test/fixtures/chat/subscriptionMessages/subscriptionChatMessage.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/store/game/__tests__/game.subscriptions.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/__tests__/game.subscriptions.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/store/game/game.subscriptions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/game.subscriptions.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/store/rootReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/rootReducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/test/fixtures/game/messages/fakeAvailableMovesErrorMessage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/test/fixtures/game/subscriptionMessages/fakeAvailableMovesErrorMessage.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/test/fixtures/game/messages/fakeAvailableMovesMessage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/test/fixtures/game/subscriptionMessages/fakeAvailableMovesMessage.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/test/fixtures/game/messages/fakeGameOverMessage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/test/fixtures/game/subscriptionMessages/fakeGameOverMessage.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/test/fixtures/game/messages/fakePlayerMovedMessage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/test/fixtures/game/subscriptionMessages/fakePlayerMovedMessage.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/test/fixtures/game/messages/fakeStartGameMessage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/test/fixtures/game/subscriptionMessages/fakeStartGameMessage.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/chat-service/src/main/java/com/chess/chatservice/component/ChessEventListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/chat-service/src/main/java/com/chess/chatservice/component/ChatEventListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/chat-service/src/main/java/com/chess/chatservice/controllers/ChatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/chat-service/src/main/java/com/chess/chatservice/controllers/ChatController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/chat-service/src/main/java/com/chess/chatservice/models/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/chat-service/src/main/java/com/chess/chatservice/models/Message.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/chat-service/src/test/java/com/chess/chatservice/controllers/ChatControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/chat-service/src/test/java/com/chess/chatservice/controllers/ChatControllerTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,9 +41,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Enum" />
         <option value="Class" />
         <option value="JUnit5 Test Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -177,6 +199,7 @@
       <workItem from="1574157651093" duration="5274000" />
       <workItem from="1574246592512" duration="66000" />
       <workItem from="1574246692756" duration="1036000" />
+      <workItem from="1574289900068" duration="2579000" />
     </task>
     <task id="LOCAL-00001" summary="Added gameService and corresponding websocket end points with tests.">
       <created>1573412510081</created>

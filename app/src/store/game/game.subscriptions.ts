@@ -13,8 +13,8 @@ import {
   GameStateSubscriptionActionTypes,
 } from './game.types';
 
-export const gameStateSubscription = (game: RxStomp, gameId: string) => {
-  return game
+export const gameStateSubscription = (stomp: RxStomp, gameId: string) => {
+  return stomp
     .watch(`/topic/state/${gameId}`)
     .pipe(
       map(message => {
@@ -42,8 +42,8 @@ export const gameStateSubscription = (game: RxStomp, gameId: string) => {
     );
 };
 
-export const gamePersonalSubscription = (game: RxStomp, gameId: string) => {
-  return game
+export const gamePersonalSubscription = (stomp: RxStomp, gameId: string) => {
+  return stomp
     .watch(`/user/queue/personal/${gameId}`)
     .pipe(
       map(message => {

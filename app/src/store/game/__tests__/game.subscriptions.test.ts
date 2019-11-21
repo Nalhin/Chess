@@ -4,11 +4,11 @@ import {
   gameStateSubscription,
 } from '../game.subscriptions';
 import MockStomp from '../../../../test/utils/MockStomp';
-import { fakeStartGameMessage } from '../../../../test/fixtures/game/messages/fakeStartGameMessage';
-import { fakePlayerMovedMessage } from '../../../../test/fixtures/game/messages/fakePlayerMovedMessage';
-import { fakeGameOverMessage } from '../../../../test/fixtures/game/messages/fakeGameOverMessage';
-import { fakeAvailableMovesErrorMessage } from '../../../../test/fixtures/game/messages/fakeAvailableMovesErrorMessage';
-import { fakeAvailableMovesMessage } from '../../../../test/fixtures/game/messages/fakeAvailableMovesMessage';
+import { fakeStartGameMessage } from '../../../../test/fixtures/game/subscriptionMessages/fakeStartGameMessage';
+import { fakePlayerMovedMessage } from '../../../../test/fixtures/game/subscriptionMessages/fakePlayerMovedMessage';
+import { fakeGameOverMessage } from '../../../../test/fixtures/game/subscriptionMessages/fakeGameOverMessage';
+import { fakeAvailableMovesErrorMessage } from '../../../../test/fixtures/game/subscriptionMessages/fakeAvailableMovesErrorMessage';
+import { fakeAvailableMovesMessage } from '../../../../test/fixtures/game/subscriptionMessages/fakeAvailableMovesMessage';
 import { fakeGameId } from '../../../../test/fixtures/game/gameId';
 
 const mockDispatchedActions = [];
@@ -23,13 +23,13 @@ beforeEach(() => {
 
 describe('gameStateSubscriptions', () => {
   it('Should dispatch actions correctly', () => {
-    const messages = [
+    const subscriptionMessages = [
       fakeStartGameMessage,
       fakePlayerMovedMessage,
       fakeGameOverMessage,
     ];
 
-    const mockStomp = new MockStomp(messages);
+    const mockStomp = new MockStomp(subscriptionMessages);
     gameStateSubscription(mockStomp, fakeGameId);
 
     expect(mockDispatchedActions.length).toBe(3);
@@ -38,12 +38,12 @@ describe('gameStateSubscriptions', () => {
 
 describe('gamePersonalSubscription', () => {
   it('Should dispatch actions correctly', () => {
-    const messages = [
+    const subscriptionMessages = [
       fakeAvailableMovesMessage,
       fakeAvailableMovesErrorMessage,
     ];
 
-    const mockStomp = new MockStomp(messages);
+    const mockStomp = new MockStomp(subscriptionMessages);
     gamePersonalSubscription(mockStomp, fakeGameId);
 
     expect(mockDispatchedActions.length).toBe(2);

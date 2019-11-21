@@ -1,6 +1,5 @@
 package com.chess.chatservice.controllers;
 
-import com.chess.chatservice.models.Message;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONException;
@@ -47,6 +46,9 @@ class ChatControllerTest {
 
     private ObjectMapper objectMapper;
 
+    private final String playerName = "playerName";
+
+
     @BeforeEach
     void setUp() throws InterruptedException, ExecutionException, TimeoutException {
         stompHeaders = new StompHeaders();
@@ -67,10 +69,10 @@ class ChatControllerTest {
     void sendMessage() throws InterruptedException, JsonProcessingException {
         var subscription = stompSession.subscribe(SUBSCRIBE_CHAT_ENDPOINT + chatId, new CreateStompFrameHandler());
 
-        var message = new Message("test", "test");
-        var playerMessage = objectMapper.writeValueAsBytes(message);
+        var messageContent= objectMapper.writeValueAsBytes("message content");
         stompHeaders.setDestination(SEND_MESSAGE_ENDPOINT + chatId);
-        stompSession.send(stompHeaders, playerMessage);
+        stompHeaders.set("name", playerName);
+        stompSession.send(stompHeaders, messageContent);
 
         JSONObject receivedMessage = blockingQueue.poll(10, SECONDS);
         assertNotNull(receivedMessage);
