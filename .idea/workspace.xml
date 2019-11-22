@@ -2,29 +2,35 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1a7ea4df-7109-434c-b6f4-b656b4a0d49c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/inferfaces/chatMessage.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/store/chat/__tests__/chat.reducer.test.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/store/chat/__tests__/chat.subscriptions.test.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/store/chat/chat.actions.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/store/chat/chat.reducer.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/store/chat/chat.subscriptions.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/store/chat/chat.types.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/test/fixtures/chat/chatId.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/test/fixtures/chat/chatMessage.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/test/fixtures/chat/subscriptionMessages/subscriptionChatMessage.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/.idea/eslintPlugin.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/.idea/runConfigurations/Start_App.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/pages/Chat/Chat.container.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/pages/Chat/Chat.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/store/chat/__tests__/chat.saga.test.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/websocket/stompConfig.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/websocket/websocketAdresses.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/websocket/websocketTypes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/store/game/__tests__/game.subscriptions.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/__tests__/game.subscriptions.test.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/store/game/game.subscriptions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/game.subscriptions.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/store/rootReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/rootReducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/test/fixtures/game/messages/fakeAvailableMovesErrorMessage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/test/fixtures/game/subscriptionMessages/fakeAvailableMovesErrorMessage.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/test/fixtures/game/messages/fakeAvailableMovesMessage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/test/fixtures/game/subscriptionMessages/fakeAvailableMovesMessage.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/test/fixtures/game/messages/fakeGameOverMessage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/test/fixtures/game/subscriptionMessages/fakeGameOverMessage.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/test/fixtures/game/messages/fakePlayerMovedMessage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/test/fixtures/game/subscriptionMessages/fakePlayerMovedMessage.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/test/fixtures/game/messages/fakeStartGameMessage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/test/fixtures/game/subscriptionMessages/fakeStartGameMessage.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/chat-service/src/main/java/com/chess/chatservice/component/ChessEventListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/chat-service/src/main/java/com/chess/chatservice/component/ChatEventListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.idea/runConfigurations/App_tests.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/.idea/runConfigurations/Test_App.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/inferfaces/chatMessage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/inferfaces/chatMessage.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/pages/GameRoom/GameRoom.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/pages/GameRoom/GameRoom.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/store/chat/chat.actions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/chat/chat.actions.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/store/chat/chat.saga.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/chat/chat.saga.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/store/chat/chat.subscriptions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/chat/chat.subscriptions.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/store/chat/chat.types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/chat/chat.types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/store/game/__tests__/game.saga.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/__tests__/game.saga.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/store/game/game.saga.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/game.saga.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/store/rootSaga.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/rootSaga.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/store/stompClient.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/websocket/stompClient.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/utils/is.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/components/ChatMessage/ChatMessage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/chat-service/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/server/chat-service/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/chat-service/src/main/java/com/chess/chatservice/controllers/ChatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/chat-service/src/main/java/com/chess/chatservice/controllers/ChatController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/chat-service/src/main/java/com/chess/chatservice/models/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/chat-service/src/main/java/com/chess/chatservice/models/Message.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/chat-service/src/test/java/com/chess/chatservice/controllers/ChatControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/chat-service/src/test/java/com/chess/chatservice/controllers/ChatControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/chat-service/src/main/java/com/chess/chatservice/service/ChatService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/chat-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/server/chat-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/game-service/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/game-service/game-service.iml" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/game-service.iml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -77,13 +83,13 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/server/chat-service" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="reference.settings.ide.settings.file-colors" />
+    <property name="settings.editor.selected.configurable" value="Docker" />
     <property name="ts.external.directory.path" value="E:\Jetbrains\apps\IDEA-U\ch-0\192.7142.36\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
@@ -113,7 +119,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.ChatControllerTest.sendMessage">
+  <component name="RunManager" selected="Docker.Run All Containers">
     <configuration name="ChatControllerTest.sendMessage" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="chat-service" />
       <extension name="coverage">
@@ -152,18 +158,18 @@
           <expand>
             <path>
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@1c6ef4" type="9fbbdea:ServiceModel$ServiceNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@59e60bc2" type="9fbbdea:ServiceModel$ServiceNode" />
             </path>
             <path>
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@1c6ef4" type="9fbbdea:ServiceModel$ServiceNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@718bedf6" type="9fbbdea:ServiceModel$ServiceNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@59e60bc2" type="9fbbdea:ServiceModel$ServiceNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@21f8dba3" type="9fbbdea:ServiceModel$ServiceNode" />
             </path>
             <path>
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@1c6ef4" type="9fbbdea:ServiceModel$ServiceNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@718bedf6" type="9fbbdea:ServiceModel$ServiceNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@461ee2f" type="9fbbdea:ServiceModel$ServiceNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@59e60bc2" type="9fbbdea:ServiceModel$ServiceNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@21f8dba3" type="9fbbdea:ServiceModel$ServiceNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@3f63bb85" type="9fbbdea:ServiceModel$ServiceNode" />
             </path>
           </expand>
           <select />
@@ -200,6 +206,7 @@
       <workItem from="1574246592512" duration="66000" />
       <workItem from="1574246692756" duration="1036000" />
       <workItem from="1574289900068" duration="2579000" />
+      <workItem from="1574377360292" duration="4523000" />
     </task>
     <task id="LOCAL-00001" summary="Added gameService and corresponding websocket end points with tests.">
       <created>1573412510081</created>

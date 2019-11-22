@@ -11,9 +11,10 @@ import {
   gamePersonalSubscription,
   gameStateSubscription,
 } from './game.subscriptions';
-import { StompSingleton } from '../stompClient';
+import { StompSingleton } from '../../websocket/stompClient';
 import { gameIdSelector, selectedPieceSelector } from './game.selectors';
 import { userSelector } from '../user/user.selectors';
+import { websocketTypes } from '../../websocket/websocketTypes';
 
 export function* gameRootSaga(): SagaIterator {
   yield all([
@@ -27,7 +28,7 @@ export function* gameRootSaga(): SagaIterator {
 }
 
 export function* initGameSaga(action: InitGameRequestedAction): SagaIterator {
-  const gameStomp = StompSingleton.getInstance();
+  const gameStomp = StompSingleton.getInstance(websocketTypes.GAME);
 
   const gameId = action.payload.id;
 
@@ -43,13 +44,12 @@ export function* initGameSaga(action: InitGameRequestedAction): SagaIterator {
   yield take(GameActionTypes.GAME_OVER);
   gameSubscription.unsubscribe();
   availableMoves.unsubscribe();
-  gameStomp.deactivate();
 }
 
 function* getAvailableMovesSaga(
   action: GetAvailableMovesRequestedAction,
 ): SagaIterator {
-  const gameStomp = StompSingleton.getInstance();
+  const gameStomp = StompSingleton.getInstance(websocketTypes.GAME);
   const [gameId, user] = yield all([
     select(gameIdSelector),
     select(userSelector),
@@ -64,7 +64,7 @@ function* getAvailableMovesSaga(
 }
 
 function* makeMoveSaga(action: MakeMoveRequestedAction): SagaIterator {
-  const gameStomp = StompSingleton.getInstance();
+  const gameStomp = StompSingleton.getInstance(websocketTypes.GAME);
 
   const [initialPosition, gameId, user] = yield all([
     select(selectedPieceSelector),
