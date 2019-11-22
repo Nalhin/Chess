@@ -1,4 +1,4 @@
-import { ChatMessage } from '../../inferfaces/chatMessage';
+import { ChatMessageType } from '../../inferfaces/chatMessageType';
 import {
   ChatBaseActionTypes,
   ChatSubscriptionActionTypes,
@@ -9,7 +9,7 @@ import {
 } from './chat.types';
 
 export const newMessageReceived = (
-  message: ChatMessage,
+  message: ChatMessageType,
 ): NewMessageReceivedAction => ({
   type: ChatSubscriptionActionTypes.NEW_MESSAGE_RECEIVED,
   payload: {

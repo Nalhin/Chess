@@ -10,7 +10,7 @@ const Chat: React.FC<Props> = ({
   initChat,
   user,
 }) => {
-  const [newMessageValue, setNewMessageValue] = React.useState('');
+  const [messageInputValue, setMessageInputValue] = React.useState('');
 
   React.useEffect(() => {
     initChat();
@@ -19,11 +19,12 @@ const Chat: React.FC<Props> = ({
   const handleSetNewMessageValue = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    setNewMessageValue(event.target.value);
+    setMessageInputValue(event.target.value);
   };
 
   const handleSendMessage = () => {
-    sendMessage(newMessageValue);
+    sendMessage(messageInputValue);
+    setMessageInputValue('');
   };
 
   return (
@@ -31,8 +32,15 @@ const Chat: React.FC<Props> = ({
       {chatMessages.map(message => (
         <ChatMessage key={message.sendDate} chatMessage={message} user={user} />
       ))}
-      <input onChange={handleSetNewMessageValue} value={newMessageValue} />
-      <button onClick={handleSendMessage} />
+      <input
+        data-testid="chat_message-input"
+        onChange={handleSetNewMessageValue}
+        value={messageInputValue}
+      />
+      <button
+        data-testid="chat__send-message-button"
+        onClick={handleSendMessage}
+      />
     </div>
   );
 };

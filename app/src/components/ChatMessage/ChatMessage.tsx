@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ChatMessage } from '../../inferfaces/chatMessage';
+import { ChatMessageType } from '../../inferfaces/chatMessageType';
 import styled from '@emotion/styled';
 
 interface StyledMessageProps {
@@ -11,7 +11,7 @@ const StyledMessage = styled.div`
 `;
 
 interface Props {
-  chatMessage: ChatMessage;
+  chatMessage: ChatMessageType;
   user: string;
 }
 
@@ -20,7 +20,7 @@ const ChatMessage: React.FC<Props> = ({ chatMessage, user }) => {
 
   const isSender = sender === user;
   return (
-    <StyledMessage isSender={isSender}>
+    <StyledMessage data-testid="chat__chat-message" isSender={isSender}>
       <div>{content}</div>
       <div>{sendDate}</div>
       <div>{sender}</div>

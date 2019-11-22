@@ -1,7 +1,7 @@
-import { ChatMessage } from '../../inferfaces/chatMessage';
+import { ChatMessageType } from '../../inferfaces/chatMessageType';
 
 export interface ChatState {
-  readonly messages: ChatMessage[];
+  readonly messages: ChatMessageType[];
 }
 
 export enum ChatSubscriptionActionTypes {
@@ -11,7 +11,7 @@ export enum ChatSubscriptionActionTypes {
 export interface NewMessageReceivedAction {
   type: ChatSubscriptionActionTypes.NEW_MESSAGE_RECEIVED;
   payload: {
-    message: ChatMessage;
+    message: ChatMessageType;
   };
 }
 

@@ -13,7 +13,6 @@ export const chatSubscription = (stomp: RxStomp, chatId: string) => {
     )
     .subscribe(
       data => {
-        console.log(data);
         store.dispatch(newMessageReceived(data));
       },
       error => {},
