@@ -30,12 +30,13 @@ public class ChatEventListener {
     }
 
     @EventListener
-    public void sessionSubscribeEvent(SessionSubscribeEvent subscribeEvent) {
+    public void sessionSubscribeEvent(SessionSubscribeEvent subscribeEvent) throws InterruptedException {
         var accessor = StompHeaderAccessor.wrap(subscribeEvent.getMessage());
         var address = accessor.getDestination();
         if (address != null) {
             var chatId = parseAddress(address);
             chatService.setChatId(accessor.getSubscriptionId(), UUID.fromString(chatId));
+            Thread.sleep(1000);
             sendInfoMessage(chatId, "User connected.");
         }
     }

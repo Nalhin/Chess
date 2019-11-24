@@ -1,7 +1,6 @@
 package com.chess.chatservice.component;
 
 import com.chess.chatservice.models.MessageTypes;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,22 +36,15 @@ class ChatEventListenerTest {
     private int port;
     private String URL;
     private StompSession stompSession;
-    private StompHeaders stompHeaders;
     private String chatId;
 
     private final String SUBSCRIBE_CHAT_ENDPOINT = "/topic/chat/";
-    private final String SEND_MESSAGE_ENDPOINT = "/app/chat/";
 
     private LinkedBlockingDeque<JSONObject> blockingQueue;
-
-    private ObjectMapper objectMapper;
-
-    private final String playerName = "playerName";
 
 
     @BeforeEach
     void setUp() throws InterruptedException, ExecutionException, TimeoutException {
-        stompHeaders = new StompHeaders();
         chatId = UUID.randomUUID().toString();
         blockingQueue = new LinkedBlockingDeque<>();
         URL = "ws://localhost:" + port + "/chat";
@@ -62,8 +54,6 @@ class ChatEventListenerTest {
         );
         stompSession = stompClient.connect(URL, new StompSessionHandlerAdapter() {
         }).get(1, SECONDS);
-
-        objectMapper = new ObjectMapper();
     }
 
     @Test
