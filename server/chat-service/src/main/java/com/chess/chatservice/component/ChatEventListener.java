@@ -51,7 +51,9 @@ public class ChatEventListener {
     public void sessionDisconnectEvent(SessionDisconnectEvent disconnectEvent) {
         var accessor = StompHeaderAccessor.wrap(disconnectEvent.getMessage());
         var chatId = chatService.getChatIdAndRemoveFromChat(accessor.getSubscriptionId());
-        sendInfoMessage(chatId.toString(), "User disconnected.");
+        if (chatId != null) {
+            sendInfoMessage(chatId.toString(), "User disconnected.");
+        }
     }
 
     private void sendInfoMessage(String chatId, String content) {
