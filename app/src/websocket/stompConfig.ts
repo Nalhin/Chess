@@ -1,5 +1,5 @@
 export const stompConfig = {
-  debug: function(str: any) {
+  debug: function(str: string) {
     console.log(str);
   },
   reconnectDelay: 5000,

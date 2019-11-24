@@ -6,7 +6,13 @@
     "start": "webpack-dev-server --env.development",
     "build": "webpack --env.production",
     "test": "jest --watch",
-    "test:cov": "jest --coverage"
+    "test:cov": "jest --coverage",
+    "lint": "eslint \"src/**/*.ts\""
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint"
+    ]
   },
   "dependencies": {
     "@emotion/core": "^10.0.15",
@@ -38,11 +44,17 @@
     "@types/react-dom": "^16.9.1",
     "@types/react-redux": "^7.1.4",
     "@types/react-router-dom": "^5.1.0",
+    "@typescript-eslint/eslint-plugin": "^2.8.0",
+    "@typescript-eslint/parser": "^2.8.0",
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.6",
     "babel-plugin-emotion": "^10.0.15",
     "copy-webpack-plugin": "^5.0.4",
     "css-loader": "^3.2.0",
+    "eslint": "^6.7.0",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-plugin-jest": "^23.0.4",
+    "eslint-plugin-prettier": "^3.1.1",
     "file-loader": "^4.2.0",
     "html-webpack-plugin": "^3.2.0",
     "husky": "^3.0.3",
@@ -56,9 +68,6 @@
     "sass-loader": "^7.2.0",
     "style-loader": "^1.0.0",
     "ts-loader": "^6.2.0",
-    "tslint": "^5.20.0",
-    "tslint-config-prettier": "^1.18.0",
-    "tslint-react": "^4.1.0",
     "url-loader": "^2.1.0",
     "webpack": "^4.39.1",
     "webpack-cli": "^3.3.6",

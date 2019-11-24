@@ -3,11 +3,12 @@ import { fakeSubscriptionChatMessage } from '../../../../test/fixtures/chat/subs
 import MockStomp from '../../../../test/utils/MockStomp';
 import { chatSubscription } from '../chat.subscriptions';
 import { fakeChatId } from '../../../../test/fixtures/chat/chatId';
+import { RootAction } from '../../rootAction';
 
 const mockDispatchedActions = [];
 
 jest.mock('../../store', () => ({
-  dispatch: (action: any) => mockDispatchedActions.push(action),
+  dispatch: (action: RootAction) => mockDispatchedActions.push(action),
 }));
 
 beforeEach(() => {

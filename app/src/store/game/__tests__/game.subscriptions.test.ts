@@ -10,11 +10,12 @@ import { fakeGameOverMessage } from '../../../../test/fixtures/game/subscription
 import { fakeAvailableMovesErrorMessage } from '../../../../test/fixtures/game/subscriptionMessages/fakeAvailableMovesErrorMessage';
 import { fakeAvailableMovesMessage } from '../../../../test/fixtures/game/subscriptionMessages/fakeAvailableMovesMessage';
 import { fakeGameId } from '../../../../test/fixtures/game/gameId';
+import { RootAction } from '../../rootAction';
 
 const mockDispatchedActions = [];
 
 jest.mock('../../store', () => ({
-  dispatch: (action: any) => mockDispatchedActions.push(action),
+  dispatch: (action: RootAction) => mockDispatchedActions.push(action),
 }));
 
 beforeEach(() => {

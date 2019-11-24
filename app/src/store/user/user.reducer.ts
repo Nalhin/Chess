@@ -9,6 +9,7 @@ export const USER_INITIAL_STATE = {
   name: userName,
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const userReducer: Reducer<UserState, any> = (
   state = USER_INITIAL_STATE,
   action,
