@@ -3,7 +3,11 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { RootAction } from '../../store/rootAction';
 import { connect } from 'react-redux';
 import Chat from './Chat';
-import { initChat, sendMessage } from '../../store/chat/chat.actions';
+import {
+  closeChat,
+  initChat,
+  sendMessage,
+} from '../../store/chat/chat.actions';
 
 const mapStateToProps = (state: AppState) => {
   const chatMessages = state.chat.messages;
@@ -19,6 +23,7 @@ const mapDispatchToProps = (dispatch: Dispatch<RootAction>) =>
     {
       sendMessage,
       initChat,
+      closeChat,
     },
     dispatch,
   );

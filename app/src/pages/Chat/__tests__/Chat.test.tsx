@@ -8,6 +8,7 @@ const props = {
   sendMessage: jest.fn(),
   initChat: jest.fn(),
   user: '',
+  closeChat: jest.fn(),
 };
 
 describe('Chat Component', () => {
@@ -42,7 +43,7 @@ describe('Chat Component', () => {
   it('Should display messages', () => {
     const fakeChatMessages = [
       fakeChatMessage,
-      { ...fakeChatMessage, sendDate: '21:38' },
+      { ...fakeChatMessage, sendDate: '21:38', id: '123' },
     ];
     const { getAllByTestId } = render(
       <Chat {...props} chatMessages={fakeChatMessages} />,

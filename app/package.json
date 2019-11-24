@@ -24,7 +24,7 @@
     "redux-saga": "^1.0.5",
     "reselect": "^4.0.0",
     "rxjs": "^6.5.3",
-    "typescript": "^3.6.3"
+    "typescript": "^3.7"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",

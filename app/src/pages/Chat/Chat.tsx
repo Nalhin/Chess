@@ -8,12 +8,14 @@ const Chat: React.FC<Props> = ({
   chatMessages,
   sendMessage,
   initChat,
+  closeChat,
   user,
 }) => {
   const [messageInputValue, setMessageInputValue] = React.useState('');
 
   React.useEffect(() => {
     initChat();
+    return () => closeChat();
   }, [initChat]);
 
   const handleSetNewMessageValue = (
@@ -30,7 +32,7 @@ const Chat: React.FC<Props> = ({
   return (
     <div>
       {chatMessages.map(message => (
-        <ChatMessage key={message.sendDate} chatMessage={message} user={user} />
+        <ChatMessage key={message.id} chatMessage={message} user={user} />
       ))}
       <input
         data-testid="chat_message-input"

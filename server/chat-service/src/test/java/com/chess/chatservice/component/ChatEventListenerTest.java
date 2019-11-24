@@ -1,7 +1,6 @@
-package com.chess.chatservice.controllers;
+package com.chess.chatservice.component;
 
 import com.chess.chatservice.models.MessageTypes;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @Tag("integration-test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class ChatControllerTest {
+class ChatEventListenerTest {
 
     @LocalServerPort
     private int port;
@@ -68,20 +67,29 @@ class ChatControllerTest {
     }
 
     @Test
-    void sendMessage() throws InterruptedException, JsonProcessingException, JSONException {
-        var subscription = stompSession.subscribe(SUBSCRIBE_CHAT_ENDPOINT + chatId, new CreateStompFrameHandler());
-        blockingQueue.poll(10, SECONDS);
-
-        var messageContent = objectMapper.writeValueAsBytes("message content");
-        stompHeaders.setDestination(SEND_MESSAGE_ENDPOINT + chatId);
-        stompHeaders.set("name", playerName);
-        stompSession.send(stompHeaders, messageContent);
+    void sessionSubscribeEvent() throws InterruptedException, JSONException {
+        var subscription = stompSession.subscribe(SUBSCRIBE_CHAT_ENDPOINT + chatId, new ChatEventListenerTest.CreateStompFrameHandler());
 
         JSONObject receivedMessage = blockingQueue.poll(10, SECONDS);
         assertNotNull(receivedMessage);
-        assertEquals(MessageTypes.CHAT_MESSAGE.toString(), receivedMessage.get("type"));
+        assertEquals(MessageTypes.INFO_MESSAGE.toString(), receivedMessage.get("type"));
 
         subscription.unsubscribe();
+    }
+
+    @Test
+    void sessionUnsubscribeEvent() throws InterruptedException, JSONException {
+        var firstSubscription = stompSession.subscribe(SUBSCRIBE_CHAT_ENDPOINT + chatId, new ChatEventListenerTest.CreateStompFrameHandler());
+        blockingQueue.poll(10, SECONDS);
+        var secondSubscription = stompSession.subscribe(SUBSCRIBE_CHAT_ENDPOINT + chatId, new ChatEventListenerTest.CreateStompFrameHandler());
+        blockingQueue.poll(10, SECONDS);
+
+        firstSubscription.unsubscribe();
+        JSONObject receivedMessage = blockingQueue.poll(10, SECONDS);
+
+        assertNotNull(receivedMessage);
+        assertEquals(MessageTypes.INFO_MESSAGE.toString(), receivedMessage.get("type"));
+        secondSubscription.unsubscribe();
     }
 
     private class CreateStompFrameHandler implements StompFrameHandler {

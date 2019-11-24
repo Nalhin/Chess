@@ -1,20 +1,25 @@
 package com.chess.chatservice.controllers;
 
-import com.chess.chatservice.models.Message;
+import com.chess.chatservice.models.ChatMessage;
 import org.springframework.messaging.handler.annotation.*;
 import org.springframework.stereotype.Controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 @Controller
 public class ChatController {
 
     @MessageMapping("/chat/{chatId}")
     @SendTo("/topic/chat/{chatId}")
-    public Message sendMessage(@DestinationVariable String chatId, @Payload String messageContent, @Header("name") String name) {
+    public ChatMessage sendMessage(@DestinationVariable String chatId, @Payload String messageContent, @Header("name") String name) {
 
-        var message = new Message(messageContent, name, new SimpleDateFormat("HH:mm:ss").format(new Date()));
+        var message = new ChatMessage();
+        message.setName(name);
+        message.setContent(messageContent);
+        message.setId(UUID.randomUUID().toString());
+        message.setSendDate(new SimpleDateFormat("HH:mm:ss").format(new Date()));
         return message;
     }
 
