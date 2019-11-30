@@ -2,11 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1a7ea4df-7109-434c-b6f4-b656b4a0d49c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/authentication-service/src/main/java/com/chess/authenticationservice/config/UserConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/authentication-service/src/main/java/com/chess/authenticationservice/model/BaseEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/authentication-service/src/main/java/com/chess/authenticationservice/model/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/authentication-service/src/main/java/com/chess/authenticationservice/repository/UserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/authentication-service/src/main/java/com/chess/authenticationservice/service/UserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/authentication-service/src/main/java/com/chess/authenticationservice/service/UserServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/authentication-service/src/main/java/com/chess/authenticationservice/validator/UserValidator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/chat-service/src/main/java/com/chess/chatservice/component/ChatEventListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/chat-service/src/main/java/com/chess/chatservice/component/ChatEventListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/chat-service/src/test/java/com/chess/chatservice/component/ChatEventListenerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/chat-service/src/test/java/com/chess/chatservice/component/ChatEventListenerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/authentication-service/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/server/authentication-service/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/authentication-service/authentication-service.iml" beforeDir="false" afterPath="$PROJECT_DIR$/server/authentication-service/authentication-service.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/authentication-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/server/authentication-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/authentication-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/server/authentication-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/chat-service/chat-service.iml" beforeDir="false" afterPath="$PROJECT_DIR$/server/chat-service/chat-service.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/chat-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/server/chat-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/game-service/game-service.iml" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/game-service.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/game-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/pom.xml" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,12 +34,49 @@
   <component name="CompilerWorkspaceConfiguration">
     <option name="MAKE_PROJECT_ON_SAVE" value="true" />
   </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="chess" type="feb32156:DbDataSourceImpl" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="chess" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="chess" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="chess: schema" type="76f4a085:MysqlImplModel$Schema" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="chess" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="chess: schema" type="76f4a085:MysqlImplModel$Schema" />
+        <item name="user: table" type="285a2a93:MysqlImplModel$Table" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Class" />
         <option value="JUnit5 Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -46,25 +99,33 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="DatabaseDriversLRU" value="mysql" />
     <property name="RequestMappingsPanelOrder0" value="0" />
     <property name="RequestMappingsPanelOrder1" value="1" />
     <property name="RequestMappingsPanelWidth0" value="75" />
     <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="add_unversioned_files" value="true" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/server/authentication-service/src/main/resources" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="Docker" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
     <property name="ts.external.directory.path" value="E:\Jetbrains\apps\IDEA-U\ch-0\192.7142.36\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
@@ -85,70 +146,11 @@
       <recent name="C:\Users\krisw\Desktop\Chess\server\chat-service" />
     </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
-  <component name="RunManager" selected="JUnit.ChatEventListenerTest.sessionSubscribeEvent">
-    <configuration name="ChatControllerTest.sendMessage" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="chat-service" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.chess.chatservice.controllers.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.chess.chatservice.controllers" />
-      <option name="MAIN_CLASS_NAME" value="com.chess.chatservice.controllers.ChatControllerTest" />
-      <option name="METHOD_NAME" value="sendMessage" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ChatEventListenerTest.sessionSubscribeEvent" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="chat-service" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.chess.chatservice.component.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.chess.chatservice.component" />
-      <option name="MAIN_CLASS_NAME" value="com.chess.chatservice.component.ChatEventListenerTest" />
-      <option name="METHOD_NAME" value="sessionSubscribeEvent" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ChatEventListenerTest.sessionUnsubscribeEvent" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="chat-service" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.chess.chatservice.component.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.chess.chatservice.component" />
-      <option name="MAIN_CLASS_NAME" value="com.chess.chatservice.component.ChatEventListenerTest" />
-      <option name="METHOD_NAME" value="sessionUnsubscribeEvent" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="AuthenticationServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+  <component name="RunManager" selected="Spring Boot.Authentication Service Application">
+    <configuration name="Authentication Service Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="authentication-service" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.chess.authenticationservice.AuthenticationServiceApplication" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -158,45 +160,31 @@
       <item itemvalue="JUnit.Game Service Integration Test" />
       <item itemvalue="JUnit.Game Service Test" />
       <item itemvalue="JUnit.Game Service Unit Test" />
-      <item itemvalue="JUnit.ChatControllerTest.sendMessage" />
-      <item itemvalue="JUnit.ChatEventListenerTest.sessionUnsubscribeEvent" />
       <item itemvalue="Spring Boot.Game Service Application" />
       <item itemvalue="Spring Boot.Chat Service Application" />
-      <item itemvalue="Spring Boot.AuthenticationServiceApplication" />
-      <item itemvalue="JUnit.ChatEventListenerTest.sessionSubscribeEvent" />
+      <item itemvalue="Spring Boot.Authentication Service Application" />
     </list>
-    <recent_temporary>
-      <list>
-        <item itemvalue="JUnit.ChatEventListenerTest.sessionSubscribeEvent" />
-        <item itemvalue="JUnit.ChatEventListenerTest.sessionUnsubscribeEvent" />
-        <item itemvalue="JUnit.ChatControllerTest.sendMessage" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="ServiceViewManager">
-    <option name="allServicesViewState">
-      <serviceView>
-        <treeState>
-          <expand>
-            <path>
-              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@1e2ccb4" type="9fbbdea:ServiceModel$ServiceNode" />
-            </path>
-            <path>
-              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@1e2ccb4" type="9fbbdea:ServiceModel$ServiceNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@41c4f026" type="9fbbdea:ServiceModel$ServiceNode" />
-            </path>
-            <path>
-              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@1e2ccb4" type="9fbbdea:ServiceModel$ServiceNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@41c4f026" type="9fbbdea:ServiceModel$ServiceNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@1a1ccc2e" type="9fbbdea:ServiceModel$ServiceNode" />
-            </path>
-          </expand>
-          <select />
-        </treeState>
-      </serviceView>
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="root:chess" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              </path>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="root:chess" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+                <item name="com.intellij.database.console.session.MessageBusSession@326f976d" type="9fbbdea:ServiceModel$ServiceNode" />
+              </path>
+            </expand>
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
     </option>
   </component>
   <component name="SvnConfiguration">
@@ -233,6 +221,15 @@
       <workItem from="1574554889209" duration="2041000" />
       <workItem from="1574609545315" duration="5295000" />
       <workItem from="1574626021538" duration="489000" />
+      <workItem from="1574875414652" duration="92000" />
+      <workItem from="1574875617236" duration="155000" />
+      <workItem from="1574890959223" duration="806000" />
+      <workItem from="1574892169824" duration="488000" />
+      <workItem from="1574872975831" duration="296000" />
+      <workItem from="1574874516521" duration="384000" />
+      <workItem from="1575027670438" duration="58000" />
+      <workItem from="1575027748970" duration="8422000" />
+      <workItem from="1575068329329" duration="3115000" />
     </task>
     <task id="LOCAL-00001" summary="Added gameService and corresponding websocket end points with tests.">
       <created>1573412510081</created>
@@ -315,5 +312,67 @@
     <option name="LAST_COMMIT_MESSAGE" value="Added authentication service." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="3134" y="279" key="#Assign_Data_Sources" timestamp="1575069235721">
+      <screen x="1920" y="0" width="3440" height="1440" />
+    </state>
+    <state x="3134" y="279" key="#Assign_Data_Sources/1920.0.3440.1440/0.360.1920.1080/5360.360.1920.1080@1920.0.3440.1440" timestamp="1575069235721" />
+    <state x="2956" y="289" width="1507" height="831" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1575068619650">
+      <screen x="1920" y="0" width="3440" height="1440" />
+    </state>
+    <state x="2956" y="289" width="1507" height="831" key="#com.intellij.execution.impl.EditConfigurationsDialog/1920.0.3440.1440/0.360.1920.1080/5360.360.1920.1080@1920.0.3440.1440" timestamp="1575068619650" />
+    <state x="3400" y="339" key="#com.intellij.ide.util.MemberChooser" timestamp="1575072846696">
+      <screen x="1920" y="0" width="3440" height="1440" />
+    </state>
+    <state x="3400" y="339" key="#com.intellij.ide.util.MemberChooser/1920.0.3440.1440/0.360.1920.1080/5360.360.1920.1080@1920.0.3440.1440" timestamp="1575072846696" />
+    <state width="3382" height="350" key="GridCell.Tab.0.bottom" timestamp="1575064079854">
+      <screen x="1920" y="0" width="3440" height="1440" />
+    </state>
+    <state width="3382" height="350" key="GridCell.Tab.0.bottom/1920.0.3440.1440/0.360.1920.1080/5360.360.1920.1080@1920.0.3440.1440" timestamp="1575064079854" />
+    <state width="3382" height="350" key="GridCell.Tab.0.center" timestamp="1575064079854">
+      <screen x="1920" y="0" width="3440" height="1440" />
+    </state>
+    <state width="3382" height="350" key="GridCell.Tab.0.center/1920.0.3440.1440/0.360.1920.1080/5360.360.1920.1080@1920.0.3440.1440" timestamp="1575064079854" />
+    <state width="3382" height="350" key="GridCell.Tab.0.left" timestamp="1575064079854">
+      <screen x="1920" y="0" width="3440" height="1440" />
+    </state>
+    <state width="3382" height="350" key="GridCell.Tab.0.left/1920.0.3440.1440/0.360.1920.1080/5360.360.1920.1080@1920.0.3440.1440" timestamp="1575064079854" />
+    <state width="3382" height="350" key="GridCell.Tab.0.right" timestamp="1575064079854">
+      <screen x="1920" y="0" width="3440" height="1440" />
+    </state>
+    <state width="3382" height="350" key="GridCell.Tab.0.right/1920.0.3440.1440/0.360.1920.1080/5360.360.1920.1080@1920.0.3440.1440" timestamp="1575064079854" />
+    <state width="3382" height="350" key="GridCell.Tab.1.bottom" timestamp="1575064079854">
+      <screen x="1920" y="0" width="3440" height="1440" />
+    </state>
+    <state width="3382" height="350" key="GridCell.Tab.1.bottom/1920.0.3440.1440/0.360.1920.1080/5360.360.1920.1080@1920.0.3440.1440" timestamp="1575064079854" />
+    <state width="3382" height="350" key="GridCell.Tab.1.center" timestamp="1575064079854">
+      <screen x="1920" y="0" width="3440" height="1440" />
+    </state>
+    <state width="3382" height="350" key="GridCell.Tab.1.center/1920.0.3440.1440/0.360.1920.1080/5360.360.1920.1080@1920.0.3440.1440" timestamp="1575064079854" />
+    <state width="3382" height="350" key="GridCell.Tab.1.left" timestamp="1575064079854">
+      <screen x="1920" y="0" width="3440" height="1440" />
+    </state>
+    <state width="3382" height="350" key="GridCell.Tab.1.left/1920.0.3440.1440/0.360.1920.1080/5360.360.1920.1080@1920.0.3440.1440" timestamp="1575064079854" />
+    <state width="3382" height="350" key="GridCell.Tab.1.right" timestamp="1575064079854">
+      <screen x="1920" y="0" width="3440" height="1440" />
+    </state>
+    <state width="3382" height="350" key="GridCell.Tab.1.right/1920.0.3440.1440/0.360.1920.1080/5360.360.1920.1080@1920.0.3440.1440" timestamp="1575064079854" />
+    <state width="315" height="592" key="HiddenNamespacesPopup" timestamp="1575068596456">
+      <screen x="1920" y="0" width="3440" height="1440" />
+    </state>
+    <state width="315" height="592" key="HiddenNamespacesPopup/1920.0.3440.1440/0.360.1920.1080/5360.360.1920.1080@1920.0.3440.1440" timestamp="1575068596456" />
+    <state x="2523" y="195" width="1401" height="917" key="SettingsEditor" timestamp="1575072988853">
+      <screen x="1920" y="0" width="3440" height="1440" />
+    </state>
+    <state x="2523" y="195" width="1401" height="917" key="SettingsEditor/1920.0.3440.1440/0.360.1920.1080/5360.360.1920.1080@1920.0.3440.1440" timestamp="1575072988853" />
+    <state x="2856" y="460" key="cloudConfig.SelfSettingsDialog" timestamp="1575068503273">
+      <screen x="1920" y="0" width="3440" height="1440" />
+    </state>
+    <state x="2856" y="460" key="cloudConfig.SelfSettingsDialog/1920.0.3440.1440/0.360.1920.1080/5360.360.1920.1080@1920.0.3440.1440" timestamp="1575068503273" />
+    <state x="3289" y="251" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog" timestamp="1575068815449">
+      <screen x="1920" y="0" width="3440" height="1440" />
+    </state>
+    <state x="3289" y="251" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog/1920.0.3440.1440/0.360.1920.1080/5360.360.1920.1080@1920.0.3440.1440" timestamp="1575068815449" />
   </component>
 </project>

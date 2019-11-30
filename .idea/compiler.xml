@@ -12,9 +12,9 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="authentication-service" target="13" />
-      <module name="chat-service" target="13" />
-      <module name="game-service" target="13" />
+      <module name="authentication-service" target="12" />
+      <module name="chat-service" target="12" />
+      <module name="game-service" target="12" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

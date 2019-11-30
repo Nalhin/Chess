@@ -25,3 +25,15 @@ services:
     ports:
       - "3306:3306"
     restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "password"
+      MYSQL_DATABASE: "chess"
+      MYSQL_USER: "user"
+      MYSQL_PASSWORD: "password"
+    expose:
+      - "3306"
+    volumes:
+      - db:/var/lib/mysql
+
+volumes:
+  db:
