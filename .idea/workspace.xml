@@ -2,26 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1a7ea4df-7109-434c-b6f4-b656b4a0d49c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/authentication-service/src/main/java/com/chess/authenticationservice/config/UserConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/authentication-service/src/main/java/com/chess/authenticationservice/model/BaseEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/authentication-service/src/main/java/com/chess/authenticationservice/model/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/authentication-service/src/main/java/com/chess/authenticationservice/repository/UserRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/authentication-service/src/main/java/com/chess/authenticationservice/service/UserService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/authentication-service/src/main/java/com/chess/authenticationservice/service/UserServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/authentication-service/src/main/java/com/chess/authenticationservice/validator/UserValidator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/authentication-service/src/main/java/com/chess/authenticationservice/controller/UserController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/authentication-service/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/server/authentication-service/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/authentication-service/authentication-service.iml" beforeDir="false" afterPath="$PROJECT_DIR$/server/authentication-service/authentication-service.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/authentication-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/server/authentication-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/authentication-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/server/authentication-service/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/chat-service/chat-service.iml" beforeDir="false" afterPath="$PROJECT_DIR$/server/chat-service/chat-service.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/chat-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/server/chat-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/game-service.iml" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/game-service.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/game-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/authentication-service/src/main/java/com/chess/authenticationservice/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/authentication-service/src/main/java/com/chess/authenticationservice/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/authentication-service/src/main/java/com/chess/authenticationservice/service/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/authentication-service/src/main/java/com/chess/authenticationservice/service/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/authentication-service/src/main/java/com/chess/authenticationservice/validator/UserValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/authentication-service/src/main/java/com/chess/authenticationservice/validator/UserValidator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -170,17 +155,7 @@
       <list>
         <serviceView>
           <treeState>
-            <expand>
-              <path>
-                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-                <item name="root:chess" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              </path>
-              <path>
-                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-                <item name="root:chess" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-                <item name="com.intellij.database.console.session.MessageBusSession@326f976d" type="9fbbdea:ServiceModel$ServiceNode" />
-              </path>
-            </expand>
+            <expand />
             <select />
           </treeState>
         </serviceView>
@@ -229,7 +204,7 @@
       <workItem from="1574874516521" duration="384000" />
       <workItem from="1575027670438" duration="58000" />
       <workItem from="1575027748970" duration="8422000" />
-      <workItem from="1575068329329" duration="3115000" />
+      <workItem from="1575068329329" duration="5248000" />
     </task>
     <task id="LOCAL-00001" summary="Added gameService and corresponding websocket end points with tests.">
       <created>1573412510081</created>
@@ -280,7 +255,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574625768998</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Added user model, service, repository and validator.">
+      <created>1575073265931</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1575073265932</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -309,7 +291,8 @@
     <MESSAGE value="Added error handling for game controllers." />
     <MESSAGE value="Fixed chat service integration test." />
     <MESSAGE value="Added authentication service." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added authentication service." />
+    <MESSAGE value="Added user model, service, repository and validator." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added user model, service, repository and validator." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -322,10 +305,14 @@
       <screen x="1920" y="0" width="3440" height="1440" />
     </state>
     <state x="2956" y="289" width="1507" height="831" key="#com.intellij.execution.impl.EditConfigurationsDialog/1920.0.3440.1440/0.360.1920.1080/5360.360.1920.1080@1920.0.3440.1440" timestamp="1575068619650" />
-    <state x="3400" y="339" key="#com.intellij.ide.util.MemberChooser" timestamp="1575072846696">
+    <state x="3400" y="339" key="#com.intellij.ide.util.MemberChooser" timestamp="1575073616749">
       <screen x="1920" y="0" width="3440" height="1440" />
     </state>
-    <state x="3400" y="339" key="#com.intellij.ide.util.MemberChooser/1920.0.3440.1440/0.360.1920.1080/5360.360.1920.1080@1920.0.3440.1440" timestamp="1575072846696" />
+    <state x="3400" y="339" key="#com.intellij.ide.util.MemberChooser/1920.0.3440.1440/0.360.1920.1080/5360.360.1920.1080@1920.0.3440.1440" timestamp="1575073616749" />
+    <state x="3042" y="115" key="CommitChangelistDialog2" timestamp="1575073265522">
+      <screen x="1920" y="0" width="3440" height="1440" />
+    </state>
+    <state x="3042" y="115" key="CommitChangelistDialog2/1920.0.3440.1440/0.360.1920.1080/5360.360.1920.1080@1920.0.3440.1440" timestamp="1575073265522" />
     <state width="3382" height="350" key="GridCell.Tab.0.bottom" timestamp="1575064079854">
       <screen x="1920" y="0" width="3440" height="1440" />
     </state>
