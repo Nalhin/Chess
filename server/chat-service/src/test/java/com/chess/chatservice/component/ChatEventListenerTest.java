@@ -1,6 +1,6 @@
 package com.chess.chatservice.component;
 
-import com.chess.chatservice.models.MessageTypes;
+import com.chess.chatservice.model.MessageTypes;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;

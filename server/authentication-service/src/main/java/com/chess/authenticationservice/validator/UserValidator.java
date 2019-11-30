@@ -2,6 +2,7 @@ package com.chess.authenticationservice.validator;
 
 
 import com.chess.authenticationservice.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -13,10 +14,10 @@ public class UserValidator implements Validator {
 
     private final PasswordEncoder passwordEncoder;
 
+    @Autowired
     public UserValidator(PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
     }
-
 
     @Override
     public boolean supports(Class<?> aClass) {
@@ -30,9 +31,5 @@ public class UserValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "password.empty");
 
         User user = (User) o;
-    }
-
-    public boolean isPasswordEqual(String inputPassword, String hashedPassword) {
-        return passwordEncoder.encode(inputPassword).equals(hashedPassword);
     }
 }

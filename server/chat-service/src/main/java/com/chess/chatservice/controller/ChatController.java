@@ -1,6 +1,6 @@
-package com.chess.chatservice.controllers;
+package com.chess.chatservice.controller;
 
-import com.chess.chatservice.models.ChatMessage;
+import com.chess.chatservice.model.ChatMessage;
 import org.springframework.messaging.handler.annotation.*;
 import org.springframework.stereotype.Controller;
 

@@ -1,4 +1,4 @@
-package com.chess.chatservice.models;
+package com.chess.chatservice.model;
 
 public enum MessageTypes {
     CHAT_MESSAGE, INFO_MESSAGE

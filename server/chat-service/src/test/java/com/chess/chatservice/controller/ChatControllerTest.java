@@ -1,6 +1,6 @@
-package com.chess.chatservice.controllers;
+package com.chess.chatservice.controller;
 
-import com.chess.chatservice.models.MessageTypes;
+import com.chess.chatservice.model.MessageTypes;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONException;

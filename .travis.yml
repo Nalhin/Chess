@@ -37,3 +37,14 @@ jobs:
       cache:
         directories:
           - $HOME/.m2
+
+    - name: 'Authentication Service'
+      language: java
+      jdk: openjdk13
+      before_script: cd server/authentication-service
+      script: mvn verify
+      after_success:
+        - bash <(curl -s https://codecov.io/bash)
+      cache:
+        directories:
+          - $HOME/.m2

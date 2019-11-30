@@ -1,6 +1,6 @@
 package com.chess.chatservice.component;
 
-import com.chess.chatservice.models.InfoMessage;
+import com.chess.chatservice.model.InfoMessage;
 import com.chess.chatservice.service.ChatService;
 import org.springframework.context.event.EventListener;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
