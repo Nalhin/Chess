@@ -1,8 +1,8 @@
-package com.chess.authenticationservice.validator;
+package com.chess.authenticationservice.utils;
 
 
 import com.chess.authenticationservice.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -10,14 +10,10 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 @Component
+@AllArgsConstructor
 public class UserValidator implements Validator {
 
     private final PasswordEncoder passwordEncoder;
-
-    @Autowired
-    public UserValidator(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
 
     @Override
     public boolean supports(Class<?> aClass) {

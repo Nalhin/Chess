@@ -2,6 +2,7 @@ package com.chess.authenticationservice.controller;
 
 import com.chess.authenticationservice.model.User;
 import com.chess.authenticationservice.service.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,14 +13,10 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 
 @RestController
-@Controller
+@AllArgsConstructor
 public class UserController {
 
     private final UserService userService;
-
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
 
     @PostMapping(value = "/authentication/register", consumes = "application/json", produces = "application/json")
     public ResponseEntity<User> register(@RequestBody User user) {
