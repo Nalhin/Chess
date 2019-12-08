@@ -1,5 +1,4 @@
 module.exports = {
-  testEnvironment: "jsdom",
   snapshotSerializers: ['jest-emotion'],
   transform: {
     '^.+\\.[t|j]sx?$': 'babel-jest'

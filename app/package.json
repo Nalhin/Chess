@@ -3,15 +3,22 @@
   "version": "1.0.0",
   "description": "Chess web application",
   "scripts": {
+    "format": "prettier --write \"**/*.+(js|jsx|ts|tsx|json|css|scss|md)\"",
     "start": "webpack-dev-server --env.development",
     "build": "webpack --env.production",
     "test": "jest --watch",
     "test:cov": "jest --coverage",
     "lint": "eslint \"src/**/*.ts\""
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "lint-staged": {
-    "*.ts": [
-      "eslint"
+    "*.+(ts|tsx)": [
+      "eslint --fix",
+      "git add"
     ]
   },
   "dependencies": {
@@ -55,6 +62,7 @@
     "eslint-config-prettier": "^6.7.0",
     "eslint-plugin-jest": "^23.0.4",
     "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-react": "^7.17.0",
     "file-loader": "^4.2.0",
     "html-webpack-plugin": "^3.2.0",
     "husky": "^3.0.3",
@@ -66,9 +74,7 @@
     "prettier": "^1.18.2",
     "redux-saga-test-plan": "^4.0.0-rc.3",
     "sass-loader": "^7.2.0",
-    "style-loader": "^1.0.0",
     "ts-loader": "^6.2.0",
-    "url-loader": "^2.1.0",
     "webpack": "^4.39.1",
     "webpack-cli": "^3.3.6",
     "webpack-dev-server": "^3.8.0"

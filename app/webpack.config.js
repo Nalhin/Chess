@@ -16,8 +16,7 @@ module.exports = env => ({
   devtool: env.development && 'eval-source-map',
   devServer: {
     contentBase: [
-      path.join(__dirname, 'public'),
-      path.join(__dirname, 'dist'),
+      path.join(__dirname, 'public')
     ],
     hot: true,
     open: false,
@@ -41,12 +40,12 @@ module.exports = env => ({
         loader: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
       },
       {
-        test: /\.(png|jpg)$/,
-        loader: 'url-loader',
+        test: [/\.(png|jpe?g|gif)$/i],
+        loader: 'file-loader',
         options: {
           name: '[name].[ext]',
           useRelativePath: true,
-          outputPath: 'public/assets/images',
+          outputPath: path.resolve('./public/assets/images'),
         },
       },
     ],
