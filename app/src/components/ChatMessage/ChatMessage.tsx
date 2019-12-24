@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { ChatMessageType } from '../../inferfaces/chatMessageType';
+import React from 'react';
+import { ChatMessageType } from '../../interfaces/chatMessageType';
 import styled from '@emotion/styled';
 
 interface StyledMessageProps {

@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Piece } from '../../../inferfaces/piece';
-import { PlayerColor } from '../../../inferfaces/player';
+import { Piece } from '../../../interfaces/piece';
+import { PlayerColor } from '../../../interfaces/player';
 import styled from '@emotion/styled';
 
 interface StyledPieceProps {

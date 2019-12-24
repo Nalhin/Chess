@@ -3,7 +3,7 @@ import { GameContainerProps } from './Game.container';
 import Cell from './Cell';
 import styled from '@emotion/styled';
 import Graveyard from './Graveyard';
-import { PlayerColor } from '../../../inferfaces/player';
+import { PlayerColor } from '../../../interfaces/player';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 
 interface StyledGameContainerProps {

@@ -6,9 +6,9 @@ import {
 } from './game.types';
 import { Reducer } from 'react';
 import produce from 'immer';
-import { Player, PlayerColor } from '../../inferfaces/player';
-import { GamePhase } from '../../inferfaces/game';
-import { BoardPosition } from '../../inferfaces/boardPosition';
+import { Player, PlayerColor } from '../../interfaces/player';
+import { GamePhase } from '../../interfaces/game';
+import { BoardPosition } from '../../interfaces/boardPosition';
 
 export const GAME_INITIAL_STATE: GameState = {
   gameState: {
@@ -58,6 +58,9 @@ const gameReducer: Reducer<GameState, GameActions> = (
         break;
       case GameActionTypes.GAME_ERROR:
         draft.error = action.payload.error;
+        break;
+      case GameActionTypes.GAME_FOUND:
+        draft.gameId = action.payload.gameId;
         break;
       default:
         break;

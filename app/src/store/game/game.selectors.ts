@@ -1,5 +1,5 @@
 import { AppState } from '../rootReducer';
-import { PlayerColor } from '../../inferfaces/player';
+import { PlayerColor } from '../../interfaces/player';
 import { userSelector } from '../user/user.selectors';
 import { createSelector } from 'reselect';
 import { isEqual } from 'lodash';

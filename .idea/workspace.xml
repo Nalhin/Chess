@@ -2,11 +2,109 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1a7ea4df-7109-434c-b6f4-b656b4a0d49c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/server/authentication-service/src/main/java/com/chess/authenticationservice/controller/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/public/assets/images/chess/BLACK_BISHOP.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/public/assets/images/chess/BLACK_KING.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/public/assets/images/chess/BLACK_KNIGHT.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/public/assets/images/chess/BLACK_PAWN.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/public/assets/images/chess/BLACK_QUEEN.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/public/assets/images/chess/BLACK_ROOK.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/public/assets/images/chess/WHITE_BISHOP.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/public/assets/images/chess/WHITE_KING.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/public/assets/images/chess/WHITE_KNIGHT.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/public/assets/images/chess/WHITE_PAWN.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/public/assets/images/chess/WHITE_QUEEN.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/public/assets/images/chess/WHITE_ROOK.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/emotion.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/pages/GameRoom/Game/Piece.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/pages/Home/Home.container.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/pages/Home/Home.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/styles/global.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/styles/theme.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/test/fixtures/game/subscriptionMessages/fakeGameFoundMessage.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/messages/GameFoundMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/models/GameFound.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/models/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/service/QueueService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/service/QueueServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_classmate_1_5_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_bytebuddy_byte_buddy_1_10_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_bytebuddy_byte_buddy_agent_1_10_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_hibernate_core_5_4_8_Final.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_hibernate_core_5_4_6_Final.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_validator_hibernate_validator_6_0_18_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_jul_to_slf4j_1_7_29.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_29.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_2_2_1_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_autoconfigure_2_2_1_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_devtools_2_2_1_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_2_2_1_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_aop_2_2_1_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_data_jpa_2_2_0_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_data_jpa_2_2_1_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_security_2_2_0_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_jdbc_2_2_1_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_json_2_2_1_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_jdbc_2_2_0_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_logging_2_2_1_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_security_2_2_1_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_test_2_2_1_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_tomcat_2_2_1_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_validation_2_2_1_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_web_2_2_1_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_aop_2_2_0_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_test_2_2_1_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_test_autoconfigure_2_2_1_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_commons_2_2_1_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_commons_2_2_0_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_jpa_2_2_1_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_jpa_2_2_0_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_config_5_2_1_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_config_5_2_0_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_core_5_2_1_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_core_5_2_0_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_test_5_2_1_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_test_5_2_0_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_web_5_2_1_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_web_5_2_0_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aop_5_2_1_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_orm_5_2_0_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aspects_5_2_1_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aspects_5_2_0_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_beans_5_2_1_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_5_2_1_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_core_5_2_1_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_expression_5_2_1_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jcl_5_2_1_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jdbc_5_2_1_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_orm_5_2_1_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_test_5_2_1_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jdbc_5_2_0_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_tx_5_2_1_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_tx_5_2_0_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_web_5_2_1_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_webmvc_5_2_1_RELEASE.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/authentication-service/src/main/java/com/chess/authenticationservice/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/authentication-service/src/main/java/com/chess/authenticationservice/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/authentication-service/src/main/java/com/chess/authenticationservice/service/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/authentication-service/src/main/java/com/chess/authenticationservice/service/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/authentication-service/src/main/java/com/chess/authenticationservice/validator/UserValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/authentication-service/src/main/java/com/chess/authenticationservice/validator/UserValidator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.eslintrc" beforeDir="false" afterPath="$PROJECT_DIR$/app/.eslintrc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/components/ChatMessage/ChatMessage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/components/ChatMessage/ChatMessage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/inferfaces/availableMoves.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/interfaces/availableMoves.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/inferfaces/board.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/interfaces/board.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/inferfaces/boardPosition.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/interfaces/boardPosition.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/inferfaces/chatMessageType.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/interfaces/chatMessageType.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/inferfaces/game.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/interfaces/game.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/inferfaces/piece.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/interfaces/piece.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/inferfaces/player.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/interfaces/player.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/inferfaces/players.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/interfaces/players.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/pages/GameRoom/Game/Cell.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/pages/GameRoom/Game/Cell.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/pages/GameRoom/Game/Game.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/pages/GameRoom/Game/Game.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/pages/GameRoom/Game/Graveyard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/pages/GameRoom/Game/Graveyard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/pages/GameRoom/GameRoom.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/pages/GameRoom/GameRoom.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/pages/Pages.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/pages/Pages.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/pages/__tests__/Pages.test.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/pages/__tests__/Pages.test.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/store/chat/chat.actions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/chat/chat.actions.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/store/chat/chat.types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/chat/chat.types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/store/game/__tests__/game.subscriptions.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/__tests__/game.subscriptions.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/store/game/game.actions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/game.actions.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/store/game/game.reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/game.reducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/store/game/game.saga.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/game.saga.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/store/game/game.selectors.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/game.selectors.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/store/game/game.subscriptions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/game.subscriptions.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/store/game/game.types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/store/game/game.types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/test/fixtures/game/board.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/test/fixtures/game/board.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/test/fixtures/game/game.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/test/fixtures/game/game.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/authentication-service/authentication-service.iml" beforeDir="false" afterPath="$PROJECT_DIR$/server/authentication-service/authentication-service.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/controller/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/messages/MessageTypes.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/messages/MessageTypes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/models/GameError.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/main/java/com/chess/gameservice/models/GameError.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/controller/GameControllerTestIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/game-service/src/test/java/com/chess/gameservice/controller/GameControllerTestIntegrationTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,8 +158,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="JUnit5 Test Class" />
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -115,11 +213,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.chess.gameservice.service" />
       <recent name="com.chess.chatservice.service" />
       <recent name="com.chess.chatservice.component" />
       <recent name="com.chess.chatservice.controllers" />
       <recent name="com.chess.gameservice.game" />
-      <recent name="com.chess.gameservice.game.graveyard" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -131,7 +229,7 @@
       <recent name="C:\Users\krisw\Desktop\Chess\server\chat-service" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.Authentication Service Application">
+  <component name="RunManager" selected="Spring Boot.Game Service Application">
     <configuration name="Authentication Service Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="authentication-service" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.chess.authenticationservice.AuthenticationServiceApplication" />
@@ -142,6 +240,7 @@
     </configuration>
     <list>
       <item itemvalue="Docker.Run All Containers" />
+      <item itemvalue="JUnit.Authentication Service Test" />
       <item itemvalue="JUnit.Game Service Integration Test" />
       <item itemvalue="JUnit.Game Service Test" />
       <item itemvalue="JUnit.Game Service Unit Test" />
@@ -155,7 +254,23 @@
       <list>
         <serviceView>
           <treeState>
-            <expand />
+            <expand>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="Docker" type="9fbbdea:ServiceModel$ServiceNode" />
+              </path>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="Docker" type="9fbbdea:ServiceModel$ServiceNode" />
+                <item name="Compose: docker-compose.yml" type="9fbbdea:ServiceModel$ServiceNode" />
+              </path>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="Docker" type="9fbbdea:ServiceModel$ServiceNode" />
+                <item name="Compose: docker-compose.yml" type="9fbbdea:ServiceModel$ServiceNode" />
+                <item name="game-service" type="9fbbdea:ServiceModel$ServiceNode" />
+              </path>
+            </expand>
             <select />
           </treeState>
         </serviceView>
@@ -205,6 +320,7 @@
       <workItem from="1575027670438" duration="58000" />
       <workItem from="1575027748970" duration="8422000" />
       <workItem from="1575068329329" duration="5248000" />
+      <workItem from="1577137926017" duration="7644000" />
     </task>
     <task id="LOCAL-00001" summary="Added gameService and corresponding websocket end points with tests.">
       <created>1573412510081</created>
@@ -313,38 +429,38 @@
       <screen x="1920" y="0" width="3440" height="1440" />
     </state>
     <state x="3042" y="115" key="CommitChangelistDialog2/1920.0.3440.1440/0.360.1920.1080/5360.360.1920.1080@1920.0.3440.1440" timestamp="1575073265522" />
-    <state width="3382" height="350" key="GridCell.Tab.0.bottom" timestamp="1575064079854">
+    <state width="3382" height="229" key="GridCell.Tab.0.bottom" timestamp="1577147462282">
       <screen x="1920" y="0" width="3440" height="1440" />
     </state>
-    <state width="3382" height="350" key="GridCell.Tab.0.bottom/1920.0.3440.1440/0.360.1920.1080/5360.360.1920.1080@1920.0.3440.1440" timestamp="1575064079854" />
-    <state width="3382" height="350" key="GridCell.Tab.0.center" timestamp="1575064079854">
+    <state width="3382" height="229" key="GridCell.Tab.0.bottom/1920.0.3440.1440/0.360.1920.1080/5360.360.1920.1080@1920.0.3440.1440" timestamp="1577147462282" />
+    <state width="3382" height="229" key="GridCell.Tab.0.center" timestamp="1577147462282">
       <screen x="1920" y="0" width="3440" height="1440" />
     </state>
-    <state width="3382" height="350" key="GridCell.Tab.0.center/1920.0.3440.1440/0.360.1920.1080/5360.360.1920.1080@1920.0.3440.1440" timestamp="1575064079854" />
-    <state width="3382" height="350" key="GridCell.Tab.0.left" timestamp="1575064079854">
+    <state width="3382" height="229" key="GridCell.Tab.0.center/1920.0.3440.1440/0.360.1920.1080/5360.360.1920.1080@1920.0.3440.1440" timestamp="1577147462282" />
+    <state width="3382" height="229" key="GridCell.Tab.0.left" timestamp="1577147462281">
       <screen x="1920" y="0" width="3440" height="1440" />
     </state>
-    <state width="3382" height="350" key="GridCell.Tab.0.left/1920.0.3440.1440/0.360.1920.1080/5360.360.1920.1080@1920.0.3440.1440" timestamp="1575064079854" />
-    <state width="3382" height="350" key="GridCell.Tab.0.right" timestamp="1575064079854">
+    <state width="3382" height="229" key="GridCell.Tab.0.left/1920.0.3440.1440/0.360.1920.1080/5360.360.1920.1080@1920.0.3440.1440" timestamp="1577147462281" />
+    <state width="3382" height="229" key="GridCell.Tab.0.right" timestamp="1577147462282">
       <screen x="1920" y="0" width="3440" height="1440" />
     </state>
-    <state width="3382" height="350" key="GridCell.Tab.0.right/1920.0.3440.1440/0.360.1920.1080/5360.360.1920.1080@1920.0.3440.1440" timestamp="1575064079854" />
-    <state width="3382" height="350" key="GridCell.Tab.1.bottom" timestamp="1575064079854">
+    <state width="3382" height="229" key="GridCell.Tab.0.right/1920.0.3440.1440/0.360.1920.1080/5360.360.1920.1080@1920.0.3440.1440" timestamp="1577147462282" />
+    <state width="3382" height="434" key="GridCell.Tab.1.bottom" timestamp="1577147462279">
       <screen x="1920" y="0" width="3440" height="1440" />
     </state>
-    <state width="3382" height="350" key="GridCell.Tab.1.bottom/1920.0.3440.1440/0.360.1920.1080/5360.360.1920.1080@1920.0.3440.1440" timestamp="1575064079854" />
-    <state width="3382" height="350" key="GridCell.Tab.1.center" timestamp="1575064079854">
+    <state width="3382" height="434" key="GridCell.Tab.1.bottom/1920.0.3440.1440/0.360.1920.1080/5360.360.1920.1080@1920.0.3440.1440" timestamp="1577147462279" />
+    <state width="3382" height="434" key="GridCell.Tab.1.center" timestamp="1577147462279">
       <screen x="1920" y="0" width="3440" height="1440" />
     </state>
-    <state width="3382" height="350" key="GridCell.Tab.1.center/1920.0.3440.1440/0.360.1920.1080/5360.360.1920.1080@1920.0.3440.1440" timestamp="1575064079854" />
-    <state width="3382" height="350" key="GridCell.Tab.1.left" timestamp="1575064079854">
+    <state width="3382" height="434" key="GridCell.Tab.1.center/1920.0.3440.1440/0.360.1920.1080/5360.360.1920.1080@1920.0.3440.1440" timestamp="1577147462279" />
+    <state width="3382" height="434" key="GridCell.Tab.1.left" timestamp="1577147462278">
       <screen x="1920" y="0" width="3440" height="1440" />
     </state>
-    <state width="3382" height="350" key="GridCell.Tab.1.left/1920.0.3440.1440/0.360.1920.1080/5360.360.1920.1080@1920.0.3440.1440" timestamp="1575064079854" />
-    <state width="3382" height="350" key="GridCell.Tab.1.right" timestamp="1575064079854">
+    <state width="3382" height="434" key="GridCell.Tab.1.left/1920.0.3440.1440/0.360.1920.1080/5360.360.1920.1080@1920.0.3440.1440" timestamp="1577147462278" />
+    <state width="3382" height="434" key="GridCell.Tab.1.right" timestamp="1577147462279">
       <screen x="1920" y="0" width="3440" height="1440" />
     </state>
-    <state width="3382" height="350" key="GridCell.Tab.1.right/1920.0.3440.1440/0.360.1920.1080/5360.360.1920.1080@1920.0.3440.1440" timestamp="1575064079854" />
+    <state width="3382" height="434" key="GridCell.Tab.1.right/1920.0.3440.1440/0.360.1920.1080/5360.360.1920.1080@1920.0.3440.1440" timestamp="1577147462279" />
     <state width="315" height="592" key="HiddenNamespacesPopup" timestamp="1575068596456">
       <screen x="1920" y="0" width="3440" height="1440" />
     </state>
@@ -361,5 +477,9 @@
       <screen x="1920" y="0" width="3440" height="1440" />
     </state>
     <state x="3289" y="251" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog/1920.0.3440.1440/0.360.1920.1080/5360.360.1920.1080@1920.0.3440.1440" timestamp="1575068815449" />
+    <state x="3324" y="317" key="com.intellij.testIntegration.createTest.CreateTestDialog" timestamp="1577145925914">
+      <screen x="1920" y="0" width="3440" height="1440" />
+    </state>
+    <state x="3324" y="317" key="com.intellij.testIntegration.createTest.CreateTestDialog/1920.0.3440.1440/0.360.1920.1080/5360.360.1920.1080@1920.0.3440.1440" timestamp="1577145925914" />
   </component>
 </project>

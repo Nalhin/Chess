@@ -1,7 +1,7 @@
-import { Board } from '../../inferfaces/board';
-import { Game } from '../../inferfaces/game';
-import { BoardPosition } from '../../inferfaces/boardPosition';
-import { AvailableMoves } from '../../inferfaces/availableMoves';
+import { Board } from '../../interfaces/board';
+import { Game } from '../../interfaces/game';
+import { BoardPosition } from '../../interfaces/boardPosition';
+import { AvailableMoves } from '../../interfaces/availableMoves';
 
 export interface GameState {
   readonly gameState: Game;
@@ -14,6 +14,7 @@ export interface GameState {
 }
 
 export enum GameBaseActionTypes {
+  JOIN_GAME_QUEUE = 'JOIN_GAME_QUEUE',
   INIT_GAME_REQUESTED = 'INIT_GAME_REQUESTED',
   INIT_GAME_SUCCEEDED = 'INIT_GAME_SUCCEEDED',
   INIT_GAME_FAILED = 'INIT_GAME_FAILED',
@@ -29,6 +30,7 @@ export enum GameBaseActionTypes {
 export enum GamePersonalSubscriptionActionTypes {
   AVAILABLE_MOVES = 'AVAILABLE_MOVES',
   GAME_ERROR = 'AVAILABLE_MOVES_ERROR',
+  GAME_FOUND = 'GAME_FOUND',
 }
 
 export enum GameStateSubscriptionActionTypes {
@@ -46,6 +48,10 @@ export const GameActionTypes = {
   ...GameBaseActionTypes,
   ...GameSubscriptionActionTypes,
 };
+
+export interface JoinGameQueueAction {
+  type: typeof GameBaseActionTypes.JOIN_GAME_QUEUE;
+}
 
 export interface GameStartedSubscriptionAction {
   type: typeof GameStateSubscriptionActionTypes.GAME_STARTED;
@@ -80,6 +86,13 @@ export interface AvailableMovesErrorSubscriptionAction {
   type: typeof GamePersonalSubscriptionActionTypes.GAME_ERROR;
   payload: {
     error: string;
+  };
+}
+
+export interface GameFoundSubscriptionAction {
+  type: typeof GamePersonalSubscriptionActionTypes.GAME_FOUND;
+  payload: {
+    gameId: string;
   };
 }
 
@@ -159,4 +172,5 @@ export type GameActions =
   | GameOverSubscriptionAction
   | AvailableMovesSubscriptionAction
   | AvailableMovesErrorSubscriptionAction
-  | SetSelectedPieceAction;
+  | SetSelectedPieceAction
+  | GameFoundSubscriptionAction;

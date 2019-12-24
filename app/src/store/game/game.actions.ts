@@ -2,6 +2,7 @@ import {
   AvailableMovesErrorSubscriptionAction,
   AvailableMovesSubscriptionAction,
   GameBaseActionTypes,
+  GameFoundSubscriptionAction,
   GameOverSubscriptionAction,
   GamePersonalSubscriptionActionTypes,
   GameStartedSubscriptionAction,
@@ -12,16 +13,17 @@ import {
   InitGameFailedAction,
   InitGameRequestedAction,
   InitGameSucceededAction,
+  JoinGameQueueAction,
   MakeMoveFailedAction,
   MakeMoveRequestedAction,
   MakeMoveSucceededAction,
   PlayerMovedSubscriptionAction,
   SetSelectedPieceAction,
 } from './game.types';
-import { Board } from '../../inferfaces/board';
-import { Game } from '../../inferfaces/game';
-import { AvailableMoves } from '../../inferfaces/availableMoves';
-import { BoardPosition } from '../../inferfaces/boardPosition';
+import { Board } from '../../interfaces/board';
+import { Game } from '../../interfaces/game';
+import { AvailableMoves } from '../../interfaces/availableMoves';
+import { BoardPosition } from '../../interfaces/boardPosition';
 
 export const gameStarted = (game: Game): GameStartedSubscriptionAction => ({
   type: GameStateSubscriptionActionTypes.GAME_STARTED,
@@ -62,6 +64,17 @@ export const availableMovesError = (
   payload: {
     error,
   },
+});
+
+export const gameFound = (gameId: string): GameFoundSubscriptionAction => ({
+  type: GamePersonalSubscriptionActionTypes.GAME_FOUND,
+  payload: {
+    gameId,
+  },
+});
+
+export const joinGameQueue = (): JoinGameQueueAction => ({
+  type: GameBaseActionTypes.JOIN_GAME_QUEUE,
 });
 
 export const setSelectedPiece = (

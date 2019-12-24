@@ -1,31 +1,23 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { PieceType } from '../../../inferfaces/piece';
-import { BoardPosition } from '../../../inferfaces/boardPosition';
-import { PlayerColor } from '../../../inferfaces/player';
+import { PieceType } from '../../../interfaces/piece';
+import { BoardPosition } from '../../../interfaces/boardPosition';
+import { PlayerColor } from '../../../interfaces/player';
+import Piece from './Piece';
 
 interface StyledCellProps {
   isSelected: boolean;
   isMoveAvailable: boolean;
-  playerColor: PlayerColor;
 }
 
-const StyledCell = styled.div`
+const StyledCell = styled.div<StyledCellProps>`
   width: 100px;
   height: 100px;
   background: lightblue;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: ${(props: StyledCellProps) => {
-    switch (props.playerColor) {
-      case PlayerColor.BLACK:
-        return 'black';
-      case PlayerColor.WHITE:
-        return 'white';
-    }
-  }};
-  background: ${(props: StyledCellProps) => {
+  background: ${props => {
     if (props.isSelected) {
       return 'red';
     }
@@ -68,9 +60,8 @@ const Cell: React.FC<CellProps> = ({
       isSelected={isSelected}
       isMoveAvailable={isMoveAvailable}
       onClick={handleOnClick}
-      playerColor={playerColor}
     >
-      {type}
+      {type && <Piece playerColor={playerColor} type={type} />}
     </StyledCell>
   );
 };

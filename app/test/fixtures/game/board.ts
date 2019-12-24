@@ -1,6 +1,6 @@
-import { Board } from '../../../src/inferfaces/board';
+import { Board } from '../../../src/interfaces/board';
 
-import { PieceType } from '../../../src/inferfaces/piece';
+import { PieceType } from '../../../src/interfaces/piece';
 
 export const fakeBoard: Board = {
   state: [

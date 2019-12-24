@@ -1,4 +1,4 @@
-import { ChatMessageType } from '../../inferfaces/chatMessageType';
+import { ChatMessageType } from '../../interfaces/chatMessageType';
 import {
   ChatBaseActionTypes,
   ChatSubscriptionActionTypes,

@@ -5,10 +5,12 @@ import {
   GameBaseActionTypes,
   GetAvailableMovesRequestedAction,
   InitGameRequestedAction,
+  JoinGameQueueAction,
   MakeMoveRequestedAction,
 } from './game.types';
 import {
   gamePersonalSubscription,
+  gameQueueSubscription,
   gameStateSubscription,
 } from './game.subscriptions';
 import { StompSingleton } from '../../websocket/stompClient';
@@ -24,7 +26,22 @@ export function* gameRootSaga(): SagaIterator {
       getAvailableMovesSaga,
     ),
     yield takeEvery(GameBaseActionTypes.MAKE_MOVE_REQUESTED, makeMoveSaga),
+    yield takeEvery(GameBaseActionTypes.JOIN_GAME_QUEUE, gameQueueSaga),
   ]);
+}
+
+export function* gameQueueSaga(action: JoinGameQueueAction): SagaIterator {
+  const gameStomp = StompSingleton.getInstance(websocketTypes.GAME);
+  const queueSubscription = gameQueueSubscription(gameStomp);
+
+  const { name } = yield select(userSelector);
+  gameStomp.publish({
+    destination: `/app/queue`,
+    headers: { name },
+  });
+
+  yield take(GameActionTypes.INIT_GAME_REQUESTED);
+  queueSubscription.unsubscribe();
 }
 
 export function* initGameSaga(action: InitGameRequestedAction): SagaIterator {

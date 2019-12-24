@@ -43,9 +43,11 @@ class GameControllerTestIntegrationTest {
     private StompHeaders stompHeaders;
     private String gameId;
 
+    private final String SUBSCRIBE_QUEUE_ENDPOINT = "/user/queue/personal";
     private final String SUBSCRIBE_STATE_ENDPOINT = "/topic/state/";
     private final String SUBSCRIBE_PERSONAL_ENDPOINT = "/user/queue/personal/";
 
+    private final String JOIN_QUEUE_ENDPOINT = "/app/queue";
     private final String CONNECT_TO_GAME_ENDPOINT = "/app/connect/";
     private final String MAKE_MOVE_ENDPOINT = "/app/move/";
     private final String AVAILABLE_MOVES_ENDPOINT = "/app/available-moves/";
@@ -85,12 +87,29 @@ class GameControllerTestIntegrationTest {
     }
 
     @Test
+    void joinQueue() throws InterruptedException, JSONException {
+        var subscription = stompSession.subscribe(SUBSCRIBE_QUEUE_ENDPOINT, new CreateStompFrameHandler());
+
+        stompHeaders.setDestination(JOIN_QUEUE_ENDPOINT);
+        stompHeaders.set("name", firstPlayerName);
+        stompSession.send(stompHeaders, null);
+
+        stompHeaders.set("name", secondPlayerName);
+        stompSession.send(stompHeaders, null);
+
+        JSONObject message = blockingQueue.poll(10, SECONDS);
+        assertEquals(MessageTypes.GAME_FOUND.toString(), message.get("type"));
+        subscription.unsubscribe();
+    }
+
+    @Test
     void initialConnect() throws InterruptedException, JSONException {
         var subscription = stompSession.subscribe(SUBSCRIBE_STATE_ENDPOINT + gameId, new CreateStompFrameHandler());
 
         startGame();
 
         JSONObject message = blockingQueue.poll(10, SECONDS);
+        assertNotNull(message);
         assertEquals(MessageTypes.GAME_STARTED.toString(), message.get("type"));
         subscription.unsubscribe();
     }

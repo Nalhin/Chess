@@ -22,8 +22,8 @@
     ]
   },
   "dependencies": {
-    "@emotion/core": "^10.0.15",
-    "@emotion/styled": "^10.0.15",
+    "@emotion/core": "^11.0.0-next.9",
+    "@emotion/styled": "^11.0.0-next.9",
     "@stomp/rx-stomp": "^0.3.4",
     "@stomp/stompjs": "^5.4.2",
     "immer": "^4.0.0",
@@ -31,7 +31,7 @@
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-redux": "^7.1.0",
-    "react-router-dom": "^5.0.1",
+    "react-router-dom": "^5.1.2",
     "redux": "^4.0.4",
     "redux-devtools-extension": "^2.13.8",
     "redux-saga": "^1.0.5",
@@ -55,7 +55,7 @@
     "@typescript-eslint/parser": "^2.8.0",
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.6",
-    "babel-plugin-emotion": "^10.0.15",
+    "babel-plugin-emotion": "^11.0.0-next.8",
     "copy-webpack-plugin": "^5.0.4",
     "css-loader": "^3.2.0",
     "eslint": "^6.7.0",

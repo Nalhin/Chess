@@ -1,5 +1,5 @@
-import { Game, GamePhase } from '../../../src/inferfaces/game';
-import { PlayerColor } from '../../../src/inferfaces/player';
+import { Game, GamePhase } from '../../../src/interfaces/game';
+import { PlayerColor } from '../../../src/interfaces/player';
 
 export const fakeGame: Game = {
   board: {

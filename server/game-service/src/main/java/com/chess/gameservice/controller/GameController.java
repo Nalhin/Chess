@@ -2,14 +2,10 @@ package com.chess.gameservice.controller;
 
 import com.chess.gameservice.game.Game;
 import com.chess.gameservice.game.position.Position;
-import com.chess.gameservice.messages.AvailableMovesMessage;
-import com.chess.gameservice.messages.GameErrorMessage;
-import com.chess.gameservice.messages.GameStartedMessage;
-import com.chess.gameservice.messages.PlayerMovedMessage;
-import com.chess.gameservice.models.AvailableMoves;
-import com.chess.gameservice.models.GameError;
-import com.chess.gameservice.models.PlayerMove;
+import com.chess.gameservice.messages.*;
+import com.chess.gameservice.models.*;
 import com.chess.gameservice.service.GameService;
+import com.chess.gameservice.service.QueueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.Header;
@@ -26,13 +22,33 @@ import java.util.UUID;
 public class GameController {
 
     private final GameService gameService;
+    private final QueueService queueService;
     private final SimpMessagingTemplate simpMessagingTemplate;
 
     @Autowired
-    public GameController(GameService gameService, SimpMessagingTemplate simpMessagingTemplate) {
+    public GameController(GameService gameService, QueueService queueService, SimpMessagingTemplate simpMessagingTemplate) {
         this.gameService = gameService;
+        this.queueService = queueService;
         this.simpMessagingTemplate = simpMessagingTemplate;
     }
+
+    @MessageMapping("/queue")
+    public void joinQueue(@Header("name") String name, @Header("simpSessionId") String sessionId) {
+        var users = queueService.joinQueue(User.builder().name(name).sessionId(sessionId).build());
+
+        if (!users.isEmpty()) {
+            var gameId = UUID.randomUUID();
+            var gameFoundMessage = new GameFoundMessage();
+            gameFoundMessage.setPayload(GameFound.builder().gameId(gameId.toString()).build());
+
+            for (User user : users) {
+                var headerAccessor = SimpMessageHeaderAccessor.create(SimpMessageType.MESSAGE);
+                headerAccessor.setSessionId(user.getSessionId());
+                simpMessagingTemplate.convertAndSendToUser(user.getSessionId(), "/queue/personal", gameFoundMessage, headerAccessor.getMessageHeaders());
+            }
+        }
+    }
+
 
     @MessageMapping("/connect/{gameId}")
     public void initialConnect(@DestinationVariable String gameId, @Header("name") String playerName) {
