@@ -4,7 +4,7 @@ server:
 spring:
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
   datasource:
     url: "jdbc:mysql://localhost:3306/chess"
     username: "root"
