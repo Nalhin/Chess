@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Authentication Service Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="authentication-service" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.chess.authenticationservice.AuthenticationServiceApplication" />
+    <option name="ALTERNATIVE_JRE_PATH" />
+    <option name="UPDATE_ACTION_UPDATE_POLICY" value="UpdateClassesAndTriggerFile" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

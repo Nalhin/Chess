@@ -3,6 +3,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = env => ({
   mode: env.development ? 'development' : 'production',
@@ -65,6 +66,7 @@ module.exports = env => ({
     new CopyPlugin([
       { from: path.resolve(__dirname, './public'), to: path.resolve(__dirname, './dist') },
     ]),
+    new Dotenv(),
     new webpack.EnvironmentPlugin({ ...env }),
   ],
   optimization: {

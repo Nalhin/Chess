@@ -23,7 +23,7 @@ describe('initGameSaga', () => {
 
     testSaga(initGameSaga, action)
       .next()
-      .next({ name: 'xd' })
+      .next({ login: 'xd' })
       .take(GameActionTypes.GAME_OVER)
       .next()
       .isDone();

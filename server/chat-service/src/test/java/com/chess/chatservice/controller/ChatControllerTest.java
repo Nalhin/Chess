@@ -48,7 +48,7 @@ class ChatControllerTest {
 
     private ObjectMapper objectMapper;
 
-    private final String playerName = "playerName";
+    private final String playerLogin = "playerLogin";
 
 
     @BeforeEach
@@ -74,7 +74,7 @@ class ChatControllerTest {
 
         var messageContent = objectMapper.writeValueAsBytes("message content");
         stompHeaders.setDestination(SEND_MESSAGE_ENDPOINT + chatId);
-        stompHeaders.set("name", playerName);
+        stompHeaders.set("login", playerLogin);
         stompSession.send(stompHeaders, messageContent);
 
         JSONObject receivedMessage = blockingQueue.poll(10, SECONDS);

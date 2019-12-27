@@ -41,6 +41,7 @@
     }
   },
   "rules": {
+    "prettier/prettier": 1,
     "@typescript-eslint/no-empty-interface": 0,
     "@typescript-eslint/no-use-before-define": 0,
     "@typescript-eslint/no-unused-vars": 0,

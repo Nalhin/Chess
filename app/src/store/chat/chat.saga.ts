@@ -35,7 +35,7 @@ export function* sendMessageSaga(action: SendMessageAction): SagaIterator {
 
   chatStomp.publish({
     destination: `/app/chat/${chatId}`,
-    headers: { name: user.name },
+    headers: { login: user.login },
     body: action.payload.content,
   });
 }

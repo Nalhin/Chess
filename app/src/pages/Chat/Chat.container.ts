@@ -11,7 +11,7 @@ import {
 
 const mapStateToProps = (state: AppState) => {
   const chatMessages = state.chat.messages;
-  const user = state.user.name;
+  const user = state.user.login;
   return {
     chatMessages,
     user,

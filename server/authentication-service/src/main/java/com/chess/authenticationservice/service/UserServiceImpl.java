@@ -13,6 +13,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
+
     @Override
     public User save(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -22,6 +23,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByLogin(String login) {
+
         return userRepository.findByLogin(login);
     }
 }

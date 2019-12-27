@@ -924,15 +924,38 @@
       <DataType>varchar(30)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="232" parent="229" name="password">
+    <column id="232" parent="229" name="email">
       <Position>3</Position>
-      <DataType>varchar(40)|0s</DataType>
+      <DataType>varchar(30)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="233" parent="229" name="PRIMARY">
+    <column id="233" parent="229" name="password">
+      <Position>4</Position>
+      <DataType>varchar(64)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="234" parent="229" name="user_login_uindex">
+      <ColNames>login</ColNames>
+      <Unique>1</Unique>
+      <Type>btree</Type>
+    </index>
+    <index id="235" parent="229" name="user_email_uindex">
+      <ColNames>email</ColNames>
+      <Unique>1</Unique>
+      <Type>btree</Type>
+    </index>
+    <key id="236" parent="229" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+    </key>
+    <key id="237" parent="229" name="user_login_uindex">
+      <ColNames>login</ColNames>
+      <UnderlyingIndexName>user_login_uindex</UnderlyingIndexName>
+    </key>
+    <key id="238" parent="229" name="user_email_uindex">
+      <ColNames>email</ColNames>
+      <UnderlyingIndexName>user_email_uindex</UnderlyingIndexName>
     </key>
   </database-model>
 </dataSource>

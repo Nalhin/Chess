@@ -34,10 +34,10 @@ export function* gameQueueSaga(action: JoinGameQueueAction): SagaIterator {
   const gameStomp = StompSingleton.getInstance(websocketTypes.GAME);
   const queueSubscription = gameQueueSubscription(gameStomp);
 
-  const { name } = yield select(userSelector);
+  const { login } = yield select(userSelector);
   gameStomp.publish({
     destination: `/app/queue`,
-    headers: { name },
+    headers: { name: login },
   });
 
   yield take(GameActionTypes.INIT_GAME_REQUESTED);
@@ -52,10 +52,10 @@ export function* initGameSaga(action: InitGameRequestedAction): SagaIterator {
   const gameSubscription = gameStateSubscription(gameStomp, gameId);
   const availableMoves = gamePersonalSubscription(gameStomp, gameId);
 
-  const { name } = yield select(userSelector);
+  const { login } = yield select(userSelector);
   gameStomp.publish({
     destination: `/app/connect/${gameId}`,
-    headers: { name },
+    headers: { name: login },
   });
 
   yield take(GameActionTypes.GAME_OVER);
@@ -75,7 +75,7 @@ function* getAvailableMovesSaga(
   const { initialPosition } = action.payload;
   gameStomp.publish({
     destination: `/app/available-moves/${gameId}`,
-    headers: { name: user.name },
+    headers: { name: user.login },
     body: JSON.stringify(initialPosition),
   });
 }
@@ -92,7 +92,7 @@ function* makeMoveSaga(action: MakeMoveRequestedAction): SagaIterator {
   const { destinationPosition } = action.payload;
   gameStomp.publish({
     destination: `/app/move/${gameId}`,
-    headers: { name: user.name },
+    headers: { name: user.login },
     body: JSON.stringify({ initialPosition, destinationPosition }),
   });
 }

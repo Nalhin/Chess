@@ -30,6 +30,7 @@ public class UserController {
 
     @PostMapping(value = "/authentication/login", consumes = "application/json", produces = "application/json")
     public ResponseEntity<User> login(@RequestBody User user) {
+        System.out.println(user);
         var savedUser = userService.findByLogin(user.getLogin());
         return ResponseEntity.ok().body(savedUser);
     }
