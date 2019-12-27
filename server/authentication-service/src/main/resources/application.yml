@@ -2,6 +2,23 @@ server:
   port: 8083
 
 spring:
+  profiles:
+    active: dev
+---
+
+spring:
+  profiles : test
+
+  datasource:
+     driver-class-name: org.h2.Driver
+     url: jdbc:h2:mem:db;DB_CLOSE_DELAY=-1
+     datasource:
+      username: sa
+      password: sa
+
+---
+spring:
+  profiles: dev
   jpa:
     hibernate:
       ddl-auto: none
@@ -9,6 +26,8 @@ spring:
     url: "jdbc:mysql://localhost:3306/chess"
     username: "root"
     password: "password"
+
+
 
 security:
   jwt:
