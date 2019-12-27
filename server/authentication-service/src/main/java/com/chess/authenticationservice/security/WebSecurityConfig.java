@@ -36,6 +36,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.apply(new JwtTokenFilterConfigurer(jwtTokenProvider));
     }
 
+    @Override
+    public void configure(WebSecurity web) {
+        web.ignoring().antMatchers("/configuration/**")
+                .antMatchers("/webjars/**")
+                .antMatchers("/public")
+                .and()
+                .ignoring()
+                .antMatchers("/h2-console/**/**");;
+    }
+
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(12);

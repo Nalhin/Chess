@@ -13,7 +13,7 @@ public class ChatController {
 
     @MessageMapping("/chat/{chatId}")
     @SendTo("/topic/chat/{chatId}")
-    public ChatMessage sendMessage(@DestinationVariable String chatId, @Payload String messageContent, @Header("name") String login) {
+    public ChatMessage sendMessage(@DestinationVariable String chatId, @Payload String messageContent, @Header("login") String login) {
 
         var message = new ChatMessage();
         message.setName(login);
