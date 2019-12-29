@@ -43,17 +43,17 @@ class GameControllerTestIntegrationTest {
     private StompHeaders stompHeaders;
     private String gameId;
 
-    private final String SUBSCRIBE_QUEUE_ENDPOINT = "/user/queue/personal";
+    private final String firstPlayerName = "firstPlayerName";
+    private final String secondPlayerName = "secondPlayerName";
+
     private final String SUBSCRIBE_STATE_ENDPOINT = "/topic/state/";
-    private final String SUBSCRIBE_PERSONAL_ENDPOINT = "/user/queue/personal/";
+    private final String SUBSCRIBE_PERSONAL_ENDPOINT = "/queue/personal/";
 
     private final String JOIN_QUEUE_ENDPOINT = "/app/queue";
     private final String CONNECT_TO_GAME_ENDPOINT = "/app/connect/";
     private final String MAKE_MOVE_ENDPOINT = "/app/move/";
     private final String AVAILABLE_MOVES_ENDPOINT = "/app/available-moves/";
 
-    private final String firstPlayerName = "firstPlayerName";
-    private final String secondPlayerName = "secondPlayerName";
 
     private LinkedBlockingDeque<JSONObject> blockingQueue;
 
@@ -88,7 +88,7 @@ class GameControllerTestIntegrationTest {
 
     @Test
     void joinQueue() throws InterruptedException, JSONException {
-        var subscription = stompSession.subscribe(SUBSCRIBE_QUEUE_ENDPOINT, new CreateStompFrameHandler());
+        var subscription = stompSession.subscribe(SUBSCRIBE_PERSONAL_ENDPOINT + secondPlayerName, new CreateStompFrameHandler());
 
         stompHeaders.setDestination(JOIN_QUEUE_ENDPOINT);
         stompHeaders.set("name", firstPlayerName);
@@ -98,13 +98,14 @@ class GameControllerTestIntegrationTest {
         stompSession.send(stompHeaders, null);
 
         JSONObject message = blockingQueue.poll(10, SECONDS);
+        assertNotNull(message);
         assertEquals(MessageTypes.GAME_FOUND.toString(), message.get("type"));
         subscription.unsubscribe();
     }
 
     @Test
     void initialConnect() throws InterruptedException, JSONException {
-        var subscription = stompSession.subscribe(SUBSCRIBE_STATE_ENDPOINT + gameId, new CreateStompFrameHandler());
+        var subscription = stompSession.subscribe(SUBSCRIBE_STATE_ENDPOINT +  gameId, new CreateStompFrameHandler());
 
         startGame();
 
@@ -117,7 +118,7 @@ class GameControllerTestIntegrationTest {
 
     @Test
     void makeMove() throws InterruptedException, JSONException, JsonProcessingException {
-        var subscription = stompSession.subscribe(SUBSCRIBE_STATE_ENDPOINT + gameId, new CreateStompFrameHandler());
+        var subscription = stompSession.subscribe( SUBSCRIBE_STATE_ENDPOINT + gameId, new CreateStompFrameHandler());
 
         startGame();
         blockingQueue.poll(10, SECONDS);
@@ -135,7 +136,7 @@ class GameControllerTestIntegrationTest {
 
     @Test
     void makeMoveError() throws InterruptedException, JSONException, JsonProcessingException {
-        var subscription = stompSession.subscribe(SUBSCRIBE_PERSONAL_ENDPOINT + gameId, new CreateStompFrameHandler());
+        var subscription = stompSession.subscribe(SUBSCRIBE_PERSONAL_ENDPOINT + firstPlayerName + "/" + gameId, new CreateStompFrameHandler());
 
         startGame();
         blockingQueue.poll(10, SECONDS);
@@ -147,13 +148,13 @@ class GameControllerTestIntegrationTest {
 
         var message = blockingQueue.poll(10, SECONDS);
         assertNotNull(message);
-        assertEquals(MessageTypes.GAME_ERROR.toString(), message.get("type"));
+        assertEquals(MessageTypes.ERROR.toString(), message.get("type"));
         subscription.unsubscribe();
     }
 
     @Test
     void availableMoves() throws InterruptedException, JsonProcessingException, JSONException {
-        var subscription = stompSession.subscribe(SUBSCRIBE_PERSONAL_ENDPOINT + gameId, new CreateStompFrameHandler());
+        var subscription = stompSession.subscribe(SUBSCRIBE_PERSONAL_ENDPOINT + firstPlayerName + "/" + gameId, new CreateStompFrameHandler());
 
         startGame();
         blockingQueue.poll(10, SECONDS);
@@ -171,7 +172,7 @@ class GameControllerTestIntegrationTest {
 
     @Test
     void availableMovesError() throws InterruptedException, JsonProcessingException, JSONException {
-        var subscription = stompSession.subscribe(SUBSCRIBE_PERSONAL_ENDPOINT + gameId, new CreateStompFrameHandler());
+        var subscription = stompSession.subscribe(SUBSCRIBE_PERSONAL_ENDPOINT + secondPlayerName + "/" + gameId, new CreateStompFrameHandler());
 
         startGame();
         blockingQueue.poll(10, SECONDS);
@@ -183,7 +184,7 @@ class GameControllerTestIntegrationTest {
 
         var message = blockingQueue.poll(10, SECONDS);
         assertNotNull(message);
-        assertEquals(MessageTypes.GAME_ERROR.toString(), message.get("type"));
+        assertEquals(MessageTypes.ERROR.toString(), message.get("type"));
         subscription.unsubscribe();
     }
 

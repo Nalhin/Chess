@@ -1,5 +1,6 @@
 package com.chess.gameservice.game;
 
+import com.chess.gameservice.exception.GameException;
 import com.chess.gameservice.game.board.Board;
 import com.chess.gameservice.game.player.Player;
 import com.chess.gameservice.game.player.PlayerColor;
@@ -25,20 +26,26 @@ public class Game {
     GamePhase gamePhase = GamePhase.WAITING_FOR_PLAYERS;
 
 
-    public void setPlayer(Player player, PlayerColor playerColor){
-        players.setPlayerByColor(player,playerColor);
+    public void setPlayer(Player player, PlayerColor playerColor) {
+        players.setPlayerByColor(player, playerColor);
     }
 
-    public void makeMove(PlayerMove playerMove, Player player){
+    public void makeMove(PlayerMove playerMove, Player player) throws GameException {
         checkIfPlayerTurn(player);
         board.movePiece(playerMove.getInitialPosition(), playerMove.getDestinationPosition(), currentTurn);
         changeTurn();
     }
 
-    private void checkIfPlayerTurn(Player player) throws IllegalArgumentException {
+    private void checkIfPlayerTurn(Player player) throws GameException {
         if (!players.getPlayerByColor(currentTurn).equals(player)) {
-            throw new IllegalArgumentException("Wrong turn.");
+            throw GameException.builder().message("Wrong turn.").build();
         }
+    }
+
+
+    public ArrayList<Position> getAvailableMoves(Position position, Player player) throws GameException {
+        checkIfPlayerTurn(player);
+        return board.getAvailableMoves(position, currentTurn);
     }
 
     private void changeTurn() {
@@ -50,11 +57,6 @@ public class Game {
                 currentTurn = PlayerColor.BLACK;
                 break;
         }
-    }
-
-    public ArrayList<Position> getAvailableMoves(Position position, Player player) {
-        checkIfPlayerTurn(player);
-        return board.getAvailableMoves(position);
     }
 
     public void initGame() {

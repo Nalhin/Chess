@@ -11,21 +11,10 @@ import lombok.Setter;
 import java.util.ArrayList;
 
 
-
-
 @Getter
 @Setter
 @NoArgsConstructor
 @JsonIgnoreProperties("firstMove")
-//@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type", visible = true)
-//@JsonSubTypes({
-//        @JsonSubTypes.Type(value = Pawn.class, name = "PAWN"),
-//        @JsonSubTypes.Type(value = Knight.class, name = "KNIGHT"),
-//        @JsonSubTypes.Type(value = Bishop.class, name = "BISHOP"),
-//        @JsonSubTypes.Type(value = Rook.class, name = "ROOK"),
-//        @JsonSubTypes.Type(value = Queen.class, name = "QUEEN"),
-//        @JsonSubTypes.Type(value = King.class, name = "KING"),
-//})
 public abstract class Piece {
 
     private PlayerColor playerColor;
@@ -33,10 +22,10 @@ public abstract class Piece {
 
     public Piece(PlayerColor playerColor, PieceType type) {
         this.playerColor = playerColor;
-        this.type=type;
+        this.type = type;
     }
 
-    static ArrayList<Position> getMovesInDirection(Board board, Position initialPosition, int dx, int dy) {
+    ArrayList<Position> getMovesInDirection(Board board, Position initialPosition, int dx, int dy) {
         var availableMoves = new ArrayList<Position>();
         var position = new Position(initialPosition.getX(), initialPosition.getY());
 
@@ -49,22 +38,26 @@ public abstract class Piece {
                 break;
             }
             if (!board.isBoardPositionEmpty(position)) {
+                if (board.isTakenPositionMovable(position, playerColor)) {
+                    availableMoves.add(new Position(newX, newY));
+                    break;
+                }
                 break;
             }
+
             availableMoves.add(new Position(newX, newY));
         }
         return availableMoves;
     }
 
-    static boolean isMoveImpossible(Position currentPosition, Position destinationPosition) {
+    public boolean isMoveImpossible(Position initialPosition, Position destinationPosition) {
         if (!destinationPosition.isWithinBounds()) {
             return true;
         }
-
-        return currentPosition.equals(destinationPosition);
+        return initialPosition.equals(destinationPosition);
     }
 
-    static boolean isDiagonalMoveLegal(Position currentPosition, Position destinationPosition, Board board) {
+    boolean isDiagonalMoveLegal(Position currentPosition, Position destinationPosition, Board board) {
         int diffX = destinationPosition.getX() - currentPosition.getX();
         int diffY = destinationPosition.getY() - currentPosition.getY();
 
@@ -78,7 +71,7 @@ public abstract class Piece {
         return isDirectionUnobstructed(currentPosition, destinationPosition, board, dx, dy);
     }
 
-    static boolean isLineMoveLegal(Position currentPosition, Position destinationPosition, Board board) {
+    boolean isLineMoveLegal(Position currentPosition, Position destinationPosition, Board board) {
 
         if (currentPosition.getX() == destinationPosition.getX()) {
             int dy = destinationPosition.getY() - currentPosition.getY() > 0 ? 1 : -1;
@@ -93,20 +86,22 @@ public abstract class Piece {
         return false;
     }
 
-    private static boolean isDirectionUnobstructed(Position currentPosition, Position destinationPosition,
-                                                   Board board, int dx, int dy) {
+    private boolean isDirectionUnobstructed(Position currentPosition, Position destinationPosition,
+                                            Board board, int dx, int dy) {
 
         var position = new Position(currentPosition.getX(), currentPosition.getY());
         do {
             position.setX(position.getX() + dx);
             position.setY(position.getY() + dy);
 
+            if (destinationPosition.equals(position)) {
+                return true;
+            }
+
             if (!board.isBoardPositionEmpty(position)) {
                 return false;
             }
-        } while (!destinationPosition.equals(position));
-
-        return true;
+        } while (true);
     }
 
     public abstract ArrayList<Position> getAvailableMoves(Board board, Position initialPosition);

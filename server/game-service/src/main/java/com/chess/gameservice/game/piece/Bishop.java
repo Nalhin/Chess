@@ -35,9 +35,6 @@ public class Bishop extends Piece {
 
     @Override
     public boolean isMoveLegal(Position currentPosition, Position destinationPosition, Board board) {
-        if (isMoveImpossible(currentPosition, destinationPosition)) {
-            return false;
-        }
         return isDiagonalMoveLegal(currentPosition, destinationPosition, board);
     }
 

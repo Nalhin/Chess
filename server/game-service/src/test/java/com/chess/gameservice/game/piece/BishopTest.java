@@ -70,7 +70,5 @@ class BishopTest {
         var destinationPositionIllegal = new Position(7, 3);
         assertFalse(bishop.isMoveLegal(currentPosition, destinationPositionIllegal, board));
 
-        var destinationPositionOutOfBounds = new Position(8, 5);
-        assertFalse(bishop.isMoveLegal(currentPosition, destinationPositionOutOfBounds, board));
     }
 }

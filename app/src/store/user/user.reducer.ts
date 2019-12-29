@@ -3,8 +3,10 @@ import { UserActions, UserActionTypes, UserState } from './user.types';
 import produce from 'immer';
 
 export const USER_INITIAL_STATE = {
-  login: '',
-  email: '',
+  data: {
+    login: '',
+    email: '',
+  },
 };
 
 const userReducer: Reducer<UserState, UserActions> = (
@@ -17,14 +19,18 @@ const userReducer: Reducer<UserState, UserActions> = (
         break;
       case UserActionTypes.LOGIN_USER_SUCCEEDED:
       case UserActionTypes.REGISTER_USER_SUCCEEDED:
-        draft.login = action.payload.user.login;
-        draft.email = action.payload.user.email;
+      case UserActionTypes.AUTHENTICATION_SUCCEEDED:
+        draft.data.login = action.payload.user.login;
+        draft.data.email = action.payload.user.email;
         break;
       case UserActionTypes.LOGIN_USER_FAILED:
         break;
       case UserActionTypes.REGISTER_USER_REQUESTED:
         break;
       case UserActionTypes.REGISTER_USER_FAILED:
+        break;
+      case UserActionTypes.LOGOUT_USER:
+        draft.data = USER_INITIAL_STATE.data;
         break;
       default:
         break;

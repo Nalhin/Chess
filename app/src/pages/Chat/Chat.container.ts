@@ -3,15 +3,12 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { RootAction } from '../../store/rootAction';
 import { connect } from 'react-redux';
 import Chat from './Chat';
-import {
-  closeChat,
-  initChat,
-  sendMessage,
-} from '../../store/chat/chat.actions';
+import { sendMessage } from '../../store/chat/chat.actions';
+import { userSelector } from '../../store/user/user.selectors';
 
 const mapStateToProps = (state: AppState) => {
   const chatMessages = state.chat.messages;
-  const user = state.user.login;
+  const user = userSelector(state).login;
   return {
     chatMessages,
     user,
@@ -22,8 +19,6 @@ const mapDispatchToProps = (dispatch: Dispatch<RootAction>) =>
   bindActionCreators(
     {
       sendMessage,
-      initChat,
-      closeChat,
     },
     dispatch,
   );

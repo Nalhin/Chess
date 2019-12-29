@@ -1,9 +1,14 @@
 package com.chess.authenticationservice.service;
 
+import com.chess.authenticationservice.dto.UserDto;
 import com.chess.authenticationservice.model.User;
 
-public interface UserService {
-    User save(User user);
+import javax.servlet.http.HttpServletRequest;
 
-    User findByLogin(String login);
+public interface UserService {
+    UserDto save(User user);
+
+    UserDto login(User user);
+
+    UserDto authorize(HttpServletRequest req);
 }

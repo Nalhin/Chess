@@ -4,19 +4,8 @@ import { ChatContainerProps } from './Chat.container';
 
 interface Props extends ChatContainerProps {}
 
-const Chat: React.FC<Props> = ({
-  chatMessages,
-  sendMessage,
-  initChat,
-  closeChat,
-  user,
-}) => {
+const Chat: React.FC<Props> = ({ chatMessages, sendMessage, user }) => {
   const [messageInputValue, setMessageInputValue] = React.useState('');
-
-  React.useEffect(() => {
-    initChat();
-    return () => closeChat();
-  }, [initChat]);
 
   const handleSetNewMessageValue = (
     event: React.ChangeEvent<HTMLInputElement>,

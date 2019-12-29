@@ -1,5 +1,6 @@
 package com.chess.gameservice.service;
 
+import com.chess.gameservice.exception.QueueException;
 import com.chess.gameservice.models.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,7 +17,7 @@ class QueueServiceTest {
     }
 
     @Test
-    void joinQueue() {
+    void joinQueue() throws QueueException {
         var firstUser= User.builder().name("1").sessionId("1").build();
         var secondUser= User.builder().name("2").sessionId("2").build();
 

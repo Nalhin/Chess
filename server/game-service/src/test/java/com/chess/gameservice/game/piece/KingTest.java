@@ -47,7 +47,5 @@ class KingTest {
         var destinationPositionIllegal = new Position(2, 1);
         assertFalse(king.isMoveLegal(currentPosition, destinationPositionIllegal, board));
 
-        var destinationPositionOutOfBounds = new Position(-1, 1);
-        assertFalse(king.isMoveLegal(currentPosition, destinationPositionOutOfBounds, board));
     }
 }

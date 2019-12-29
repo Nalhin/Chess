@@ -30,7 +30,7 @@ public class Knight extends Piece {
             int newPositionY = initialPosition.getY() + dy[i];
 
             var position = new Position(newPositionX, newPositionY);
-            if (position.isWithinBounds() && board.isBoardPositionEmpty(position)) {
+            if (position.isWithinBounds() && board.isTakenPositionMovable(position,getPlayerColor())) {
                 availableMoves.add(position);
             }
         }
@@ -39,9 +39,6 @@ public class Knight extends Piece {
 
     @Override
     public boolean isMoveLegal(Position currentPosition, Position destinationPosition, Board board) {
-        if (isMoveImpossible(currentPosition, destinationPosition)) {
-            return false;
-        }
 
         int dx = Math.abs(currentPosition.getX() - destinationPosition.getX());
         int dy = Math.abs(currentPosition.getY() - destinationPosition.getY());

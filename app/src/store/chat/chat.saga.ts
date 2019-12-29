@@ -17,21 +17,22 @@ export function* chatRootSaga(): SagaIterator {
   ]);
 }
 
-const chatId = '3ece1b67-8e42-442c-8d38-cc150ad328af';
-
 export function* initChatSaga(action: InitChatAction): SagaIterator {
   const chatStomp = StompSingleton.getInstance(websocketTypes.CHAT);
 
-  const subscription = chatSubscription(chatStomp, chatId);
+  const subscription = chatSubscription(chatStomp, action.payload.chatId);
 
   yield take(ChatBaseActionTypes.CLOSE_CHAT);
-  subscription.unsubscribe();
+  // subscription.unsubscribe();
 }
 
 export function* sendMessageSaga(action: SendMessageAction): SagaIterator {
   const chatStomp = StompSingleton.getInstance(websocketTypes.CHAT);
 
-  const user = yield select(userSelector);
+  const [user, chatId] = yield all([
+    select(userSelector),
+    select(state => state.chat.id),
+  ]);
 
   chatStomp.publish({
     destination: `/app/chat/${chatId}`,

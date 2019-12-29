@@ -5,11 +5,10 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-
-public class GameError {
+public class ErrorPayload {
     private String error;
 
-    public GameError(String error) {
+    public ErrorPayload(String error) {
         this.error = error;
     }
 }

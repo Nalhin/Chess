@@ -19,20 +19,34 @@ public class Pawn extends Piece {
     private boolean isFirstMove = true;
 
     Pawn(PlayerColor playerColor) {
-        super(playerColor,PieceType.PAWN);
+        super(playerColor, PieceType.PAWN);
     }
 
     @Override
     public ArrayList<Position> getAvailableMoves(Board board, Position initialPosition) {
         var direction = getDirection();
         var availableMoves = new ArrayList<Position>();
+        int[] dx = {1, 1};
+        int[] dy = {1, -1};
 
-        availableMoves.add(new Position(initialPosition.getX() + direction, initialPosition.getY()));
-
-        if (isFirstMove) {
-            availableMoves.add(new Position(initialPosition.getX() + direction * 2, initialPosition.getY()));
+        for (int i = 0; i < dx.length; i++) {
+            var position = new Position(initialPosition.getX() + dx[i] * direction, initialPosition.getY() + dy[i]);
+            if (position.isWithinBounds() && board.isPositionTakenByAttackableEnemy(position, getPlayerColor())) {
+                availableMoves.add(position);
+            }
         }
 
+        var forwardPosition = new Position(initialPosition.getX() + direction, initialPosition.getY());
+        if (board.isBoardPositionEmpty(forwardPosition)) {
+            availableMoves.add(forwardPosition);
+        }
+
+        if (isFirstMove) {
+            var position = new Position(initialPosition.getX() + direction * 2, initialPosition.getY());
+            if (board.isBoardPositionEmpty(position)) {
+                availableMoves.add(position);
+            }
+        }
         return availableMoves;
     }
 
@@ -40,10 +54,10 @@ public class Pawn extends Piece {
     public boolean isMoveLegal(Position currentPosition, Position destinationPosition, Board board) {
         var direction = getDirection();
 
-        if (isMoveImpossible(currentPosition, destinationPosition)) {
-            return false;
-        }
         if (currentPosition.getY() != destinationPosition.getY()) {
+            if (Math.abs(currentPosition.getY() - destinationPosition.getY()) == 1) {
+                return board.isPositionTakenByAttackableEnemy(destinationPosition, getPlayerColor());
+            }
             return false;
         }
         if (destinationPosition.getX() - currentPosition.getX() == direction) {
@@ -56,8 +70,4 @@ public class Pawn extends Piece {
         return getPlayerColor() == PlayerColor.WHITE ? -1 : 1;
     }
 
-    //TODO
-    void move() {
-        isFirstMove = false;
-    }
 }

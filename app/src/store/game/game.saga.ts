@@ -17,6 +17,8 @@ import { StompSingleton } from '../../websocket/stompClient';
 import { gameIdSelector, selectedPieceSelector } from './game.selectors';
 import { userSelector } from '../user/user.selectors';
 import { websocketTypes } from '../../websocket/websocketTypes';
+import { put } from 'redux-saga-test-plan/matchers';
+import { initChat } from '../chat/chat.actions';
 
 export function* gameRootSaga(): SagaIterator {
   yield all([
@@ -32,9 +34,10 @@ export function* gameRootSaga(): SagaIterator {
 
 export function* gameQueueSaga(action: JoinGameQueueAction): SagaIterator {
   const gameStomp = StompSingleton.getInstance(websocketTypes.GAME);
-  const queueSubscription = gameQueueSubscription(gameStomp);
 
   const { login } = yield select(userSelector);
+  const queueSubscription = gameQueueSubscription(gameStomp, login);
+
   gameStomp.publish({
     destination: `/app/queue`,
     headers: { name: login },
@@ -44,15 +47,17 @@ export function* gameQueueSaga(action: JoinGameQueueAction): SagaIterator {
   queueSubscription.unsubscribe();
 }
 
-export function* initGameSaga(action: InitGameRequestedAction): SagaIterator {
+export function* initGameSaga(action: InitGameRequestedAction) {
   const gameStomp = StompSingleton.getInstance(websocketTypes.GAME);
 
   const gameId = action.payload.id;
-
-  const gameSubscription = gameStateSubscription(gameStomp, gameId);
-  const availableMoves = gamePersonalSubscription(gameStomp, gameId);
+  yield put(initChat(gameId));
 
   const { login } = yield select(userSelector);
+
+  const gameSubscription = gameStateSubscription(gameStomp, gameId);
+  const availableMoves = gamePersonalSubscription(gameStomp, gameId, login);
+
   gameStomp.publish({
     destination: `/app/connect/${gameId}`,
     headers: { name: login },

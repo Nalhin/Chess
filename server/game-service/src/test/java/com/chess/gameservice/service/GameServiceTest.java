@@ -1,5 +1,6 @@
 package com.chess.gameservice.service;
 
+import com.chess.gameservice.exception.GameException;
 import com.chess.gameservice.game.Game;
 import com.chess.gameservice.game.piece.Pawn;
 import com.chess.gameservice.game.position.Position;
@@ -39,14 +40,14 @@ class GameServiceTest {
     }
 
     @Test
-    void getAvailableMoves() {
+    void getAvailableMoves() throws GameException {
         gameService.initialConnect(gameId, firstPlayerName);
         gameService.initialConnect(gameId, secondPlayerName);
 
-        var pawnPosition = new Position(1, 7);
+        var pawnPosition = new Position(1, 5);
         var expectedMoves = new ArrayList<Position>();
-        expectedMoves.add(new Position(2, 7));
-        expectedMoves.add(new Position(3, 7));
+        expectedMoves.add(new Position(2, 5));
+        expectedMoves.add(new Position(3, 5));
         var expectedAvailableMoves = new AvailableMoves();
         expectedAvailableMoves.setPosition(pawnPosition);
         expectedAvailableMoves.setAvailableMoves(expectedMoves);
@@ -57,7 +58,7 @@ class GameServiceTest {
     }
 
     @Test
-    void move() {
+    void move() throws GameException {
         gameService.initialConnect(gameId, firstPlayerName);
         gameService.initialConnect(gameId, secondPlayerName);
         var initialPosition = new Position(6, 7);

@@ -35,9 +35,6 @@ public class Queen extends Piece {
 
     @Override
     public boolean isMoveLegal(Position currentPosition, Position destinationPosition, Board board) {
-        if (isMoveImpossible(currentPosition, destinationPosition)) {
-            return false;
-        }
         if (isDiagonalMoveLegal(currentPosition, destinationPosition, board)) {
             return true;
         }

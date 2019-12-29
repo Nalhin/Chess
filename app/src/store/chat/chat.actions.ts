@@ -17,8 +17,11 @@ export const newMessageReceived = (
   },
 });
 
-export const initChat = (): InitChatAction => ({
+export const initChat = (chatId: string): InitChatAction => ({
   type: ChatBaseActionTypes.INIT_CHAT,
+  payload: {
+    chatId,
+  },
 });
 
 export const closeChat = (): CloseChatAction => ({

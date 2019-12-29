@@ -6,3 +6,8 @@ export const fetchLoginUser = (user: UserLoginData) =>
 
 export const fetchRegisterUser = (user: UserRegisterData) =>
   axios.post(`${process.env.AUTHENTICATION_URL}/authentication/register`, user);
+
+export const fetchAuthenticateUser = (token: string) =>
+  axios.get(`${process.env.AUTHENTICATION_URL}/authentication/authorize`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });

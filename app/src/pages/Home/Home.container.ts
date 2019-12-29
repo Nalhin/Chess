@@ -4,11 +4,14 @@ import { RootAction } from '../../store/rootAction';
 import { gameFound, joinGameQueue } from '../../store/game/game.actions';
 import { connect } from 'react-redux';
 import Home from './Home';
+import { isAuthenticatedSelector } from '../../store/user/user.selectors';
 
 const mapStateToProps = (state: AppState) => {
   const gameId = state.game.gameId;
+  const isAuthenticated = isAuthenticatedSelector(state);
   return {
     gameId,
+    isAuthenticated,
   };
 };
 

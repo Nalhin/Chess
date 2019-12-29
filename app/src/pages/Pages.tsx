@@ -5,6 +5,7 @@ import Home from './Home/Home.container';
 import Login from './Login/Login';
 import Register from './Register/Register';
 import Navigation from './Navigation/Navigation';
+import ProtectedRoute from '../components/UnauthenticatedRoute/UnauthenticatedRoute';
 
 const Pages = () => {
   return (
@@ -12,9 +13,19 @@ const Pages = () => {
       <Navigation />
       <Switch>
         <Route path="/" component={Home} exact />
-        <Route path="/game/:id" component={GameRoom} exact />
-        <Route path="/login" component={Login} exact />
-        <Route path="/register" component={Register} exact />
+        <ProtectedRoute path="/game/:id" component={GameRoom} exact />
+        <ProtectedRoute
+          withAuthentication
+          path="/login"
+          component={Login}
+          exact
+        />
+        <ProtectedRoute
+          withAuthentication
+          path="/register"
+          component={Register}
+          exact
+        />
       </Switch>
     </div>
   );

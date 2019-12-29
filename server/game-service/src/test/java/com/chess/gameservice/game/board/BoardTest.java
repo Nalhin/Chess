@@ -1,5 +1,6 @@
 package com.chess.gameservice.game.board;
 
+import com.chess.gameservice.exception.GameException;
 import com.chess.gameservice.game.piece.King;
 import com.chess.gameservice.game.piece.Pawn;
 import com.chess.gameservice.game.piece.Queen;
@@ -53,7 +54,7 @@ class BoardTest {
     }
 
     @Test
-    void movePieceTest() {
+    void movePieceTest() throws GameException {
         var pawnPosition = new Position(6, 0);
         var legalDestinationPosition = new Position(5, 0);
 
@@ -68,7 +69,7 @@ class BoardTest {
         var pawnPosition = new Position(1, 0);
         var destinationPosition = new Position(2, 0);
 
-        assertThrows(IllegalArgumentException.class, () -> board.movePiece(pawnPosition, destinationPosition,PlayerColor.WHITE));
+        assertThrows(GameException.class, () -> board.movePiece(pawnPosition, destinationPosition,PlayerColor.WHITE));
 
         var newPawnPosition = board.getState()[destinationPosition.getX()][destinationPosition.getY()];
         assertNull(newPawnPosition);
@@ -79,7 +80,7 @@ class BoardTest {
         var pawnPosition = new Position(1, 0);
         var illegalDestinationPosition = new Position(4, 0);
 
-        assertThrows(IllegalArgumentException.class, () -> board.movePiece(pawnPosition, illegalDestinationPosition,PlayerColor.WHITE));
+        assertThrows(GameException.class, () -> board.movePiece(pawnPosition, illegalDestinationPosition,PlayerColor.WHITE));
 
         var newPawnPosition = board.getState()[illegalDestinationPosition.getX()][illegalDestinationPosition.getY()];
         assertNull(newPawnPosition);

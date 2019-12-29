@@ -28,7 +28,7 @@ public class King extends Piece {
         for (int i = 0; i < dx.length; i++) {
             var position = new Position(initialPosition.getX() + dx[i], initialPosition.getY() + dy[i]);
             if (position.isWithinBounds()) {
-                if (board.isBoardPositionEmpty(position)) {
+                if (board.isTakenPositionMovable(position,getPlayerColor())) {
                     availableMoves.add(position);
                 }
             }
@@ -38,9 +38,6 @@ public class King extends Piece {
 
     @Override
     public boolean isMoveLegal(Position currentPosition, Position destinationPosition, Board board) {
-        if (isMoveImpossible(currentPosition, destinationPosition)) {
-            return false;
-        }
         return Math.abs(currentPosition.getX() - destinationPosition.getX()) <= 1
                 && Math.abs(currentPosition.getX() - destinationPosition.getX()) >= 0
                 && Math.abs(currentPosition.getY() - destinationPosition.getY()) <= 1

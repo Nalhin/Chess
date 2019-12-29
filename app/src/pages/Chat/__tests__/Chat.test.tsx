@@ -6,20 +6,10 @@ import Chat from '../Chat';
 const props = {
   chatMessages: [fakeChatMessage],
   sendMessage: jest.fn(),
-  initChat: jest.fn(),
   user: '',
-  closeChat: jest.fn(),
 };
 
 describe('Chat Component', () => {
-  it('Should call initChat on render', () => {
-    const initChat = jest.fn();
-
-    render(<Chat {...props} initChat={initChat} />);
-
-    expect(initChat).toBeCalledTimes(1);
-  });
-
   it('Should allow sending messages and clear input on send', () => {
     const sendMessage = jest.fn();
     const fakeMessageContent = 'test';

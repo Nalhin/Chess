@@ -1,6 +1,7 @@
 package com.chess.gameservice.service;
 
 
+import com.chess.gameservice.exception.QueueException;
 import com.chess.gameservice.models.User;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +12,10 @@ import java.util.LinkedList;
 public class QueueService {
     private LinkedList<User> queue = new LinkedList<>();
 
-    public synchronized ArrayList<User>joinQueue(User user) {
+    public synchronized ArrayList<User>joinQueue(User user) throws QueueException {
+        if(queue.contains(user)){
+            throw QueueException.builder().message("Player already in queue.").build();
+        }
         queue.offer(user);
         var users= new ArrayList<User>();
 

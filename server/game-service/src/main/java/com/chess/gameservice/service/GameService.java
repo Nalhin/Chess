@@ -1,5 +1,6 @@
 package com.chess.gameservice.service;
 
+import com.chess.gameservice.exception.GameException;
 import com.chess.gameservice.game.Game;
 import com.chess.gameservice.game.player.Player;
 import com.chess.gameservice.game.player.PlayerColor;
@@ -37,7 +38,7 @@ public class GameService {
         return game;
     }
 
-    public AvailableMoves getAvailableMoves(UUID gameId, Position position, String name) {
+    public AvailableMoves getAvailableMoves(UUID gameId, Position position, String name) throws GameException {
         var game = games.get(gameId);
         var player = new Player(name);
         var availableMoves = new AvailableMoves();
@@ -46,7 +47,7 @@ public class GameService {
         return availableMoves;
     }
 
-    public Game makeMove(UUID gameId, PlayerMove playerMove, String playerName) {
+    public Game makeMove(UUID gameId, PlayerMove playerMove, String playerName) throws GameException {
         var game = games.get(gameId);
         var player = new Player(playerName);
         game.makeMove(playerMove, player);

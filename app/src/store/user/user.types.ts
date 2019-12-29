@@ -1,8 +1,10 @@
 import { User, UserLoginData, UserRegisterData } from '../../interfaces/User';
 
 export interface UserState {
-  readonly login: string;
-  readonly email: string;
+  readonly data: {
+    login: string;
+    email: string;
+  };
 }
 
 export enum UserActionTypes {
@@ -12,6 +14,8 @@ export enum UserActionTypes {
   REGISTER_USER_REQUESTED = 'REGISTER_USER_REQUESTED',
   REGISTER_USER_SUCCEEDED = 'REGISTER_USER_SUCCEEDED',
   REGISTER_USER_FAILED = 'REGISTER_USER_FAILED',
+  AUTHENTICATION_SUCCEEDED = 'AUTHENTICATION_SUCCEEDED',
+  LOGOUT_USER = 'LOGOUT_USER',
 }
 
 export interface LoginUserRequestedAction {
@@ -56,10 +60,23 @@ export interface RegisterUserFailedAction {
   };
 }
 
+export interface AuthenticationSucceededAction {
+  type: typeof UserActionTypes.AUTHENTICATION_SUCCEEDED;
+  payload: {
+    user: User;
+  };
+}
+
+export interface LogoutUserAction {
+  type: typeof UserActionTypes.LOGOUT_USER;
+}
+
 export type UserActions =
   | LoginUserRequestedAction
   | LoginUserSucceededAction
   | LoginUserFailedAction
   | RegisterUserRequestedAction
   | RegisterUserSucceededAction
-  | RegisterUserFailedAction;
+  | RegisterUserFailedAction
+  | AuthenticationSucceededAction
+  | LogoutUserAction;

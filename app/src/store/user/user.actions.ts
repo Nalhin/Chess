@@ -1,8 +1,10 @@
 import { User, UserLoginData, UserRegisterData } from '../../interfaces/User';
 import {
+  AuthenticationSucceededAction,
   LoginUserFailedAction,
   LoginUserRequestedAction,
   LoginUserSucceededAction,
+  LogoutUserAction,
   RegisterUserFailedAction,
   RegisterUserRequestedAction,
   RegisterUserSucceededAction,
@@ -59,4 +61,17 @@ export const registerUserFailedAction = (
   payload: {
     error,
   },
+});
+
+export const authenticationSucceededAction = (
+  user: User,
+): AuthenticationSucceededAction => ({
+  type: UserActionTypes.AUTHENTICATION_SUCCEEDED,
+  payload: {
+    user,
+  },
+});
+
+export const logoutUser = (): LogoutUserAction => ({
+  type: UserActionTypes.LOGOUT_USER,
 });

@@ -26,7 +26,7 @@ public class JwtTokenProvider {
     private String secretKey;
 
     @Value("${security.jwt.token.expire-length:3600000}")
-    private long validityInMilliseconds = 3600000; // 1h
+    private long validityInMilliseconds = 3600000;
 
     private final MyUserDetails myUserDetails;
 
@@ -55,11 +55,11 @@ public class JwtTokenProvider {
     }
 
     public Authentication getAuthentication(String token) {
-        UserDetails userDetails = myUserDetails.loadUserByUsername(getUsername(token));
+        UserDetails userDetails = myUserDetails.loadUserByUsername(getLogin(token));
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
-    public String getUsername(String token) {
+    public String getLogin(String token) {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
     }
 

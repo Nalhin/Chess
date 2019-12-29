@@ -1,5 +1,6 @@
 package com.chess.authenticationservice.controller;
 
+import com.chess.authenticationservice.dto.UserDto;
 import com.chess.authenticationservice.model.User;
 import com.chess.authenticationservice.service.UserServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -38,14 +39,18 @@ class UserControllerTest {
     ObjectMapper objectMapper;
 
     private User mockUser;
+    private UserDto mockUserDto;
     private final Long USER_ID = 1L;
     private final String USER_LOGIN = "testLogin";
     private final String USER_PASSWORD = "userPassword";
+    private final String USER_EMAIL = "user@email.com";
 
 
     @BeforeEach
     void setUp() {
+        mockUserDto = UserDto.builder().login(USER_LOGIN).email(USER_EMAIL).build();
         mockUser = new User();
+        mockUser.setPassword(USER_PASSWORD);
         mockUser.setId(USER_ID);
         mockUser.setLogin(USER_LOGIN);
         mockUser.setPassword(USER_PASSWORD);
@@ -55,17 +60,17 @@ class UserControllerTest {
     void registration() throws Exception {
         var json = objectMapper.writeValueAsString(mockUser);
 
-        Mockito.when(userService.save(ArgumentMatchers.any(User.class))).thenReturn(mockUser);
+        Mockito.when(userService.save(ArgumentMatchers.any(User.class))).thenReturn(mockUserDto);
 
         var result = mockMvc.perform(post("/authentication/register")
                 .characterEncoding("utf-8")
                 .content(json)
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated())
+                .andExpect(status().isOk())
                 .andReturn();
 
         String jsonResponse = result.getResponse().getContentAsString();
-        var userCreated = new ObjectMapper().readValue(jsonResponse, User.class);
+        var userCreated = new ObjectMapper().readValue(jsonResponse, UserDto.class);
 
         assertNotNull(userCreated);
         assertEquals(userCreated.getLogin(), mockUser.getLogin());
@@ -74,7 +79,7 @@ class UserControllerTest {
     @Test
     void login() throws Exception {
 
-        Mockito.when(userService.findByLogin(ArgumentMatchers.any(String.class))).thenReturn(mockUser);
+        Mockito.when(userService.login(ArgumentMatchers.any(User.class))).thenReturn(mockUserDto);
 
         var json = objectMapper.writeValueAsString(mockUser);
 

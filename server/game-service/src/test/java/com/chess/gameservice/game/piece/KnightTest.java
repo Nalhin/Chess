@@ -84,8 +84,5 @@ class KnightTest {
 
         var destinationPositionIllegal = new Position(3, 3);
         assertFalse(knight.isMoveLegal(currentPosition, destinationPositionIllegal, board));
-
-        var destinationPositionOutOfBounds = new Position(-1, 0);
-        assertFalse(knight.isMoveLegal(currentPosition, destinationPositionOutOfBounds, board));
     }
 }

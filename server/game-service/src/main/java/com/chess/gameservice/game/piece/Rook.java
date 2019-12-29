@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class Rook extends Piece {
 
     Rook(PlayerColor playerColor) {
-        super(playerColor,PieceType.ROOK);
+        super(playerColor, PieceType.ROOK);
     }
 
     @Override
@@ -34,7 +34,7 @@ public class Rook extends Piece {
 
     @Override
     public boolean isMoveLegal(Position currentPosition, Position destinationPosition, Board board) {
-        if (isMoveImpossible(currentPosition, destinationPosition)) {
+        if (!board.isTakenPositionMovable(destinationPosition, getPlayerColor())) {
             return false;
         }
         return isLineMoveLegal(currentPosition, destinationPosition, board);

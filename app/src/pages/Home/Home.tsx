@@ -4,17 +4,21 @@ import { useHistory } from 'react-router-dom';
 
 interface Props extends HomeContainerProps {}
 
-const Home: React.FC<Props> = ({ gameId, joinGameQueue }) => {
+const Home: React.FC<Props> = ({ gameId, isAuthenticated, joinGameQueue }) => {
   const history = useHistory();
 
   React.useEffect(() => {
-    if (gameId) {
+    if (gameId && isAuthenticated) {
       history.push(`/game/${gameId}`);
     }
-  }, [gameId]);
+  }, [gameId, isAuthenticated]);
   return (
     <div>
-      <button onClick={joinGameQueue}>Play</button>
+      {isAuthenticated ? (
+        <button onClick={joinGameQueue}>Play</button>
+      ) : (
+        <span>Log in first.</span>
+      )}
     </div>
   );
 };

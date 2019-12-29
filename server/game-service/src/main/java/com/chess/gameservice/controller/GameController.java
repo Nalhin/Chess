@@ -1,16 +1,14 @@
 package com.chess.gameservice.controller;
 
+import com.chess.gameservice.exception.GameException;
+import com.chess.gameservice.exception.QueueException;
 import com.chess.gameservice.game.Game;
 import com.chess.gameservice.game.position.Position;
 import com.chess.gameservice.messages.*;
 import com.chess.gameservice.models.*;
 import com.chess.gameservice.service.GameService;
 import com.chess.gameservice.service.QueueService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.handler.annotation.DestinationVariable;
-import org.springframework.messaging.handler.annotation.Header;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.handler.annotation.*;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessageType;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -25,7 +23,6 @@ public class GameController {
     private final QueueService queueService;
     private final SimpMessagingTemplate simpMessagingTemplate;
 
-    @Autowired
     public GameController(GameService gameService, QueueService queueService, SimpMessagingTemplate simpMessagingTemplate) {
         this.gameService = gameService;
         this.queueService = queueService;
@@ -33,7 +30,8 @@ public class GameController {
     }
 
     @MessageMapping("/queue")
-    public void joinQueue(@Header("name") String name, @Header("simpSessionId") String sessionId) {
+    public void joinQueue(@Header("name") String name, @Header("simpSessionId") String sessionId) throws QueueException {
+
         var users = queueService.joinQueue(User.builder().name(name).sessionId(sessionId).build());
 
         if (!users.isEmpty()) {
@@ -42,13 +40,10 @@ public class GameController {
             gameFoundMessage.setPayload(GameFound.builder().gameId(gameId.toString()).build());
 
             for (User user : users) {
-                var headerAccessor = SimpMessageHeaderAccessor.create(SimpMessageType.MESSAGE);
-                headerAccessor.setSessionId(user.getSessionId());
-                simpMessagingTemplate.convertAndSendToUser(user.getSessionId(), "/queue/personal", gameFoundMessage, headerAccessor.getMessageHeaders());
+                simpMessagingTemplate.convertAndSend("/queue/personal/" + user.getName(), gameFoundMessage);
             }
         }
     }
-
 
     @MessageMapping("/connect/{gameId}")
     public void initialConnect(@DestinationVariable String gameId, @Header("name") String playerName) {
@@ -61,38 +56,32 @@ public class GameController {
     }
 
     @MessageMapping("/move/{gameId}")
-    public void makeMove(@DestinationVariable String gameId, @Payload PlayerMove playerMove, @Header("name") String name, @Header("simpSessionId") String sessionId) {
-        try {
-            Game game = gameService.makeMove(UUID.fromString(gameId), playerMove, name);
-            var playerMovedMessage = new PlayerMovedMessage();
-            playerMovedMessage.setPayload(game);
-            simpMessagingTemplate.convertAndSend("/topic/state/" + gameId, playerMovedMessage);
-
-        } catch (IllegalArgumentException e) {
-            var headerAccessor = SimpMessageHeaderAccessor.create(SimpMessageType.MESSAGE);
-            headerAccessor.setSessionId(sessionId);
-
-            var errorMessage = new GameErrorMessage();
-            errorMessage.setPayload(new GameError(e.getMessage()));
-            simpMessagingTemplate.convertAndSendToUser(sessionId, "/queue/personal/" + gameId, errorMessage, headerAccessor.getMessageHeaders());
-        }
+    public void makeMove(@DestinationVariable String gameId, @Payload PlayerMove playerMove, @Header("name") String name, @Header("simpSessionId") String sessionId) throws GameException {
+        Game game = gameService.makeMove(UUID.fromString(gameId), playerMove, name);
+        var playerMovedMessage = new PlayerMovedMessage();
+        playerMovedMessage.setPayload(game);
+        simpMessagingTemplate.convertAndSend("/topic/state/" + gameId, playerMovedMessage);
     }
 
     @MessageMapping("/available-moves/{gameId}")
-    public void availableMoves(@DestinationVariable String gameId, @Payload Position position, @Header("name") String name, @Header("simpSessionId") String sessionId) {
-        var headerAccessor = SimpMessageHeaderAccessor.create(SimpMessageType.MESSAGE);
-        headerAccessor.setSessionId(sessionId);
+    public void availableMoves(@DestinationVariable String gameId, @Payload Position position, @Header("name") String name) throws GameException {
+        AvailableMoves availableMoves = gameService.getAvailableMoves(UUID.fromString(gameId), position, name);
+        var availableMovesMessage = new AvailableMovesMessage();
+        availableMovesMessage.setPayload(availableMoves);
+        simpMessagingTemplate.convertAndSend("/queue/personal/" + name + "/" + gameId, availableMovesMessage);
+    }
 
-        try {
-            AvailableMoves availableMoves = gameService.getAvailableMoves(UUID.fromString(gameId), position, name);
-            var availableMovesMessage = new AvailableMovesMessage();
-            availableMovesMessage.setPayload(availableMoves);
-            simpMessagingTemplate.convertAndSendToUser(sessionId, "/queue/personal/" + gameId, availableMovesMessage, headerAccessor.getMessageHeaders());
-        } catch (IllegalArgumentException e) {
-            var errorMessage = new GameErrorMessage();
-            errorMessage.setPayload(new GameError(e.getMessage()));
-            simpMessagingTemplate.convertAndSendToUser(sessionId, "/queue/personal/" + gameId, errorMessage, headerAccessor.getMessageHeaders());
-        }
+    @MessageExceptionHandler
+    public void handleCustomException(@Header("name") String name, @DestinationVariable String gameId, GameException ex) {
+        ErrorMessage errorMessage = new ErrorMessage();
+        errorMessage.setPayload(new ErrorPayload(ex.getMessage()));
+        simpMessagingTemplate.convertAndSend("/queue/personal/" + name + "/" + gameId, errorMessage);
+    }
 
+    @MessageExceptionHandler
+    public void handleCustomException(@Header("name") String name, QueueException ex) {
+        ErrorMessage errorMessage = new ErrorMessage();
+        errorMessage.setPayload(new ErrorPayload(ex.getMessage()));
+        simpMessagingTemplate.convertAndSend("/queue/personal/" + name, errorMessage);
     }
 }

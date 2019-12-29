@@ -43,9 +43,13 @@ export const gameStateSubscription = (stomp: RxStomp, gameId: string) => {
     );
 };
 
-export const gamePersonalSubscription = (stomp: RxStomp, gameId: string) => {
+export const gamePersonalSubscription = (
+  stomp: RxStomp,
+  gameId: string,
+  login: string,
+) => {
   return stomp
-    .watch(`/user/queue/personal/${gameId}`)
+    .watch(`/queue/personal/${login}/${gameId}`)
     .pipe(
       map(message => {
         return JSON.parse(message.body);
@@ -60,7 +64,7 @@ export const gamePersonalSubscription = (stomp: RxStomp, gameId: string) => {
               availableMoves(payload.availableMoves, payload.position),
             );
             break;
-          case GamePersonalSubscriptionActionTypes.GAME_ERROR:
+          case GamePersonalSubscriptionActionTypes.ERROR:
             store.dispatch(availableMovesError(payload.error));
             break;
           default:
@@ -71,9 +75,9 @@ export const gamePersonalSubscription = (stomp: RxStomp, gameId: string) => {
     );
 };
 
-export const gameQueueSubscription = (stomp: RxStomp) => {
+export const gameQueueSubscription = (stomp: RxStomp, login: string) => {
   return stomp
-    .watch(`/user/queue/personal`)
+    .watch(`/queue/personal/${login}`)
     .pipe(
       map(message => {
         return JSON.parse(message.body);
@@ -81,7 +85,7 @@ export const gameQueueSubscription = (stomp: RxStomp) => {
     )
     .subscribe(
       data => {
-        const { payload } = data;
+        const { payload, type } = data;
         store.dispatch(gameFound(payload.gameId));
       },
       error => {},

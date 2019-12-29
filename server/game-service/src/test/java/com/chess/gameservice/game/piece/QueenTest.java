@@ -49,8 +49,6 @@ class QueenTest {
         var destinationPositionIllegal = new Position(7, 2);
         assertFalse(queen.isMoveLegal(currentPosition, destinationPositionIllegal, board));
 
-        var destinationPositionOutOfBounds = new Position(8, 1);
-        assertFalse(queen.isMoveLegal(currentPosition, destinationPositionOutOfBounds, board));
     }
 
     @Test
@@ -64,9 +62,5 @@ class QueenTest {
         var destinationPositionIllegal = new Position(7, 3);
         assertFalse(queen.isMoveLegal(currentPosition, destinationPositionIllegal, board));
 
-        var destinationPositionOutOfBounds = new Position(8, 5);
-        assertFalse(queen.isMoveLegal(currentPosition, destinationPositionOutOfBounds, board));
     }
-
-
 }

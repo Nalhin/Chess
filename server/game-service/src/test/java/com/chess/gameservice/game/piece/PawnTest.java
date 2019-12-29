@@ -56,7 +56,7 @@ class PawnTest {
     @Test
     void getAvailableMovesIsBlackNotFirstMove() {
         var pawn = new Pawn(PlayerColor.WHITE);
-        pawn.move();
+        pawn.setFirstMove(false);
         var pawnPosition = new Position(2, 2);
         var expectedMoves = new ArrayList<Position>();
         int[] positionsX = {1};
@@ -74,7 +74,7 @@ class PawnTest {
     void getAvailableMovesIsWhiteNotFirstMove() {
         var pawn = new Pawn(PlayerColor.BLACK);
         pawn.setPlayerColor(PlayerColor.BLACK);
-        pawn.move();
+        pawn.setFirstMove(false);
         var pawnPosition = new Position(2, 2);
         var expectedMoves = new ArrayList<Position>();
         int[] positionsX = {3};
@@ -98,9 +98,6 @@ class PawnTest {
 
         var destinationPositionIllegal = new Position(7, 2);
         assertFalse(pawn.isMoveLegal(currentPosition, destinationPositionIllegal, board));
-
-        var destinationPositionOutOfBounds = new Position(8, 1);
-        assertFalse(pawn.isMoveLegal(currentPosition, destinationPositionOutOfBounds, board));
     }
 
     @Test
@@ -113,16 +110,13 @@ class PawnTest {
 
         var destinationPositionIllegal = new Position(0, 2);
         assertFalse(pawn.isMoveLegal(currentPosition, destinationPositionIllegal, board));
-
-        var destinationPositionOutOfBounds = new Position(-1, 0);
-        assertFalse(pawn.isMoveLegal(currentPosition, destinationPositionOutOfBounds, board));
     }
 
     @Test
     void isMoveLegalWhiteNotFirstMove() {
         var currentPosition = new Position(5, 1);
         var pawn = new Pawn(PlayerColor.BLACK);
-        pawn.move();
+        pawn.setFirstMove(false);
 
         var destinationPositionIllegal = new Position(7, 2);
         assertFalse(pawn.isMoveLegal(currentPosition, destinationPositionIllegal, board));
@@ -132,7 +126,7 @@ class PawnTest {
     void isMoveLegalBlackNotFirstMove() {
         var currentPosition = new Position(2, 1);
         var pawn = new Pawn(PlayerColor.WHITE);
-        pawn.move();
+        pawn.setFirstMove(false);
 
         var destinationPositionIllegal = new Position(0, 2);
         assertFalse(pawn.isMoveLegal(currentPosition, destinationPositionIllegal, board));

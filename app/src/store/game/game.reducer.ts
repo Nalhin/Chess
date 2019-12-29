@@ -56,7 +56,7 @@ const gameReducer: Reducer<GameState, GameActions> = (
       case GameActionTypes.AVAILABLE_MOVES:
         draft.selectedPiece = action.payload;
         break;
-      case GameActionTypes.GAME_ERROR:
+      case GameActionTypes.ERROR:
         draft.error = action.payload.error;
         break;
       case GameActionTypes.GAME_FOUND:

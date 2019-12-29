@@ -2,6 +2,7 @@ import { ChatMessageType } from '../../interfaces/chatMessageType';
 
 export interface ChatState {
   readonly messages: ChatMessageType[];
+  readonly id: string;
 }
 
 export enum ChatSubscriptionActionTypes {
@@ -23,6 +24,9 @@ export enum ChatBaseActionTypes {
 
 export interface InitChatAction {
   type: ChatBaseActionTypes.INIT_CHAT;
+  payload: {
+    chatId: string;
+  };
 }
 
 export interface CloseChatAction {
@@ -41,4 +45,4 @@ export const ChatActionTypes = {
   ...ChatBaseActionTypes,
 };
 
-export type ChatActions = NewMessageReceivedAction;
+export type ChatActions = NewMessageReceivedAction | InitChatAction;

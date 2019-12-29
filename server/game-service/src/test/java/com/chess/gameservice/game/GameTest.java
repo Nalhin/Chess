@@ -1,5 +1,6 @@
 package com.chess.gameservice.game;
 
+import com.chess.gameservice.exception.GameException;
 import com.chess.gameservice.game.player.Player;
 import com.chess.gameservice.game.player.PlayerColor;
 import com.chess.gameservice.game.position.Position;
@@ -39,7 +40,7 @@ class GameTest {
     }
 
     @Test
-    void makeMove() {
+    void makeMove() throws GameException {
         game.setPlayer(firstPlayer, PlayerColor.WHITE);
         game.setPlayer(secondPlayer, PlayerColor.BLACK);
         var playerMove = new PlayerMove(new Position(6, 1), new Position(5, 1));
@@ -58,17 +59,17 @@ class GameTest {
 
         game.initGame();
 
-        assertThrows(IllegalArgumentException.class, () -> game.makeMove(playerMove, secondPlayer));
+        assertThrows(GameException.class, () -> game.makeMove(playerMove, secondPlayer));
     }
 
     @Test
-    void getAvailableMoves() {
+    void getAvailableMoves() throws GameException {
         game.setPlayer(firstPlayer, PlayerColor.WHITE);
         game.setPlayer(secondPlayer, PlayerColor.BLACK);
-        var position = new Position(6, 0);
+        var position = new Position(6, 1);
         var expectedMoves = new ArrayList<Position>();
-        expectedMoves.add(new Position(5, 0));
-        expectedMoves.add(new Position(4, 0));
+        expectedMoves.add(new Position(5, 1));
+        expectedMoves.add(new Position(4, 1));
 
         game.initGame();
         var actualMoves = game.getAvailableMoves(position, firstPlayer);
@@ -85,7 +86,7 @@ class GameTest {
 
         game.initGame();
 
-        assertThrows(IllegalArgumentException.class, () -> game.getAvailableMoves(position, secondPlayer));
+        assertThrows(GameException.class, () -> game.getAvailableMoves(position, secondPlayer));
     }
 
 }

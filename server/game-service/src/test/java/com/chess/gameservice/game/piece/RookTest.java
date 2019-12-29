@@ -69,8 +69,6 @@ class RookTest {
         var destinationPositionIllegal = new Position(7, 2);
         assertFalse(rook.isMoveLegal(currentPosition, destinationPositionIllegal, board));
 
-        var destinationPositionOutOfBounds = new Position(8, 1);
-        assertFalse(rook.isMoveLegal(currentPosition, destinationPositionOutOfBounds, board));
     }
 
     @Test
@@ -84,7 +82,5 @@ class RookTest {
         var destinationPositionIllegal = new Position(5, 7);
         assertFalse(rook.isMoveLegal(currentPosition, destinationPositionIllegal, board));
 
-        var destinationPositionOutOfBounds = new Position(4, 8);
-        assertFalse(rook.isMoveLegal(currentPosition, destinationPositionOutOfBounds, board));
     }
 }
