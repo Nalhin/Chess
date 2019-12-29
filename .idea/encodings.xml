@@ -8,5 +8,6 @@
     <file url="file://$PROJECT_DIR$/server/eureka-server/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/server/game-service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/server/game-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/server/gateway-service/src/main/java" charset="UTF-8" />
   </component>
 </project>

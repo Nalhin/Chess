@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/server/chat-service/chat-service.iml" filepath="$PROJECT_DIR$/server/chat-service/chat-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/server/eureka-server/eureka-server.iml" filepath="$PROJECT_DIR$/server/eureka-server/eureka-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/server/game-service/game-service.iml" filepath="$PROJECT_DIR$/server/game-service/game-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/server/gateway-service/gateway-service.iml" filepath="$PROJECT_DIR$/server/gateway-service/gateway-service.iml" />
     </modules>
   </component>
 </project>

@@ -1,0 +1,46 @@
+server:
+  port: 8084
+
+spring:
+  application:
+    name: gateway-service
+
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://localhost:8090/eureka
+  instance:
+    hostname: localhost
+
+zuul:
+  host:
+    connect-timeout-millis: 5000000
+    socket-timeout-millis: 5000000
+  ignored-services: '*'
+  routes:
+    game-service:
+      path: /game/**
+      serviceId: game-service
+      stripPrefix: true
+
+    chat-service:
+      path: /chat/**
+      serviceId: chat-service
+      stripPrefix: true
+
+    queue-service:
+      path: /queue/**
+      serviceId: queue-service
+      stripPrefix: true
+
+    history-service:
+      path: /history/**
+      serviceId: history-service
+      stripPrefix: true
+
+    authentication-service:
+      path: /authentication/**
+      serviceId: authentication-service
+      stripPrefix: true
