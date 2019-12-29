@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/server/authentication-service/authentication-service.iml" filepath="$PROJECT_DIR$/server/authentication-service/authentication-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/server/chat-service/chat-service.iml" filepath="$PROJECT_DIR$/server/chat-service/chat-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/server/eureka-server/eureka-server.iml" filepath="$PROJECT_DIR$/server/eureka-server/eureka-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/server/game-service/game-service.iml" filepath="$PROJECT_DIR$/server/game-service/game-service.iml" />
     </modules>
   </component>

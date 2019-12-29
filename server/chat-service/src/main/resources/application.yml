@@ -1,2 +1,15 @@
 server:
   port: 8082
+
+spring:
+  application:
+    name: chat-service
+
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://localhost:8090/eureka
+  instance:
+    hostname: localhost

@@ -18,6 +18,8 @@ spring:
 
 ---
 spring:
+  application:
+    name: authentication-service
   profiles: dev
   jpa:
     hibernate:
@@ -27,10 +29,17 @@ spring:
     username: "root"
     password: "password"
 
-
-
 security:
   jwt:
     token:
       secret-key: secret-key
       expire-length: 300000
+
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://localhost:8090/eureka
+  instance:
+    hostname: localhost
