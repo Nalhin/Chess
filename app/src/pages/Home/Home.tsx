@@ -13,7 +13,7 @@ const Home: React.FC<Props> = ({ gameId, isAuthenticated, joinGameQueue }) => {
     }
   }, [gameId, isAuthenticated]);
   return (
-    <div>
+    <div data-testid="home">
       {isAuthenticated ? (
         <button onClick={joinGameQueue}>Play</button>
       ) : (

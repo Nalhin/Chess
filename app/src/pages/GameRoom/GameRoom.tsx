@@ -11,7 +11,7 @@ const StyledContainer = styled.div`
 
 const GameRoom = () => {
   return (
-    <StyledContainer data-testid="game-room">
+    <StyledContainer>
       <Link to="/">back</Link>
       <Game />
       <Chat />

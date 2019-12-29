@@ -23,7 +23,7 @@ export function* initChatSaga(action: InitChatAction): SagaIterator {
   const subscription = chatSubscription(chatStomp, action.payload.chatId);
 
   yield take(ChatBaseActionTypes.CLOSE_CHAT);
-  // subscription.unsubscribe();
+  subscription.unsubscribe();
 }
 
 export function* sendMessageSaga(action: SendMessageAction): SagaIterator {

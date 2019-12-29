@@ -11,7 +11,7 @@ describe('Pages Component', () => {
 
     const { findByTestId } = renderWithStore(<Pages />, { route });
 
-    const gameRoom = await findByTestId('game-room');
+    const gameRoom = await findByTestId('home');
 
     expect(gameRoom).toBeTruthy();
   });

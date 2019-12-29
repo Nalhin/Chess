@@ -44,10 +44,10 @@ class GameServiceTest {
         gameService.initialConnect(gameId, firstPlayerName);
         gameService.initialConnect(gameId, secondPlayerName);
 
-        var pawnPosition = new Position(1, 5);
+        var pawnPosition = new Position(6, 5);
         var expectedMoves = new ArrayList<Position>();
-        expectedMoves.add(new Position(2, 5));
-        expectedMoves.add(new Position(3, 5));
+        expectedMoves.add(new Position(5, 5));
+        expectedMoves.add(new Position(4, 5));
         var expectedAvailableMoves = new AvailableMoves();
         expectedAvailableMoves.setPosition(pawnPosition);
         expectedAvailableMoves.setAvailableMoves(expectedMoves);

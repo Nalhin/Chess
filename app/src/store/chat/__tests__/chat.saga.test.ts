@@ -43,7 +43,7 @@ describe('sendMessageSaga', () => {
 
     testSaga(sendMessageSaga, action)
       .next()
-      .next({ login: 'xd' })
+      .next([{ login: 'xd' }, 1])
       .next()
       .isDone();
 

@@ -1,6 +1,6 @@
 export const fakeAvailableMovesErrorMessage = {
   body: JSON.stringify({
-    type: 'AVAILABLE_MOVES_ERROR',
+    type: 'ERROR',
     payload: { error: 'error' },
   }),
 };
