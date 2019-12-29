@@ -9,8 +9,6 @@ import com.chess.gameservice.models.*;
 import com.chess.gameservice.service.GameService;
 import com.chess.gameservice.service.QueueService;
 import org.springframework.messaging.handler.annotation.*;
-import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
-import org.springframework.messaging.simp.SimpMessageType;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
@@ -34,7 +32,7 @@ public class GameController {
 
         var users = queueService.joinQueue(User.builder().name(name).sessionId(sessionId).build());
 
-        if (!users.isEmpty()) {
+        if (users != null) {
             var gameId = UUID.randomUUID();
             var gameFoundMessage = new GameFoundMessage();
             gameFoundMessage.setPayload(GameFound.builder().gameId(gameId.toString()).build());
@@ -42,6 +40,11 @@ public class GameController {
             for (User user : users) {
                 simpMessagingTemplate.convertAndSend("/queue/personal/" + user.getName(), gameFoundMessage);
             }
+        } else {
+            int queueSize = queueService.getQueueSize();
+            QueueUserCountMessage userCountMessage = new QueueUserCountMessage();
+            userCountMessage.setPayload(new QueueUserCount(queueSize));
+            simpMessagingTemplate.convertAndSend("/queue", userCountMessage);
         }
     }
 

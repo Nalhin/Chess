@@ -5,7 +5,8 @@ import com.chess.gameservice.models.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class QueueServiceTest {
 
@@ -22,7 +23,7 @@ class QueueServiceTest {
         var secondUser= User.builder().name("2").sessionId("2").build();
 
         var users =queueService.joinQueue(firstUser);
-        assertEquals(users.size(),0);
+        assertNull(users);
 
         users =queueService.joinQueue(secondUser);
         assertEquals(users.size(),2);

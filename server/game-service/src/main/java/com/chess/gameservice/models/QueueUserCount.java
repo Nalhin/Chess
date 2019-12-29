@@ -1,4 +1,4 @@
-package com.chess.gameservice.exception;
+package com.chess.gameservice.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,8 +7,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-public class QueueException extends Exception {
-    private String message;
+@AllArgsConstructor
+public class QueueUserCount {
+   private int usersInQueue;
 }

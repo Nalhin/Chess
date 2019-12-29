@@ -62,8 +62,8 @@ const Game: React.FC<GameProps> = ({
               makeMove={makeMove}
               key={`${x}#${y}`}
               position={{ x: x, y: y }}
-              type={cell && cell.type}
-              playerColor={cell && cell.playerColor}
+              type={cell?.type}
+              playerColor={cell?.playerColor}
             />
           )),
         )}

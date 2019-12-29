@@ -1,22 +1,6 @@
-import * as React from 'react';
 import { Piece } from '../../../interfaces/piece';
-import { PlayerColor } from '../../../interfaces/player';
-import styled from '@emotion/styled';
-
-interface StyledPieceProps {
-  playerColor: PlayerColor;
-}
-
-const StyledPiece = styled.div`
-  color: ${(props: StyledPieceProps) => {
-    switch (props.playerColor) {
-      case PlayerColor.BLACK:
-        return 'black';
-      case PlayerColor.WHITE:
-        return 'white';
-    }
-  }};
-`;
+import React from 'react';
+import PieceIcon from './PieceIcon';
 
 interface GraveyardProps {
   pieces: Piece[];
@@ -26,9 +10,7 @@ const Graveyard: React.FC<GraveyardProps> = ({ pieces }) => {
   return (
     <div>
       {pieces.map((piece, i) => (
-        <StyledPiece playerColor={piece.playerColor} key={i}>
-          {piece.type}
-        </StyledPiece>
+        <PieceIcon type={piece.type} playerColor={piece.playerColor} key={i} />
       ))}
     </div>
   );

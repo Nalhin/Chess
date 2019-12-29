@@ -1,6 +1,7 @@
 package com.chess.gameservice.game.board;
 
 import com.chess.gameservice.exception.GameException;
+import com.chess.gameservice.game.CheckState;
 import com.chess.gameservice.game.graveyard.Graveyards;
 import com.chess.gameservice.game.piece.*;
 import com.chess.gameservice.game.player.PlayerColor;
@@ -10,6 +11,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 @Getter
 @Setter
@@ -64,10 +66,7 @@ public class Board {
         if (isBoardPositionEmpty(initialPosition)) {
             return true;
         }
-        if (isPositionTakenByAttackableEnemy(initialPosition, playerColor)) {
-            return true;
-        }
-        return false;
+        return isPositionTakenByEnemy(initialPosition, playerColor);
     }
 
     public boolean isPositionTakenByAttackableEnemy(Position initialPosition, PlayerColor playerColor) {
@@ -79,10 +78,7 @@ public class Board {
     }
 
     private boolean isEnemyAttackable(Position initialPosition) {
-        if (getPieceByPosition(initialPosition) instanceof King) {
-            return false;
-        }
-        return true;
+        return !(getPieceByPosition(initialPosition) instanceof King);
     }
 
 
@@ -90,37 +86,41 @@ public class Board {
         var piece = getPieceByPosition(position);
 
         if (piece == null) {
-            throw GameException.builder().message("No piece selected.").build();
+            throw new GameException("No piece selected.");
         }
 
         if (piece.getPlayerColor() != playerColor) {
-            throw GameException.builder().message("Wrong piece color.").build();
+            throw new GameException("Wrong piece color.");
         }
 
         return piece.getAvailableMoves(this, position);
     }
 
-    public void movePiece(Position initialPosition, Position destination, PlayerColor playerColor) throws GameException {
+    public void movePiece(Position initialPosition, Position destination, PlayerColor playerColor, CheckState checkState) throws GameException {
         var piece = getPieceByPosition(initialPosition);
 
         if (piece == null) {
-            throw GameException.builder().message("No piece selected.").build();
+            throw new GameException("No piece selected.");
         }
 
         if (piece.getPlayerColor() != playerColor) {
-            throw GameException.builder().message("Wrong piece color.").build();
+            throw new GameException("Wrong piece color.");
         }
 
         if (piece.isMoveImpossible(initialPosition, destination)) {
-            throw GameException.builder().message("Illegal move.").build();
+            throw new GameException("Illegal move.");
         }
 
         if (!isTakenPositionMovable(destination, piece.getPlayerColor())) {
-            throw GameException.builder().message("Illegal move.").build();
+            throw new GameException("Illegal move.");
         }
 
         if (!piece.isMoveLegal(initialPosition, destination, this)) {
-            throw GameException.builder().message("Illegal move.").build();
+            throw new GameException("Illegal move.");
+        }
+
+        if (checkPersistsAfterMove(initialPosition, destination)) {
+                throw new GameException("Move ends with check.");
         }
 
         var removedPiece = getPieceByPosition(destination);
@@ -137,8 +137,61 @@ public class Board {
         }
     }
 
-    public boolean isCheck() {
-        return false;
+    private boolean checkPersistsAfterMove(Position initialPosition, Position destinationPosition) {
+
+        var piece = getPieceByPosition(initialPosition);
+        var removedPiece = getPieceByPosition(destinationPosition);
+
+
+        state[destinationPosition.getX()][destinationPosition.getY()] = piece;
+        state[initialPosition.getX()][initialPosition.getY()] = null;
+
+        boolean persists = getCheckState(PlayerColor.getOtherColor(piece.getPlayerColor())) != CheckState.NONE;
+
+        state[destinationPosition.getX()][destinationPosition.getY()] = removedPiece;
+        state[initialPosition.getX()][initialPosition.getY()] = piece;
+
+        return persists;
     }
 
+    public CheckState getCheckState(PlayerColor currentPlayerColor) {
+        Position kingPosition = null;
+        ArrayList<Position> currentPlayerPositions = new ArrayList<>();
+        HashSet<Position> positionsAttackableByCurrentPlayer = new HashSet<>();
+
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                Piece piece = state[i][j];
+                if (piece == null) {
+                    continue;
+                }
+
+                if (piece.getPlayerColor() == currentPlayerColor) {
+                    Position position = new Position(i, j);
+
+                    currentPlayerPositions.add(position);
+                } else if (piece instanceof King) {
+                    kingPosition = new Position(i, j);
+                }
+            }
+        }
+
+
+        for (Position position : currentPlayerPositions) {
+            Piece piece = getPieceByPosition(position);
+            positionsAttackableByCurrentPlayer.addAll(piece.getAvailableMoves(this, position));
+        }
+
+        if (positionsAttackableByCurrentPlayer.contains(kingPosition)) {
+            Piece king = getPieceByPosition(kingPosition);
+            ArrayList<Position> kingMoves = king.getAvailableMoves(this, kingPosition);
+
+            if (positionsAttackableByCurrentPlayer.containsAll(kingMoves)) {
+                return CheckState.CHECK_MATE;
+            }
+            return CheckState.CHECK;
+        }
+        return CheckState.NONE;
+
+    }
 }

@@ -23,4 +23,15 @@ public enum PlayerColor {
     static PlayerColor fromValue(int value) {
         return Arrays.stream(PlayerColor.values()).filter(e -> e.value == value).findFirst().get();
     }
+
+    public static PlayerColor getOtherColor(PlayerColor playerColor) {
+        switch (playerColor) {
+            case WHITE:
+                return BLACK;
+            case BLACK:
+                return WHITE;
+            default:
+                return null;
+        }
+    }
 }

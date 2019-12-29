@@ -20,11 +20,19 @@ public class Game {
         WAITING_FOR_PLAYERS, STARTED, GAME_OVER
     }
 
-    Board board = new Board();
-    Players players = new Players();
-    PlayerColor currentTurn;
-    GamePhase gamePhase = GamePhase.WAITING_FOR_PLAYERS;
 
+    Board board;
+    Players players;
+    PlayerColor currentTurn;
+    GamePhase gamePhase;
+    CheckState checkState;
+
+    public Game() {
+        board = new Board();
+        players = new Players();
+        gamePhase = GamePhase.WAITING_FOR_PLAYERS;
+        checkState = CheckState.NONE;
+    }
 
     public void setPlayer(Player player, PlayerColor playerColor) {
         players.setPlayerByColor(player, playerColor);
@@ -32,13 +40,22 @@ public class Game {
 
     public void makeMove(PlayerMove playerMove, Player player) throws GameException {
         checkIfPlayerTurn(player);
-        board.movePiece(playerMove.getInitialPosition(), playerMove.getDestinationPosition(), currentTurn);
-        changeTurn();
+        board.movePiece(playerMove.getInitialPosition(), playerMove.getDestinationPosition(), currentTurn,checkState);
+        setCheckState(board.getCheckState(currentTurn));
+
+        if (checkState == CheckState.CHECK_MATE) {
+            setGamePhase(GamePhase.GAME_OVER);
+        }
+        setCurrentTurn(PlayerColor.getOtherColor(currentTurn));
+
     }
 
     private void checkIfPlayerTurn(Player player) throws GameException {
+        if (gamePhase == GamePhase.GAME_OVER) {
+            throw new GameException("Game is over.");
+        }
         if (!players.getPlayerByColor(currentTurn).equals(player)) {
-            throw GameException.builder().message("Wrong turn.").build();
+            throw new GameException("Wrong turn.");
         }
     }
 
@@ -48,16 +65,6 @@ public class Game {
         return board.getAvailableMoves(position, currentTurn);
     }
 
-    private void changeTurn() {
-        switch (currentTurn) {
-            case BLACK:
-                currentTurn = PlayerColor.WHITE;
-                break;
-            case WHITE:
-                currentTurn = PlayerColor.BLACK;
-                break;
-        }
-    }
 
     public void initGame() {
         gamePhase = GamePhase.STARTED;

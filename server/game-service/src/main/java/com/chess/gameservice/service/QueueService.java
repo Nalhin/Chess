@@ -14,15 +14,20 @@ public class QueueService {
 
     public synchronized ArrayList<User>joinQueue(User user) throws QueueException {
         if(queue.contains(user)){
-            throw QueueException.builder().message("Player already in queue.").build();
+            throw new QueueException("Player already in queue.");
         }
         queue.offer(user);
-        var users= new ArrayList<User>();
 
         if (queue.size() >= 2) {
+            var users= new ArrayList<User>();
             users.add(queue.remove());
             users.add(queue.remove());
+            return users;
         }
-        return users;
+        return null;
+    }
+
+    public synchronized int getQueueSize(){
+        return queue.size();
     }
 }

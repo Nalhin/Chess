@@ -12,10 +12,10 @@ const colorUrl = {
   [PlayerColor.BLACK]: 'BLACK',
 };
 
-const Piece: React.FC<Props> = ({ type, playerColor }) => {
+const PieceIcon: React.FC<Props> = ({ type, playerColor }) => {
   const piece = `${colorUrl[playerColor]}_${type}`;
 
   return <img src={`/assets/images/chess/${piece}.png`} alt={piece} />;
 };
 
-export default Piece;
+export default PieceIcon;

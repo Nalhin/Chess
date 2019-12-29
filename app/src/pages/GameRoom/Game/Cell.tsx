@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { PieceType } from '../../../interfaces/piece';
 import { BoardPosition } from '../../../interfaces/boardPosition';
 import { PlayerColor } from '../../../interfaces/player';
-import Piece from './Piece';
+import PieceIcon from './PieceIcon';
 
 interface StyledCellProps {
   isSelected: boolean;
@@ -61,7 +61,7 @@ const Cell: React.FC<CellProps> = ({
       isMoveAvailable={isMoveAvailable}
       onClick={handleOnClick}
     >
-      {type && <Piece playerColor={playerColor} type={type} />}
+      {type && <PieceIcon playerColor={playerColor} type={type} />}
     </StyledCell>
   );
 };
