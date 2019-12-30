@@ -1,8 +1,8 @@
 import { websocketTypes } from './websocketTypes';
 
-const baseAddress = 'ws://127.0.0.1';
+const baseAddress = process.env.BASE_WEBSOCKET_URL;
 
 export const websocketAddresses = {
-  [websocketTypes.GAME]: `${baseAddress}:8081/game/websocket`,
-  [websocketTypes.CHAT]: `${baseAddress}:8082/chat/websocket`,
+  [websocketTypes.GAME]: `${baseAddress}/game/websocket`,
+  [websocketTypes.CHAT]: `${baseAddress}/chat/websocket`,
 };

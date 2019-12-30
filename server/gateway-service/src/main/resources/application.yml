@@ -1,5 +1,5 @@
 server:
-  port: 8084
+  port: 8090
 
 spring:
   application:
@@ -7,12 +7,12 @@ spring:
 
 eureka:
   client:
-    registerWithEureka: false
-    fetchRegistry: false
     serviceUrl:
-      defaultZone: http://localhost:8090/eureka
+      defaultZone: http://localhost:8761/eureka
+      preferSameZoneEureka: true
   instance:
-    hostname: localhost
+    preferIpAddress: true
+    metadata-map.zone: ${ZONE_NAME}
 
 zuul:
   host:

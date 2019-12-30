@@ -25,7 +25,7 @@ spring:
     hibernate:
       ddl-auto: none
   datasource:
-    url: "jdbc:mysql://localhost:3306/chess"
+    url: jdbc:mysql://localhost:3306/chess
     username: "root"
     password: "password"
 
@@ -37,9 +37,7 @@ security:
 
 eureka:
   client:
-    registerWithEureka: false
-    fetchRegistry: false
+    registerWithEureka: true
+    fetchRegistry: true
     serviceUrl:
-      defaultZone: http://localhost:8090/eureka
-  instance:
-    hostname: localhost
+      defaultZone: http://eureka:8761/eureka/

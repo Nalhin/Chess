@@ -4,12 +4,9 @@ server:
 spring:
   application:
     name: chat-service
-
 eureka:
   client:
-    registerWithEureka: false
-    fetchRegistry: false
+    registerWithEureka: true
+    fetchRegistry: true
     serviceUrl:
-      defaultZone: http://localhost:8090/eureka
-  instance:
-    hostname: localhost
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}

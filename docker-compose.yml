@@ -1,39 +1,67 @@
-version: '3'
+version: '3.7'
 services:
+  eureka-server:
+    build: server/eureka-server
+    ports:
+      - "8761:8761"
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
+
+
+  gateway-service:
+    build: server/gateway-service
+    ports:
+      - "8090:8090"
+    depends_on:
+      - eureka-server
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
+
   game-service:
     build: server/game-service
     ports:
       - "8081:8081"
-    restart: always
+    depends_on:
+      - eureka-server
+      - gateway-service
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
 
   chat-service:
     build: server/chat-service
     ports:
       - "8082:8082"
-    restart: always
+    depends_on:
+      - eureka-server
+      - gateway-service
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
 
   authentication-service:
     build: server/authentication-service
     ports:
       - "8083:8083"
-    restart: always
     depends_on:
+      - eureka-server
+      - gateway-service
       - mysql
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/chess
+
 
   mysql:
     image: mysql:5.7
     ports:
       - "3306:3306"
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: "password"
-      MYSQL_DATABASE: "chess"
-      MYSQL_USER: "user"
-      MYSQL_PASSWORD: "password"
-    expose:
-      - "3306"
     volumes:
       - db:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: chess
+      MYSQL_USER: chess
+      MYSQL_PASSWORD: chess
+
 
 volumes:
   db:
