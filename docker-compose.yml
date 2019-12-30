@@ -49,6 +49,28 @@ services:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/chess
 
+  queue-service:
+    build: server/queue-service
+    ports:
+      - "8084:8084"
+    depends_on:
+      - eureka-server
+      - gateway-service
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
+
+  history-service:
+    build: server/history-service
+    ports:
+      - "8085:8085"
+    depends_on:
+      - eureka-server
+      - gateway-service
+      - mysql
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/chess
+
 
   mysql:
     image: mysql:5.7

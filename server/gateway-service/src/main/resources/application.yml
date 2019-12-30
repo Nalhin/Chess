@@ -1,9 +1,6 @@
 server:
   port: 8090
 
-spring:
-  application:
-    name: gateway-service
 
 eureka:
   client:
@@ -12,35 +9,22 @@ eureka:
       preferSameZoneEureka: true
   instance:
     preferIpAddress: true
-    metadata-map.zone: ${ZONE_NAME}
 
-zuul:
-  host:
-    connect-timeout-millis: 5000000
-    socket-timeout-millis: 5000000
-  ignored-services: '*'
-  routes:
-    game-service:
-      path: /game/**
-      serviceId: game-service
-      stripPrefix: true
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: authentication-service
+          uri: lb://authentication-service
+          predicates:
+            - Path=/authentication/**
 
-    chat-service:
-      path: /chat/**
-      serviceId: chat-service
-      stripPrefix: true
-
-    queue-service:
-      path: /queue/**
-      serviceId: queue-service
-      stripPrefix: true
-
-    history-service:
-      path: /history/**
-      serviceId: history-service
-      stripPrefix: true
-
-    authentication-service:
-      path: /authentication/**
-      serviceId: authentication-service
-      stripPrefix: true
+        - id: game-service
+          uri: lb://game-service
+          predicates:
+            - Path=/game/**

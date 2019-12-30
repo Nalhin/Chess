@@ -16,6 +16,8 @@
         <option value="$PROJECT_DIR$/eureka-server/pom.xml" />
         <option value="$PROJECT_DIR$/server/eureka-server/pom.xml" />
         <option value="$PROJECT_DIR$/server/gateway-service/pom.xml" />
+        <option value="$PROJECT_DIR$/server/queue-service/pom.xml" />
+        <option value="$PROJECT_DIR$/server/history-service/pom.xml" />
       </list>
     </option>
   </component>

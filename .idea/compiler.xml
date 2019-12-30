@@ -7,9 +7,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="gateway-service" />
+        <module name="queue-service" />
         <module name="chat-service" />
-        <module name="eureka-server" />
         <module name="game-service" />
+        <module name="eureka-server" />
+        <module name="history-service" />
         <module name="authentication-service" />
       </profile>
     </annotationProcessing>
@@ -19,6 +21,8 @@
       <module name="eureka-server" target="13" />
       <module name="game-service" target="12" />
       <module name="gateway-service" target="13" />
+      <module name="history-service" target="12" />
+      <module name="queue-service" target="12" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -28,6 +32,8 @@
       <module name="eureka-server" options="-parameters" />
       <module name="game-service" options="-parameters" />
       <module name="gateway-service" options="-parameters" />
+      <module name="history-service" options="-parameters" />
+      <module name="queue-service" options="-parameters" />
     </option>
   </component>
 </project>

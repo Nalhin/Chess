@@ -17,6 +17,7 @@
         "labelFormat": "[filename]__[local]",
         "cssPropOptimization": true
       }
-    ]
+    ],
+    "@babel/plugin-proposal-optional-chaining"
   ]
 }

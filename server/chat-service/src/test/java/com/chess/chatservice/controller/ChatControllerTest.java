@@ -16,11 +16,8 @@ import org.springframework.messaging.simp.stomp.StompSession;
 import org.springframework.messaging.simp.stomp.StompSessionHandlerAdapter;
 import org.springframework.web.socket.client.standard.StandardWebSocketClient;
 import org.springframework.web.socket.messaging.WebSocketStompClient;
-import org.springframework.web.socket.sockjs.client.SockJsClient;
-import org.springframework.web.socket.sockjs.client.WebSocketTransport;
 
 import java.lang.reflect.Type;
-import java.util.Collections;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.LinkedBlockingDeque;
@@ -59,7 +56,7 @@ class ChatControllerTest {
         URL = "ws://localhost:" + port + "/chat";
 
         WebSocketStompClient stompClient = new WebSocketStompClient(
-                new SockJsClient(Collections.singletonList(new WebSocketTransport(new StandardWebSocketClient())))
+                new StandardWebSocketClient()
         );
         stompSession = stompClient.connect(URL, new StompSessionHandlerAdapter() {
         }).get(1, SECONDS);

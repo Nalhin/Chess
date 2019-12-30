@@ -90,9 +90,4 @@ class UserControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
     }
-
-    @Test
-    void authorize() throws Exception {
-
-    }
 }
