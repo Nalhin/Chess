@@ -1,4 +1,4 @@
-package com.chess.gameservice.models;
+package com.chess.queueservice.messages;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,8 +7,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class QueueUserCount {
-   private int usersInQueue;
+@NoArgsConstructor
+abstract class Message<T> {
+    private MessageTypes type;
+    private T payload;
 }

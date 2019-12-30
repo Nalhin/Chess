@@ -1,13 +1,17 @@
 package com.chess.gameservice.controller;
 
 import com.chess.gameservice.exception.GameException;
-import com.chess.gameservice.exception.QueueException;
 import com.chess.gameservice.game.Game;
 import com.chess.gameservice.game.position.Position;
-import com.chess.gameservice.messages.*;
-import com.chess.gameservice.models.*;
+import com.chess.gameservice.messages.AvailableMovesMessage;
+import com.chess.gameservice.messages.ErrorMessage;
+import com.chess.gameservice.messages.GameStartedMessage;
+import com.chess.gameservice.messages.PlayerMovedMessage;
+import com.chess.gameservice.models.AvailableMoves;
+import com.chess.gameservice.models.ErrorPayload;
+import com.chess.gameservice.models.PlayerMove;
 import com.chess.gameservice.service.GameService;
-import com.chess.gameservice.service.QueueService;
+import lombok.AllArgsConstructor;
 import org.springframework.messaging.handler.annotation.*;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
@@ -15,38 +19,11 @@ import org.springframework.stereotype.Controller;
 import java.util.UUID;
 
 @Controller
+@AllArgsConstructor
 public class GameController {
 
     private final GameService gameService;
-    private final QueueService queueService;
     private final SimpMessagingTemplate simpMessagingTemplate;
-
-    public GameController(GameService gameService, QueueService queueService, SimpMessagingTemplate simpMessagingTemplate) {
-        this.gameService = gameService;
-        this.queueService = queueService;
-        this.simpMessagingTemplate = simpMessagingTemplate;
-    }
-
-    @MessageMapping("/queue")
-    public void joinQueue(@Header("name") String name, @Header("simpSessionId") String sessionId) throws QueueException {
-
-        var users = queueService.joinQueue(User.builder().name(name).sessionId(sessionId).build());
-
-        if (users != null) {
-            var gameId = UUID.randomUUID();
-            var gameFoundMessage = new GameFoundMessage();
-            gameFoundMessage.setPayload(GameFound.builder().gameId(gameId.toString()).build());
-
-            for (User user : users) {
-                simpMessagingTemplate.convertAndSend("/queue/personal/" + user.getName(), gameFoundMessage);
-            }
-        } else {
-            int queueSize = queueService.getQueueSize();
-            QueueUserCountMessage userCountMessage = new QueueUserCountMessage();
-            userCountMessage.setPayload(new QueueUserCount(queueSize));
-            simpMessagingTemplate.convertAndSend("/queue", userCountMessage);
-        }
-    }
 
     @MessageMapping("/connect/{gameId}")
     public void initialConnect(@DestinationVariable String gameId, @Header("name") String playerName) {
@@ -81,10 +58,4 @@ public class GameController {
         simpMessagingTemplate.convertAndSend("/queue/personal/" + name + "/" + gameId, errorMessage);
     }
 
-    @MessageExceptionHandler
-    public void handleCustomException(@Header("name") String name, QueueException ex) {
-        ErrorMessage errorMessage = new ErrorMessage();
-        errorMessage.setPayload(new ErrorPayload(ex.getMessage()));
-        simpMessagingTemplate.convertAndSend("/queue/personal/" + name, errorMessage);
-    }
 }

@@ -1,8 +1,8 @@
-package com.chess.gameservice.service;
+package com.chess.queueservice.service;
 
 
-import com.chess.gameservice.exception.QueueException;
-import com.chess.gameservice.models.User;
+import com.chess.queueservice.exception.QueueException;
+import com.chess.queueservice.models.User;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
