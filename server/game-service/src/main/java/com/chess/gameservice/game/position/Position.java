@@ -1,5 +1,6 @@
 package com.chess.gameservice.game.position;
 
+import com.chess.gameservice.game.board.Board;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,6 @@ public class Position {
 
     @JsonIgnore
     public boolean isWithinBounds() {
-        return x >= 0 && x < 8 && y >= 0 && y < 8;
+        return x >= 0 && x <= Board.BOARD_SIZE && y >= 0 && y <= Board.BOARD_SIZE;
     }
 }

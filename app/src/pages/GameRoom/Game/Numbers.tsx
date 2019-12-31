@@ -17,7 +17,7 @@ const StyledNumberContainer = styled.div`
 
 const numbers = ['1', '2', '3', '4', '5', '6', '7', '8'];
 
-const Numbers = React.memo(() => {
+const BoardNumbers = React.memo(() => {
   return (
     <StyledNumbers>
       {numbers.map(num => (
@@ -27,4 +27,4 @@ const Numbers = React.memo(() => {
   );
 });
 
-export default Numbers;
+export default BoardNumbers;

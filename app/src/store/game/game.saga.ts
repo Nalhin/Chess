@@ -6,6 +6,7 @@ import {
   GetAvailableMovesRequestedAction,
   InitGameAction,
   MakeMoveRequestedAction,
+  PromotePawnAction,
 } from './game.types';
 import {
   gamePersonalSubscription,
@@ -24,6 +25,7 @@ export function* gameRootSaga(): SagaIterator {
       getAvailableMovesSaga,
     ),
     yield takeEvery(GameBaseActionTypes.MAKE_MOVE, makeMoveSaga),
+    yield takeEvery(GameBaseActionTypes.PROMOTE_PAWN, promotePawnSaga),
   ]);
 }
 
@@ -77,5 +79,20 @@ function* makeMoveSaga(action: MakeMoveRequestedAction): SagaIterator {
     destination: `/app/move/${gameId}`,
     headers: { name: user.login },
     body: JSON.stringify({ initialPosition, destinationPosition }),
+  });
+}
+
+function* promotePawnSaga(action: PromotePawnAction) {
+  const gameStomp = StompSingleton.getInstance(websocketTypes.GAME);
+
+  const [gameId, user] = yield all([
+    select(gameIdSelector),
+    select(userSelector),
+  ]);
+
+  gameStomp.publish({
+    destination: `/app/promotion/${gameId}`,
+    headers: { name: user.login },
+    body: JSON.stringify(action.payload),
   });
 }

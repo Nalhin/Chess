@@ -12,16 +12,16 @@ const StyledLetterContainer = styled.div`
   padding-right: 8px;
 `;
 
-const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].reverse();
+const boardLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].reverse();
 
-const Letters = React.memo(() => {
+const BoardLetters = React.memo(() => {
   return (
     <StyledLetters>
-      {letters.map(letter => (
+      {boardLetters.map(letter => (
         <StyledLetterContainer key={letter}>{letter}</StyledLetterContainer>
       ))}
     </StyledLetters>
   );
 });
 
-export default Letters;
+export default BoardLetters;

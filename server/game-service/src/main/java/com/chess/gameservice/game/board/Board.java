@@ -4,6 +4,7 @@ import com.chess.gameservice.exception.GameException;
 import com.chess.gameservice.game.CheckState;
 import com.chess.gameservice.game.graveyard.Graveyards;
 import com.chess.gameservice.game.piece.*;
+import com.chess.gameservice.game.player.Player;
 import com.chess.gameservice.game.player.PlayerColor;
 import com.chess.gameservice.game.position.Position;
 import lombok.EqualsAndHashCode;
@@ -17,17 +18,20 @@ import java.util.HashSet;
 @Setter
 @EqualsAndHashCode
 public class Board {
+    public static final int BOARD_SIZE = 7;
     private final PieceType[][] playerInitialState =
             {{PieceType.PAWN, PieceType.PAWN, PieceType.PAWN, PieceType.PAWN,
                     PieceType.PAWN, PieceType.PAWN, PieceType.PAWN, PieceType.PAWN},
                     {PieceType.ROOK, PieceType.KNIGHT, PieceType.BISHOP, PieceType.QUEEN,
                             PieceType.KING, PieceType.BISHOP, PieceType.KNIGHT, PieceType.ROOK}};
 
-    private Graveyards graveyards = new Graveyards();
+    private Graveyards graveyards;
+    Position positionAwaitingPromotion;
     private Piece[][] state;
 
     public Board() {
-        state = new Piece[8][8];
+        graveyards = new Graveyards();
+        state = new Piece[BOARD_SIZE + 1][BOARD_SIZE + 1];
         populateBoard();
     }
 
@@ -38,8 +42,8 @@ public class Board {
 
     private void populateWhite() {
         int z = 0;
-        for (int i = 6; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
+        for (int i = 6; i <= BOARD_SIZE; i++) {
+            for (int j = 0; j <= BOARD_SIZE; j++) {
                 state[i][j] = PieceFactory.buildPiece(playerInitialState[z][j], PlayerColor.WHITE);
             }
             z++;
@@ -48,7 +52,7 @@ public class Board {
 
     private void populateBlack() {
         for (int i = 1; i >= 0; i--) {
-            for (int j = 7; j >= 0; j--) {
+            for (int j = BOARD_SIZE; j >= 0; j--) {
                 state[1 - i][j] = PieceFactory.buildPiece(playerInitialState[i][j], PlayerColor.BLACK);
             }
         }
@@ -120,7 +124,7 @@ public class Board {
         }
 
         if (checkPersistsAfterMove(initialPosition, destination)) {
-                throw new GameException("Move ends with check.");
+            throw new GameException("Move ends with check.");
         }
 
         var removedPiece = getPieceByPosition(destination);
@@ -134,6 +138,9 @@ public class Board {
 
         if (piece instanceof Pawn) {
             ((Pawn) piece).setFirstMove(false);
+            if (destination.getX() == 0 || destination.getX() == BOARD_SIZE) {
+                positionAwaitingPromotion = destination;
+            }
         }
     }
 
@@ -159,8 +166,8 @@ public class Board {
         ArrayList<Position> currentPlayerPositions = new ArrayList<>();
         HashSet<Position> positionsAttackableByCurrentPlayer = new HashSet<>();
 
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
+        for (int i = 0; i <= BOARD_SIZE; i++) {
+            for (int j = 0; j <= BOARD_SIZE; j++) {
                 Piece piece = state[i][j];
                 if (piece == null) {
                     continue;
@@ -192,6 +199,27 @@ public class Board {
             return CheckState.CHECK;
         }
         return CheckState.NONE;
-
     }
+
+    public void makePromotion(Position position, PlayerColor playerColor, PieceType selectedPromotion) throws GameException {
+        Piece piece = getPieceByPosition(position);
+        Piece promotedPiece = PieceFactory.buildPiece(selectedPromotion, playerColor);
+
+        if (positionAwaitingPromotion == null) {
+            throw new GameException("No pawn awaiting promotion.");
+        }
+        if (!(piece instanceof Pawn)) {
+            throw new GameException("Piece is not a pawn.");
+        }
+        if (playerColor != piece.getPlayerColor()) {
+            throw new GameException("Invalid pawn color.");
+        }
+        if (promotedPiece == null || promotedPiece instanceof Pawn) {
+            throw new GameException("Invalid piece type.");
+        }
+
+        state[position.getX()][position.getY()] = promotedPiece;
+        positionAwaitingPromotion = null;
+    }
+
 }

@@ -18,6 +18,7 @@ export const GAME_INITIAL_STATE: GameState = {
         whiteGraveyard: [],
         blackGraveyard: [],
       },
+      positionAwaitingPromotion: {} as BoardPosition,
     },
     currentTurn: PlayerColor.WHITE,
     gamePhase: GamePhase.WAITING_FOR_PLAYERS,

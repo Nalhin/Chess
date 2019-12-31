@@ -2,7 +2,7 @@ import { AppState } from '../rootReducer';
 import { PlayerColor } from '../../interfaces/player';
 import { userSelector } from '../user/user.selectors';
 import { createSelector } from 'reselect';
-import { isEqual } from 'lodash';
+import isEqual from 'lodash/isEqual';
 
 export const gameIdSelector = (state: AppState) => state.game.gameId;
 
@@ -21,9 +21,9 @@ export const isCurrentTurnSelector = createSelector(
   (players, currentTurn, user) => {
     switch (currentTurn) {
       case PlayerColor.WHITE:
-        return isEqual(players.whitePlayer, user);
+        return isEqual(players.whitePlayer.name, user.login);
       case PlayerColor.BLACK:
-        return isEqual(players.blackPlayer, user);
+        return isEqual(players.blackPlayer.name, user.login);
       default:
         return false;
     }

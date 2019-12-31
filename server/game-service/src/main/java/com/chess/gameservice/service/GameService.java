@@ -2,6 +2,7 @@ package com.chess.gameservice.service;
 
 import com.chess.gameservice.exception.GameException;
 import com.chess.gameservice.game.Game;
+import com.chess.gameservice.game.piece.PieceType;
 import com.chess.gameservice.game.player.Player;
 import com.chess.gameservice.game.player.PlayerColor;
 import com.chess.gameservice.game.position.Position;
@@ -51,6 +52,13 @@ public class GameService {
         var game = games.get(gameId);
         var player = new Player(playerName);
         game.makeMove(playerMove, player);
+        return game;
+    }
+
+    public Game makePromotion(UUID gameId, Position playerMove, PieceType selectedPromotion, String playerName) throws GameException{
+        var game = games.get(gameId);
+        var player = new Player(playerName);
+        game.makePromotion(playerMove, player, selectedPromotion);
         return game;
     }
 }

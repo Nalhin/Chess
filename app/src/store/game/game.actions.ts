@@ -10,16 +10,13 @@ import {
   GameStateSubscriptionActionTypes,
   GetAvailableMovesRequestedAction,
   InitGameAction,
-  InitGameFailedAction,
-  InitGameSucceededAction,
   MakeMoveRequestedAction,
   PlayerMovedSubscriptionAction,
-  SetSelectedPieceAction,
 } from './game.types';
-import { Board } from '../../interfaces/board';
 import { Game } from '../../interfaces/game';
 import { AvailableMoves } from '../../interfaces/availableMoves';
 import { BoardPosition } from '../../interfaces/boardPosition';
+import { PieceType } from '../../interfaces/piece';
 
 export const gameStarted = (game: Game): GameStartedSubscriptionAction => ({
   type: GameStateSubscriptionActionTypes.GAME_STARTED,
@@ -69,31 +66,11 @@ export const gameFound = (gameId: string): GameFoundSubscriptionAction => ({
   },
 });
 
-export const setSelectedPiece = (
-  position: BoardPosition,
-): SetSelectedPieceAction => ({
-  type: GameBaseActionTypes.SET_SELECTED_PIECE,
-  payload: {
-    position,
-  },
-});
-
 export const initGameRequested = (id: string): InitGameAction => ({
   type: GameBaseActionTypes.INIT_GAME,
   payload: {
     id,
   },
-});
-
-export const initGameSucceeded = (board: Board): InitGameSucceededAction => ({
-  type: GameBaseActionTypes.INIT_GAME_SUCCEEDED,
-  payload: {
-    board,
-  },
-});
-
-export const initGameFailed = (): InitGameFailedAction => ({
-  type: GameBaseActionTypes.INIT_GAME_FAILED,
 });
 
 export const getAvailableMovesRequested = (
@@ -111,6 +88,14 @@ export const makeMoveRequested = (
   type: GameBaseActionTypes.MAKE_MOVE,
   payload: {
     destinationPosition,
+  },
+});
+
+export const promotePawn = (position: BoardPosition, pieceType: PieceType) => ({
+  type: GameBaseActionTypes.PROMOTE_PAWN,
+  payload: {
+    pieceType,
+    position,
   },
 });
 

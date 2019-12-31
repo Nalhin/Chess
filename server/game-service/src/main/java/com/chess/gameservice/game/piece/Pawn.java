@@ -37,7 +37,7 @@ public class Pawn extends Piece {
         }
 
         var forwardPosition = new Position(initialPosition.getX() + direction, initialPosition.getY());
-        if (board.isBoardPositionEmpty(forwardPosition)) {
+        if (forwardPosition.isWithinBounds() &&board.isBoardPositionEmpty(forwardPosition)) {
             availableMoves.add(forwardPosition);
         }
 

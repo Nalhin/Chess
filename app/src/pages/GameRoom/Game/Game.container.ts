@@ -7,6 +7,7 @@ import {
   getAvailableMovesRequested,
   initGameRequested,
   makeMoveRequested,
+  promotePawn,
 } from '../../../store/game/game.actions';
 import { isCurrentTurnSelector } from '../../../store/game/game.selectors';
 
@@ -16,6 +17,8 @@ const mapStateToProps = (state: AppState) => {
   const selectedPosition = state.game.selectedPiece.position;
   const availableMoves = state.game.selectedPiece.availableMoves;
   const graveyards = state.game.gameState.board.graveyards;
+  const positionAwaitingPromotion =
+    state.game.gameState.board.positionAwaitingPromotion;
   const error = state.game.error;
   const isCurrentTurn = isCurrentTurnSelector(state);
   return {
@@ -26,6 +29,7 @@ const mapStateToProps = (state: AppState) => {
     isCurrentTurn,
     graveyards,
     error,
+    positionAwaitingPromotion,
   };
 };
 
@@ -35,6 +39,7 @@ const mapDispatchToProps = (dispatch: Dispatch<RootAction>) =>
       initGame: initGameRequested,
       getAvailableMoves: getAvailableMovesRequested,
       makeMove: makeMoveRequested,
+      promotePawn,
     },
     dispatch,
   );

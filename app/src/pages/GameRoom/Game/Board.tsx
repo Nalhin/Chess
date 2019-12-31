@@ -4,8 +4,9 @@ import styled from '@emotion/styled';
 import { AvailableMoves } from '../../../interfaces/availableMoves';
 import { Piece } from '../../../interfaces/piece';
 import { BoardPosition } from '../../../interfaces/boardPosition';
-import Letters from './Letters';
-import Numbers from './Numbers';
+import { arePositionsEqual } from '../../../utils/arePositionsEqual';
+import BoardLetters from './BoardLetters';
+import BoardNumbers from './Numbers';
 
 const StyledContainer = styled.div`
   display: grid;
@@ -37,26 +38,30 @@ const Board: React.FC<Props> = ({
 }) => {
   return (
     <StyledContainer>
-      <Letters />
+      <BoardLetters />
       <StyledBoardContainer>
         {board.map((row, x) =>
-          row.map((cell, y) => (
-            <Cell
-              getAvailableMoves={getAvailableMoves}
-              isSelected={selectedPosition.x == x && selectedPosition.y == y}
-              isMoveAvailable={availableMoves.some(
-                item => item.x == x && item.y == y,
-              )}
-              makeMove={makeMove}
-              key={`${x}#${y}`}
-              position={{ x: x, y: y }}
-              type={cell?.type}
-              playerColor={cell?.playerColor}
-            />
-          )),
+          row.map((cell, y) => {
+            const position = { x, y };
+
+            return (
+              <Cell
+                getAvailableMoves={getAvailableMoves}
+                isSelected={arePositionsEqual(position, selectedPosition)}
+                isMoveAvailable={availableMoves.some(item =>
+                  arePositionsEqual(position, item),
+                )}
+                makeMove={makeMove}
+                key={`${x}#${y}`}
+                position={position}
+                type={cell?.type}
+                playerColor={cell?.playerColor}
+              />
+            );
+          }),
         )}
       </StyledBoardContainer>
-      <Numbers />
+      <BoardNumbers />
     </StyledContainer>
   );
 };

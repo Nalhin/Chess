@@ -4,6 +4,12 @@ import Graveyard from './Graveyard';
 import { PlayerColor } from '../../../interfaces/player';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import Board from './Board';
+import PromotionMenu from './PromotionMenu/PromotionMenu';
+import styled from '@emotion/styled';
+
+const StyledContainer = styled.div`
+  position: relative;
+`;
 
 interface GameRouterProps {
   id: string;
@@ -25,13 +31,16 @@ const Game: React.FC<Props> = ({
   graveyards,
   error,
   match,
+  positionAwaitingPromotion,
+  promotePawn,
 }) => {
-  React.useEffect(() => {
-    initGame(match.params.id);
-  }, [initGame]);
+  //TODO refactor
+  // React.useEffect(() => {
+  //   initGame(match.params.id);
+  // }, [initGame]);
 
   return (
-    <div>
+    <StyledContainer>
       <div>{error}</div>
       <div>
         {currentTurn == PlayerColor.WHITE ? 'White turn' : 'Black turn'}
@@ -44,8 +53,15 @@ const Game: React.FC<Props> = ({
         makeMove={makeMove}
         selectedPosition={selectedPosition}
       />
+      {positionAwaitingPromotion && isCurrentTurn && (
+        <PromotionMenu
+          playerColor={currentTurn}
+          positionAwaitingPromotion={positionAwaitingPromotion}
+          promotePawn={promotePawn}
+        />
+      )}
       <Graveyard pieces={graveyards.whiteGraveyard} />
-    </div>
+    </StyledContainer>
   );
 };
 

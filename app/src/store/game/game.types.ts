@@ -1,7 +1,7 @@
-import { Board } from '../../interfaces/board';
 import { Game } from '../../interfaces/game';
 import { BoardPosition } from '../../interfaces/boardPosition';
 import { AvailableMoves } from '../../interfaces/availableMoves';
+import { PieceType } from '../../interfaces/piece';
 
 export interface GameState {
   readonly gameState: Game;
@@ -15,11 +15,9 @@ export interface GameState {
 
 export enum GameBaseActionTypes {
   INIT_GAME = 'INIT_GAME',
-  INIT_GAME_SUCCEEDED = 'INIT_GAME_SUCCEEDED',
-  INIT_GAME_FAILED = 'INIT_GAME_FAILED',
+  PROMOTE_PAWN = 'PROMOTE_PAWN',
   GET_AVAILABLE_MOVES = 'GET_AVAILABLE_MOVES',
   MAKE_MOVE = 'MAKE_MOVE',
-  SET_SELECTED_PIECE = 'SET_SELECTED_PIECE',
   CLOSE_GAME = 'CLOSE_GAME',
 }
 
@@ -88,29 +86,11 @@ export interface GameFoundSubscriptionAction {
   };
 }
 
-export interface SetSelectedPieceAction {
-  type: typeof GameBaseActionTypes.SET_SELECTED_PIECE;
-  payload: {
-    position: BoardPosition;
-  };
-}
-
 export interface InitGameAction {
   type: typeof GameBaseActionTypes.INIT_GAME;
   payload: {
     id: string;
   };
-}
-
-export interface InitGameSucceededAction {
-  type: typeof GameBaseActionTypes.INIT_GAME_SUCCEEDED;
-  payload: {
-    board: Board;
-  };
-}
-
-export interface InitGameFailedAction {
-  type: typeof GameBaseActionTypes.INIT_GAME_FAILED;
 }
 
 export interface GetAvailableMovesRequestedAction {
@@ -127,14 +107,19 @@ export interface MakeMoveRequestedAction {
   };
 }
 
+export interface PromotePawnAction {
+  type: typeof GameBaseActionTypes.PROMOTE_PAWN;
+  payload: {
+    pieceType: PieceType;
+  };
+}
+
 export interface CloseGameAction {
   type: typeof GameBaseActionTypes.CLOSE_GAME;
 }
 
 export type GameActions =
   | InitGameAction
-  | InitGameSucceededAction
-  | InitGameFailedAction
   | GetAvailableMovesRequestedAction
   | MakeMoveRequestedAction
   | GameStartedSubscriptionAction
@@ -142,6 +127,6 @@ export type GameActions =
   | GameOverSubscriptionAction
   | AvailableMovesSubscriptionAction
   | AvailableMovesErrorSubscriptionAction
-  | SetSelectedPieceAction
   | GameFoundSubscriptionAction
+  | PromotePawnAction
   | CloseGameAction;
