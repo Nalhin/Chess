@@ -3,7 +3,6 @@ import store from '../store';
 import {
   availableMoves,
   availableMovesError,
-  gameFound,
   gameOver,
   gameStarted,
   playerMoved,
@@ -70,23 +69,6 @@ export const gamePersonalSubscription = (
           default:
             break;
         }
-      },
-      error => {},
-    );
-};
-
-export const gameQueueSubscription = (stomp: RxStomp, login: string) => {
-  return stomp
-    .watch(`/queue/personal/${login}`)
-    .pipe(
-      map(message => {
-        return JSON.parse(message.body);
-      }),
-    )
-    .subscribe(
-      data => {
-        const { payload, type } = data;
-        store.dispatch(gameFound(payload.gameId));
       },
       error => {},
     );

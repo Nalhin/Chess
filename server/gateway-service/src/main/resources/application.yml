@@ -28,3 +28,13 @@ spring:
           uri: lb://game-service
           predicates:
             - Path=/game/**
+
+        - id: chat-service
+          uri: lb://chat-service
+          predicates:
+            - Path=/chat/**
+
+        - id: queue-service
+          uri: lb://queue-service
+          predicates:
+            - Path=/queue/**

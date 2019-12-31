@@ -1,32 +1,19 @@
 import React from 'react';
 import { GameContainerProps } from './Game.container';
-import Cell from './Cell';
-import styled from '@emotion/styled';
 import Graveyard from './Graveyard';
 import { PlayerColor } from '../../../interfaces/player';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-
-interface StyledGameContainerProps {
-  isCurrentTurn: boolean;
-}
-
-const StyledGameContainer = styled.div`
-  display: inline-grid;
-  grid-template-columns: repeat(8, 1fr);
-  grid-template-rows: repeat(8, 1fr);
-  ${(props: StyledGameContainerProps) =>
-    props.isCurrentTurn && 'border:5px red solid'}
-`;
+import Board from './Board';
 
 interface GameRouterProps {
   id: string;
 }
 
-interface GameProps
+interface Props
   extends GameContainerProps,
     RouteComponentProps<GameRouterProps> {}
 
-const Game: React.FC<GameProps> = ({
+const Game: React.FC<Props> = ({
   board,
   initGame,
   getAvailableMoves,
@@ -50,24 +37,13 @@ const Game: React.FC<GameProps> = ({
         {currentTurn == PlayerColor.WHITE ? 'White turn' : 'Black turn'}
       </div>
       <Graveyard pieces={graveyards.blackGraveyard} />
-      <StyledGameContainer isCurrentTurn={isCurrentTurn}>
-        {board.map((row, x) =>
-          row.map((cell, y) => (
-            <Cell
-              getAvailableMoves={getAvailableMoves}
-              isSelected={selectedPosition.x == x && selectedPosition.y == y}
-              isMoveAvailable={availableMoves.some(
-                item => item.x == x && item.y == y,
-              )}
-              makeMove={makeMove}
-              key={`${x}#${y}`}
-              position={{ x: x, y: y }}
-              type={cell?.type}
-              playerColor={cell?.playerColor}
-            />
-          )),
-        )}
-      </StyledGameContainer>
+      <Board
+        board={board}
+        getAvailableMoves={getAvailableMoves}
+        availableMoves={availableMoves}
+        makeMove={makeMove}
+        selectedPosition={selectedPosition}
+      />
       <Graveyard pieces={graveyards.whiteGraveyard} />
     </div>
   );

@@ -62,14 +62,29 @@ class QueueControllerTest {
     @Test
     void joinQueueWaiting() throws InterruptedException, JSONException {
         var subscription = stompSession.subscribe(SUBSCRIBE_STATE_ENDPOINT, new CreateStompFrameHandler());
+        var personalSubscription = stompSession.subscribe(SUBSCRIBE_PERSONAL_ENDPOINT + firstPlayerName, new CreateStompFrameHandler());
 
         stompHeaders.setDestination(JOIN_QUEUE_ENDPOINT);
         stompHeaders.set("name", firstPlayerName);
         stompSession.send(stompHeaders, null);
 
-        JSONObject message = blockingQueue.poll(10, SECONDS);
-        assertNotNull(message);
-        assertEquals(MessageTypes.QUEUE_GAME_FOUND.toString(), message.get("type"));
+        JSONObject joinedMessage = blockingQueue.poll(10, SECONDS);
+        assertNotNull(joinedMessage);
+        assertEquals(MessageTypes.QUEUE_JOINED.toString(), joinedMessage.get("type"));
+
+        JSONObject userCountMessage = blockingQueue.poll(10, SECONDS);
+        assertNotNull(userCountMessage);
+        assertEquals(MessageTypes.QUEUE_COUNT.toString(), userCountMessage.get("type"));
+
+        stompHeaders.setDestination(JOIN_QUEUE_ENDPOINT);
+        stompHeaders.set("name", secondPlayerName);
+        stompSession.send(stompHeaders, null);
+
+        JSONObject gameFoundMessage = blockingQueue.poll(10, SECONDS);
+        assertNotNull(gameFoundMessage);
+        assertEquals(MessageTypes.QUEUE_GAME_FOUND.toString(), gameFoundMessage.get("type"));
+
+        personalSubscription.unsubscribe();
         subscription.unsubscribe();
     }
 
@@ -84,7 +99,6 @@ class QueueControllerTest {
 
         stompHeaders.set("name", secondPlayerName);
         stompSession.send(stompHeaders, null);
-
         JSONObject message = blockingQueue.poll(10, SECONDS);
         assertNotNull(message);
         assertEquals(MessageTypes.QUEUE_GAME_FOUND.toString(), message.get("type"));
@@ -94,17 +108,24 @@ class QueueControllerTest {
     @Test
     void handleQueueException() throws InterruptedException, JSONException {
         var subscription = stompSession.subscribe(SUBSCRIBE_PERSONAL_ENDPOINT + firstPlayerName, new CreateStompFrameHandler());
+        var personalSubscription = stompSession.subscribe(SUBSCRIBE_PERSONAL_ENDPOINT + firstPlayerName, new CreateStompFrameHandler());
 
         stompHeaders.setDestination(JOIN_QUEUE_ENDPOINT);
         stompHeaders.set("name", firstPlayerName);
         stompSession.send(stompHeaders, null);
 
+        blockingQueue.poll(10, SECONDS);
+        JSONObject joinedMessage = blockingQueue.poll(10, SECONDS);
+        assertNotNull(joinedMessage);
+        assertEquals(MessageTypes.QUEUE_JOINED.toString(), joinedMessage.get("type"));
+
         stompHeaders.set("name", firstPlayerName);
         stompSession.send(stompHeaders, null);
 
-        JSONObject message = blockingQueue.poll(10, SECONDS);
-        assertNotNull(message);
-        assertEquals(MessageTypes.QUEUE_GAME_FOUND.toString(), message.get("type"));
+        JSONObject errorMessage = blockingQueue.poll(10, SECONDS);
+        assertNotNull(errorMessage);
+        assertEquals(MessageTypes.QUEUE_ERROR.toString(), errorMessage.get("type"));
+        personalSubscription.unsubscribe();
         subscription.unsubscribe();
     }
 

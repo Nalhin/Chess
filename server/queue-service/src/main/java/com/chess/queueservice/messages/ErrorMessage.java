@@ -8,6 +8,6 @@ import lombok.Setter;
 @Setter
 public class ErrorMessage extends Message<ErrorPayload> {
     public ErrorMessage(ErrorPayload payload) {
-        super(MessageTypes.QUEUE_GAME_FOUND, payload);
+        super(MessageTypes.QUEUE_ERROR, payload);
     }
 }

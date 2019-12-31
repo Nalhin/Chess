@@ -7,6 +7,8 @@ import Pages from './pages/Pages';
 import { css, Global, ThemeProvider } from '@emotion/core';
 import { theme } from './styles/theme';
 import { globalStyles } from './styles/global';
+import { DndProvider } from 'react-dnd';
+import Backend from 'react-dnd-html5-backend';
 
 const global = css`
   ${globalStyles}
@@ -16,13 +18,15 @@ const App = () => {
   return (
     <ErrorBoundary>
       <Global styles={global} />
-      <ThemeProvider theme={theme}>
-        <Provider store={store}>
-          <BrowserRouter basename={process.env.PUBLIC_URL}>
-            <Pages />
-          </BrowserRouter>
-        </Provider>
-      </ThemeProvider>
+      <DndProvider backend={Backend}>
+        <ThemeProvider theme={theme}>
+          <Provider store={store}>
+            <BrowserRouter basename={process.env.PUBLIC_URL}>
+              <Pages />
+            </BrowserRouter>
+          </Provider>
+        </ThemeProvider>
+      </DndProvider>
     </ErrorBoundary>
   );
 };

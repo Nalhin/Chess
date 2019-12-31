@@ -11,3 +11,5 @@ eureka:
     serviceUrl:
       defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
 
+kafka:
+  bootstrap-servers: localhost:9092

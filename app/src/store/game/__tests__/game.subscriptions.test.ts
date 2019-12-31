@@ -1,7 +1,6 @@
 // @ts-nocheck
 import {
   gamePersonalSubscription,
-  gameQueueSubscription,
   gameStateSubscription,
 } from '../game.subscriptions';
 import MockStomp from '../../../../test/utils/MockStomp';
@@ -12,7 +11,6 @@ import { fakeAvailableMovesErrorMessage } from '../../../../test/fixtures/game/s
 import { fakeAvailableMovesMessage } from '../../../../test/fixtures/game/subscriptionMessages/fakeAvailableMovesMessage';
 import { fakeGameId } from '../../../../test/fixtures/game/gameId';
 import { RootAction } from '../../rootAction';
-import { fakeGameFoundMessage } from '../../../../test/fixtures/game/subscriptionMessages/fakeGameFoundMessage';
 
 const mockDispatchedActions = [];
 
@@ -50,16 +48,5 @@ describe('gamePersonalSubscription', () => {
     gamePersonalSubscription(mockStomp, fakeGameId);
 
     expect(mockDispatchedActions.length).toBe(2);
-  });
-});
-
-describe('gameQueueSubscription', () => {
-  it('Should dispatch actions correctly', () => {
-    const subscriptionMessages = [fakeGameFoundMessage];
-
-    const mockStomp = new MockStomp(subscriptionMessages);
-    gameQueueSubscription(mockStomp);
-
-    expect(mockDispatchedActions.length).toBe(1);
   });
 });

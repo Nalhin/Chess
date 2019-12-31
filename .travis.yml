@@ -60,13 +60,13 @@ jobs:
         directories:
           - $HOME/.m2
 
-    - name: 'History Service'
-      language: java
-      jdk: openjdk13
-      before_script: cd server/history-service
-      script: mvn verify
-      after_success:
-        - bash <(curl -s https://codecov.io/bash)
-      cache:
-        directories:
-          - $HOME/.m2
+#    - name: 'History Service'
+#      language: java
+#      jdk: openjdk13
+#      before_script: cd server/history-service
+#      script: mvn verify
+#      after_success:
+#        - bash <(curl -s https://codecov.io/bash)
+#      cache:
+#        directories:
+#          - $HOME/.m2

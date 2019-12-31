@@ -8,6 +8,6 @@ import lombok.Setter;
 @Setter
 public class CountMessage extends Message<CountPayload> {
     public CountMessage(CountPayload payload) {
-        super(MessageTypes.QUEUE_GAME_FOUND, payload);
+        super(MessageTypes.QUEUE_COUNT, payload);
     }
 }

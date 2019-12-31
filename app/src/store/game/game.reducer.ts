@@ -40,7 +40,7 @@ const gameReducer: Reducer<GameState, GameActions> = (
 ) => {
   return produce(state, draft => {
     switch (action.type) {
-      case GameBaseActionTypes.INIT_GAME_REQUESTED:
+      case GameBaseActionTypes.INIT_GAME:
         draft.gameId = action.payload.id;
         break;
       case GameActionTypes.GAME_STARTED:
@@ -61,6 +61,9 @@ const gameReducer: Reducer<GameState, GameActions> = (
         break;
       case GameActionTypes.GAME_FOUND:
         draft.gameId = action.payload.gameId;
+        break;
+      case GameActionTypes.CLOSE_GAME:
+        draft = GAME_INITIAL_STATE;
         break;
       default:
         break;

@@ -1,22 +1,18 @@
 import {
   AvailableMovesErrorSubscriptionAction,
   AvailableMovesSubscriptionAction,
+  CloseGameAction,
   GameBaseActionTypes,
   GameFoundSubscriptionAction,
   GameOverSubscriptionAction,
   GamePersonalSubscriptionActionTypes,
   GameStartedSubscriptionAction,
   GameStateSubscriptionActionTypes,
-  GetAvailableMovesFailedAction,
   GetAvailableMovesRequestedAction,
-  GetAvailableMovesSucceededAction,
+  InitGameAction,
   InitGameFailedAction,
-  InitGameRequestedAction,
   InitGameSucceededAction,
-  JoinGameQueueAction,
-  MakeMoveFailedAction,
   MakeMoveRequestedAction,
-  MakeMoveSucceededAction,
   PlayerMovedSubscriptionAction,
   SetSelectedPieceAction,
 } from './game.types';
@@ -73,10 +69,6 @@ export const gameFound = (gameId: string): GameFoundSubscriptionAction => ({
   },
 });
 
-export const joinGameQueue = (): JoinGameQueueAction => ({
-  type: GameBaseActionTypes.JOIN_GAME_QUEUE,
-});
-
 export const setSelectedPiece = (
   position: BoardPosition,
 ): SetSelectedPieceAction => ({
@@ -86,8 +78,8 @@ export const setSelectedPiece = (
   },
 });
 
-export const initGameRequested = (id: string): InitGameRequestedAction => ({
-  type: GameBaseActionTypes.INIT_GAME_REQUESTED,
+export const initGameRequested = (id: string): InitGameAction => ({
+  type: GameBaseActionTypes.INIT_GAME,
   payload: {
     id,
   },
@@ -107,41 +99,21 @@ export const initGameFailed = (): InitGameFailedAction => ({
 export const getAvailableMovesRequested = (
   initialPosition: BoardPosition,
 ): GetAvailableMovesRequestedAction => ({
-  type: GameBaseActionTypes.GET_AVAILABLE_MOVES_REQUESTED,
+  type: GameBaseActionTypes.GET_AVAILABLE_MOVES,
   payload: {
     initialPosition,
   },
 });
 
-export const GetAvailableMovesSucceeded = (
-  availableMoves: AvailableMoves,
-): GetAvailableMovesSucceededAction => ({
-  type: GameBaseActionTypes.GET_AVAILABLE_MOVES_SUCCEEDED,
-  payload: {
-    availableMoves,
-  },
-});
-
-export const GetAvailableMovesFailed = (): GetAvailableMovesFailedAction => ({
-  type: GameBaseActionTypes.GET_AVAILABLE_MOVES_FAILED,
-});
-
 export const makeMoveRequested = (
   destinationPosition: BoardPosition,
 ): MakeMoveRequestedAction => ({
-  type: GameBaseActionTypes.MAKE_MOVE_REQUESTED,
+  type: GameBaseActionTypes.MAKE_MOVE,
   payload: {
     destinationPosition,
   },
 });
 
-export const makeMoveSucceeded = (board: Board): MakeMoveSucceededAction => ({
-  type: GameBaseActionTypes.MAKE_MOVE_SUCCEEDED,
-  payload: {
-    board,
-  },
-});
-
-export const makeMoveFailed = (): MakeMoveFailedAction => ({
-  type: GameBaseActionTypes.MAKE_MOVE_FAILED,
+export const closeGame = (): CloseGameAction => ({
+  type: GameBaseActionTypes.CLOSE_GAME,
 });

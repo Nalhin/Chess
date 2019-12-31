@@ -45,4 +45,8 @@ export const ChatActionTypes = {
   ...ChatBaseActionTypes,
 };
 
-export type ChatActions = NewMessageReceivedAction | InitChatAction;
+export type ChatActions =
+  | NewMessageReceivedAction
+  | InitChatAction
+  | CloseChatAction
+  | SendMessageAction;

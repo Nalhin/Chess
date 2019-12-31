@@ -4,17 +4,27 @@ import com.chess.queueservice.exception.QueueException;
 import com.chess.queueservice.models.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.kafka.core.KafkaTemplate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+@ExtendWith(MockitoExtension.class)
 class QueueServiceTest {
 
+    @Mock
+    private KafkaTemplate<String, String>  kafkaTemplate;
+
+    @InjectMocks
     private QueueService queueService;
 
     @BeforeEach
     void setUp() {
-        queueService = new QueueService();
+        queueService = new QueueService(kafkaTemplate);
     }
 
     @Test

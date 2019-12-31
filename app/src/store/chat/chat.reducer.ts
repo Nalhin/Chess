@@ -1,10 +1,5 @@
 import { Reducer } from 'react';
-import {
-  ChatActions,
-  ChatActionTypes,
-  ChatState,
-  ChatSubscriptionActionTypes,
-} from './chat.types';
+import { ChatActions, ChatActionTypes, ChatState } from './chat.types';
 import produce from 'immer';
 
 export const CHAT_INITIAL_STATE: ChatState = {
@@ -23,6 +18,11 @@ const chatReducer: Reducer<ChatState, ChatActions> = (
         break;
       case ChatActionTypes.NEW_MESSAGE_RECEIVED:
         draft.messages.push(action.payload.message);
+        break;
+      case ChatActionTypes.CLOSE_CHAT:
+        draft = CHAT_INITIAL_STATE;
+        break;
+      default:
         break;
     }
   });

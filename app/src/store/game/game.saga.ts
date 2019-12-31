@@ -4,55 +4,33 @@ import {
   GameActionTypes,
   GameBaseActionTypes,
   GetAvailableMovesRequestedAction,
-  InitGameRequestedAction,
-  JoinGameQueueAction,
+  InitGameAction,
   MakeMoveRequestedAction,
 } from './game.types';
 import {
   gamePersonalSubscription,
-  gameQueueSubscription,
   gameStateSubscription,
 } from './game.subscriptions';
 import { StompSingleton } from '../../websocket/stompClient';
 import { gameIdSelector, selectedPieceSelector } from './game.selectors';
 import { userSelector } from '../user/user.selectors';
 import { websocketTypes } from '../../websocket/websocketTypes';
-import { put } from 'redux-saga-test-plan/matchers';
-import { initChat } from '../chat/chat.actions';
 
 export function* gameRootSaga(): SagaIterator {
   yield all([
-    yield takeEvery(GameBaseActionTypes.INIT_GAME_REQUESTED, initGameSaga),
+    yield takeEvery(GameBaseActionTypes.INIT_GAME, initGameSaga),
     yield takeEvery(
-      GameBaseActionTypes.GET_AVAILABLE_MOVES_REQUESTED,
+      GameBaseActionTypes.GET_AVAILABLE_MOVES,
       getAvailableMovesSaga,
     ),
-    yield takeEvery(GameBaseActionTypes.MAKE_MOVE_REQUESTED, makeMoveSaga),
-    yield takeEvery(GameBaseActionTypes.JOIN_GAME_QUEUE, gameQueueSaga),
+    yield takeEvery(GameBaseActionTypes.MAKE_MOVE, makeMoveSaga),
   ]);
 }
 
-export function* gameQueueSaga(action: JoinGameQueueAction): SagaIterator {
-  const gameStomp = StompSingleton.getInstance(websocketTypes.GAME);
-
-  const { login } = yield select(userSelector);
-  const queueSubscription = gameQueueSubscription(gameStomp, login);
-
-  gameStomp.publish({
-    destination: `/app/queue`,
-    headers: { name: login },
-  });
-
-  yield take(GameActionTypes.INIT_GAME_REQUESTED);
-  queueSubscription.unsubscribe();
-}
-
-export function* initGameSaga(action: InitGameRequestedAction) {
+export function* initGameSaga(action: InitGameAction) {
   const gameStomp = StompSingleton.getInstance(websocketTypes.GAME);
 
   const gameId = action.payload.id;
-  yield put(initChat(gameId));
-
   const { login } = yield select(userSelector);
 
   const gameSubscription = gameStateSubscription(gameStomp, gameId);
@@ -63,7 +41,7 @@ export function* initGameSaga(action: InitGameRequestedAction) {
     headers: { name: login },
   });
 
-  yield take(GameActionTypes.GAME_OVER);
+  yield take(GameActionTypes.CLOSE_GAME);
   gameSubscription.unsubscribe();
   availableMoves.unsubscribe();
 }

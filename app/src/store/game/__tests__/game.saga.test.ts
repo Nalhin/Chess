@@ -5,7 +5,6 @@ import { GameActionTypes } from '../game.types';
 import { initGameSaga } from '../game.saga';
 import MockStomp from '../../../../test/utils/MockStomp';
 import { initGameRequested } from '../game.actions';
-import { initChat } from '../../chat/chat.actions';
 
 jest.mock('../../../websocket/stompClient', () => ({
   StompSingleton: {
@@ -25,10 +24,8 @@ describe('initGameSaga', () => {
 
     testSaga(initGameSaga, action)
       .next()
-      .put(initChat(gameId))
-      .next()
       .next({ login: 'xd' })
-      .take(GameActionTypes.GAME_OVER)
+      .take(GameActionTypes.CLOSE_GAME)
       .next()
       .isDone();
 

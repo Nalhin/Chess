@@ -19,6 +19,8 @@ import {
   registerUserSucceeded,
 } from './user.actions';
 import Cookies from 'js-cookie';
+import { closeChat } from '../chat/chat.actions';
+import { closeGame } from '../game/game.actions';
 
 export function* userRootSaga(): SagaIterator {
   yield all([
@@ -68,4 +70,6 @@ export function* authenticateUserSaga() {
 
 export function* logoutSaga() {
   Cookies.remove('token');
+  yield put(closeChat());
+  yield put(closeGame());
 }

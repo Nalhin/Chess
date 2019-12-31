@@ -4,9 +4,11 @@ import com.chess.queueservice.exception.QueueException;
 import com.chess.queueservice.messages.CountMessage;
 import com.chess.queueservice.messages.ErrorMessage;
 import com.chess.queueservice.messages.GameFoundMessage;
+import com.chess.queueservice.messages.QueueJoinedMessage;
 import com.chess.queueservice.messages.payloads.CountPayload;
 import com.chess.queueservice.messages.payloads.ErrorPayload;
 import com.chess.queueservice.messages.payloads.GameFoundPayload;
+import com.chess.queueservice.messages.payloads.QueueJoinedMessagePayload;
 import com.chess.queueservice.models.User;
 import com.chess.queueservice.service.QueueService;
 import lombok.AllArgsConstructor;
@@ -16,6 +18,9 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
+import java.time.Instant;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -40,6 +45,13 @@ public class QueueController {
             }
         } else {
             int queueSize = queueService.getQueueSize();
+            String date = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mmX")
+                    .withZone(ZoneOffset.UTC)
+                    .format(Instant.now());
+
+            QueueJoinedMessage queueJoinedMessage = new QueueJoinedMessage(new QueueJoinedMessagePayload( date));
+            simpMessagingTemplate.convertAndSend("/queue/personal/" + name, queueJoinedMessage);
+
             CountMessage userCountMessage = new CountMessage(new CountPayload(queueSize));
             simpMessagingTemplate.convertAndSend("/topic/state", userCountMessage);
         }
