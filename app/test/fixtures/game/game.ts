@@ -1,5 +1,6 @@
 import { Game, GamePhase } from '../../../src/interfaces/game';
 import { PlayerColor } from '../../../src/interfaces/player';
+import { CheckState } from '../../../src/interfaces/checkState';
 
 export const fakeGame: Game = {
   board: {
@@ -10,10 +11,11 @@ export const fakeGame: Game = {
     },
     positionAwaitingPromotion: { x: 0, y: 2 },
   },
+  checkState: CheckState.NONE,
   currentTurn: PlayerColor.WHITE,
   gamePhase: GamePhase.WAITING_FOR_PLAYERS,
   players: {
-    whitePlayer: { name: 'name' },
-    blackPlayer: { name: 'name' },
+    [PlayerColor.WHITE]: { name: 'name', totalTurnTimeRemaining: 300 },
+    [PlayerColor.BLACK]: { name: 'name', totalTurnTimeRemaining: 300 },
   },
 };

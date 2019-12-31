@@ -15,12 +15,12 @@ const StyledNumberContainer = styled.div`
   padding-top: 8px;
 `;
 
-const numbers = ['1', '2', '3', '4', '5', '6', '7', '8'];
+const boardNumbers = ['1', '2', '3', '4', '5', '6', '7', '8'];
 
 const BoardNumbers = React.memo(() => {
   return (
     <StyledNumbers>
-      {numbers.map(num => (
+      {boardNumbers.map(num => (
         <StyledNumberContainer key={num}>{num}</StyledNumberContainer>
       ))}
     </StyledNumbers>

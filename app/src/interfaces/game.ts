@@ -2,6 +2,7 @@ import { Piece } from './piece';
 import { PlayerColor } from './player';
 import { Players } from './players';
 import { BoardPosition } from './boardPosition';
+import { CheckState } from './checkState';
 
 export enum GamePhase {
   WAITING_FOR_PLAYERS = 'WAITING_FOR_PLAYERS',
@@ -20,5 +21,6 @@ export interface Game {
   };
   currentTurn: PlayerColor;
   gamePhase: GamePhase;
+  checkState: CheckState;
   players: Players;
 }

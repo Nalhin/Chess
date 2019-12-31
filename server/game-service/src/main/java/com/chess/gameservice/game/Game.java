@@ -37,7 +37,7 @@ public class Game {
     }
 
     public void setPlayer(Player player, PlayerColor playerColor) {
-        players.setPlayerByColor(player, playerColor);
+        players.put(playerColor, player);
     }
 
     public void makeMove(PlayerMove playerMove, Player player) throws GameException {
@@ -60,7 +60,7 @@ public class Game {
         if (gamePhase == GamePhase.GAME_OVER) {
             throw new GameException("Game is over.");
         }
-        if (!players.getPlayerByColor(currentTurn).equals(player)) {
+        if (!players.get(currentTurn).equals(player)) {
             throw new GameException("Wrong turn.");
         }
     }
@@ -83,7 +83,8 @@ public class Game {
         changeTurn(currentTurn);
     }
 
-    private void changeTurn(PlayerColor currentTurn){
+    private void changeTurn(PlayerColor currentTurn) {
+        players.changeTurn(currentTurn);
         setCurrentTurn(PlayerColor.getOtherColor(currentTurn));
     }
 

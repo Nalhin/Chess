@@ -29,7 +29,7 @@ public abstract class Piece {
         var availableMoves = new ArrayList<Position>();
         var position = new Position(initialPosition.getX(), initialPosition.getY());
 
-        while (position.isWithinBounds()) {
+        while (true) {
             var newX = position.getX() + dx;
             var newY = position.getY() + dy;
             position.setX(newX);

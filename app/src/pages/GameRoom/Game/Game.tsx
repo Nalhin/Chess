@@ -1,68 +1,78 @@
 import React from 'react';
 import { GameContainerProps } from './Game.container';
-import Graveyard from './Graveyard';
+import Graveyard from './Graveyard/Graveyard';
 import { PlayerColor } from '../../../interfaces/player';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
-import Board from './Board';
+import Board from './Board/Board';
 import PromotionMenu from './PromotionMenu/PromotionMenu';
 import styled from '@emotion/styled';
+import GameOverMenu from './GameOverMenu/GameOverMenu';
+import { GamePhase } from '../../../interfaces/game';
+import Timer from './Timer/Timer';
 
 const StyledContainer = styled.div`
   position: relative;
 `;
 
-interface GameRouterProps {
-  id: string;
-}
-
-interface Props
-  extends GameContainerProps,
-    RouteComponentProps<GameRouterProps> {}
+interface Props extends GameContainerProps {}
 
 const Game: React.FC<Props> = ({
-  board,
-  initGame,
+  gameState,
   getAvailableMoves,
   selectedPosition,
   availableMoves,
   makeMove,
-  currentTurn,
   isCurrentTurn,
-  graveyards,
   error,
-  match,
-  positionAwaitingPromotion,
   promotePawn,
+  closeGame,
 }) => {
-  //TODO refactor
-  // React.useEffect(() => {
-  //   initGame(match.params.id);
-  // }, [initGame]);
+  const positionAwaitingPromotion = gameState.board.positionAwaitingPromotion;
+  const graveyards = gameState.board.graveyards;
+  const currentTurn = gameState.currentTurn;
+  const gamePhase = gameState.gamePhase;
+  const isPromotionShown = positionAwaitingPromotion && isCurrentTurn;
+  const checkState = gameState.checkState;
+  const players = gameState.players;
 
   return (
     <StyledContainer>
       <div>{error}</div>
       <div>
         {currentTurn == PlayerColor.WHITE ? 'White turn' : 'Black turn'}
+        <Timer
+          totalTurnTimeRemaining={
+            players[PlayerColor.WHITE].totalTurnTimeRemaining
+          }
+        />
+        <Timer
+          totalTurnTimeRemaining={
+            players[PlayerColor.BLACK].totalTurnTimeRemaining
+          }
+        />
       </div>
       <Graveyard pieces={graveyards.blackGraveyard} />
       <Board
-        board={board}
+        boardState={gameState.board.state}
         getAvailableMoves={getAvailableMoves}
         availableMoves={availableMoves}
         makeMove={makeMove}
         selectedPosition={selectedPosition}
+        checkState={checkState}
+        currentTurn={currentTurn}
       />
-      {positionAwaitingPromotion && isCurrentTurn && (
-        <PromotionMenu
-          playerColor={currentTurn}
-          positionAwaitingPromotion={positionAwaitingPromotion}
-          promotePawn={promotePawn}
-        />
-      )}
+      <PromotionMenu
+        isShown={isPromotionShown}
+        playerColor={currentTurn}
+        positionAwaitingPromotion={positionAwaitingPromotion}
+        promotePawn={promotePawn}
+      />
+      <GameOverMenu
+        isShown={gamePhase === GamePhase.GAME_OVER}
+        closeGame={closeGame}
+      />
       <Graveyard pieces={graveyards.whiteGraveyard} />
     </StyledContainer>
   );
 };
 
-export default withRouter(Game);
+export default Game;

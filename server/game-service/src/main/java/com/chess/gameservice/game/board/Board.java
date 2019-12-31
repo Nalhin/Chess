@@ -73,6 +73,10 @@ public class Board {
         return isPositionTakenByEnemy(initialPosition, playerColor);
     }
 
+    public boolean isPositionAttackable(Position initialPosition, PlayerColor playerColor) {
+       return !isBoardPositionEmpty(initialPosition) && isPositionTakenByEnemy(initialPosition, playerColor);
+    }
+
     public boolean isPositionTakenByAttackableEnemy(Position initialPosition, PlayerColor playerColor) {
         return !isBoardPositionEmpty(initialPosition) && isPositionTakenByEnemy(initialPosition, playerColor) && isEnemyAttackable(initialPosition);
     }

@@ -31,7 +31,7 @@ public class Pawn extends Piece {
 
         for (int i = 0; i < dx.length; i++) {
             var position = new Position(initialPosition.getX() + dx[i] * direction, initialPosition.getY() + dy[i]);
-            if (position.isWithinBounds() && board.isPositionTakenByAttackableEnemy(position, getPlayerColor())) {
+            if (position.isWithinBounds() && board.isPositionAttackable(position, getPlayerColor())) {
                 availableMoves.add(position);
             }
         }

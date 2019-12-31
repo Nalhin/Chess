@@ -9,6 +9,7 @@ import produce from 'immer';
 import { Player, PlayerColor } from '../../interfaces/player';
 import { GamePhase } from '../../interfaces/game';
 import { BoardPosition } from '../../interfaces/boardPosition';
+import { CheckState } from '../../interfaces/checkState';
 
 export const GAME_INITIAL_STATE: GameState = {
   gameState: {
@@ -18,13 +19,14 @@ export const GAME_INITIAL_STATE: GameState = {
         whiteGraveyard: [],
         blackGraveyard: [],
       },
-      positionAwaitingPromotion: {} as BoardPosition,
+      positionAwaitingPromotion: null,
     },
+    checkState: CheckState.NONE,
     currentTurn: PlayerColor.WHITE,
     gamePhase: GamePhase.WAITING_FOR_PLAYERS,
     players: {
-      whitePlayer: {} as Player,
-      blackPlayer: {} as Player,
+      [PlayerColor.WHITE]: {} as Player,
+      [PlayerColor.BLACK]: {} as Player,
     },
   },
   selectedPiece: {

@@ -10,12 +10,12 @@ public class Graveyards {
     private Graveyard whiteGraveyard = new Graveyard();
     private Graveyard blackGraveyard = new Graveyard();
 
-    public void addPieceToCorrectGraveyard(Piece piece){
-        switch (piece.getPlayerColor()){
+    public void addPieceToCorrectGraveyard(Piece piece) {
+        switch (piece.getPlayerColor()) {
             case WHITE:
                 whiteGraveyard.addToGraveyard(piece);
                 break;
-            case  BLACK:
+            case BLACK:
                 blackGraveyard.addToGraveyard(piece);
                 break;
             default:

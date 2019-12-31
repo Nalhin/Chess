@@ -1,6 +1,6 @@
-import { Player } from './player';
+import { Player, PlayerColor } from './player';
 
 export interface Players {
-  whitePlayer: Player;
-  blackPlayer: Player;
+  [PlayerColor.WHITE]: Player;
+  [PlayerColor.BLACK]: Player;
 }

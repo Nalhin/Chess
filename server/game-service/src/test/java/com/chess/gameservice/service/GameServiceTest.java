@@ -3,6 +3,7 @@ package com.chess.gameservice.service;
 import com.chess.gameservice.exception.GameException;
 import com.chess.gameservice.game.Game;
 import com.chess.gameservice.game.piece.Pawn;
+import com.chess.gameservice.game.player.PlayerColor;
 import com.chess.gameservice.game.position.Position;
 import com.chess.gameservice.models.AvailableMoves;
 import com.chess.gameservice.models.PlayerMove;
@@ -35,8 +36,8 @@ class GameServiceTest {
         game = gameService.initialConnect(gameId, secondPlayerName);
 
         assertNotNull(game);
-        assertNotNull(game.getPlayers().getBlackPlayer());
-        assertNotNull(game.getPlayers().getWhitePlayer());
+        assertNotNull(game.getPlayers().get(PlayerColor.BLACK));
+        assertNotNull(game.getPlayers().get(PlayerColor.WHITE));
     }
 
     @Test

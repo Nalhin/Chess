@@ -1,12 +1,14 @@
 import React from 'react';
 import Cell from './Cell';
 import styled from '@emotion/styled';
-import { AvailableMoves } from '../../../interfaces/availableMoves';
-import { Piece } from '../../../interfaces/piece';
-import { BoardPosition } from '../../../interfaces/boardPosition';
-import { arePositionsEqual } from '../../../utils/arePositionsEqual';
+import { AvailableMoves } from '../../../../interfaces/availableMoves';
+import { Piece } from '../../../../interfaces/piece';
+import { BoardPosition } from '../../../../interfaces/boardPosition';
+import { arePositionsEqual } from '../../../../utils/arePositionsEqual';
 import BoardLetters from './BoardLetters';
-import BoardNumbers from './Numbers';
+import BoardNumbers from './BoardNumbers';
+import { CheckState } from '../../../../interfaces/checkState';
+import { PlayerColor } from '../../../../interfaces/player';
 
 const StyledContainer = styled.div`
   display: grid;
@@ -24,23 +26,27 @@ const StyledBoardContainer = styled.div`
 interface Props {
   makeMove: (destinationPosition: BoardPosition) => void;
   availableMoves: AvailableMoves;
-  board: Piece[][];
+  boardState: Piece[][];
   selectedPosition: BoardPosition;
   getAvailableMoves: (destinationPosition: BoardPosition) => void;
+  checkState: CheckState;
+  currentTurn: PlayerColor;
 }
 
 const Board: React.FC<Props> = ({
-  board,
+  boardState,
   getAvailableMoves,
   selectedPosition,
   makeMove,
   availableMoves,
+  checkState,
+  currentTurn,
 }) => {
   return (
     <StyledContainer>
       <BoardLetters />
       <StyledBoardContainer>
-        {board.map((row, x) =>
+        {boardState.map((row, x) =>
           row.map((cell, y) => {
             const position = { x, y };
 
@@ -52,10 +58,12 @@ const Board: React.FC<Props> = ({
                   arePositionsEqual(position, item),
                 )}
                 makeMove={makeMove}
+                checkState={checkState}
+                currentTurn={currentTurn}
                 key={`${x}#${y}`}
                 position={position}
                 type={cell?.type}
-                playerColor={cell?.playerColor}
+                pieceColor={cell?.playerColor}
               />
             );
           }),

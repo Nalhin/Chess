@@ -31,7 +31,7 @@ public enum PlayerColor {
             case BLACK:
                 return WHITE;
             default:
-                return null;
+                throw new IllegalArgumentException("Wrong color");
         }
     }
 }

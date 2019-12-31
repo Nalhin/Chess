@@ -3,29 +3,22 @@ package com.chess.gameservice.game.player;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.EnumMap;
+
 @Getter
 @Setter
-public class Players {
+public class Players extends EnumMap<PlayerColor, Player> {
+
     private Player whitePlayer;
     private Player blackPlayer;
 
-    public void setPlayerByColor(Player player,PlayerColor playerColor){
-        switch (playerColor){
-            case WHITE:
-                 whitePlayer=player;
-            case BLACK:
-                 blackPlayer=player;
-        }
+    public Players() {
+        super(PlayerColor.class);
     }
 
-    public Player getPlayerByColor(PlayerColor playerColor){
-        switch (playerColor){
-            case WHITE:
-                return whitePlayer;
-            case BLACK:
-                return blackPlayer;
-            default:
-                return null;
-        }
+    public void changeTurn(PlayerColor currentTurn) {
+        this.get(currentTurn);
+        this.get(currentTurn).endTurn();
+        this.get(PlayerColor.getOtherColor(currentTurn)).startTurn();
     }
 }
