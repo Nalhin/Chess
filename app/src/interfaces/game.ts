@@ -20,7 +20,10 @@ export interface Game {
     positionAwaitingPromotion: BoardPosition;
     checkState: CheckState;
   };
-  currentTurn: PlayerColor;
+  currentTurn: {
+    currentPlayerColor: PlayerColor;
+    turnNumber: number;
+  };
   gamePhase: GamePhase;
   players: Players;
 }

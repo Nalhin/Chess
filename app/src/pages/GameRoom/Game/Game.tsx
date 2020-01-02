@@ -28,7 +28,7 @@ const Game: React.FC<Props> = ({
 }) => {
   const positionAwaitingPromotion = gameState.board.positionAwaitingPromotion;
   const graveyards = gameState.board.graveyards;
-  const currentTurn = gameState.currentTurn;
+  const currentPlayerColor = gameState.currentTurn.currentPlayerColor;
   const gamePhase = gameState.gamePhase;
   const isPromotionShown = positionAwaitingPromotion && isCurrentTurn;
   const players = gameState.players;
@@ -37,7 +37,7 @@ const Game: React.FC<Props> = ({
     <StyledContainer>
       <div>{error}</div>
       <div>
-        {currentTurn == PlayerColor.WHITE ? 'White turn' : 'Black turn'}
+        {currentPlayerColor == PlayerColor.WHITE ? 'White turn' : 'Black turn'}
         <Timer
           totalTurnTimeRemaining={
             players[PlayerColor.WHITE].totalTurnTimeRemaining
@@ -57,11 +57,11 @@ const Game: React.FC<Props> = ({
         makeMove={makeMove}
         selectedPosition={selectedPosition}
         checkState={checkState}
-        currentTurn={currentTurn}
+        currentPlayerColor={currentPlayerColor}
       />
       <PromotionMenu
         isShown={isPromotionShown}
-        playerColor={currentTurn}
+        playerColor={currentPlayerColor}
         positionAwaitingPromotion={positionAwaitingPromotion}
         promotePawn={promotePawn}
       />

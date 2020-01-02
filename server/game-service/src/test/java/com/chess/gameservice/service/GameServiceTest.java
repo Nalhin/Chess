@@ -5,8 +5,8 @@ import com.chess.gameservice.game.Game;
 import com.chess.gameservice.game.piece.Pawn;
 import com.chess.gameservice.game.player.PlayerColor;
 import com.chess.gameservice.game.position.Position;
-import com.chess.gameservice.models.AvailableMoves;
-import com.chess.gameservice.models.PlayerMove;
+import com.chess.gameservice.messages.payloads.AvailableMovesPayload;
+import com.chess.gameservice.messages.payloads.PlayerMovePayload;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -50,7 +50,7 @@ class GameServiceTest {
         var expectedMoves = new ArrayList<Position>();
         expectedMoves.add(new Position(5, 5));
         expectedMoves.add(new Position(4, 5));
-        var expectedAvailableMoves = new AvailableMoves();
+        var expectedAvailableMoves = new AvailableMovesPayload();
         expectedAvailableMoves.setPosition(pawnPosition);
         expectedAvailableMoves.setAvailableMoves(expectedMoves);
 
@@ -65,7 +65,7 @@ class GameServiceTest {
         gameService.initialConnect(gameId, secondPlayerName);
         var initialPosition = new Position(6, 7);
         var destinationPosition = new Position(5, 7);
-        var playerMove = new PlayerMove(initialPosition, destinationPosition);
+        var playerMove = new PlayerMovePayload(initialPosition, destinationPosition);
 
         var gameAfterMove = gameService.makeMove(gameId, playerMove, firstPlayerName);
 

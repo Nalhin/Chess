@@ -4,7 +4,7 @@ import com.chess.gameservice.exception.GameException;
 import com.chess.gameservice.game.player.Player;
 import com.chess.gameservice.game.player.PlayerColor;
 import com.chess.gameservice.game.position.Position;
-import com.chess.gameservice.models.PlayerMove;
+import com.chess.gameservice.messages.payloads.PlayerMovePayload;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -35,27 +35,27 @@ class GameTest {
 
         game.initGame();
 
-        assertEquals(GamePhase.STARTED, game.gamePhase);
-        assertEquals(PlayerColor.WHITE, game.getCurrentTurn());
+        assertEquals(GamePhase.STARTED, game.getGamePhase());
+        assertEquals(PlayerColor.WHITE, game.getCurrentTurn().getCurrentPlayerColor());
     }
 
     @Test
     void makeMove() throws GameException {
         game.setPlayer(firstPlayer, PlayerColor.WHITE);
         game.setPlayer(secondPlayer, PlayerColor.BLACK);
-        var playerMove = new PlayerMove(new Position(6, 1), new Position(5, 1));
+        var playerMove = new PlayerMovePayload(new Position(6, 1), new Position(5, 1));
 
         game.initGame();
         game.makeMove(playerMove, firstPlayer);
 
-        assertEquals(game.getCurrentTurn(), PlayerColor.BLACK);
+        assertEquals(game.getCurrentTurn().getCurrentPlayerColor(), PlayerColor.BLACK);
     }
 
     @Test
     void makeMoveShouldThrowErrorIfNotPlayerTurn() {
         game.setPlayer(firstPlayer, PlayerColor.WHITE);
         game.setPlayer(secondPlayer, PlayerColor.BLACK);
-        var playerMove = new PlayerMove(new Position(1, 0), new Position(2, 0));
+        var playerMove = new PlayerMovePayload(new Position(1, 0), new Position(2, 0));
 
         game.initGame();
 

@@ -18,6 +18,6 @@ export const isCurrentTurnSelector = createSelector(
   gameCurrentTurnSelector,
   userSelector,
   (players, currentTurn, user) => {
-    return isEqual(players[currentTurn].name, user.login);
+    return isEqual(players[currentTurn.currentPlayerColor].name, user.login);
   },
 );

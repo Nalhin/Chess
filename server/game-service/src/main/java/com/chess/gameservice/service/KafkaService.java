@@ -2,7 +2,7 @@ package com.chess.gameservice.service;
 
 import com.chess.gameservice.game.Game;
 import com.chess.gameservice.game.player.PlayerColor;
-import com.chess.gameservice.models.HistoryMessage;
+import com.chess.gameservice.messages.kafka.HistoryMessage;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.Message;
@@ -26,9 +26,10 @@ public class KafkaService {
                 MessageBuilder
                         .withPayload(HistoryMessage.builder()
                                 .gameTurns(game.getGameTurns())
+                                .duration(game.getCustomStopwatch().end())
                                 .blackPlayer(game.getPlayers().get(PlayerColor.BLACK).getName())
                                 .whitePlayer(game.getPlayers().get(PlayerColor.WHITE).getName())
-                                .winner(game.getCurrentTurn()).build())
+                                .winner(game.getCurrentTurn().getCurrentPlayerColor()).build())
                         .setHeader(KafkaHeaders.TOPIC, kafkaTopic)
                         .build();
 

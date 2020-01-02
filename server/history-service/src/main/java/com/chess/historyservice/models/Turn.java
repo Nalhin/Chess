@@ -54,4 +54,8 @@ public class Turn {
 
     @Column(name = "player_color")
     private PlayerColor playerColor;
+
+    @Column(name="turn_number")
+    private int turnNumber;
+
 }

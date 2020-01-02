@@ -30,7 +30,7 @@ interface Props {
   selectedPosition: BoardPosition;
   getAvailableMoves: (destinationPosition: BoardPosition) => void;
   checkState: CheckState;
-  currentTurn: PlayerColor;
+  currentPlayerColor: PlayerColor;
 }
 
 const Board: React.FC<Props> = ({
@@ -40,7 +40,7 @@ const Board: React.FC<Props> = ({
   makeMove,
   availableMoves,
   checkState,
-  currentTurn,
+  currentPlayerColor,
 }) => {
   return (
     <StyledContainer>
@@ -52,6 +52,7 @@ const Board: React.FC<Props> = ({
 
             return (
               <Cell
+                key={`${x}#${y}`}
                 getAvailableMoves={getAvailableMoves}
                 isSelected={arePositionsEqual(position, selectedPosition)}
                 isMoveAvailable={availableMoves.some(item =>
@@ -59,8 +60,7 @@ const Board: React.FC<Props> = ({
                 )}
                 makeMove={makeMove}
                 checkState={checkState}
-                currentTurn={currentTurn}
-                key={`${x}#${y}`}
+                currentPlayerColor={currentPlayerColor}
                 position={position}
                 type={cell?.type}
                 pieceColor={cell?.playerColor}

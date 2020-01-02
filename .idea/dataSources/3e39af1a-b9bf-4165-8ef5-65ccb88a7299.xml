@@ -911,51 +911,134 @@
       <Charset>utf8mb4</Charset>
       <DefaultForCharset>0</DefaultForCharset>
     </collation>
-    <table id="229" parent="2" name="user"/>
-    <column id="230" parent="229" name="id">
+    <table id="229" parent="2" name="games">
+      <Engine>MyISAM</Engine>
+    </table>
+    <table id="230" parent="2" name="turns">
+      <Engine>MyISAM</Engine>
+    </table>
+    <table id="231" parent="2" name="users">
+      <Engine>MyISAM</Engine>
+    </table>
+    <column id="232" parent="229" name="id">
       <Position>1</Position>
-      <DataType>int(11)|0s</DataType>
+      <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="231" parent="229" name="login">
+    <column id="233" parent="229" name="black_player">
       <Position>2</Position>
-      <DataType>varchar(30)|0s</DataType>
+      <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="232" parent="229" name="email">
+    <column id="234" parent="229" name="finish_time">
       <Position>3</Position>
-      <DataType>varchar(30)|0s</DataType>
+      <DataType>datetime|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="233" parent="229" name="password">
+    <column id="235" parent="229" name="white_player">
       <Position>4</Position>
-      <DataType>varchar(64)|0s</DataType>
+      <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="234" parent="229" name="user_login_uindex">
-      <ColNames>login</ColNames>
-      <Unique>1</Unique>
-      <Type>btree</Type>
-    </index>
-    <index id="235" parent="229" name="user_email_uindex">
-      <ColNames>email</ColNames>
-      <Unique>1</Unique>
-      <Type>btree</Type>
-    </index>
-    <key id="236" parent="229" name="PRIMARY">
+    <column id="236" parent="229" name="winner">
+      <Position>5</Position>
+      <DataType>int(11)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="237" parent="229" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="237" parent="229" name="user_login_uindex">
-      <ColNames>login</ColNames>
-      <UnderlyingIndexName>user_login_uindex</UnderlyingIndexName>
+    <column id="238" parent="230" name="turn_id">
+      <Position>1</Position>
+      <DataType>bigint(20)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="239" parent="230" name="destination_position">
+      <Position>2</Position>
+      <DataType>json|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="240" parent="230" name="initial_position">
+      <Position>3</Position>
+      <DataType>json|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="241" parent="230" name="piece_type">
+      <Position>4</Position>
+      <DataType>int(11)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="242" parent="230" name="player_color">
+      <Position>5</Position>
+      <DataType>int(11)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="243" parent="230" name="game_id">
+      <Position>6</Position>
+      <DataType>bigint(20)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="244" parent="230" name="FKkgqw02xfrtutv4keq3lr4rqbn">
+      <ColNames>game_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="245" parent="230" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>turn_id</ColNames>
+      <Primary>1</Primary>
     </key>
-    <key id="238" parent="229" name="user_email_uindex">
+    <column id="246" parent="231" name="id">
+      <Position>1</Position>
+      <DataType>bigint(20)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="247" parent="231" name="email">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="248" parent="231" name="login">
+      <Position>3</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="249" parent="231" name="password">
+      <Position>4</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="250" parent="231" name="UK_6dotkott2kjsp8vw4d0m25fb7">
       <ColNames>email</ColNames>
-      <UnderlyingIndexName>user_email_uindex</UnderlyingIndexName>
+      <Unique>1</Unique>
+      <Type>btree</Type>
+    </index>
+    <index id="251" parent="231" name="UK_ow0gan20590jrb00upg3va2fn">
+      <ColNames>login</ColNames>
+      <Unique>1</Unique>
+      <Type>btree</Type>
+    </index>
+    <key id="252" parent="231" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="253" parent="231" name="UK_6dotkott2kjsp8vw4d0m25fb7">
+      <ColNames>email</ColNames>
+      <UnderlyingIndexName>UK_6dotkott2kjsp8vw4d0m25fb7</UnderlyingIndexName>
+    </key>
+    <key id="254" parent="231" name="UK_ow0gan20590jrb00upg3va2fn">
+      <ColNames>login</ColNames>
+      <UnderlyingIndexName>UK_ow0gan20590jrb00upg3va2fn</UnderlyingIndexName>
     </key>
   </database-model>
 </dataSource>

@@ -6,8 +6,8 @@ import com.chess.gameservice.game.piece.PieceType;
 import com.chess.gameservice.game.player.Player;
 import com.chess.gameservice.game.player.PlayerColor;
 import com.chess.gameservice.game.position.Position;
-import com.chess.gameservice.models.AvailableMoves;
-import com.chess.gameservice.models.PlayerMove;
+import com.chess.gameservice.messages.payloads.AvailableMovesPayload;
+import com.chess.gameservice.messages.payloads.PlayerMovePayload;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -38,19 +38,19 @@ public class GameService {
         return game;
     }
 
-    public AvailableMoves getAvailableMoves(UUID gameId, Position position, String name) throws GameException {
+    public AvailableMovesPayload getAvailableMoves(UUID gameId, Position position, String name) throws GameException {
         Game game = games.get(gameId);
         Player player = new Player(name);
-        AvailableMoves availableMoves = new AvailableMoves();
-        availableMoves.setPosition(position);
-        availableMoves.setAvailableMoves(game.getAvailableMoves(position, player));
-        return availableMoves;
+        AvailableMovesPayload availableMovesPayload = new AvailableMovesPayload();
+        availableMovesPayload.setPosition(position);
+        availableMovesPayload.setAvailableMoves(game.getAvailableMoves(position, player));
+        return availableMovesPayload;
     }
 
-    public Game makeMove(UUID gameId, PlayerMove playerMove, String playerName) throws GameException {
+    public Game makeMove(UUID gameId, PlayerMovePayload playerMovePayload, String playerName) throws GameException {
         Game game = games.get(gameId);
         Player player = new Player(playerName);
-        game.makeMove(playerMove, player);
+        game.makeMove(playerMovePayload, player);
         return game;
     }
 

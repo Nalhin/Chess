@@ -11,8 +11,9 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 public class GameTurn {
-    Position initialPosition;
-    Position destinationPosition;
-    PieceType pieceType;
-    PlayerColor playerColor;
+   private Position initialPosition;
+   private  Position destinationPosition;
+   private  PieceType pieceType;
+   private  PlayerColor playerColor;
+   private int turnNumber;
 }

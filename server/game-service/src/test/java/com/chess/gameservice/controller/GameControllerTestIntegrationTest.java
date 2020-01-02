@@ -1,8 +1,8 @@
 package com.chess.gameservice.controller;
 
 import com.chess.gameservice.game.position.Position;
-import com.chess.gameservice.messages.MessageTypes;
-import com.chess.gameservice.models.PlayerMove;
+import com.chess.gameservice.messages.socket.MessageTypes;
+import com.chess.gameservice.messages.payloads.PlayerMovePayload;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONException;
@@ -111,7 +111,7 @@ class GameControllerTestIntegrationTest {
         startGame();
         blockingQueue.poll(10, SECONDS);
 
-        var playerMove = objectMapper.writeValueAsBytes(new PlayerMove(new Position(6, 0), new Position(5, 0)));
+        var playerMove = objectMapper.writeValueAsBytes(new PlayerMovePayload(new Position(6, 0), new Position(5, 0)));
         stompHeaders.setDestination(MAKE_MOVE_ENDPOINT + gameId);
         stompHeaders.set("name", firstPlayerName);
         stompSession.send(stompHeaders, playerMove);
@@ -129,7 +129,7 @@ class GameControllerTestIntegrationTest {
         startGame();
         blockingQueue.poll(10, SECONDS);
 
-        var playerMove = objectMapper.writeValueAsBytes(new PlayerMove(new Position(1, 0), new Position(2, 0)));
+        var playerMove = objectMapper.writeValueAsBytes(new PlayerMovePayload(new Position(1, 0), new Position(2, 0)));
         stompHeaders.setDestination(MAKE_MOVE_ENDPOINT + gameId);
         stompHeaders.set("name", firstPlayerName);
         stompSession.send(stompHeaders, playerMove);

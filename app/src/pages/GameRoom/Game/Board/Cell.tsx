@@ -67,7 +67,7 @@ interface CellProps {
   position: BoardPosition;
   makeMove: (position: BoardPosition) => void;
   pieceColor: PlayerColor;
-  currentTurn: PlayerColor;
+  currentPlayerColor: PlayerColor;
   checkState: CheckState;
 }
 
@@ -79,7 +79,7 @@ const Cell: React.FC<CellProps> = ({
   isMoveAvailable,
   makeMove,
   checkState,
-  currentTurn,
+  currentPlayerColor,
   pieceColor,
 }) => {
   const handleOnClick = React.useCallback(() => {
@@ -102,7 +102,7 @@ const Cell: React.FC<CellProps> = ({
 
   const isChecked =
     checkState !== CheckState.NONE &&
-    currentTurn === pieceColor &&
+    currentPlayerColor === pieceColor &&
     type === PieceType.KING;
 
   return (

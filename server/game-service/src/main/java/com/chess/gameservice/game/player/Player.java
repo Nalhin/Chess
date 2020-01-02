@@ -1,7 +1,7 @@
 package com.chess.gameservice.game.player;
 
+import com.chess.gameservice.game.stopwatch.CustomStopwatch;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,14 +16,14 @@ public class Player {
     @JsonIgnore
     private final int GAME_TIME = 300;
     @JsonIgnore
-    private PlayerStopwatch playerStopwatch;
+    private CustomStopwatch playerStopwatch;
 
     String name;
     Duration totalTurnTimeRemaining = Duration.ofSeconds(GAME_TIME);
 
     public Player(String name) {
         this.name = name;
-        this.playerStopwatch=new PlayerStopwatch();
+        this.playerStopwatch=new CustomStopwatch();
     }
 
     public void startTurn() {

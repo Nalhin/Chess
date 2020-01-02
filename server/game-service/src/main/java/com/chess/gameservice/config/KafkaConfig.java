@@ -1,6 +1,6 @@
 package com.chess.gameservice.config;
 
-import com.chess.gameservice.models.HistoryMessage;
+import com.chess.gameservice.messages.kafka.HistoryMessage;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;

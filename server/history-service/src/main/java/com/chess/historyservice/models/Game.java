@@ -5,6 +5,7 @@ import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,11 +22,11 @@ public class Game {
     @Column(name = "id")
     private Long gameId;
 
-    @Column(name="black_player")
-    private String blackPlayer;
+    @Column(name="black_player_name")
+    private String blackPlayerName;
 
-    @Column(name="white_player")
-    private String whitePlayer;
+    @Column(name="white_player_name")
+    private String whitePlayerName;
 
     private PlayerColor winner;
 
@@ -34,5 +35,8 @@ public class Game {
 
     @Column(name="finish_time")
     @CreationTimestamp
-    private LocalDateTime finish_time;
+    private LocalDateTime finishTime;
+
+    @Column(name="duration")
+    private Duration duration;
 }

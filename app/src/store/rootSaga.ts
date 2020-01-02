@@ -4,6 +4,7 @@ import { gameRootSaga } from './game/game.saga';
 import { chatRootSaga } from './chat/chat.saga';
 import { userRootSaga } from './user/user.saga';
 import { queueRootSaga } from './queue/queue.saga';
+import { historyRootSaga } from './history/history.saga';
 
 export function* rootSaga(): SagaIterator {
   yield all([
@@ -11,5 +12,6 @@ export function* rootSaga(): SagaIterator {
     fork(chatRootSaga),
     fork(userRootSaga),
     fork(queueRootSaga),
+    fork(historyRootSaga),
   ]);
 }

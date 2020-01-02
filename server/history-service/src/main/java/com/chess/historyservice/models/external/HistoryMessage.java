@@ -2,6 +2,7 @@ package com.chess.historyservice.models.external;
 
 import lombok.*;
 
+import java.time.Duration;
 import java.util.ArrayList;
 
 @Getter
@@ -14,4 +15,5 @@ public class HistoryMessage {
     private String blackPlayer;
     private String whitePlayer;
     private PlayerColor winner;
+    private Duration duration;
 }
