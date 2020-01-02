@@ -3,7 +3,7 @@ package com.chess.authenticationservice.service;
 import com.chess.authenticationservice.dto.UserDto;
 import com.chess.authenticationservice.exception.CustomException;
 import com.chess.authenticationservice.model.User;
-import com.chess.authenticationservice.repository.UserRepository;
+import com.chess.authenticationservice.repositories.UserRepository;
 import com.chess.authenticationservice.security.JwtTokenProvider;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

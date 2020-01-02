@@ -20,6 +20,7 @@ class KingTest {
         board.setState(testBoard);
     }
 
+
     @Test
     void getAvailableMoves() {
         var king = new King(PlayerColor.BLACK);
@@ -37,6 +38,41 @@ class KingTest {
     }
 
     @Test
+    void getAvailableMovesCastlingTest() {
+        Position kingPosition = new Position(0, 4);
+        King king = new King(PlayerColor.WHITE);
+        Piece[][] testBoard = new Piece[8][8];
+        testBoard[0][0] = new Rook(PlayerColor.WHITE);
+        testBoard[0][7] = new Rook(PlayerColor.WHITE);
+        testBoard[0][4] = king;
+        board.setState(testBoard);
+        ArrayList<Position> expectedAvailableMoves = new ArrayList<>();
+        expectedAvailableMoves.add(new Position(0, 2));
+        expectedAvailableMoves.add(new Position(0, 6));
+
+        ArrayList<Position> availableMoves = king.getAvailableMoves(board, kingPosition);
+
+        assertTrue(availableMoves.containsAll(expectedAvailableMoves));
+    }
+    @Test
+    void getAvailableMovesCastlingBlockedTest(){
+        Position kingPosition = new Position(0, 4);
+        King king = new King(PlayerColor.WHITE);
+        Piece[][] testBoard = new Piece[8][8];
+        testBoard[0][0] = new Rook(PlayerColor.WHITE);
+        testBoard[0][7] = new Rook(PlayerColor.WHITE);
+        testBoard[0][5] = new Rook(PlayerColor.WHITE);
+        testBoard[0][4] = king;
+        board.setState(testBoard);
+        ArrayList<Position> expectedAvailableMoves = new ArrayList<>();
+        expectedAvailableMoves.add(new Position(0, 2));
+
+        ArrayList<Position> availableMoves = king.getAvailableMoves(board, kingPosition);
+
+        assertTrue(availableMoves.containsAll(expectedAvailableMoves));
+    }
+
+    @Test
     void isMoveLegal() {
         var currentPosition = new Position(0, 1);
         var king = new King(PlayerColor.BLACK);
@@ -48,4 +84,24 @@ class KingTest {
         assertFalse(king.isMoveLegal(currentPosition, destinationPositionIllegal, board));
 
     }
+    @Test
+    void isCastlingMoveLegal(){
+        Position kingPosition = new Position(0, 4);
+        King king = new King(PlayerColor.WHITE);
+        Piece[][] testBoard = new Piece[8][8];
+        testBoard[0][0] = new Rook(PlayerColor.WHITE);
+        testBoard[0][7] = new Rook(PlayerColor.WHITE);
+        testBoard[0][5] = new Rook(PlayerColor.WHITE);
+        testBoard[0][4] = king;
+        board.setState(testBoard);
+
+        Position illegalCastlingMove = new Position(0, 6);
+
+        assertFalse(king.isMoveLegal(kingPosition,illegalCastlingMove,board));
+
+        Position legalCastlingMove = new Position(0, 2);
+
+        assertTrue(king.isMoveLegal(kingPosition,legalCastlingMove,board));
+    }
+
 }

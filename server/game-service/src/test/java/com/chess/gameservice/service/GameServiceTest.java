@@ -18,6 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class GameServiceTest {
 
     private GameService gameService;
+
     private UUID gameId = new UUID(8, 8);
     private String firstPlayerName = "firstPlayer";
     private String secondPlayerName = "secondPlayer";

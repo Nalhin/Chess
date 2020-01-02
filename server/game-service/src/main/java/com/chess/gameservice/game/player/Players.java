@@ -9,9 +9,6 @@ import java.util.EnumMap;
 @Setter
 public class Players extends EnumMap<PlayerColor, Player> {
 
-    private Player whitePlayer;
-    private Player blackPlayer;
-
     public Players() {
         super(PlayerColor.class);
     }

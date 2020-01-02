@@ -38,3 +38,8 @@ spring:
           uri: lb://queue-service
           predicates:
             - Path=/queue/**
+
+        - id: history-service
+          uri: lb://history-service
+          predicates:
+            - Path=/history/**

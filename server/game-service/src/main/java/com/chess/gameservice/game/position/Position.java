@@ -20,4 +20,14 @@ public class Position {
     public boolean isWithinBounds() {
         return x >= 0 && x <= Board.BOARD_SIZE && y >= 0 && y <= Board.BOARD_SIZE;
     }
+
+    @JsonIgnore
+    public boolean isBottomRow(){
+        return x==Board.BOTTOM_ROW;
+    }
+
+    @JsonIgnore
+    public boolean isTopRow(){
+        return x==Board.BOARD_SIZE;
+    }
 }

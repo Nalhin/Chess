@@ -17,6 +17,7 @@ import java.util.ArrayList;
 @JsonIgnoreProperties("firstMove")
 public abstract class Piece {
 
+    private boolean isFirstMove = true;
     private PlayerColor playerColor;
     private PieceType type;
 
@@ -104,9 +105,14 @@ public abstract class Piece {
         } while (true);
     }
 
+    public void makeMove(Position initialPosition,Position destinationPosition,Board board){
+        board.setBoardPosition(destinationPosition,this);
+        board.setBoardPosition(initialPosition,null);
+        setFirstMove(false);
+    }
+
     public abstract ArrayList<Position> getAvailableMoves(Board board, Position initialPosition);
 
     public abstract boolean isMoveLegal(Position currentPosition, Position destinationPosition, Board board);
-
 
 }

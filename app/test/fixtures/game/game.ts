@@ -10,8 +10,8 @@ export const fakeGame: Game = {
       blackGraveyard: [],
     },
     positionAwaitingPromotion: { x: 0, y: 2 },
+    checkState: CheckState.NONE,
   },
-  checkState: CheckState.NONE,
   currentTurn: PlayerColor.WHITE,
   gamePhase: GamePhase.WAITING_FOR_PLAYERS,
   players: {

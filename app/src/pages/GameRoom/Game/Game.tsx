@@ -31,9 +31,8 @@ const Game: React.FC<Props> = ({
   const currentTurn = gameState.currentTurn;
   const gamePhase = gameState.gamePhase;
   const isPromotionShown = positionAwaitingPromotion && isCurrentTurn;
-  const checkState = gameState.checkState;
   const players = gameState.players;
-
+  const checkState = gameState.board.checkState;
   return (
     <StyledContainer>
       <div>{error}</div>

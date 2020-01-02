@@ -2,12 +2,16 @@ package com.chess.gameservice.game;
 
 import com.chess.gameservice.exception.GameException;
 import com.chess.gameservice.game.board.Board;
+import com.chess.gameservice.game.board.CheckState;
+import com.chess.gameservice.game.piece.Piece;
 import com.chess.gameservice.game.piece.PieceType;
 import com.chess.gameservice.game.player.Player;
 import com.chess.gameservice.game.player.PlayerColor;
 import com.chess.gameservice.game.player.Players;
 import com.chess.gameservice.game.position.Position;
+import com.chess.gameservice.game.turn.GameTurn;
 import com.chess.gameservice.models.PlayerMove;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,23 +21,20 @@ import java.util.ArrayList;
 @Getter
 @Setter
 public class Game {
-    enum GamePhase {
-        WAITING_FOR_PLAYERS, STARTED, GAME_OVER
-    }
-
 
     Board board;
     Players players;
     PlayerColor currentTurn;
     GamePhase gamePhase;
-    CheckState checkState;
 
+    @JsonIgnore
+    ArrayList<GameTurn> gameTurns;
 
     public Game() {
         board = new Board();
         players = new Players();
+        gameTurns = new ArrayList<>();
         gamePhase = GamePhase.WAITING_FOR_PLAYERS;
-        checkState = CheckState.NONE;
     }
 
     public void setPlayer(Player player, PlayerColor playerColor) {
@@ -44,16 +45,21 @@ public class Game {
         checkIfPlayerTurn(player);
         checkIfPromotionIsPending();
 
-        board.movePiece(playerMove.getInitialPosition(), playerMove.getDestinationPosition(), currentTurn, checkState);
-        setCheckState(board.getCheckState(currentTurn));
+        Piece piece = board.movePiece(playerMove.getInitialPosition(), playerMove.getDestinationPosition(), currentTurn);
 
-        if (checkState == CheckState.CHECK_MATE) {
+        if (board.getCheckState() == CheckState.CHECK_MATE) {
             setGamePhase(GamePhase.GAME_OVER);
         }
 
         if (board.getPositionAwaitingPromotion() == null) {
             changeTurn(currentTurn);
         }
+
+        gameTurns.add(GameTurn.builder()
+                        .playerColor(piece.getPlayerColor())
+                .initialPosition(playerMove.getInitialPosition())
+                .destinationPosition(playerMove.getDestinationPosition())
+                .pieceType(piece.getType()).build());
     }
 
     private void checkIfPlayerTurn(Player player) throws GameException {
@@ -86,6 +92,10 @@ public class Game {
     private void changeTurn(PlayerColor currentTurn) {
         players.changeTurn(currentTurn);
         setCurrentTurn(PlayerColor.getOtherColor(currentTurn));
+    }
+
+    public boolean isOver() {
+        return gamePhase == GamePhase.GAME_OVER;
     }
 
     public void initGame() {

@@ -1,7 +1,7 @@
 package com.chess.authenticationservice.security;
 
 import com.chess.authenticationservice.model.User;
-import com.chess.authenticationservice.repository.UserRepository;
+import com.chess.authenticationservice.repositories.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

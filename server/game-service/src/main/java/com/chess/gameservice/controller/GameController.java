@@ -2,7 +2,6 @@ package com.chess.gameservice.controller;
 
 import com.chess.gameservice.exception.GameException;
 import com.chess.gameservice.game.Game;
-import com.chess.gameservice.game.piece.PieceType;
 import com.chess.gameservice.game.position.Position;
 import com.chess.gameservice.messages.AvailableMovesMessage;
 import com.chess.gameservice.messages.ErrorMessage;
@@ -13,6 +12,8 @@ import com.chess.gameservice.models.ErrorPayload;
 import com.chess.gameservice.models.PlayerMove;
 import com.chess.gameservice.models.UserPromotionPayload;
 import com.chess.gameservice.service.GameService;
+import com.chess.gameservice.service.KafkaService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AllArgsConstructor;
 import org.springframework.messaging.handler.annotation.*;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -24,6 +25,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class GameController {
 
+    private final KafkaService kafkaService;
     private final GameService gameService;
     private final SimpMessagingTemplate simpMessagingTemplate;
 
@@ -31,24 +33,27 @@ public class GameController {
     public void initialConnect(@DestinationVariable String gameId, @Header("name") String playerName) {
         Game game = gameService.initialConnect(UUID.fromString(gameId), playerName);
         if (game != null) {
-            var gameStartedMessage = new GameStartedMessage();
+            GameStartedMessage gameStartedMessage = new GameStartedMessage();
             gameStartedMessage.setPayload(game);
             simpMessagingTemplate.convertAndSend("/topic/state/" + gameId, gameStartedMessage);
         }
     }
 
     @MessageMapping("/move/{gameId}")
-    public void makeMove(@DestinationVariable String gameId, @Payload PlayerMove playerMove, @Header("name") String name, @Header("simpSessionId") String sessionId) throws GameException {
+    public void makeMove(@DestinationVariable String gameId, @Payload PlayerMove playerMove, @Header("name") String name, @Header("simpSessionId") String sessionId) throws GameException, JsonProcessingException {
         Game game = gameService.makeMove(UUID.fromString(gameId), playerMove, name);
         var playerMovedMessage = new PlayerMovedMessage();
         playerMovedMessage.setPayload(game);
         simpMessagingTemplate.convertAndSend("/topic/state/" + gameId, playerMovedMessage);
+        if(game.isOver()){
+            kafkaService.sendHistory(game);
+        }
     }
 
     @MessageMapping("/available-moves/{gameId}")
     public void availableMoves(@DestinationVariable String gameId, @Payload Position position, @Header("name") String name) throws GameException {
         AvailableMoves availableMoves = gameService.getAvailableMoves(UUID.fromString(gameId), position, name);
-        var availableMovesMessage = new AvailableMovesMessage();
+        AvailableMovesMessage availableMovesMessage = new AvailableMovesMessage();
         availableMovesMessage.setPayload(availableMoves);
         simpMessagingTemplate.convertAndSend("/queue/personal/" + name + "/" + gameId, availableMovesMessage);
     }
@@ -56,7 +61,7 @@ public class GameController {
     @MessageMapping("/promotion/{gameId}")
     public void pawnPromotion(@DestinationVariable String gameId, @Payload UserPromotionPayload userPromotionPayload, @Header("name") String name) throws GameException {
         Game game = gameService.makePromotion(UUID.fromString(gameId), userPromotionPayload.getPosition(), userPromotionPayload.getPieceType(), name);
-        var playerMovedMessage = new PlayerMovedMessage();
+        PlayerMovedMessage playerMovedMessage = new PlayerMovedMessage();
         playerMovedMessage.setPayload(game);
         simpMessagingTemplate.convertAndSend("/topic/state/" + gameId, playerMovedMessage);
     }

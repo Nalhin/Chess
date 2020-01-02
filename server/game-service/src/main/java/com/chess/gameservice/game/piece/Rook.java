@@ -40,4 +40,24 @@ public class Rook extends Piece {
         return isLineMoveLegal(currentPosition, destinationPosition, board);
     }
 
+    public static Position getCastlingInitialPosition(Position kingPosition) {
+        if (kingPosition.getY() == King.SHORT_CASTLING_Y) {
+            return new Position(kingPosition.getX(), Board.BOARD_SIZE);
+        }
+        if (kingPosition.getY() == King.LONG_CASTLING_Y) {
+            return new Position(kingPosition.getX(), Board.BOTTOM_ROW);
+        }
+         return null;
+    }
+
+    public static Position getCastlingDestinationPosition(Position rookPosition) {
+        if (rookPosition.getY() == Board.BOARD_SIZE) {
+            return new Position(rookPosition.getX(), King.SHORT_CASTLING_Y - 1);
+        }
+        if (rookPosition.getY() == Board.BOTTOM_ROW) {
+            return new Position(rookPosition.getX(), King.LONG_CASTLING_Y + 1);
+        }
+        throw new IllegalArgumentException();
+    }
+
 }

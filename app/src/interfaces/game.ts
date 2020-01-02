@@ -18,9 +18,9 @@ export interface Game {
       blackGraveyard: Piece[];
     };
     positionAwaitingPromotion: BoardPosition;
+    checkState: CheckState;
   };
   currentTurn: PlayerColor;
   gamePhase: GamePhase;
-  checkState: CheckState;
   players: Players;
 }

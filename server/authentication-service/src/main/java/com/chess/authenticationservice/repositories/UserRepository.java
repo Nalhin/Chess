@@ -1,4 +1,4 @@
-package com.chess.authenticationservice.repository;
+package com.chess.authenticationservice.repositories;
 
 import com.chess.authenticationservice.model.User;
 import org.springframework.data.repository.CrudRepository;

@@ -2,6 +2,7 @@ package com.chess.authenticationservice.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +12,8 @@ import javax.validation.constraints.NotEmpty;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
-@Table(name = "user")
+@NoArgsConstructor
+@Table(name = "users")
 public class User extends BaseEntity {
 
     @NotEmpty

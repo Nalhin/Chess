@@ -1,0 +1,17 @@
+package com.chess.historyservice.models.external;
+
+import lombok.*;
+
+import java.util.ArrayList;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class HistoryMessage {
+    private ArrayList<GameTurn> gameTurns;
+    private String blackPlayer;
+    private String whitePlayer;
+    private PlayerColor winner;
+}

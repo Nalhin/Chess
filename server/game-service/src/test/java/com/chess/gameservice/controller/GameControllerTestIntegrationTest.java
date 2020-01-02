@@ -12,10 +12,13 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.messaging.simp.stomp.StompFrameHandler;
 import org.springframework.messaging.simp.stomp.StompHeaders;
 import org.springframework.messaging.simp.stomp.StompSession;
 import org.springframework.messaging.simp.stomp.StompSessionHandlerAdapter;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.web.socket.client.standard.StandardWebSocketClient;
 import org.springframework.web.socket.messaging.WebSocketStompClient;
 
@@ -31,6 +34,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @Tag("integration-test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@EmbeddedKafka(topics = "game",
+        bootstrapServersProperty = "spring.kafka.bootstrap-servers")
+@DirtiesContext
+@SpringJUnitConfig
 class GameControllerTestIntegrationTest {
 
     @LocalServerPort
@@ -39,6 +46,7 @@ class GameControllerTestIntegrationTest {
     private StompSession stompSession;
     private StompHeaders stompHeaders;
     private String gameId;
+
 
     private final String firstPlayerName = "firstPlayerName";
     private final String secondPlayerName = "secondPlayerName";

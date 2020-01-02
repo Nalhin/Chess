@@ -20,8 +20,8 @@ export const GAME_INITIAL_STATE: GameState = {
         blackGraveyard: [],
       },
       positionAwaitingPromotion: null,
+      checkState: CheckState.NONE,
     },
-    checkState: CheckState.NONE,
     currentTurn: PlayerColor.WHITE,
     gamePhase: GamePhase.WAITING_FOR_PLAYERS,
     players: {

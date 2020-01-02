@@ -3,7 +3,6 @@ package com.chess.gameservice.game.piece;
 import com.chess.gameservice.game.board.Board;
 import com.chess.gameservice.game.player.PlayerColor;
 import com.chess.gameservice.game.position.Position;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,9 +13,6 @@ import java.util.ArrayList;
 @Getter
 @NoArgsConstructor
 public class Pawn extends Piece {
-
-    @JsonIgnore
-    private boolean isFirstMove = true;
 
     Pawn(PlayerColor playerColor) {
         super(playerColor, PieceType.PAWN);
@@ -41,7 +37,7 @@ public class Pawn extends Piece {
             availableMoves.add(forwardPosition);
         }
 
-        if (isFirstMove) {
+        if (isFirstMove()) {
             var position = new Position(initialPosition.getX() + direction * 2, initialPosition.getY());
             if (board.isBoardPositionEmpty(position)) {
                 availableMoves.add(position);
@@ -63,11 +59,19 @@ public class Pawn extends Piece {
         if (destinationPosition.getX() - currentPosition.getX() == direction) {
             return true;
         }
-        return isFirstMove && destinationPosition.getX() - currentPosition.getX() == (2 * direction);
+        return isFirstMove() && destinationPosition.getX() - currentPosition.getX() == (2 * direction);
     }
 
     private int getDirection() {
         return getPlayerColor() == PlayerColor.WHITE ? -1 : 1;
     }
 
+
+    @Override
+    public void makeMove(Position initialPosition, Position destinationPosition, Board board) {
+        super.makeMove(initialPosition, destinationPosition, board);
+        if (destinationPosition.getX() == Board.BOTTOM_ROW || destinationPosition.getX() == Board.BOARD_SIZE) {
+            board.setPositionAwaitingPromotion(destinationPosition);
+        }
+    }
 }

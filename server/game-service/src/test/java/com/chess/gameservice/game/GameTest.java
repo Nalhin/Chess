@@ -35,7 +35,7 @@ class GameTest {
 
         game.initGame();
 
-        assertEquals(Game.GamePhase.STARTED, game.gamePhase);
+        assertEquals(GamePhase.STARTED, game.gamePhase);
         assertEquals(PlayerColor.WHITE, game.getCurrentTurn());
     }
 

@@ -1,12 +1,11 @@
 package com.chess.gameservice.game.board;
 
 import com.chess.gameservice.exception.GameException;
-import com.chess.gameservice.game.CheckState;
 import com.chess.gameservice.game.graveyard.Graveyards;
 import com.chess.gameservice.game.piece.*;
-import com.chess.gameservice.game.player.Player;
 import com.chess.gameservice.game.player.PlayerColor;
 import com.chess.gameservice.game.position.Position;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,11 +13,16 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+
 @Getter
 @Setter
 @EqualsAndHashCode
 public class Board {
+    @JsonIgnore
     public static final int BOARD_SIZE = 7;
+    @JsonIgnore
+    public static final int BOTTOM_ROW = 0;
+    @JsonIgnore
     private final PieceType[][] playerInitialState =
             {{PieceType.PAWN, PieceType.PAWN, PieceType.PAWN, PieceType.PAWN,
                     PieceType.PAWN, PieceType.PAWN, PieceType.PAWN, PieceType.PAWN},
@@ -28,10 +32,12 @@ public class Board {
     private Graveyards graveyards;
     Position positionAwaitingPromotion;
     private Piece[][] state;
+    private CheckState checkState;
 
     public Board() {
         graveyards = new Graveyards();
         state = new Piece[BOARD_SIZE + 1][BOARD_SIZE + 1];
+        checkState = CheckState.NONE;
         populateBoard();
     }
 
@@ -58,7 +64,11 @@ public class Board {
         }
     }
 
-    private Piece getPieceByPosition(Position position) {
+    public void setBoardPosition(Position position, Piece piece) {
+        state[position.getX()][position.getY()] = piece;
+    }
+
+    public Piece getPieceByPosition(Position position) {
         return state[position.getX()][position.getY()];
     }
 
@@ -74,7 +84,7 @@ public class Board {
     }
 
     public boolean isPositionAttackable(Position initialPosition, PlayerColor playerColor) {
-       return !isBoardPositionEmpty(initialPosition) && isPositionTakenByEnemy(initialPosition, playerColor);
+        return !isBoardPositionEmpty(initialPosition) && isPositionTakenByEnemy(initialPosition, playerColor);
     }
 
     public boolean isPositionTakenByAttackableEnemy(Position initialPosition, PlayerColor playerColor) {
@@ -104,7 +114,7 @@ public class Board {
         return piece.getAvailableMoves(this, position);
     }
 
-    public void movePiece(Position initialPosition, Position destination, PlayerColor playerColor, CheckState checkState) throws GameException {
+    public Piece movePiece(Position initialPosition, Position destination, PlayerColor playerColor) throws GameException {
         var piece = getPieceByPosition(initialPosition);
 
         if (piece == null) {
@@ -127,7 +137,7 @@ public class Board {
             throw new GameException("Illegal move.");
         }
 
-        if (checkPersistsAfterMove(initialPosition, destination)) {
+        if (willMoveResultInCheck(initialPosition, destination)) {
             throw new GameException("Move ends with check.");
         }
 
@@ -137,35 +147,30 @@ public class Board {
             graveyards.addPieceToCorrectGraveyard(removedPiece);
         }
 
-        state[destination.getX()][destination.getY()] = piece;
-        state[initialPosition.getX()][initialPosition.getY()] = null;
-
-        if (piece instanceof Pawn) {
-            ((Pawn) piece).setFirstMove(false);
-            if (destination.getX() == 0 || destination.getX() == BOARD_SIZE) {
-                positionAwaitingPromotion = destination;
-            }
-        }
+        piece.makeMove(initialPosition, destination, this);
+        setCheckState(getCheckState(playerColor));
+        return piece;
     }
 
-    private boolean checkPersistsAfterMove(Position initialPosition, Position destinationPosition) {
+    public boolean willMoveResultInCheck(Position initialPosition, Position destinationPosition) {
 
         var piece = getPieceByPosition(initialPosition);
         var removedPiece = getPieceByPosition(destinationPosition);
+        boolean isFirstMove = piece.isFirstMove();
+        piece.setFirstMove(false);
 
+        setBoardPosition(destinationPosition, piece);
+        setBoardPosition(initialPosition, null);
 
-        state[destinationPosition.getX()][destinationPosition.getY()] = piece;
-        state[initialPosition.getX()][initialPosition.getY()] = null;
+        boolean isCheck = getCheckState(PlayerColor.getOtherColor(piece.getPlayerColor())) != CheckState.NONE;
 
-        boolean persists = getCheckState(PlayerColor.getOtherColor(piece.getPlayerColor())) != CheckState.NONE;
-
-        state[destinationPosition.getX()][destinationPosition.getY()] = removedPiece;
-        state[initialPosition.getX()][initialPosition.getY()] = piece;
-
-        return persists;
+        setBoardPosition(destinationPosition, removedPiece);
+        setBoardPosition(initialPosition, piece);
+        piece.setFirstMove(isFirstMove);
+        return isCheck;
     }
 
-    public CheckState getCheckState(PlayerColor currentPlayerColor) {
+    private CheckState getCheckState(PlayerColor currentPlayerColor) {
         Position kingPosition = null;
         ArrayList<Position> currentPlayerPositions = new ArrayList<>();
         HashSet<Position> positionsAttackableByCurrentPlayer = new HashSet<>();
@@ -186,7 +191,6 @@ public class Board {
                 }
             }
         }
-
 
         for (Position position : currentPlayerPositions) {
             Piece piece = getPieceByPosition(position);
@@ -222,7 +226,7 @@ public class Board {
             throw new GameException("Invalid piece type.");
         }
 
-        state[position.getX()][position.getY()] = promotedPiece;
+        setBoardPosition(position, promotedPiece);
         positionAwaitingPromotion = null;
     }
 

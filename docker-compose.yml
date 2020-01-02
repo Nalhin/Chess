@@ -26,6 +26,7 @@ services:
       - gateway-service
     environment:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
+      SPRING_KAFKA_BOOTSTRAPSERVERS: kafka:9092
 
   chat-service:
     build: server/chat-service
@@ -67,10 +68,11 @@ services:
       - eureka-server
       - gateway-service
       - mysql
+      - kafka
     environment:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/chess
-
+      SPRING_KAFKA_BOOTSTRAPSERVERS: kafka:9092
 
   mysql:
     image: mysql:5.7
@@ -96,8 +98,7 @@ services:
       KAFKA_ADVERTISED_HOST_NAME: kafka
       KAFKA_ADVERTISED_PORT: 9092
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_CREATE_TOPICS: "order:5:1"
-
+      KAFKA_CREATE_TOPICS: "game:1:1"
 
 volumes:
   db:
