@@ -2,6 +2,7 @@ import React from 'react';
 import { ProfileContainerProps } from './Profile.container';
 import { useHistory } from 'react-router-dom';
 import Loader from '../../components/Loader/Loader';
+import UserImageForm from './UserImageForm/UserImageForm';
 
 interface Props extends ProfileContainerProps {}
 
@@ -24,6 +25,7 @@ const Profile: React.FC<Props> = ({
       <div>
         <span>{user.login}</span>
         <span>{user.email}</span>
+        <UserImageForm user={user} />
       </div>
       <div>
         {historyGames.map(game => (

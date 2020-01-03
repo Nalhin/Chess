@@ -102,6 +102,7 @@ public class Game {
         currentTurn.changeTurn();
     }
 
+    @JsonIgnore
     public boolean isOver() {
         return gamePhase == GamePhase.GAME_OVER;
     }

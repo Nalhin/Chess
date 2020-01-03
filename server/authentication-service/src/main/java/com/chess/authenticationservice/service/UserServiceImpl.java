@@ -72,17 +72,5 @@ public class UserServiceImpl implements UserService {
         return UserDto.builder().email(user.getEmail()).login(user.getLogin()).token(token).build();
     }
 
-    @Override
-    public void saveImage(HttpServletRequest req, MultipartFile imageFile) throws CustomException, IOException {
-        String token = jwtTokenProvider.resolveToken(req);
-        BufferedImage originalImage = ImageIO.read(imageFile.getInputStream());
 
-        File destinationDir = new File("/images/"+jwtTokenProvider.getLogin(token)+".jpg");
-
-        Thumbnails.of(originalImage)
-                .size(30, 30).toFiles(destinationDir, Rename.PREFIX_DOT_THUMBNAIL);
-
-        Thumbnails.of(originalImage)
-                .size(250, 250).toFiles(destinationDir, Rename.NO_CHANGE);
-    }
 }

@@ -4,6 +4,7 @@ export interface UserState {
   readonly data: {
     login: string;
     email: string;
+    token: string;
   };
 }
 

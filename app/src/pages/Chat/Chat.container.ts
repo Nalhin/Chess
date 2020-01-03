@@ -8,10 +8,10 @@ import { userSelector } from '../../store/user/user.selectors';
 
 const mapStateToProps = (state: AppState) => {
   const chatMessages = state.chat.messages;
-  const user = userSelector(state).login;
+  const userLogin = userSelector(state).login;
   return {
     chatMessages,
-    user,
+    userLogin,
   };
 };
 

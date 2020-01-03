@@ -5,6 +5,10 @@ declare module '@emotion/core' {
     colors: {
       textPrimary: string;
       textSecondary: string;
+      textLight: string;
+      primary: string;
+      primaryHover: string;
+      secondary: string;
       background: string;
       foreground: string;
       error: string;

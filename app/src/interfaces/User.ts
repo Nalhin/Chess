@@ -4,6 +4,7 @@ interface UserBase {
 
 export interface User extends UserBase {
   email: string;
+  token: string;
 }
 
 export interface UserLoginData extends UserBase {

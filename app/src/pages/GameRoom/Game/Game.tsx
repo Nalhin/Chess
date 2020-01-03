@@ -8,6 +8,7 @@ import styled from '@emotion/styled';
 import GameOverMenu from './GameOverMenu/GameOverMenu';
 import { GamePhase } from '../../../interfaces/game';
 import Timer from './Timer/Timer';
+import { Prompt } from 'react-router-dom';
 
 const StyledContainer = styled.div`
   position: relative;
@@ -33,17 +34,27 @@ const Game: React.FC<Props> = ({
   const isPromotionShown = positionAwaitingPromotion && isCurrentTurn;
   const players = gameState.players;
   const checkState = gameState.board.checkState;
+  const currentTurn = gameState.currentTurn;
   return (
     <StyledContainer>
+      <Prompt
+        when={gamePhase !== GamePhase.GAME_OVER}
+        message="Are sure you want to forfeit the game??"
+      />
       <div>{error}</div>
       <div>
         {currentPlayerColor == PlayerColor.WHITE ? 'White turn' : 'Black turn'}
         <Timer
+          isActive={
+            currentTurn.turnNumber !== 0 &&
+            currentTurn.currentPlayerColor === PlayerColor.WHITE
+          }
           totalTurnTimeRemaining={
             players[PlayerColor.WHITE].totalTurnTimeRemaining
           }
         />
         <Timer
+          isActive={currentTurn.currentPlayerColor === PlayerColor.BLACK}
           totalTurnTimeRemaining={
             players[PlayerColor.BLACK].totalTurnTimeRemaining
           }

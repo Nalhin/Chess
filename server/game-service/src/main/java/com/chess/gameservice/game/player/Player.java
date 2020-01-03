@@ -2,6 +2,7 @@ package com.chess.gameservice.game.player;
 
 import com.chess.gameservice.game.stopwatch.CustomStopwatch;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,9 +12,9 @@ import java.time.Duration;
 @Getter
 @Setter
 @NoArgsConstructor
+@JsonIgnoreProperties({"game_TIME"})
 public class Player {
 
-    @JsonIgnore
     private final int GAME_TIME = 300;
     @JsonIgnore
     private CustomStopwatch playerStopwatch;

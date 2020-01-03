@@ -6,6 +6,7 @@ export const USER_INITIAL_STATE = {
   data: {
     login: '',
     email: '',
+    token: '',
   },
 };
 
@@ -22,6 +23,7 @@ const userReducer: Reducer<UserState, UserActions> = (
       case UserActionTypes.AUTHENTICATION_SUCCEEDED:
         draft.data.login = action.payload.user.login;
         draft.data.email = action.payload.user.email;
+        draft.data.token = action.payload.user.token;
         break;
       case UserActionTypes.LOGIN_USER_FAILED:
         break;

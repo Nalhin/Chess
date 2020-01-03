@@ -14,6 +14,4 @@ public interface UserService {
     UserDto login(User user) throws CustomException;
 
     UserDto authorize(HttpServletRequest req) throws CustomException;
-
-    void saveImage(HttpServletRequest req,MultipartFile imageFile) throws CustomException, IOException;
 }

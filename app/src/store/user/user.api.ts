@@ -11,3 +11,12 @@ export const fetchAuthenticateUser = (token: string) =>
   axios.get(`${process.env.BASE_API_URL}/authentication/authorize`, {
     headers: { Authorization: `Bearer ${token}` },
   });
+
+export const fetchSaveImage = (formData: FormData, token: string) =>
+  axios.post(
+    `${process.env.BASE_API_URL}/authentication/save-image`,
+    formData,
+    {
+      headers: { Authorization: `Bearer ${token}` },
+    },
+  );

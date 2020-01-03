@@ -46,6 +46,8 @@ services:
       - eureka-server
       - gateway-service
       - mysql
+    volumes:
+    - ./app/public/assets/images/user:/images
     environment:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/chess

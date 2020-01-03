@@ -4,7 +4,7 @@ import { ChatContainerProps } from './Chat.container';
 
 interface Props extends ChatContainerProps {}
 
-const Chat: React.FC<Props> = ({ chatMessages, sendMessage, user }) => {
+const Chat: React.FC<Props> = ({ chatMessages, sendMessage, userLogin }) => {
   const [messageInputValue, setMessageInputValue] = React.useState('');
 
   const handleSetNewMessageValue = (
@@ -21,7 +21,11 @@ const Chat: React.FC<Props> = ({ chatMessages, sendMessage, user }) => {
   return (
     <div>
       {chatMessages.map(message => (
-        <ChatMessage key={message.id} chatMessage={message} user={user} />
+        <ChatMessage
+          key={message.id}
+          chatMessage={message}
+          userLogin={userLogin}
+        />
       ))}
       <input
         data-testid="chat_message-input"

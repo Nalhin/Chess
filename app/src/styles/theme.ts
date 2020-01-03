@@ -1,8 +1,12 @@
 const colors = {
   textPrimary: '#000000',
   textSecondary: '#3e3e3e',
+  textLight: '#ffffff',
   background: '#f8f8f8',
   foreground: '#ffffff',
+  primary: '#1976d2',
+  primaryHover: '#1976d2cc',
+  secondary: '',
   error: '#f44336',
 };
 

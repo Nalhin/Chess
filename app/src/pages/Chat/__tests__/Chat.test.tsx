@@ -6,7 +6,7 @@ import Chat from '../Chat';
 const props = {
   chatMessages: [fakeChatMessage],
   sendMessage: jest.fn(),
-  user: '',
+  userLogin: '',
 };
 
 describe('Chat Component', () => {
