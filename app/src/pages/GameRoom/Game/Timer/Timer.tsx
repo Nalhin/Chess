@@ -21,9 +21,13 @@ const Timer: React.FC<Props> = ({ totalTurnTimeRemaining, isActive }) => {
 
     if (isActive) {
       timer = setInterval(() => {
-        setCounter(prevState =>
-          (parseFloat(prevState) - 0.1).toFixed(decimalPrecision),
-        );
+        setCounter(prevState => {
+          const number = parseFloat(prevState) - 0.1;
+          if (number < 0) {
+            return 'Out of Time!';
+          }
+          return number.toFixed(decimalPrecision);
+        });
       }, interval);
     } else {
       clearInterval(timer);

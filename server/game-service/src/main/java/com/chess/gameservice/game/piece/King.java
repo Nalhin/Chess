@@ -34,7 +34,7 @@ public class King extends Piece {
         int[] dy = {0, 1, 1, 1, 0, -1, -1, -1};
 
         for (int i = 0; i < dx.length; i++) {
-            var position = new Position(initialPosition.getX() + dx[i], initialPosition.getY() + dy[i]);
+            Position position = new Position(initialPosition.getX() + dx[i], initialPosition.getY() + dy[i]);
             if (position.isWithinBounds()) {
                 if (board.isTakenPositionMovable(position, getPlayerColor())) {
                     availableMoves.add(position);
@@ -145,13 +145,17 @@ public class King extends Piece {
     public void makeMove(Position initialPosition, Position destinationPosition, Board board) {
         super.makeMove(initialPosition, destinationPosition, board);
         if (isCastling(initialPosition, destinationPosition)) {
-            Position rookCastlingInitialPosition = Rook.getCastlingInitialPosition(destinationPosition);
-            assert rookCastlingInitialPosition != null;
-            Position rookDestinationPosition = getCastlingDestinationPosition(rookCastlingInitialPosition);
-            Piece rook = board.getPieceByPosition(rookCastlingInitialPosition);
-
-            board.setBoardPosition(rookDestinationPosition, rook);
-            board.setBoardPosition(rookCastlingInitialPosition, null);
+            makeCastlingMove(destinationPosition, board);
         }
+    }
+
+    private void makeCastlingMove(Position destinationPosition, Board board) {
+        Position rookCastlingInitialPosition = Rook.getCastlingInitialPosition(destinationPosition);
+        assert rookCastlingInitialPosition != null;
+        Position rookDestinationPosition = getCastlingDestinationPosition(rookCastlingInitialPosition);
+        Piece rook = board.getPieceByPosition(rookCastlingInitialPosition);
+
+        board.setBoardPosition(rookDestinationPosition, rook);
+        board.setBoardPosition(rookCastlingInitialPosition, null);
     }
 }

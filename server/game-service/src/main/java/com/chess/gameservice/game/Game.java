@@ -50,7 +50,9 @@ public class Game {
         checkIfPlayerTurn(player);
         checkIfPromotionIsPending();
 
-        Piece piece = board.movePiece(playerMovePayload.getInitialPosition(), playerMovePayload.getDestinationPosition(), currentTurn.getCurrentPlayerColor());
+        Piece piece = board.movePiece(playerMovePayload.getInitialPosition(),
+                playerMovePayload.getDestinationPosition(),
+                currentTurn.getCurrentPlayerColor());
 
         if (board.getCheckState() == CheckState.CHECK_MATE) {
             setGamePhase(GamePhase.GAME_OVER);
@@ -86,6 +88,7 @@ public class Game {
     public ArrayList<Position> getAvailableMoves(Position position, Player player) throws GameException {
         checkIfPlayerTurn(player);
         checkIfPromotionIsPending();
+
         return board.getAvailableMoves(position, currentTurn.getCurrentPlayerColor());
     }
 

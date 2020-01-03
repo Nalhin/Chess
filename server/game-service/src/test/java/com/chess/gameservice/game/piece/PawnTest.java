@@ -113,7 +113,7 @@ class PawnTest {
     }
 
     @Test
-    void isMoveLegalWhiteNotFirstMove() {
+    void isMoveLegalBlackNotFirstMove() {
         var currentPosition = new Position(5, 1);
         var pawn = new Pawn(PlayerColor.BLACK);
         pawn.setFirstMove(false);
@@ -123,13 +123,27 @@ class PawnTest {
     }
 
     @Test
-    void isMoveLegalBlackNotFirstMove() {
+    void isMoveLegalWhiteNotFirstMove() {
         var currentPosition = new Position(2, 1);
         var pawn = new Pawn(PlayerColor.WHITE);
         pawn.setFirstMove(false);
 
         var destinationPositionIllegal = new Position(0, 2);
         assertFalse(pawn.isMoveLegal(currentPosition, destinationPositionIllegal, board));
+    }
 
+    @Test
+    void isMoveLegalEnPassant(){
+        Pawn pawn = new Pawn(PlayerColor.BLACK);
+        Position pawnPosition = new Position(0,0);
+        board.setBoardPosition(pawnPosition,pawn);
+
+        Pawn pawnEnPassable = new Pawn(PlayerColor.WHITE);
+        Position pawnEnPassablePosition = new Position(2,1);
+        Position destinationEnPassable = new Position(0,1);
+        board.setBoardPosition(pawnEnPassablePosition,pawnEnPassable);
+
+        pawnEnPassable.makeMove(pawnEnPassablePosition,destinationEnPassable,board);
+        assertTrue(pawn.isMoveLegal(pawnPosition,new Position(1,1),board));
     }
 }

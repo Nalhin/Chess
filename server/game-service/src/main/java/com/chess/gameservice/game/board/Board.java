@@ -11,6 +11,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 
 
@@ -141,15 +142,20 @@ public class Board {
             throw new GameException("Move ends with check.");
         }
 
-        var removedPiece = getPieceByPosition(destination);
-
-        if (removedPiece != null) {
-            graveyards.addPieceToCorrectGraveyard(removedPiece);
-        }
+        addPieceToGraveyardByPosition(destination);
+        clearEnPassantPositions();
 
         piece.makeMove(initialPosition, destination, this);
         setCheckState(getCheckState(playerColor));
         return piece;
+    }
+
+    public void addPieceToGraveyardByPosition(Position position){
+        Piece removedPiece = getPieceByPosition(position);
+
+        if (removedPiece != null) {
+            graveyards.addPieceToCorrectGraveyard(removedPiece);
+        }
     }
 
     public boolean willMoveResultInCheck(Position initialPosition, Position destinationPosition) {
@@ -169,6 +175,14 @@ public class Board {
         piece.setFirstMove(isFirstMove);
         return isCheck;
     }
+
+    private void clearEnPassantPositions(){
+        Arrays.stream(getState()).forEach(row -> Arrays.stream(row)
+                .filter(piece-> piece instanceof Pawn)
+                .forEach(piece -> ((Pawn) piece)
+                        .clearEnPassantPositions()));
+    }
+
 
     private CheckState getCheckState(PlayerColor currentPlayerColor) {
         Position kingPosition = null;
