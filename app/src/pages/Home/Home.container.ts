@@ -9,12 +9,10 @@ import { isInQueueSelector } from '../../store/queue/queue.selectors';
 import { joinQueue } from '../../store/queue/queue.actions';
 
 const mapStateToProps = (state: AppState) => {
-  const gameId = state.game.gameId;
   const isAuthenticated = isAuthenticatedSelector(state);
   const isInQueue = isInQueueSelector(state);
   const queueCount = state.queue.queueUserCount;
   return {
-    gameId,
     isAuthenticated,
     isInQueue,
     queueCount,

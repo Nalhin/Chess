@@ -47,14 +47,19 @@ const Game: React.FC<Props> = ({
         <Timer
           isActive={
             currentTurn.turnNumber !== 0 &&
-            currentTurn.currentPlayerColor === PlayerColor.WHITE
+            currentTurn.currentPlayerColor === PlayerColor.WHITE &&
+            gamePhase !== GamePhase.GAME_OVER
           }
           totalTurnTimeRemaining={
             players[PlayerColor.WHITE].totalTurnTimeRemaining
           }
         />
         <Timer
-          isActive={currentTurn.currentPlayerColor === PlayerColor.BLACK}
+          isActive={
+            currentTurn.turnNumber !== 0 &&
+            currentTurn.currentPlayerColor === PlayerColor.BLACK &&
+            gamePhase !== GamePhase.GAME_OVER
+          }
           totalTurnTimeRemaining={
             players[PlayerColor.BLACK].totalTurnTimeRemaining
           }

@@ -4,15 +4,15 @@ import {
   GetHistoryGameByIdRequestedAction,
   GetHistoryGamesRequestedAction,
   HistoryActionTypes,
-} from './history.types';
+} from './gameHistory.types';
 import { call, put } from 'redux-saga-test-plan/matchers';
 import {
   getHistoryGameByIdFailed,
   getHistoryGameByIdSucceeded,
   getHistoryGamesFailed,
   getHistoryGamesSucceeded,
-} from './history.actions';
-import { fetchGetGameById, fetchGetGamesByLogin } from './history.api';
+} from './gameHistory.actions';
+import { fetchGetGameById, fetchGetGamesByLogin } from './gameHistory.api';
 import { userSelector } from '../user/user.selectors';
 
 export function* historyRootSaga(): SagaIterator {

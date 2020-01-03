@@ -33,7 +33,7 @@ public class Pawn extends Piece {
         }
 
         var forwardPosition = new Position(initialPosition.getX() + direction, initialPosition.getY());
-        if (forwardPosition.isWithinBounds() &&board.isBoardPositionEmpty(forwardPosition)) {
+        if (forwardPosition.isWithinBounds() && board.isBoardPositionEmpty(forwardPosition)) {
             availableMoves.add(forwardPosition);
         }
 
@@ -66,12 +66,18 @@ public class Pawn extends Piece {
         return getPlayerColor() == PlayerColor.WHITE ? -1 : 1;
     }
 
+    private boolean isLongMove(Position initialPosition, Position destinationPosition) {
+        return Math.abs(initialPosition.getX() - destinationPosition.getX()) == 2;
+    }
 
     @Override
     public void makeMove(Position initialPosition, Position destinationPosition, Board board) {
         super.makeMove(initialPosition, destinationPosition, board);
         if (destinationPosition.getX() == Board.BOTTOM_ROW || destinationPosition.getX() == Board.BOARD_SIZE) {
             board.setPositionAwaitingPromotion(destinationPosition);
+        }
+        if (isLongMove(initialPosition, destinationPosition)) {
+
         }
     }
 }

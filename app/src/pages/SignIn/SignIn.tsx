@@ -27,7 +27,7 @@ const StyledLink = styled(Link)`
   text-align: right;
 `;
 
-const Login = () => {
+const SignIn = () => {
   const [formState, setFormState] = React.useState<UserLoginData>(
     INITIAL_STATE,
   );
@@ -38,14 +38,13 @@ const Login = () => {
   };
 
   const onFormChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.name);
     setFormState({ ...formState, [event.target.name]: event.target.value });
   };
 
   return (
     <StyledContainer>
       <Input
-        label="Login"
+        label="SignIn"
         name="login"
         onChange={onFormChange}
         value={formState.login}
@@ -57,9 +56,9 @@ const Login = () => {
         value={formState.password}
       />
       <StyledLink to="/register">Don't have an account?</StyledLink>
-      <Button onClick={submitForm}>Login</Button>
+      <Button onClick={submitForm}>Sign in</Button>
     </StyledContainer>
   );
 };
 
-export default Login;
+export default SignIn;

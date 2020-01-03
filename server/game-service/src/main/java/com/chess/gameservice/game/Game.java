@@ -5,7 +5,6 @@ import com.chess.gameservice.game.board.Board;
 import com.chess.gameservice.game.board.CheckState;
 import com.chess.gameservice.game.piece.Piece;
 import com.chess.gameservice.game.piece.PieceType;
-import com.chess.gameservice.game.stopwatch.CustomStopwatch;
 import com.chess.gameservice.game.player.Player;
 import com.chess.gameservice.game.player.PlayerColor;
 import com.chess.gameservice.game.player.Players;
@@ -17,8 +16,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.Duration;
 import java.util.ArrayList;
-
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -28,12 +28,11 @@ public class Game {
     private Players players;
     private CurrentTurn currentTurn;
     private GamePhase gamePhase;
+    @JsonIgnore
+    private UUID gameId;
 
     @JsonIgnore
     private ArrayList<GameTurn> gameTurns;
-
-    @JsonIgnore
-    private CustomStopwatch customStopwatch;
 
     public Game() {
         board = new Board();
@@ -41,7 +40,6 @@ public class Game {
         gameTurns = new ArrayList<>();
         gamePhase = GamePhase.WAITING_FOR_PLAYERS;
         currentTurn = new CurrentTurn();
-        customStopwatch = new CustomStopwatch();
     }
 
     public void setPlayer(Player player, PlayerColor playerColor) {
@@ -98,17 +96,28 @@ public class Game {
     }
 
     private void changeTurn() {
-        players.changeTurn(currentTurn.getCurrentPlayerColor());
+        players.changeTurn(currentTurn.getCurrentPlayerColor(),gameId);
         currentTurn.changeTurn();
     }
+
+    public void playerTimedOutOrOutOfTime(){
+        setGamePhase(GamePhase.GAME_OVER);
+        currentTurn.changeTurnWithoutIncrementingTurnNumber();
+    }
+
 
     @JsonIgnore
     public boolean isOver() {
         return gamePhase == GamePhase.GAME_OVER;
     }
 
-    public void initGame() {
-        gamePhase = GamePhase.STARTED;
-        customStopwatch.start();
+    @JsonIgnore
+    public Duration getGameDuration(){
+        return players.getGameDuration();
+    }
+
+    public void initGame(UUID gameId) {
+        setGamePhase(GamePhase.STARTED);
+        setGameId(gameId);
     }
 }

@@ -15,6 +15,11 @@ import {
 import { put } from 'redux-saga-test-plan/matchers';
 import { initChat } from '../chat/chat.actions';
 import { initGameRequested } from '../game/game.actions';
+import { push } from 'connected-react-router';
+import { addToast } from '../toaster/toaster.action';
+import { generateToast } from '../../utils/toastFactory';
+import { ToastTypes } from '../../interfaces/ToastTypes';
+import { isInQueueSelector } from './queue.selectors';
 
 export function* queueRootSaga() {
   yield all([
@@ -26,14 +31,25 @@ export function* queueRootSaga() {
 export function* joinQueueSaga(action: JoinQueueAction) {
   const queueStomp = StompSingleton.getInstance(websocketTypes.QUEUE);
 
-  const { login } = yield select(userSelector);
-  const queueSubscription = queueStateSubscription(queueStomp);
-  const queuePrivateSubscription = queuePersonalSubscription(queueStomp, login);
+  const [isInQueue, user] = yield all([
+    select(isInQueueSelector),
+    select(userSelector),
+  ]);
 
   queueStomp.publish({
     destination: `/app/queue`,
-    headers: { name: login },
+    headers: { name: user.login },
   });
+
+  if (isInQueue) {
+    return;
+  }
+
+  const queueSubscription = queueStateSubscription(queueStomp);
+  const queuePrivateSubscription = queuePersonalSubscription(
+    queueStomp,
+    user.login,
+  );
 
   yield take(QueueActionTypes.QUEUE_GAME_FOUND);
   queueSubscription.unsubscribe();
@@ -41,6 +57,9 @@ export function* joinQueueSaga(action: JoinQueueAction) {
 }
 
 export function* queueEndedSaga(action: QueueGameFoundAction) {
-  yield put(initChat(action.payload.gameId));
-  yield put(initGameRequested(action.payload.gameId));
+  const { gameId } = action.payload;
+  yield put(initChat(gameId));
+  yield put(initGameRequested(gameId));
+  yield put(push(`/game/${gameId}`));
+  yield put(addToast(generateToast('Game found!', ToastTypes.INFO)));
 }

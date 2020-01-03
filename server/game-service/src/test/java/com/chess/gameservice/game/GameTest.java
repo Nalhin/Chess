@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -33,7 +34,7 @@ class GameTest {
         game.setPlayer(firstPlayer, PlayerColor.WHITE);
         game.setPlayer(secondPlayer, PlayerColor.BLACK);
 
-        game.initGame();
+        game.initGame(UUID.randomUUID());
 
         assertEquals(GamePhase.STARTED, game.getGamePhase());
         assertEquals(PlayerColor.WHITE, game.getCurrentTurn().getCurrentPlayerColor());
@@ -45,7 +46,7 @@ class GameTest {
         game.setPlayer(secondPlayer, PlayerColor.BLACK);
         var playerMove = new PlayerMovePayload(new Position(6, 1), new Position(5, 1));
 
-        game.initGame();
+        game.initGame(UUID.randomUUID());
         game.makeMove(playerMove, firstPlayer);
 
         assertEquals(game.getCurrentTurn().getCurrentPlayerColor(), PlayerColor.BLACK);
@@ -57,7 +58,7 @@ class GameTest {
         game.setPlayer(secondPlayer, PlayerColor.BLACK);
         var playerMove = new PlayerMovePayload(new Position(1, 0), new Position(2, 0));
 
-        game.initGame();
+        game.initGame(UUID.randomUUID());
 
         assertThrows(GameException.class, () -> game.makeMove(playerMove, secondPlayer));
     }
@@ -71,7 +72,7 @@ class GameTest {
         expectedMoves.add(new Position(5, 1));
         expectedMoves.add(new Position(4, 1));
 
-        game.initGame();
+        game.initGame(UUID.randomUUID());
         var actualMoves = game.getAvailableMoves(position, firstPlayer);
 
         assertEquals(expectedMoves, actualMoves);
@@ -84,7 +85,7 @@ class GameTest {
         game.setPlayer(secondPlayer, PlayerColor.BLACK);
         var position = new Position(6, 1);
 
-        game.initGame();
+        game.initGame(UUID.randomUUID());
 
         assertThrows(GameException.class, () -> game.getAvailableMoves(position, secondPlayer));
     }

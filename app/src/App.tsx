@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
-import store from './store/store';
+import configureStore, { history } from './store/store';
 import ErrorBoundary from './ErrorBoundary';
 import Pages from './pages/Pages';
 import { css, Global, ThemeProvider } from '@emotion/core';
@@ -10,8 +9,11 @@ import { globalStyles } from './styles/global';
 import { DndProvider } from 'react-dnd';
 import Backend from 'react-dnd-html5-backend';
 import { CssBaseline, StylesProvider } from '@material-ui/core';
+import { ConnectedRouter } from 'connected-react-router';
 
-const global = css`
+export const store = configureStore();
+
+const globalStyle = css`
   ${globalStyles}
 `;
 
@@ -19,14 +21,14 @@ const App = () => {
   return (
     <ErrorBoundary>
       <StylesProvider injectFirst>
-        <Global styles={global} />
+        <Global styles={globalStyle} />
         <DndProvider backend={Backend}>
           <ThemeProvider theme={theme}>
             <Provider store={store}>
-              <BrowserRouter basename={process.env.PUBLIC_URL}>
+              <ConnectedRouter history={history}>
                 <CssBaseline />
                 <Pages />
-              </BrowserRouter>
+              </ConnectedRouter>
             </Provider>
           </ThemeProvider>
         </DndProvider>

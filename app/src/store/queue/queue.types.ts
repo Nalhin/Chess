@@ -23,13 +23,6 @@ export interface JoinQueueAction {
   type: typeof QueueActionTypes.JOIN_QUEUE;
 }
 
-export interface QueueErrorAction {
-  type: typeof QueueActionTypes.QUEUE_ERROR;
-  payload: {
-    error: string;
-  };
-}
-
 export interface QueueCountAction {
   type: typeof QueueActionTypes.QUEUE_COUNT;
   payload: {
@@ -53,7 +46,6 @@ export interface QueueGameFoundAction {
 
 export type QueueActions =
   | JoinQueueAction
-  | QueueErrorAction
   | QueueCountAction
   | QueueGameFoundAction
   | QueueJoinedAction;

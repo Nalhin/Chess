@@ -6,11 +6,11 @@ import {
   GetHistoryGamesRequestedAction,
   GetHistoryGamesSucceededAction,
   HistoryActionTypes,
-} from './history.types';
+} from './gameHistory.types';
 import {
   HistoryGameWithTurnCount,
   HistoryGameWithTurns,
-} from '../../interfaces/HistoryGame';
+} from '../../interfaces/MatchGame';
 
 export const getHistoryGameByIdRequested = (
   gameId: number,

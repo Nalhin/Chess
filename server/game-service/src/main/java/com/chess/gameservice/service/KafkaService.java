@@ -2,7 +2,9 @@ package com.chess.gameservice.service;
 
 import com.chess.gameservice.game.Game;
 import com.chess.gameservice.game.player.PlayerColor;
+import com.chess.gameservice.messages.events.GameOverEvent;
 import com.chess.gameservice.messages.kafka.HistoryMessage;
+import org.springframework.context.ApplicationListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.Message;
@@ -11,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class KafkaService {
+public class KafkaService implements ApplicationListener<GameOverEvent> {
 
     String kafkaTopic = "game";
 
@@ -22,11 +24,12 @@ public class KafkaService {
     }
 
     public void sendHistory(Game game) {
+
         Message<HistoryMessage> message =
                 MessageBuilder
                         .withPayload(HistoryMessage.builder()
                                 .gameTurns(game.getGameTurns())
-                                .duration(game.getCustomStopwatch().end())
+                                .duration(game.getGameDuration())
                                 .blackPlayer(game.getPlayers().get(PlayerColor.BLACK).getName())
                                 .whitePlayer(game.getPlayers().get(PlayerColor.WHITE).getName())
                                 .winner(game.getCurrentTurn().getCurrentPlayerColor()).build())
@@ -34,5 +37,12 @@ public class KafkaService {
                         .build();
 
         kafkaTemplate.send(message);
+    }
+
+
+    @Override
+    public void onApplicationEvent(GameOverEvent event) {
+        Game game = event.getGame();
+        sendHistory(game);
     }
 }

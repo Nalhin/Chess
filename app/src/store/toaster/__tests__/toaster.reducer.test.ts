@@ -1,0 +1,45 @@
+import { ToasterState } from '../toaster.types';
+import { addToast, removeToast } from '../toaster.action';
+import toasterReducer, { INITIAL_STATE } from '../toaster.reducer';
+import { fakeToaster } from '../../../../test/fixtures/toaster/fakeToaster';
+
+describe('Toast Reducer', () => {
+  it('Should return the initial state', () => {
+    const initialState: ToasterState = { ...INITIAL_STATE };
+    const action = removeToast('0');
+
+    const reducer = toasterReducer(undefined, action);
+
+    expect(reducer).toEqual(initialState);
+  });
+
+  it('Should handle ADD_TOAST action', () => {
+    const initialState: ToasterState = {
+      ...INITIAL_STATE,
+    };
+    const expectedState: ToasterState = {
+      ...INITIAL_STATE,
+      toasterData: [fakeToaster],
+    };
+    const action = addToast(fakeToaster);
+
+    const reducer = toasterReducer(initialState, action);
+
+    expect(reducer).toEqual(expectedState);
+  });
+
+  it('Should handle REMOVE_TOAST', () => {
+    const initialState: ToasterState = {
+      ...INITIAL_STATE,
+      toasterData: [fakeToaster],
+    };
+    const expectedState: ToasterState = {
+      ...INITIAL_STATE,
+    };
+    const action = removeToast(fakeToaster.id);
+
+    const reducer = toasterReducer(initialState, action);
+
+    expect(reducer).toEqual(expectedState);
+  });
+});

@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent } from '@testing-library/react';
 import { fakeChatMessage } from '../../../../test/fixtures/chat/chatMessage';
 import Chat from '../Chat';
+import { renderWithStyles } from '../../../../test/utils/renderWithStyles';
 
 const props = {
   chatMessages: [fakeChatMessage],
@@ -14,7 +15,7 @@ describe('Chat Component', () => {
     const sendMessage = jest.fn();
     const fakeMessageContent = 'test';
 
-    const { getByTestId, queryByText } = render(
+    const { getByTestId, queryByText } = renderWithStyles(
       <Chat {...props} sendMessage={sendMessage} />,
     );
 
@@ -35,7 +36,7 @@ describe('Chat Component', () => {
       fakeChatMessage,
       { ...fakeChatMessage, sendDate: '21:38', id: '123' },
     ];
-    const { getAllByTestId } = render(
+    const { getAllByTestId } = renderWithStyles(
       <Chat {...props} chatMessages={fakeChatMessages} />,
     );
 

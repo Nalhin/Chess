@@ -2,7 +2,7 @@ import { BoardPosition } from './boardPosition';
 import { PieceType } from './piece';
 import { PlayerColor } from './player';
 
-export interface HistoryTurn {
+export interface MatchTurn {
   turnId: number;
   initialPosition: BoardPosition;
   destinationPosition: BoardPosition;

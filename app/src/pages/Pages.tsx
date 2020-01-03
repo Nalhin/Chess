@@ -5,9 +5,11 @@ import Home from './Home/Home.container';
 import Navigation from './Navigation/Navigation';
 import ProtectedRoute from '../components/UnauthenticatedRoute/UnauthenticatedRoute';
 import Profile from './Profile/Profile.container';
-import Login from './Login/Login';
+import SignIn from './SignIn/SignIn';
 import Register from './Register/Register';
 import IndividualGameHistory from './IndividualGameHistory/IndividualGameHistory.container';
+import NoMatch from './NoMatch/NoMatch';
+import Toasts from './Toaster/Toasts.container';
 
 const Pages = () => {
   return (
@@ -25,7 +27,7 @@ const Pages = () => {
         <ProtectedRoute
           withAuthentication
           path="/login"
-          component={Login}
+          component={SignIn}
           exact
         />
         <ProtectedRoute
@@ -34,7 +36,9 @@ const Pages = () => {
           component={Register}
           exact
         />
+        <Route path="*" component={NoMatch} />
       </Switch>
+      <Toasts />
     </div>
   );
 };

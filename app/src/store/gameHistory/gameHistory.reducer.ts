@@ -2,7 +2,7 @@ import {
   HistoryActions,
   HistoryActionTypes,
   HistoryState,
-} from './history.types';
+} from './gameHistory.types';
 import { Reducer } from 'redux';
 import produce from 'immer';
 
@@ -11,7 +11,7 @@ export const HISTORY_INITIAL_STATE: HistoryState = {
   individualGames: { data: {}, isLoading: false },
 };
 
-const historyReducer: Reducer<HistoryState, HistoryActions> = (
+const gameHistoryReducer: Reducer<HistoryState, HistoryActions> = (
   state = HISTORY_INITIAL_STATE,
   action,
 ) => {
@@ -44,4 +44,4 @@ const historyReducer: Reducer<HistoryState, HistoryActions> = (
   });
 };
 
-export default historyReducer;
+export default gameHistoryReducer;

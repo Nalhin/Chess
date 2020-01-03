@@ -1,7 +1,7 @@
 import { GameActions } from './game/game.types';
 import { UserActions } from './user/user.types';
 import { QueueActions } from './queue/queue.types';
-import { HistoryActions } from './history/history.types';
+import { HistoryActions } from './gameHistory/gameHistory.types';
 import { ChatActions } from './chat/chat.types';
 
 export type RootAction =

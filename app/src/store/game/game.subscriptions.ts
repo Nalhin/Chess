@@ -1,5 +1,4 @@
 import { map } from 'rxjs/operators';
-import store from '../store';
 import {
   availableMoves,
   availableMovesError,
@@ -12,6 +11,7 @@ import {
   GamePersonalSubscriptionActionTypes,
   GameStateSubscriptionActionTypes,
 } from './game.types';
+import { store } from '../../App';
 
 export const gameStateSubscription = (stomp: RxStomp, gameId: string) => {
   return stomp

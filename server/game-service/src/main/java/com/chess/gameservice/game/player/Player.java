@@ -8,32 +8,42 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.Duration;
+import java.util.UUID;
 
 @Getter
 @Setter
 @NoArgsConstructor
-@JsonIgnoreProperties({"game_TIME"})
+@JsonIgnoreProperties("player_GAME_TIME")
 public class Player {
 
-    private final int GAME_TIME = 300;
     @JsonIgnore
     private CustomStopwatch playerStopwatch;
 
+    @JsonIgnore
+    private final int PLAYER_GAME_TIME = 20;
+
+    private Duration totalTurnTimeRemaining = Duration.ofSeconds(PLAYER_GAME_TIME);
+
     String name;
-    Duration totalTurnTimeRemaining = Duration.ofSeconds(GAME_TIME);
+
+
+    @JsonIgnore
+    public Duration getTotalElapsedTime() {
+        return Duration.ofSeconds(PLAYER_GAME_TIME).minus(totalTurnTimeRemaining);
+    }
 
     public Player(String name) {
         this.name = name;
-        this.playerStopwatch=new CustomStopwatch();
+        this.playerStopwatch = new CustomStopwatch();
     }
 
-    public void startTurn() {
-        playerStopwatch.start();
+    public void startTurn(UUID gameId) {
+        playerStopwatch.start(totalTurnTimeRemaining, gameId,name);
     }
 
     public void endTurn() {
-        Duration turnTime = playerStopwatch.end();
-        setTotalTurnTimeRemaining(totalTurnTimeRemaining.minus(turnTime));
+        Duration turnDuration = playerStopwatch.end();
+        setTotalTurnTimeRemaining(totalTurnTimeRemaining.minus(turnDuration));
     }
 
     @Override

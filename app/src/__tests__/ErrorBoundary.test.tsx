@@ -7,8 +7,7 @@ const ErrorComponent = ({ withError }: { withError?: boolean }): null => {
   return null;
 };
 
-jest.spyOn(console, 'error').mockImplementation(() => {
-});
+jest.spyOn(console, 'error').mockImplementation(() => {});
 
 describe('ErrorBoundary Component', () => {
   afterEach(cleanup);
@@ -16,11 +15,11 @@ describe('ErrorBoundary Component', () => {
   it('Should behave normally without errors', () => {
     const { queryByTestId } = render(
       <ErrorBoundary>
-        <ErrorComponent/>
+        <ErrorComponent />
       </ErrorBoundary>,
     );
 
-    const error = queryByTestId("error-boundary");
+    const error = queryByTestId('error-boundary');
 
     expect(error).toBeFalsy();
   });
@@ -28,11 +27,11 @@ describe('ErrorBoundary Component', () => {
   it('Should react to error', () => {
     const { getByTestId } = render(
       <ErrorBoundary>
-        <ErrorComponent withError/>
+        <ErrorComponent withError />
       </ErrorBoundary>,
     );
 
-    const error = getByTestId("error-boundary");
+    const error = getByTestId('error-boundary');
 
     expect(error).toBeTruthy();
   });

@@ -9,15 +9,25 @@ import com.chess.gameservice.messages.payloads.AvailableMovesPayload;
 import com.chess.gameservice.messages.payloads.PlayerMovePayload;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationEventPublisher;
 
 import java.util.ArrayList;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@ExtendWith(MockitoExtension.class)
+@SpringBootTest
 class GameServiceTest {
 
-    private GameService gameService;
+    GameService gameService;
+
+    @Mock
+    private ApplicationEventPublisher applicationEventPublisher;
 
     private UUID gameId = new UUID(8, 8);
     private String firstPlayerName = "firstPlayer";
@@ -25,7 +35,7 @@ class GameServiceTest {
 
     @BeforeEach
     void setUp() {
-        gameService = new GameService();
+        gameService = new GameService(applicationEventPublisher);
     }
 
     @Test

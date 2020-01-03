@@ -8,6 +8,7 @@ const colors = {
   primaryHover: '#1976d2cc',
   secondary: '',
   error: '#f44336',
+  success: '#43a047',
 };
 
 const space = [0, 4, 8, 16, 32];
@@ -31,6 +32,7 @@ export const theme = {
   },
   fontSizes: {
     body: fontSizes[2],
+    larger: fontSizes[4],
   },
   mediaQueries: {
     small: `@media screen and (min-width: ${breakpoints[0]})`,

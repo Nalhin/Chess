@@ -12,6 +12,7 @@ declare module '@emotion/core' {
       background: string;
       foreground: string;
       error: string;
+      success: string;
     };
     breakpoints: string[];
     fontWeights: {
@@ -26,6 +27,7 @@ declare module '@emotion/core' {
     };
     fontSizes: {
       body: number;
+      larger: number;
     };
     mediaQueries: {
       small: string;

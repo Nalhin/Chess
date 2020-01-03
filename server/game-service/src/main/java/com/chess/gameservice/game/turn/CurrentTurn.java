@@ -17,4 +17,8 @@ public class CurrentTurn {
         turnNumber++;
         setCurrentPlayerColor(PlayerColor.getOtherColor(currentPlayerColor));
     }
+
+    public void changeTurnWithoutIncrementingTurnNumber(){
+        setCurrentPlayerColor(PlayerColor.getOtherColor(currentPlayerColor));
+    }
 }

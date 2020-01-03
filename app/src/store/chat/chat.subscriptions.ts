@@ -1,7 +1,7 @@
 import { RxStomp } from '@stomp/rx-stomp';
 import { map } from 'rxjs/operators';
-import store from '../store';
 import { newMessageReceived } from './chat.actions';
+import { store } from '../../App';
 
 export const chatSubscription = (stomp: RxStomp, chatId: string) => {
   return stomp

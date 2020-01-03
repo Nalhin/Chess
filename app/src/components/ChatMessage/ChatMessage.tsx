@@ -1,10 +1,9 @@
 import React from 'react';
 import { ChatMessageType } from '../../interfaces/chatMessageType';
 import styled from '@emotion/styled';
-import { Avatar } from '@material-ui/core';
-import { userImagePath } from '../../contants/userImagePath';
 import { useTheme } from '@emotion/core';
 import { isoDateToSecondsMinutesAndHours } from '../../../test/utils/isoDateToSecondsMinutesAndHours';
+import PlayerAvatar from '../PlayerAvatar/PlayerAvatar';
 
 interface StyledMessageProps {
   isSender: boolean;
@@ -28,6 +27,11 @@ const StyledContainer = styled.div`
 
 const StyledHeaderWrapper = styled.div``;
 
+const StyledPlayerAvatar = styled(PlayerAvatar)`
+  width: 30px;
+  height: 30px;
+`;
+
 interface Props {
   chatMessage: ChatMessageType;
   userLogin: string;
@@ -43,13 +47,9 @@ const ChatMessage: React.FC<Props> = ({ chatMessage, userLogin }) => {
       <div>{isoDateToSecondsMinutesAndHours(sendDate)}</div>
       <StyledContainer>
         {sender && (
-          <Avatar
-            style={{ width: '30px', height: '30px' }}
-            alt={chatMessage.sender}
-            src={`${userImagePath}${sender}_thumbnail.jpg`}
-          >
+          <StyledPlayerAvatar name={sender} isThumbnail>
             {sender[0].toUpperCase()}
-          </Avatar>
+          </StyledPlayerAvatar>
         )}
 
         <StyledMessage

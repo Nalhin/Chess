@@ -3,18 +3,19 @@ package com.chess.gameservice.controller;
 import com.chess.gameservice.exception.GameException;
 import com.chess.gameservice.game.Game;
 import com.chess.gameservice.game.position.Position;
-import com.chess.gameservice.messages.socket.AvailableMovesMessage;
-import com.chess.gameservice.messages.socket.ErrorMessage;
-import com.chess.gameservice.messages.socket.GameStartedMessage;
-import com.chess.gameservice.messages.socket.PlayerMovedMessage;
+import com.chess.gameservice.messages.events.PlayerOutOfTimeEvent;
 import com.chess.gameservice.messages.payloads.AvailableMovesPayload;
 import com.chess.gameservice.messages.payloads.ErrorPayload;
 import com.chess.gameservice.messages.payloads.PlayerMovePayload;
 import com.chess.gameservice.messages.payloads.UserPromotionPayload;
+import com.chess.gameservice.messages.socket.AvailableMovesMessage;
+import com.chess.gameservice.messages.socket.ErrorMessage;
+import com.chess.gameservice.messages.socket.GameStartedMessage;
+import com.chess.gameservice.messages.socket.PlayerMovedMessage;
 import com.chess.gameservice.service.GameService;
-import com.chess.gameservice.service.KafkaService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AllArgsConstructor;
+import org.springframework.context.ApplicationListener;
 import org.springframework.messaging.handler.annotation.*;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
@@ -23,11 +24,11 @@ import java.util.UUID;
 
 @Controller
 @AllArgsConstructor
-public class GameController {
+public class GameController implements ApplicationListener<PlayerOutOfTimeEvent> {
 
-    private final KafkaService kafkaService;
     private final GameService gameService;
     private final SimpMessagingTemplate simpMessagingTemplate;
+
 
     @MessageMapping("/connect/{gameId}")
     public void initialConnect(@DestinationVariable String gameId, @Header("name") String playerName) {
@@ -45,9 +46,6 @@ public class GameController {
         var playerMovedMessage = new PlayerMovedMessage();
         playerMovedMessage.setPayload(game);
         simpMessagingTemplate.convertAndSend("/topic/state/" + gameId, playerMovedMessage);
-        if(game.isOver()){
-            kafkaService.sendHistory(game);
-        }
     }
 
     @MessageMapping("/available-moves/{gameId}")
@@ -73,4 +71,16 @@ public class GameController {
         simpMessagingTemplate.convertAndSend("/queue/personal/" + name + "/" + gameId, errorMessage);
     }
 
+    @Override
+    public void onApplicationEvent(PlayerOutOfTimeEvent event) {
+        UUID gameId = event.getGameId();
+        String name= event.getName();
+        Game game = gameService.playerOutOfTime(gameId);
+        PlayerMovedMessage playerMovedMessage = new PlayerMovedMessage();
+        playerMovedMessage.setPayload(game);
+        simpMessagingTemplate.convertAndSend("/topic/state/" + gameId, playerMovedMessage);
+        ErrorMessage errorMessage = new ErrorMessage();
+        errorMessage.setPayload(new ErrorPayload("You run out of time!"));
+        simpMessagingTemplate.convertAndSend("/queue/personal/" + name + "/" + gameId, errorMessage);
+    }
 }

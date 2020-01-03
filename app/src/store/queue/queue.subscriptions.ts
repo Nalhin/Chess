@@ -1,13 +1,11 @@
 import { RxStomp } from '@stomp/rx-stomp';
 import { map } from 'rxjs/operators';
-import store from '../store';
 import { QueueActionTypes } from './queue.types';
-import {
-  gameFound,
-  queueCount,
-  queueError,
-  queueJoined,
-} from './queue.actions';
+import { gameFound, queueCount, queueJoined } from './queue.actions';
+import { store } from '../../App';
+import { addToast } from '../toaster/toaster.action';
+import { generateToast } from '../../utils/toastFactory';
+import { ToastTypes } from '../../interfaces/ToastTypes';
 
 export const queueStateSubscription = (stomp: RxStomp) => {
   return stomp
@@ -46,7 +44,9 @@ export const queuePersonalSubscription = (stomp: RxStomp, login: string) => {
             store.dispatch(queueJoined(payload.gameId));
             break;
           case QueueActionTypes.QUEUE_ERROR:
-            store.dispatch(queueError(payload.error));
+            store.dispatch(
+              addToast(generateToast(payload.error, ToastTypes.ERROR)),
+            );
             break;
           case QueueActionTypes.QUEUE_GAME_FOUND:
             store.dispatch(gameFound(payload.gameId));

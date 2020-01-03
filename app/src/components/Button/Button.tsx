@@ -3,7 +3,7 @@ import { Button as MaterialButton } from '@material-ui/core';
 import { useTheme } from '@emotion/core';
 import styled from '@emotion/styled';
 
-const StyledMaterialButton = styled(MaterialButton)`
+export const StyledMaterialButton = styled(MaterialButton)`
   background: ${props => props.theme.colors.primary};
   color: ${props => props.theme.colors.textLight};
   margin: ${props => props.theme.space.medium}px;
@@ -13,14 +13,20 @@ const StyledMaterialButton = styled(MaterialButton)`
 `;
 
 interface Props {
-  onClick: () => void;
+  onClick?: () => void;
+  disabled?: boolean;
 }
 
-const Button: React.FC<Props> = ({ children, onClick }) => {
+const Button: React.FC<Props> = ({ children, onClick, disabled }) => {
   const theme = useTheme();
 
   return (
-    <StyledMaterialButton theme={theme} onClick={onClick} variant="contained">
+    <StyledMaterialButton
+      variant="contained"
+      theme={theme}
+      onClick={onClick}
+      disabled={disabled}
+    >
       {children}
     </StyledMaterialButton>
   );

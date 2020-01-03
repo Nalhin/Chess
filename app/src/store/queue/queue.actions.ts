@@ -2,20 +2,12 @@ import {
   JoinQueueAction,
   QueueActionTypes,
   QueueCountAction,
-  QueueErrorAction,
   QueueGameFoundAction,
   QueueJoinedAction,
 } from './queue.types';
 
 export const joinQueue = (): JoinQueueAction => ({
   type: QueueActionTypes.JOIN_QUEUE,
-});
-
-export const queueError = (error: string): QueueErrorAction => ({
-  type: QueueActionTypes.QUEUE_ERROR,
-  payload: {
-    error,
-  },
 });
 
 export const queueCount = (queueUserCount: number): QueueCountAction => ({

@@ -3,12 +3,12 @@ import { AppState } from '../../store/rootReducer';
 import { bindActionCreators, Dispatch } from 'redux';
 import { RootAction } from '../../store/rootAction';
 import { connect } from 'react-redux';
-import { getHistoryGameByIdRequested } from '../../store/history/history.actions';
+import { getHistoryGameByIdRequested } from '../../store/gameHistory/gameHistory.actions';
 import IndividualGameHistory from './IndividualGameHistory';
 
 const mapStateToProps = (state: AppState) => {
-  const individualGames = state.history.individualGames.data;
-  const isLoading = state.history.individualGames.isLoading;
+  const individualGames = state.gameHistory.individualGames.data;
+  const isLoading = state.gameHistory.individualGames.isLoading;
   return {
     individualGames,
     isLoading,
