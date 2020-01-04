@@ -5,6 +5,7 @@ export interface QueueState {
 
 export enum QueueBaseActionTypes {
   JOIN_QUEUE = 'JOIN_QUEUE',
+  LEAVE_QUEUE = 'LEAVE_QUEUE',
 }
 
 export enum QueueSubscriptionActionTypes {
@@ -44,8 +45,13 @@ export interface QueueGameFoundAction {
   };
 }
 
+export interface LeaveQueueAction {
+  type: typeof QueueActionTypes.LEAVE_QUEUE;
+}
+
 export type QueueActions =
   | JoinQueueAction
   | QueueCountAction
   | QueueGameFoundAction
-  | QueueJoinedAction;
+  | QueueJoinedAction
+  | LeaveQueueAction;

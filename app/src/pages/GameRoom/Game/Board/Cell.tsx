@@ -7,14 +7,14 @@ import PieceIcon from './PieceIcon';
 import { useDrop } from 'react-dnd';
 import { DragAndDropTypes } from '../../../../contants/dragAndDropTypes';
 import { CheckState } from '../../../../interfaces/checkState';
+import { useTheme } from '@emotion/core';
+import { cellSize } from '../../../../styles/cellSize';
 
 interface StyledCellProps {
   isChecked: boolean;
 }
 
 const StyledCell = styled.div<StyledCellProps>`
-  width: 100px;
-  height: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -36,6 +36,19 @@ const StyledCell = styled.div<StyledCellProps>`
     }
     return 'white';
   }};
+
+  width: ${cellSize.desktop};
+  height: ${cellSize.desktop};
+
+  ${props => props.theme.mediaQueries.medium} {
+    width: ${cellSize.tablet};
+    height: ${cellSize.tablet};
+  }
+
+  ${props => props.theme.mediaQueries.small} {
+    width: ${cellSize.mobile};
+    height: ${cellSize.mobile};
+  }
 `;
 
 interface StyledOverlayProps {
@@ -82,6 +95,8 @@ const Cell: React.FC<CellProps> = ({
   currentPlayerColor,
   pieceColor,
 }) => {
+  const theme = useTheme();
+
   const handleOnClick = React.useCallback(() => {
     if (isMoveAvailable) {
       makeMove(position);
@@ -106,7 +121,12 @@ const Cell: React.FC<CellProps> = ({
     type === PieceType.KING;
 
   return (
-    <StyledCell onClick={handleOnClick} ref={drop} isChecked={isChecked}>
+    <StyledCell
+      onClick={handleOnClick}
+      ref={drop}
+      isChecked={isChecked}
+      theme={theme}
+    >
       {type && (
         <PieceIcon
           onDragBegin={onDragBegin}

@@ -1,7 +1,6 @@
 import { map } from 'rxjs/operators';
 import {
   availableMoves,
-  availableMovesError,
   gameOver,
   gameStarted,
   playerMoved,
@@ -12,6 +11,9 @@ import {
   GameStateSubscriptionActionTypes,
 } from './game.types';
 import { store } from '../../App';
+import { addToast } from '../toaster/toaster.action';
+import { generateToast } from '../../utils/toastFactory';
+import { ToastTypes } from '../../interfaces/ToastTypes';
 
 export const gameStateSubscription = (stomp: RxStomp, gameId: string) => {
   return stomp
@@ -64,7 +66,9 @@ export const gamePersonalSubscription = (
             );
             break;
           case GamePersonalSubscriptionActionTypes.ERROR:
-            store.dispatch(availableMovesError(payload.error));
+            store.dispatch(
+              addToast(generateToast(payload.error, ToastTypes.ERROR)),
+            );
             break;
           default:
             break;

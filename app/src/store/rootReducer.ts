@@ -7,10 +7,12 @@ import toaster from './toaster/toaster.reducer';
 import gameHistory from './gameHistory/gameHistory.reducer';
 import { connectRouter } from 'connected-react-router';
 import { History } from 'history';
+import customRouter from './router/router.reducer';
 
 export const createRootReducer = (history: History) =>
   combineReducers({
     router: connectRouter(history),
+    customRouter,
     game,
     user,
     chat,

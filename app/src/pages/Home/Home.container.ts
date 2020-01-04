@@ -1,7 +1,6 @@
 import { AppState } from '../../store/rootReducer';
 import { bindActionCreators, Dispatch } from 'redux';
 import { RootAction } from '../../store/rootAction';
-import { gameFound } from '../../store/game/game.actions';
 import { connect } from 'react-redux';
 import Home from './Home';
 import { isAuthenticatedSelector } from '../../store/user/user.selectors';
@@ -23,7 +22,6 @@ const mapDispatchToProps = (dispatch: Dispatch<RootAction>) =>
   bindActionCreators(
     {
       joinQueue,
-      gameFound,
     },
     dispatch,
   );

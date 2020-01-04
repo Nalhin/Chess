@@ -135,7 +135,7 @@ public class Board {
         }
 
         if (piece.getPlayerColor() != playerColor) {
-            throw new GameException("Wrong piece color.");
+            throw new GameException("Invalid piece color.");
         }
 
         if (piece.isMoveImpossible(initialPosition, destination)) {

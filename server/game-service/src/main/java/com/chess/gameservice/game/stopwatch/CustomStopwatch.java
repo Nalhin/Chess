@@ -23,7 +23,7 @@ public class CustomStopwatch {
         task = new TimerTask() {
             @Override
             public void run() {
-                CustomSpringEventPublisher.publishPlayerOutOfTime(gameId,name);
+                StopwatchEventPublisher.publishPlayerOutOfTime(gameId,name);
             }
         };
 

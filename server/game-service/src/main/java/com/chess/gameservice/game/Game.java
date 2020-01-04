@@ -18,6 +18,7 @@ import lombok.Setter;
 
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.UUID;
 
 @Getter
@@ -112,6 +113,13 @@ public class Game {
     @JsonIgnore
     public boolean isOver() {
         return gamePhase == GamePhase.GAME_OVER;
+    }
+
+    public Optional<UUID> isPlayerPresentInGame(String playerName){
+        if(getPlayers().values().stream().anyMatch(user->user.getName().equals(playerName))){
+            return Optional.of(gameId);
+        }
+        return Optional.empty();
     }
 
     @JsonIgnore

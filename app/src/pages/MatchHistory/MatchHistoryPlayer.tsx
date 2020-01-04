@@ -1,5 +1,5 @@
 import React from 'react';
-import PlayerAvatar from '../../../components/PlayerAvatar/PlayerAvatar';
+import PlayerAvatar from '../../components/PlayerAvatar/PlayerAvatar';
 import Crown from './Crown';
 import styled from '@emotion/styled';
 import { useTheme } from '@emotion/core';

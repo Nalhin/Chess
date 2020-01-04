@@ -1,9 +1,9 @@
 import React from 'react';
-import { HistoryGameWithTurnCount } from '../../../interfaces/MatchGame';
+import { HistoryGameWithTurnCount } from '../../interfaces/MatchGame';
 import { useHistory } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { Card } from '@material-ui/core';
-import { PlayerColor } from '../../../interfaces/player';
+import { PlayerColor } from '../../interfaces/player';
 import MatchHistoryPlayer from './MatchHistoryPlayer';
 
 interface StyledCardProps {
@@ -46,7 +46,7 @@ const MatchHistoryGame: React.FC<Props> = ({ game, login }) => {
 
   return (
     <StyledCard
-      onClick={() => history.push(`/profile/game/${game.gameId}`)}
+      onClick={() => history.push(`/match-history/${game.gameId}`)}
       isWinner={winningPlayerName === login}
     >
       <MatchHistoryPlayer

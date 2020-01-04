@@ -1,9 +1,7 @@
 import {
-  AvailableMovesErrorSubscriptionAction,
   AvailableMovesSubscriptionAction,
   CloseGameAction,
   GameBaseActionTypes,
-  GameFoundSubscriptionAction,
   GameOverSubscriptionAction,
   GamePersonalSubscriptionActionTypes,
   GameStartedSubscriptionAction,
@@ -47,22 +45,6 @@ export const availableMoves = (
   payload: {
     availableMoves,
     position,
-  },
-});
-
-export const availableMovesError = (
-  error: string,
-): AvailableMovesErrorSubscriptionAction => ({
-  type: GamePersonalSubscriptionActionTypes.ERROR,
-  payload: {
-    error,
-  },
-});
-
-export const gameFound = (gameId: string): GameFoundSubscriptionAction => ({
-  type: GamePersonalSubscriptionActionTypes.GAME_FOUND,
-  payload: {
-    gameId,
   },
 });
 

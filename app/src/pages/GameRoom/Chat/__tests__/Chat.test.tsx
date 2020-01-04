@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { fireEvent } from '@testing-library/react';
-import { fakeChatMessage } from '../../../../test/fixtures/chat/chatMessage';
+import { fakeChatMessage } from '../../../../../test/fixtures/chat/chatMessage';
 import Chat from '../Chat';
-import { renderWithStyles } from '../../../../test/utils/renderWithStyles';
+import { renderWithStyles } from '../../../../../test/utils/renderWithStyles';
 
 const props = {
   chatMessages: [fakeChatMessage],

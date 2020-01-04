@@ -16,10 +16,14 @@ import com.chess.gameservice.service.GameService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AllArgsConstructor;
 import org.springframework.context.ApplicationListener;
+import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.*;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Controller
@@ -40,8 +44,26 @@ public class GameController implements ApplicationListener<PlayerOutOfTimeEvent>
         }
     }
 
+    @GetMapping("/game/is-game-present")
+    public ResponseEntity<UUID> isGamePresent(@Header("name") String playerName){
+        Optional<UUID> gameId = gameService.getGameWithUser(playerName);
+        if(gameId.isPresent()){
+            return ResponseEntity.of(gameId);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/game/reconnect/{gameId}")
+    public ResponseEntity<Game> reconnect(@PathVariable String gameId, @Header("name") String playerName){
+        Optional<Game> game = gameService.reconnect(UUID.fromString(gameId),playerName);
+        if(game.isPresent()){
+            return ResponseEntity.of(game);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
     @MessageMapping("/move/{gameId}")
-    public void makeMove(@DestinationVariable String gameId, @Payload PlayerMovePayload playerMovePayload, @Header("name") String name, @Header("simpSessionId") String sessionId) throws GameException, JsonProcessingException {
+    public void makeMove(@DestinationVariable String gameId, @Payload PlayerMovePayload playerMovePayload, @Header("name") String name, @Header("simpSessionId") String sessionId) throws GameException {
         Game game = gameService.makeMove(UUID.fromString(gameId), playerMovePayload, name);
         var playerMovedMessage = new PlayerMovedMessage();
         playerMovedMessage.setPayload(game);

@@ -8,6 +8,7 @@ import {
   RegisterUserFailedAction,
   RegisterUserRequestedAction,
   RegisterUserSucceededAction,
+  SetTokenAction,
   UserActionTypes,
 } from './user.types';
 
@@ -74,4 +75,11 @@ export const authenticationSucceededAction = (
 
 export const logoutUser = (): LogoutUserAction => ({
   type: UserActionTypes.LOGOUT_USER,
+});
+
+export const setToken = (token: string): SetTokenAction => ({
+  type: UserActionTypes.SET_TOKEN,
+  payload: {
+    token,
+  },
 });

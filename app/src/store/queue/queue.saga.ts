@@ -20,6 +20,7 @@ import { addToast } from '../toaster/toaster.action';
 import { generateToast } from '../../utils/toastFactory';
 import { ToastTypes } from '../../interfaces/ToastTypes';
 import { isInQueueSelector } from './queue.selectors';
+import { locations } from '../../contants/locations';
 
 export function* queueRootSaga() {
   yield all([
@@ -60,6 +61,6 @@ export function* queueEndedSaga(action: QueueGameFoundAction) {
   const { gameId } = action.payload;
   yield put(initChat(gameId));
   yield put(initGameRequested(gameId));
-  yield put(push(`/game/${gameId}`));
+  yield put(push(`${locations.game}${gameId}`));
   yield put(addToast(generateToast('Game found!', ToastTypes.INFO)));
 }

@@ -1,7 +1,11 @@
 import React from 'react';
 import { HomeContainerProps } from './Home.container';
-import Loader from '../../components/Loader/Loader';
-import Button from '../../components/Button/Button';
+import Queue from './Queue';
+import styled from '@emotion/styled';
+
+const StyledContainer = styled.div`
+  margin: 0 auto;
+`;
 
 interface Props extends HomeContainerProps {}
 
@@ -12,18 +16,17 @@ const Home: React.FC<Props> = ({
   queueCount,
 }) => {
   return (
-    <div data-testid="home">
-      <Loader isLoading={isInQueue}>
-        {isAuthenticated ? (
-          <>
-            <Button onClick={joinQueue}>Play</Button>
-            {isInQueue && <span>In queue with: {queueCount} users</span>}
-          </>
-        ) : (
-          <span>Log in first.</span>
-        )}
-      </Loader>
-    </div>
+    <StyledContainer data-testid="home">
+      {isAuthenticated ? (
+        <Queue
+          queueCount={queueCount}
+          joinQueue={joinQueue}
+          isInQueue={isInQueue}
+        />
+      ) : (
+        <span>Log in first.</span>
+      )}
+    </StyledContainer>
   );
 };
 

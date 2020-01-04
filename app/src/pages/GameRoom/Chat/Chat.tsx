@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ChatMessage from '../../components/ChatMessage/ChatMessage';
+import ChatMessage from '../../../components/ChatMessage/ChatMessage';
 import { ChatContainerProps } from './Chat.container';
 
 interface Props extends ChatContainerProps {}

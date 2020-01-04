@@ -1,15 +1,19 @@
 import React from 'react';
-import { IndividualGameHistoryContainerProps } from './IndividualGameHistory.container';
+import { IndividualGameHistoryContainerProps } from './IndividualMatchHistory.container';
 import Loader from '../../components/Loader/Loader';
-import { useRouteMatch } from 'react-router-dom';
+import { useHistory, useRouteMatch } from 'react-router-dom';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import { IconButton } from '@material-ui/core';
 
 interface Props extends IndividualGameHistoryContainerProps {}
 
-const IndividualGameHistory: React.FC<Props> = ({
+const IndividualMatchHistory: React.FC<Props> = ({
   isLoading,
   individualGames,
   getHistoryGameById,
+  shouldDisplayBackButton,
 }) => {
+  const history = useHistory();
   const match = useRouteMatch<{ id: string }>();
   const id = Number(match.params.id);
   const individualGame = individualGames[id];
@@ -20,8 +24,17 @@ const IndividualGameHistory: React.FC<Props> = ({
     }
   }, [id]);
 
+  const onIconClick = () => {
+    history.goBack();
+  };
+
   return (
     <Loader isLoading={isLoading}>
+      {shouldDisplayBackButton && (
+        <IconButton onClick={onIconClick} color="inherit">
+          <ArrowBackIcon />
+        </IconButton>
+      )}
       <div>
         {individualGame?.turns.map(turn => (
           <div key={turn.turnId}>
@@ -34,4 +47,4 @@ const IndividualGameHistory: React.FC<Props> = ({
   );
 };
 
-export default IndividualGameHistory;
+export default IndividualMatchHistory;

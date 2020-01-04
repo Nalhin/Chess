@@ -1,4 +1,16 @@
 import React from 'react';
+import styled from '@emotion/styled';
+
+const StyledContainer = styled.div`
+  margin: 0 auto;
+  text-align: center;
+  user-select: none;
+  font-size: ${props => props.theme.fontSizes.larger}px;
+
+  ${props => props.theme.mediaQueries.small} {
+    font-size: ${props => props.theme.fontSizes.body}px;
+  }
+`;
 
 interface Props {
   totalTurnTimeRemaining: number;
@@ -37,7 +49,7 @@ const Timer: React.FC<Props> = ({ totalTurnTimeRemaining, isActive }) => {
     };
   }, [isActive]);
 
-  return <div>{counter}</div>;
+  return <StyledContainer>{counter}</StyledContainer>;
 };
 
 export default Timer;

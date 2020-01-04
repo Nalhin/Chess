@@ -1,10 +1,10 @@
-import { AppState } from '../../store/rootReducer';
+import { AppState } from '../../../store/rootReducer';
 import { bindActionCreators, Dispatch } from 'redux';
-import { RootAction } from '../../store/rootAction';
+import { RootAction } from '../../../store/rootAction';
 import { connect } from 'react-redux';
 import Chat from './Chat';
-import { sendMessage } from '../../store/chat/chat.actions';
-import { userSelector } from '../../store/user/user.selectors';
+import { sendMessage } from '../../../store/chat/chat.actions';
+import { userSelector } from '../../../store/user/user.selectors';
 
 const mapStateToProps = (state: AppState) => {
   const chatMessages = state.chat.messages;

@@ -1,8 +1,6 @@
 package com.chess.gameservice.messages.socket;
 
 import com.chess.gameservice.game.Game;
-import com.chess.gameservice.messages.socket.MessageTypes;
-import com.chess.gameservice.messages.socket.PlayerMovedMessage;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONException;

@@ -7,7 +7,7 @@ const Wrapper = styled.div`
 `;
 
 const SpinnerWrapper = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
@@ -29,7 +29,7 @@ const Loader: React.FC<Props> = ({ isLoading, children, className }) => {
     <Wrapper className={className}>
       {isLoading && (
         <SpinnerWrapper>
-          <BounceLoader loading={isLoading} color={'#36D7B7'} size={150} />
+          <BounceLoader loading={true} color={'#36D7B7'} size={150} />
         </SpinnerWrapper>
       )}
       {children}

@@ -7,12 +7,12 @@ import org.springframework.stereotype.Component;
 import java.util.UUID;
 
 @Component
-public class CustomSpringEventPublisher {
+public class StopwatchEventPublisher {
 
     private static ApplicationEventPublisher applicationEventPublisher;
 
-    public CustomSpringEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
-        CustomSpringEventPublisher.applicationEventPublisher = applicationEventPublisher;
+    public StopwatchEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
+        StopwatchEventPublisher.applicationEventPublisher = applicationEventPublisher;
     }
 
     public static void publishPlayerOutOfTime(UUID gameId, String name) {

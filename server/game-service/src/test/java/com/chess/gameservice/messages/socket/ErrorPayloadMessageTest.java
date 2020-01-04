@@ -1,7 +1,5 @@
 package com.chess.gameservice.messages.socket;
 
-import com.chess.gameservice.messages.socket.ErrorMessage;
-import com.chess.gameservice.messages.socket.MessageTypes;
 import com.chess.gameservice.messages.payloads.ErrorPayload;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

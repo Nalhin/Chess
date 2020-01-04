@@ -15,14 +15,12 @@ import { isCurrentTurnSelector } from '../../../store/game/game.selectors';
 const mapStateToProps = (state: AppState) => {
   const selectedPosition = state.game.selectedPiece.position;
   const availableMoves = state.game.selectedPiece.availableMoves;
-  const error = state.game.error;
   const isCurrentTurn = isCurrentTurnSelector(state);
   const gameState = state.game.gameState;
   return {
     selectedPosition,
     availableMoves,
     isCurrentTurn,
-    error,
     gameState,
   };
 };

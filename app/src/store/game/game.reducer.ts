@@ -36,7 +36,6 @@ export const GAME_INITIAL_STATE: GameState = {
     availableMoves: [],
     position: {} as BoardPosition,
   },
-  error: '',
   gameId: '',
 };
 
@@ -61,12 +60,6 @@ const gameReducer: Reducer<GameState, GameActions> = (
         break;
       case GameActionTypes.AVAILABLE_MOVES:
         draft.selectedPiece = action.payload;
-        break;
-      case GameActionTypes.ERROR:
-        draft.error = action.payload.error;
-        break;
-      case GameActionTypes.GAME_FOUND:
-        draft.gameId = action.payload.gameId;
         break;
       case GameActionTypes.CLOSE_GAME:
         draft = GAME_INITIAL_STATE;

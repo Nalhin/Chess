@@ -12,9 +12,10 @@ import { PlayerColor } from '../../../../interfaces/player';
 
 const StyledContainer = styled.div`
   display: grid;
-  grid-template-columns: 1fr 8fr;
+  grid-template-columns: 1fr 8fr 1fr;
   grid-template-rows: 8fr 1fr;
   user-select: none;
+  width: fit-content;
 `;
 
 const StyledBoardContainer = styled.div`

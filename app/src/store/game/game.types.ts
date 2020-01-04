@@ -9,7 +9,6 @@ export interface GameState {
     position: BoardPosition;
     availableMoves: AvailableMoves;
   };
-  readonly error: string;
   readonly gameId: string;
 }
 
@@ -24,13 +23,21 @@ export enum GameBaseActionTypes {
 export enum GamePersonalSubscriptionActionTypes {
   AVAILABLE_MOVES = 'AVAILABLE_MOVES',
   ERROR = 'ERROR',
-  GAME_FOUND = 'GAME_FOUND',
 }
 
 export enum GameStateSubscriptionActionTypes {
   GAME_STARTED = 'GAME_STARTED',
   PLAYER_MOVED = 'PLAYER_MOVED',
   GAME_OVER = 'GAME_OVER',
+}
+
+export enum GameReconnectActionTypes {
+  GAME_IS_PRESENT_REQUESTED = 'GAME_IS_PRESENT_REQUESTED',
+  GAME_IS_PRESENT_SUCCEEDED = 'GAME_IS_PRESENT_SUCCEEDED',
+  GAME_IS_PRESENT_FAILED = 'GAME_IS_PRESENT_FAILED',
+  GAME_RECONNECT_REQUESTED = 'GAME_RECONNECT_REQUESTED',
+  GAME_RECONNECT_SUCCEEDED = 'GAME_FOUND_SUCCEEDED',
+  GAME_RECONNECT_FAILED = 'GAME_RECONNECT_FAILED',
 }
 
 export const GameSubscriptionActionTypes = {
@@ -69,20 +76,6 @@ export interface AvailableMovesSubscriptionAction {
   payload: {
     availableMoves: AvailableMoves;
     position: BoardPosition;
-  };
-}
-
-export interface AvailableMovesErrorSubscriptionAction {
-  type: typeof GamePersonalSubscriptionActionTypes.ERROR;
-  payload: {
-    error: string;
-  };
-}
-
-export interface GameFoundSubscriptionAction {
-  type: typeof GamePersonalSubscriptionActionTypes.GAME_FOUND;
-  payload: {
-    gameId: string;
   };
 }
 
@@ -126,7 +119,5 @@ export type GameActions =
   | PlayerMovedSubscriptionAction
   | GameOverSubscriptionAction
   | AvailableMovesSubscriptionAction
-  | AvailableMovesErrorSubscriptionAction
-  | GameFoundSubscriptionAction
   | PromotePawnAction
   | CloseGameAction;

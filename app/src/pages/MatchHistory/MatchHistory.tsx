@@ -1,6 +1,6 @@
 import React from 'react';
-import Loader from '../../../components/Loader/Loader';
-import { HistoryGameWithTurnCount } from '../../../interfaces/MatchGame';
+import Loader from '../../components/Loader/Loader';
+import { HistoryGameWithTurnCount } from '../../interfaces/MatchGame';
 import MatchHistoryGame from './MatchHistoryGame';
 import styled from '@emotion/styled';
 import { useTheme } from '@emotion/core';
@@ -23,7 +23,7 @@ interface Props {
   login: string;
 }
 
-const MatchHistoryGames: React.FC<Props> = ({
+const MatchHistory: React.FC<Props> = ({
   historyGames,
   getHistoryGames,
   isLoading,
@@ -47,4 +47,4 @@ const MatchHistoryGames: React.FC<Props> = ({
   );
 };
 
-export default MatchHistoryGames;
+export default MatchHistory;

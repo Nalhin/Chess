@@ -14,6 +14,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.Optional;
 import java.util.UUID;
 
 
@@ -25,6 +26,25 @@ public class GameService {
 
     public GameService(ApplicationEventPublisher applicationEventPublisher) {
         this.applicationEventPublisher = applicationEventPublisher;
+    }
+
+    public Optional<UUID> getGameWithUser(String playerName){
+        for (Game game:games.values()) {
+            Optional<UUID> gameId = game.isPlayerPresentInGame(playerName);
+            if(gameId.isPresent()){
+                return gameId;
+            }
+        }
+        return Optional.empty();
+    }
+
+    public Optional<Game> reconnect(UUID gameId, String playerName){
+        Game game = games.get(gameId);
+        Optional<UUID> response = game.isPlayerPresentInGame(playerName);
+        if(response.isEmpty()){
+           return Optional.empty();
+        }
+        return Optional.of(game);
     }
 
     public synchronized Game initialConnect(UUID gameId, String playerName) {

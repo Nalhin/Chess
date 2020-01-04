@@ -11,7 +11,7 @@ import Timer from './Timer/Timer';
 import { Prompt } from 'react-router-dom';
 
 const StyledContainer = styled.div`
-  position: relative;
+  margin: 0 auto;
 `;
 
 interface Props extends GameContainerProps {}
@@ -23,7 +23,6 @@ const Game: React.FC<Props> = ({
   availableMoves,
   makeMove,
   isCurrentTurn,
-  error,
   promotePawn,
   closeGame,
 }) => {
@@ -41,19 +40,8 @@ const Game: React.FC<Props> = ({
         when={gamePhase !== GamePhase.GAME_OVER}
         message="Are sure you want to forfeit the game??"
       />
-      <div>{error}</div>
       <div>
         {currentPlayerColor == PlayerColor.WHITE ? 'White turn' : 'Black turn'}
-        <Timer
-          isActive={
-            currentTurn.turnNumber !== 0 &&
-            currentTurn.currentPlayerColor === PlayerColor.WHITE &&
-            gamePhase !== GamePhase.GAME_OVER
-          }
-          totalTurnTimeRemaining={
-            players[PlayerColor.WHITE].totalTurnTimeRemaining
-          }
-        />
         <Timer
           isActive={
             currentTurn.turnNumber !== 0 &&
@@ -64,27 +52,37 @@ const Game: React.FC<Props> = ({
             players[PlayerColor.BLACK].totalTurnTimeRemaining
           }
         />
+        <Graveyard pieces={graveyards.blackGraveyard} />
+        <Board
+          boardState={gameState.board.state}
+          getAvailableMoves={getAvailableMoves}
+          availableMoves={availableMoves}
+          makeMove={makeMove}
+          selectedPosition={selectedPosition}
+          checkState={checkState}
+          currentPlayerColor={currentPlayerColor}
+        />
+        <PromotionMenu
+          isShown={isPromotionShown}
+          playerColor={currentPlayerColor}
+          positionAwaitingPromotion={positionAwaitingPromotion}
+          promotePawn={promotePawn}
+        />
+        <GameOverMenu
+          isShown={gamePhase === GamePhase.GAME_OVER}
+          closeGame={closeGame}
+        />
+        <Timer
+          isActive={
+            currentTurn.turnNumber !== 0 &&
+            currentTurn.currentPlayerColor === PlayerColor.WHITE &&
+            gamePhase !== GamePhase.GAME_OVER
+          }
+          totalTurnTimeRemaining={
+            players[PlayerColor.WHITE].totalTurnTimeRemaining
+          }
+        />
       </div>
-      <Graveyard pieces={graveyards.blackGraveyard} />
-      <Board
-        boardState={gameState.board.state}
-        getAvailableMoves={getAvailableMoves}
-        availableMoves={availableMoves}
-        makeMove={makeMove}
-        selectedPosition={selectedPosition}
-        checkState={checkState}
-        currentPlayerColor={currentPlayerColor}
-      />
-      <PromotionMenu
-        isShown={isPromotionShown}
-        playerColor={currentPlayerColor}
-        positionAwaitingPromotion={positionAwaitingPromotion}
-        promotePawn={promotePawn}
-      />
-      <GameOverMenu
-        isShown={gamePhase === GamePhase.GAME_OVER}
-        closeGame={closeGame}
-      />
       <Graveyard pieces={graveyards.whiteGraveyard} />
     </StyledContainer>
   );

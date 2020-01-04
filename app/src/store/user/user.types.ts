@@ -17,6 +17,7 @@ export enum UserActionTypes {
   REGISTER_USER_FAILED = 'REGISTER_USER_FAILED',
   AUTHENTICATION_SUCCEEDED = 'AUTHENTICATION_SUCCEEDED',
   LOGOUT_USER = 'LOGOUT_USER',
+  SET_TOKEN = 'SET_TOKEN',
 }
 
 export interface LoginUserRequestedAction {
@@ -72,6 +73,13 @@ export interface LogoutUserAction {
   type: typeof UserActionTypes.LOGOUT_USER;
 }
 
+export interface SetTokenAction {
+  type: typeof UserActionTypes.SET_TOKEN;
+  payload: {
+    token: string;
+  };
+}
+
 export type UserActions =
   | LoginUserRequestedAction
   | LoginUserSucceededAction
@@ -80,4 +88,5 @@ export type UserActions =
   | RegisterUserSucceededAction
   | RegisterUserFailedAction
   | AuthenticationSucceededAction
-  | LogoutUserAction;
+  | LogoutUserAction
+  | SetTokenAction;

@@ -2,6 +2,7 @@ import { isAuthenticatedSelector } from '../../store/user/user.selectors';
 import { useSelector } from 'react-redux';
 import { Redirect, Route, RouteProps } from 'react-router-dom';
 import React from 'react';
+import { locations } from '../../contants/locations';
 
 interface Props extends RouteProps {
   withAuthentication?: boolean;
@@ -20,7 +21,7 @@ const ProtectedRoute: React.FC<Props> = ({
         !isAuthenticated === withAuthentication ? (
           <Component {...props} />
         ) : (
-          <Redirect to="/" />
+          <Redirect to={locations.home} />
         )
       }
     />

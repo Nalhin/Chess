@@ -35,8 +35,8 @@ export const theme = {
     larger: fontSizes[4],
   },
   mediaQueries: {
-    small: `@media screen and (min-width: ${breakpoints[0]})`,
-    medium: `@media screen and (min-width: ${breakpoints[1]})`,
-    large: `@media screen and (min-width: ${breakpoints[2]})`,
+    small: `@media screen and (max-width: ${breakpoints[0]})`,
+    medium: `@media screen and (max-width: ${breakpoints[1]})`,
+    large: `@media screen and (max-width: ${breakpoints[2]})`,
   },
 };
