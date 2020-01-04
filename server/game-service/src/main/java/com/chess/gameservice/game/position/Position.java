@@ -30,4 +30,6 @@ public class Position {
     public boolean isTopRow(){
         return x==Board.BOARD_SIZE;
     }
+
+
 }

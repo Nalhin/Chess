@@ -20,6 +20,6 @@ public class PieceFactory {
             case KING:
                 return new King(playerColor);
         }
-        return null;
+        throw new IllegalArgumentException("Invalid piece type");
     }
 }

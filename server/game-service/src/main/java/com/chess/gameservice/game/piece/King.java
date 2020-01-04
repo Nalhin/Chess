@@ -1,6 +1,7 @@
 package com.chess.gameservice.game.piece;
 
 import com.chess.gameservice.game.board.Board;
+import com.chess.gameservice.game.board.CheckChecker;
 import com.chess.gameservice.game.board.CheckState;
 import com.chess.gameservice.game.player.PlayerColor;
 import com.chess.gameservice.game.position.Position;
@@ -95,7 +96,7 @@ public class King extends Piece {
             if (!board.isBoardPositionEmpty(position)) {
                 return false;
             }
-            if (board.willMoveResultInCheck(initialPosition, position)) {
+            if (CheckChecker.isSquareThreatened(board,position,getPlayerColor())) {
                 return false;
             }
         }
@@ -147,15 +148,17 @@ public class King extends Piece {
         if (isCastling(initialPosition, destinationPosition)) {
             makeCastlingMove(destinationPosition, board);
         }
+        board.setKingPosition(getPlayerColor(), destinationPosition);
     }
 
     private void makeCastlingMove(Position destinationPosition, Board board) {
         Position rookCastlingInitialPosition = Rook.getCastlingInitialPosition(destinationPosition);
-        assert rookCastlingInitialPosition != null;
-        Position rookDestinationPosition = getCastlingDestinationPosition(rookCastlingInitialPosition);
-        Piece rook = board.getPieceByPosition(rookCastlingInitialPosition);
-
-        board.setBoardPosition(rookDestinationPosition, rook);
-        board.setBoardPosition(rookCastlingInitialPosition, null);
+        if (rookCastlingInitialPosition != null) {
+            Position rookDestinationPosition = getCastlingDestinationPosition(rookCastlingInitialPosition);
+            Piece rook = board.getPieceByPosition(rookCastlingInitialPosition);
+            board.setBoardPosition(rookDestinationPosition, rook);
+            board.setBoardPosition(rookCastlingInitialPosition, null);
+        }
     }
+
 }

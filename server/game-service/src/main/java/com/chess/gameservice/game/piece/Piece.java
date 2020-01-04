@@ -106,6 +106,7 @@ public abstract class Piece {
     }
 
     public void makeMove(Position initialPosition,Position destinationPosition,Board board){
+        board.setEnPessantPosition(null);
         board.setBoardPosition(destinationPosition,this);
         board.setBoardPosition(initialPosition,null);
         setFirstMove(false);

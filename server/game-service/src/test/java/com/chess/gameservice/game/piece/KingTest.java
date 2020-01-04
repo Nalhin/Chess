@@ -6,6 +6,7 @@ import com.chess.gameservice.game.position.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -49,6 +50,7 @@ class KingTest {
         ArrayList<Position> expectedAvailableMoves = new ArrayList<>();
         expectedAvailableMoves.add(new Position(0, 2));
         expectedAvailableMoves.add(new Position(0, 6));
+        board.setKingPosition(PlayerColor.WHITE,kingPosition);
 
         ArrayList<Position> availableMoves = king.getAvailableMoves(board, kingPosition);
 
@@ -64,6 +66,8 @@ class KingTest {
         testBoard[0][5] = new Rook(PlayerColor.WHITE);
         testBoard[0][4] = king;
         board.setState(testBoard);
+        board.setKingPosition(PlayerColor.WHITE,kingPosition);
+
         ArrayList<Position> expectedAvailableMoves = new ArrayList<>();
         expectedAvailableMoves.add(new Position(0, 2));
 
@@ -74,13 +78,13 @@ class KingTest {
 
     @Test
     void isMoveLegal() {
-        var currentPosition = new Position(0, 1);
-        var king = new King(PlayerColor.BLACK);
+        Position currentPosition = new Position(0, 1);
+        King king = new King(PlayerColor.BLACK);
 
-        var destinationPositionLegal = new Position(1, 1);
+        Position destinationPositionLegal = new Position(1, 1);
         assertTrue(king.isMoveLegal(currentPosition, destinationPositionLegal, board));
 
-        var destinationPositionIllegal = new Position(2, 1);
+        Position destinationPositionIllegal = new Position(2, 1);
         assertFalse(king.isMoveLegal(currentPosition, destinationPositionIllegal, board));
 
     }
@@ -94,6 +98,7 @@ class KingTest {
         testBoard[0][5] = new Rook(PlayerColor.WHITE);
         testBoard[0][4] = king;
         board.setState(testBoard);
+        board.setKingPosition(PlayerColor.WHITE,kingPosition);
 
         Position illegalCastlingMove = new Position(0, 6);
 

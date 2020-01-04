@@ -20,7 +20,7 @@ public class Player {
     private CustomStopwatch playerStopwatch;
 
     @JsonIgnore
-    private final int PLAYER_GAME_TIME = 20;
+    private final int PLAYER_GAME_TIME = 300;
 
     private Duration totalTurnTimeRemaining = Duration.ofSeconds(PLAYER_GAME_TIME);
 

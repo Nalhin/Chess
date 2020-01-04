@@ -22,7 +22,7 @@ class BoardTest {
     }
 
     @Test
-    void constructorWhiteTest() {
+    void constructorBlackTest() {
 
         assertTrue(board.getState()[0][0] instanceof Rook);
         assertTrue(board.getState()[1][0] instanceof Pawn);
@@ -33,7 +33,7 @@ class BoardTest {
     }
 
     @Test
-    void constructorBlackTest() {
+    void constructorWhiteTest() {
         assertTrue(board.getState()[7][0] instanceof Rook);
         assertTrue(board.getState()[6][0] instanceof Pawn);
         assertTrue(board.getState()[6][7] instanceof Pawn);
@@ -85,7 +85,4 @@ class BoardTest {
         var newPawnPosition = board.getState()[illegalDestinationPosition.getX()][illegalDestinationPosition.getY()];
         assertNull(newPawnPosition);
     }
-
-
-
 }

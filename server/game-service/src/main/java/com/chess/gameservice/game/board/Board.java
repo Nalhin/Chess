@@ -11,9 +11,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-
+import java.util.EnumMap;
 
 @Getter
 @Setter
@@ -34,6 +32,10 @@ public class Board {
     Position positionAwaitingPromotion;
     private Piece[][] state;
     private CheckState checkState;
+    private EnumMap<PlayerColor, Position> kingPositions = new EnumMap<>(PlayerColor.class);
+
+    @JsonIgnore
+    Position enPessantPosition;
 
     public Board() {
         graveyards = new Graveyards();
@@ -45,22 +47,32 @@ public class Board {
     private void populateBoard() {
         populateWhite();
         populateBlack();
+        setKingPosition(PlayerColor.BLACK, new Position(0, 4));
+        setKingPosition(PlayerColor.WHITE, new Position(7, 4));
+    }
+
+    public void setKingPosition(PlayerColor kingColor, Position position) {
+        kingPositions.put(kingColor, position);
+    }
+
+    public Position getKingPosition(PlayerColor kingColor) {
+        return kingPositions.get(kingColor);
     }
 
     private void populateWhite() {
         int z = 0;
-        for (int i = 6; i <= BOARD_SIZE; i++) {
-            for (int j = 0; j <= BOARD_SIZE; j++) {
-                state[i][j] = PieceFactory.buildPiece(playerInitialState[z][j], PlayerColor.WHITE);
+        for (int x = 6; x <= BOARD_SIZE; x++) {
+            for (int y = 0; y <= BOARD_SIZE; y++) {
+                state[x][y] = PieceFactory.buildPiece(playerInitialState[z][y], PlayerColor.WHITE);
             }
             z++;
         }
     }
 
     private void populateBlack() {
-        for (int i = 1; i >= 0; i--) {
-            for (int j = BOARD_SIZE; j >= 0; j--) {
-                state[1 - i][j] = PieceFactory.buildPiece(playerInitialState[i][j], PlayerColor.BLACK);
+        for (int x = 1; x >= 0; x--) {
+            for (int y = BOARD_SIZE; y >= 0; y--) {
+                state[1 - x][y] = PieceFactory.buildPiece(playerInitialState[x][x], PlayerColor.BLACK);
             }
         }
     }
@@ -138,89 +150,23 @@ public class Board {
             throw new GameException("Illegal move.");
         }
 
-        if (willMoveResultInCheck(initialPosition, destination)) {
+        if (CheckChecker.willMoveResultInCheck(this, initialPosition, destination)) {
             throw new GameException("Move ends with check.");
         }
 
         addPieceToGraveyardByPosition(destination);
-        clearEnPassantPositions();
 
         piece.makeMove(initialPosition, destination, this);
-        setCheckState(getCheckState(playerColor));
+        setCheckState(CheckChecker.getCheckState(this, PlayerColor.getOtherColor(piece.getPlayerColor())));
         return piece;
     }
 
-    public void addPieceToGraveyardByPosition(Position position){
+    public void addPieceToGraveyardByPosition(Position position) {
         Piece removedPiece = getPieceByPosition(position);
 
         if (removedPiece != null) {
             graveyards.addPieceToCorrectGraveyard(removedPiece);
         }
-    }
-
-    public boolean willMoveResultInCheck(Position initialPosition, Position destinationPosition) {
-
-        var piece = getPieceByPosition(initialPosition);
-        var removedPiece = getPieceByPosition(destinationPosition);
-        boolean isFirstMove = piece.isFirstMove();
-        piece.setFirstMove(false);
-
-        setBoardPosition(destinationPosition, piece);
-        setBoardPosition(initialPosition, null);
-
-        boolean isCheck = getCheckState(PlayerColor.getOtherColor(piece.getPlayerColor())) != CheckState.NONE;
-
-        setBoardPosition(destinationPosition, removedPiece);
-        setBoardPosition(initialPosition, piece);
-        piece.setFirstMove(isFirstMove);
-        return isCheck;
-    }
-
-    private void clearEnPassantPositions(){
-        Arrays.stream(getState()).forEach(row -> Arrays.stream(row)
-                .filter(piece-> piece instanceof Pawn)
-                .forEach(piece -> ((Pawn) piece)
-                        .clearEnPassantPositions()));
-    }
-
-
-    private CheckState getCheckState(PlayerColor currentPlayerColor) {
-        Position kingPosition = null;
-        ArrayList<Position> currentPlayerPositions = new ArrayList<>();
-        HashSet<Position> positionsAttackableByCurrentPlayer = new HashSet<>();
-
-        for (int i = 0; i <= BOARD_SIZE; i++) {
-            for (int j = 0; j <= BOARD_SIZE; j++) {
-                Piece piece = state[i][j];
-                if (piece == null) {
-                    continue;
-                }
-
-                if (piece.getPlayerColor() == currentPlayerColor) {
-                    Position position = new Position(i, j);
-
-                    currentPlayerPositions.add(position);
-                } else if (piece instanceof King) {
-                    kingPosition = new Position(i, j);
-                }
-            }
-        }
-
-        for (Position position : currentPlayerPositions) {
-            Piece piece = getPieceByPosition(position);
-            positionsAttackableByCurrentPlayer.addAll(piece.getAvailableMoves(this, position));
-        }
-
-        if (positionsAttackableByCurrentPlayer.contains(kingPosition)) {
-            Piece king = getPieceByPosition(kingPosition);
-            ArrayList<Position> kingMoves = king.getAvailableMoves(this, kingPosition);
-
-            if (positionsAttackableByCurrentPlayer.containsAll(kingMoves)) {
-                return CheckState.CHECK_MATE;
-            }
-            return CheckState.CHECK;
-        }
-        return CheckState.NONE;
     }
 
     public void makePromotion(Position position, PlayerColor playerColor, PieceType selectedPromotion) throws GameException {
@@ -236,7 +182,7 @@ public class Board {
         if (playerColor != piece.getPlayerColor()) {
             throw new GameException("Invalid pawn color.");
         }
-        if (promotedPiece == null || promotedPiece instanceof Pawn) {
+        if (promotedPiece instanceof Pawn) {
             throw new GameException("Invalid piece type.");
         }
 

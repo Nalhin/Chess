@@ -7,14 +7,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 @Setter
 @Getter
 @NoArgsConstructor
 public class Pawn extends Piece {
-
-    Position enPassantableBy;
 
     Pawn(PlayerColor playerColor) {
         super(playerColor, PieceType.PAWN);
@@ -45,17 +44,12 @@ public class Pawn extends Piece {
                 availableMoves.add(position);
             }
         }
+        Position enPessantPosition = board.getEnPessantPosition();
+        if (enPessantPosition != null &&
+                enPessantPosition.getX() == initialPosition.getX()
+                && Math.abs(initialPosition.getY() - enPessantPosition.getY()) == 1) {
 
-        for (Position position : getLeftAndRightPosition(initialPosition)) {
-            if (!position.isWithinBounds()) {
-                break;
-            }
-            Piece piece = board.getPieceByPosition(position);
-            if (isPieceEnPassantable(piece, initialPosition) && ((Pawn) piece).getEnPassantableBy().equals(initialPosition) &&
-                    piece.getPlayerColor() != getPlayerColor()
-            ) {
-                availableMoves.add(new Position(position.getX() + getDirection(), position.getY()));
-            }
+            availableMoves.add(getCorrespondingEnPessantDestination(enPessantPosition));
         }
 
         return availableMoves;
@@ -64,16 +58,8 @@ public class Pawn extends Piece {
     @Override
     public boolean isMoveLegal(Position currentPosition, Position destinationPosition, Board board) {
         int direction = getDirection();
-        if (isMoveEnPassant(currentPosition, destinationPosition, board)) {
-            Position enemyPiecePosition = new Position(destinationPosition.getX() - getDirection(), destinationPosition.getY());
-            if (!enemyPiecePosition.isWithinBounds()) {
-                return false;
-            }
-            Piece enemyPiece = board.getPieceByPosition(enemyPiecePosition);
-            if (enemyPiece instanceof Pawn && ((Pawn) enemyPiece).getEnPassantableBy().equals(currentPosition)) {
-                return true;
-
-            }
+        if (isMoveEnPassant(destinationPosition, board)) {
+            return true;
         }
         if (currentPosition.getY() != destinationPosition.getY()) {
             if (Math.abs(currentPosition.getY() - destinationPosition.getY()) == 1) {
@@ -95,17 +81,19 @@ public class Pawn extends Piece {
 
     @Override
     public void makeMove(Position initialPosition, Position destinationPosition, Board board) {
+        if (isMoveEnPassant(destinationPosition, board)) {
+            Position pawnToRemove = board.getEnPessantPosition();
+            board.addPieceToGraveyardByPosition(pawnToRemove);
+            board.setBoardPosition(pawnToRemove, null);
+        }
+
         super.makeMove(initialPosition, destinationPosition, board);
+
         if (destinationPosition.getX() == Board.BOTTOM_ROW || destinationPosition.getX() == Board.BOARD_SIZE) {
             board.setPositionAwaitingPromotion(destinationPosition);
         }
         if (isLongMove(initialPosition, destinationPosition)) {
-            addPositionsEnPassantableBy(destinationPosition, board);
-        }
-        if (isMoveEnPassant(initialPosition, destinationPosition, board)) {
-            Position pawnToRemove = new Position(initialPosition.getX(), destinationPosition.getY());
-            board.addPieceToGraveyardByPosition(pawnToRemove);
-            board.setBoardPosition(pawnToRemove, null);
+            board.setEnPessantPosition(destinationPosition);
         }
     }
 
@@ -113,42 +101,15 @@ public class Pawn extends Piece {
         return Math.abs(initialPosition.getX() - destinationPosition.getX()) == 2;
     }
 
-    private void addPositionsEnPassantableBy(Position destinationPosition, Board board) {
-
-        Position[] enPassablePositions = getLeftAndRightPosition(destinationPosition);
-
-        for (Position position : enPassablePositions) {
-            if (position.isWithinBounds()) {
-                Piece piece = board.getPieceByPosition(position);
-                if (piece instanceof Pawn && piece.getPlayerColor() != getPlayerColor()) {
-                    setEnPassantableBy(position);
-                }
-            }
+    private boolean isMoveEnPassant(Position destinationPosition, Board board) {
+        Position enPessantPosition = board.getEnPessantPosition();
+        if (enPessantPosition == null) {
+            return false;
         }
+        return getCorrespondingEnPessantDestination(enPessantPosition).equals(destinationPosition);
     }
 
-    Position[] getLeftAndRightPosition(Position position) {
-        return new Position[]{new Position(position.getX(), position.getY() + 1),
-                new Position(position.getX(), position.getY() - 1)};
-    }
-
-    private boolean isMoveEnPassant(Position initialPosition, Position destinationPosition, Board board) {
-        return initialPosition.getX() != destinationPosition.getX() &&
-                initialPosition.getY() != destinationPosition.getY() &&
-                board.getPieceByPosition(destinationPosition) == null;
-    }
-
-    private boolean isPieceEnPassantable(Piece enemyPiece, Position currentPosition) {
-        if (enemyPiece instanceof Pawn) {
-            Position enPassantable = ((Pawn) enemyPiece).getEnPassantableBy();
-            if (enPassantable != null) {
-                return enPassantable.equals(currentPosition);
-            }
-        }
-        return false;
-    }
-
-    public void clearEnPassantPositions() {
-        enPassantableBy = null;
+    private Position getCorrespondingEnPessantDestination(Position enPessantPosition) {
+        return new Position(enPessantPosition.getX() + getDirection(), enPessantPosition.getY());
     }
 }
