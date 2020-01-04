@@ -72,7 +72,7 @@ public class Board {
     private void populateBlack() {
         for (int x = 1; x >= 0; x--) {
             for (int y = BOARD_SIZE; y >= 0; y--) {
-                state[1 - x][y] = PieceFactory.buildPiece(playerInitialState[x][x], PlayerColor.BLACK);
+                state[1 - x][y] = PieceFactory.buildPiece(playerInitialState[x][y], PlayerColor.BLACK);
             }
         }
     }
