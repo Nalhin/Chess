@@ -1,9 +1,10 @@
 import React from 'react';
 import Game from './Game/Game.container';
 import Chat from './Chat/Chat.container';
-import { withRouter } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { useTheme } from '@emotion/core';
+import { GameRoomContainerProps } from './GameRoom.container';
+import QueueLoader from '../../components/Loader/QueueLoader';
 
 const StyledContainer = styled.div`
   display: flex;
@@ -14,14 +15,25 @@ const StyledContainer = styled.div`
   }
 `;
 
-const GameRoom = () => {
+interface Props extends GameRoomContainerProps {}
+
+const GameRoom: React.FC<Props> = ({ isGameLoading }) => {
   const theme = useTheme();
   return (
     <StyledContainer theme={theme}>
-      <Game />
-      <Chat />
+      {isGameLoading ? (
+        <>
+          <h1>Loading game...</h1>
+          <QueueLoader />
+        </>
+      ) : (
+        <>
+          <Game />
+          <Chat />
+        </>
+      )}
     </StyledContainer>
   );
 };
 
-export default withRouter(GameRoom);
+export default GameRoom;

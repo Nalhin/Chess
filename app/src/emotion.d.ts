@@ -11,6 +11,7 @@ declare module '@emotion/core' {
       secondary: string;
       background: string;
       foreground: string;
+      backgroundHover: string;
       error: string;
       success: string;
     };
@@ -26,6 +27,7 @@ declare module '@emotion/core' {
       giga: number;
     };
     fontSizes: {
+      small: number;
       body: number;
       larger: number;
     };

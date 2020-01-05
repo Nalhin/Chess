@@ -3,7 +3,6 @@ package com.chess.queueservice.service;
 
 import com.chess.queueservice.exception.QueueException;
 import com.chess.queueservice.models.User;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,16 +11,8 @@ import java.util.LinkedList;
 
 @Service
 public class QueueService {
-    private final String TOPIC = "users";
 
-    private final KafkaTemplate<String, String> kafkaTemplate;
     private final LinkedList<User> queue = new LinkedList<>();
-
-
-    public QueueService(KafkaTemplate<String, String> kafkaTemplate) {
-        this.kafkaTemplate = kafkaTemplate;
-    }
-
 
     public synchronized ArrayList<User> joinQueue(User user) throws QueueException {
         if (queue.contains(user)) {
@@ -42,5 +33,7 @@ public class QueueService {
         return queue.size();
     }
 
-
+    public synchronized void removeUser(String sessionId){
+        queue.removeIf(user->user.getSessionId().equals(sessionId));
+    }
 }

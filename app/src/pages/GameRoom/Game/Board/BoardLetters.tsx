@@ -1,35 +1,30 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import { BoardTextBase } from './BoardNumbers';
 
-export const BoardTextBase = styled.div`
-  font-size: ${props => props.theme.fontSizes.larger}px;
-  font-weight: ${props => props.theme.fontWeights.heading};
-
-  ${props => props.theme.mediaQueries.small} {
-    font-size: ${props => props.theme.fontSizes.body}px;
-  }
-`;
-
-const StyledLetters = styled.div`
+const StyledNumbers = styled.div`
   display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  grid-column-start: 2;
+  grid-column-end: 8;
 `;
 
-const StyledLetterContainer = styled(BoardTextBase)`
+const StyledNumberContainer = styled(BoardTextBase)`
   display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  padding-right: ${props => props.theme.space.large}px;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: ${props => props.theme.space.medium}px;
 `;
 
 const boardLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].reverse();
 
 const BoardLetters = React.memo(() => {
   return (
-    <StyledLetters>
+    <StyledNumbers>
       {boardLetters.map(letter => (
-        <StyledLetterContainer key={letter}>{letter}</StyledLetterContainer>
+        <StyledNumberContainer key={letter}>{letter}</StyledNumberContainer>
       ))}
-    </StyledLetters>
+    </StyledNumbers>
   );
 });
 

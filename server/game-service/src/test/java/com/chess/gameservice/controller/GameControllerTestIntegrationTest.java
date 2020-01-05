@@ -1,28 +1,46 @@
 package com.chess.gameservice.controller;
 
 import com.chess.gameservice.game.position.Position;
-import com.chess.gameservice.messages.socket.MessageTypes;
+import com.chess.gameservice.messages.external.StartGameMessage;
+import com.chess.gameservice.messages.external.User;
 import com.chess.gameservice.messages.payloads.PlayerMovePayload;
+import com.chess.gameservice.messages.socket.MessageTypes;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.common.serialization.StringSerializer;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.context.annotation.Bean;
+import org.springframework.kafka.core.DefaultKafkaProducerFactory;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.core.ProducerFactory;
+import org.springframework.kafka.support.KafkaHeaders;
+import org.springframework.kafka.support.serializer.JsonSerializer;
+import org.springframework.kafka.test.EmbeddedKafkaBroker;
 import org.springframework.kafka.test.context.EmbeddedKafka;
+import org.springframework.messaging.Message;
 import org.springframework.messaging.simp.stomp.StompFrameHandler;
 import org.springframework.messaging.simp.stomp.StompHeaders;
 import org.springframework.messaging.simp.stomp.StompSession;
 import org.springframework.messaging.simp.stomp.StompSessionHandlerAdapter;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.web.socket.client.standard.StandardWebSocketClient;
 import org.springframework.web.socket.messaging.WebSocketStompClient;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.LinkedBlockingDeque;
@@ -33,12 +51,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @Tag("integration-test")
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@EmbeddedKafka(topics = "game",
-        bootstrapServersProperty = "spring.kafka.bootstrap-servers")
+@EmbeddedKafka(topics = "start-game")
 @DirtiesContext
-@SpringJUnitConfig
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class GameControllerTestIntegrationTest {
+
+
+
+
+    @Autowired
+    private KafkaTemplate<String, StartGameMessage> template;
+
 
     @LocalServerPort
     private int port;
@@ -77,6 +100,17 @@ class GameControllerTestIntegrationTest {
         }).get(1, SECONDS);
 
         objectMapper = new ObjectMapper();
+
+        template.setDefaultTopic("start-game");
+        User u1 = new User(firstPlayerName,"1");
+        User u2 = new User(secondPlayerName,"2");
+        ArrayList<User> users = new ArrayList<>();
+        users.add(u1);
+        users.add(u2);
+        Message<StartGameMessage> message= MessageBuilder
+                .withPayload(new StartGameMessage(UUID.fromString(gameId),users))
+                .setHeader(KafkaHeaders.TOPIC,"start-game").build();
+        template.send(message);
     }
 
     void startGame() throws InterruptedException {
@@ -192,5 +226,44 @@ class GameControllerTestIntegrationTest {
                 e.printStackTrace();
             }
         }
+    }
+
+    @TestConfiguration
+    public static class TestConfig{
+
+        @Value("${spring.kafka.bootstrap-servers}")
+        private String bootstrapServers;
+
+
+        @Bean
+        public Map<String, Object> kafkaTestConfig() {
+            Map<String, Object> props = new HashMap<>();
+            props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
+            props.put(ProducerConfig.RETRIES_CONFIG, 0);
+            props.put(ProducerConfig.BATCH_SIZE_CONFIG, 16384);
+            props.put(ProducerConfig.LINGER_MS_CONFIG, 1);
+            props.put(ProducerConfig.BUFFER_MEMORY_CONFIG, 33554432);
+            props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+            props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
+
+            return props;
+
+        }
+
+        @Bean
+        public ProducerFactory<String, StartGameMessage> producerTestFactory() {
+            return new DefaultKafkaProducerFactory<>(kafkaTestConfig());
+        }
+
+        @Bean
+        public KafkaTemplate<String, StartGameMessage> kafkaTestTemplate() {
+            return new KafkaTemplate<>(producerTestFactory());
+        }
+    }
+
+
+    static {
+        System.setProperty(EmbeddedKafkaBroker.BROKER_LIST_PROPERTY,
+                "spring.kafka.bootstrap-servers");
     }
 }

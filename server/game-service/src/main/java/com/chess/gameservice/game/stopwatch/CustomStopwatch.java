@@ -42,9 +42,7 @@ public class CustomStopwatch {
             return Duration.ZERO;
         }
 
-
         Instant ends = Instant.now();
-        System.out.println(Duration.between(startTime, ends));
         return Duration.between(startTime, ends);
     }
 

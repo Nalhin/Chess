@@ -5,6 +5,8 @@ import com.chess.gameservice.game.Game;
 import com.chess.gameservice.game.piece.Pawn;
 import com.chess.gameservice.game.player.PlayerColor;
 import com.chess.gameservice.game.position.Position;
+import com.chess.gameservice.messages.external.StartGameMessage;
+import com.chess.gameservice.messages.external.User;
 import com.chess.gameservice.messages.payloads.AvailableMovesPayload;
 import com.chess.gameservice.messages.payloads.PlayerMovePayload;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,19 +34,36 @@ class GameServiceTest {
     private UUID gameId = new UUID(8, 8);
     private String firstPlayerName = "firstPlayer";
     private String secondPlayerName = "secondPlayer";
+    private StartGameMessage startGameMessage;
+
+
 
     @BeforeEach
     void setUp() {
         gameService = new GameService(applicationEventPublisher);
+        startGameMessage= new StartGameMessage();
+        User u1 = new User(firstPlayerName,"1");
+        User u2 = new User(secondPlayerName,"2");
+        ArrayList<User> users = new ArrayList<>();
+        users.add(u1);
+        users.add(u2);
+        startGameMessage.setGameId(gameId);
+        startGameMessage.setUsers(users);
     }
 
     @Test
-    void initialConnect() {
-        Game game = gameService.initialConnect(gameId, firstPlayerName);
+    void getGameWithUserTest(){
+        gameService.initGame(startGameMessage);
 
-        assertNull(game);
+        assertTrue(gameService.getGameWithUser(firstPlayerName).isPresent());
+    }
 
-        game = gameService.initialConnect(gameId, secondPlayerName);
+
+    @Test
+    void initialConnectTest() {
+        gameService.initGame(startGameMessage);
+
+        Game game = gameService.connect(gameId, secondPlayerName).get();
 
         assertNotNull(game);
         assertNotNull(game.getPlayers().get(PlayerColor.BLACK));
@@ -52,27 +71,28 @@ class GameServiceTest {
     }
 
     @Test
-    void getAvailableMoves() throws GameException {
-        gameService.initialConnect(gameId, firstPlayerName);
-        gameService.initialConnect(gameId, secondPlayerName);
+    void getAvailableMovesTest() throws GameException {
+        gameService.initGame(startGameMessage);
 
-        var pawnPosition = new Position(6, 5);
-        var expectedMoves = new ArrayList<Position>();
+        Position pawnPosition = new Position(6, 5);
+        ArrayList<Position> expectedMoves = new ArrayList<Position>();
         expectedMoves.add(new Position(5, 5));
         expectedMoves.add(new Position(4, 5));
-        var expectedAvailableMoves = new AvailableMovesPayload();
+        AvailableMovesPayload expectedAvailableMoves = new AvailableMovesPayload();
         expectedAvailableMoves.setPosition(pawnPosition);
         expectedAvailableMoves.setAvailableMoves(expectedMoves);
 
-        var availableMoves = gameService.getAvailableMoves(gameId, pawnPosition, firstPlayerName);
+        AvailableMovesPayload availableMoves = gameService.getAvailableMoves(gameId, pawnPosition, firstPlayerName);
 
         assertEquals(expectedAvailableMoves, availableMoves);
     }
 
     @Test
-    void move() throws GameException {
-        gameService.initialConnect(gameId, firstPlayerName);
-        gameService.initialConnect(gameId, secondPlayerName);
+    void moveTest() throws GameException {
+        gameService.initGame(startGameMessage);
+
+        gameService.connect(gameId, firstPlayerName);
+        gameService.connect(gameId, secondPlayerName);
         var initialPosition = new Position(6, 7);
         var destinationPosition = new Position(5, 7);
         var playerMove = new PlayerMovePayload(initialPosition, destinationPosition);

@@ -4,6 +4,16 @@ import Loader from '../../components/Loader/Loader';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { IconButton } from '@material-ui/core';
+import styled from '@emotion/styled';
+import IndividualMatch from './IndividualMatch';
+
+const StyledLoader = styled(Loader)`
+  margin: 0 auto;
+`;
+
+const StyledBackIcon = styled(IconButton)`
+  margin-left: ${props => props.theme.space.small}px;
+`;
 
 interface Props extends IndividualGameHistoryContainerProps {}
 
@@ -29,21 +39,15 @@ const IndividualMatchHistory: React.FC<Props> = ({
   };
 
   return (
-    <Loader isLoading={isLoading}>
+    <StyledLoader isLoading={isLoading}>
       {shouldDisplayBackButton && (
-        <IconButton onClick={onIconClick} color="inherit">
+        <StyledBackIcon onClick={onIconClick} color="inherit">
           <ArrowBackIcon />
-        </IconButton>
+        </StyledBackIcon>
       )}
-      <div>
-        {individualGame?.turns.map(turn => (
-          <div key={turn.turnId}>
-            <span>{turn.pieceType}</span>
-            <span>{turn.pieceType}</span>
-          </div>
-        ))}
-      </div>
-    </Loader>
+
+      {individualGame && <IndividualMatch game={individualGame} />}
+    </StyledLoader>
   );
 };
 

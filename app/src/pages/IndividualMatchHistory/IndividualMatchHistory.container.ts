@@ -5,7 +5,7 @@ import { RootAction } from '../../store/rootAction';
 import { connect } from 'react-redux';
 import { getHistoryGameByIdRequested } from '../../store/gameHistory/gameHistory.actions';
 import IndividualMatchHistory from './IndividualMatchHistory';
-import { shouldDisplayBack } from '../../store/router/router.selectors';
+import { shouldDisplayBack } from '../../store/customRouter/customRouter.selectors';
 import { locations } from '../../contants/locations';
 
 const mapStateToProps = (state: AppState) => {

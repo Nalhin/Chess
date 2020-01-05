@@ -24,7 +24,6 @@ public class KafkaService implements ApplicationListener<GameOverEvent> {
     }
 
     public void sendHistory(Game game) {
-
         Message<HistoryMessage> message =
                 MessageBuilder
                         .withPayload(HistoryMessage.builder()

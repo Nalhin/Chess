@@ -2,6 +2,7 @@ import { AppState } from '../rootReducer';
 import { userSelector } from '../user/user.selectors';
 import { createSelector } from 'reselect';
 import isEqual from 'lodash/isEqual';
+import { GAME_INITIAL_STATE } from './game.reducer';
 
 export const gameIdSelector = (state: AppState) => state.game.gameId;
 
@@ -21,3 +22,6 @@ export const isCurrentTurnSelector = createSelector(
     return isEqual(players[currentTurn.currentPlayerColor].name, user.login);
   },
 );
+
+export const isGameLoadingSelector = (state: AppState) =>
+  isEqual(state.game.gameState, GAME_INITIAL_STATE.gameState);

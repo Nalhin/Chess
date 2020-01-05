@@ -1,9 +1,17 @@
 import {
   AvailableMovesSubscriptionAction,
+  ClearGameAction,
   CloseGameAction,
   GameBaseActionTypes,
+  GameIsPresentFailedAction,
+  GameIsPresentRequestedAction,
+  GameIsPresentSucceededAction,
   GameOverSubscriptionAction,
   GamePersonalSubscriptionActionTypes,
+  GameReconnectActionTypes,
+  GameReconnectFailedAction,
+  GameReconnectRequestedAction,
+  GameReconnectSucceededAction,
   GameStartedSubscriptionAction,
   GameStateSubscriptionActionTypes,
   GetAvailableMovesRequestedAction,
@@ -83,4 +91,39 @@ export const promotePawn = (position: BoardPosition, pieceType: PieceType) => ({
 
 export const closeGame = (): CloseGameAction => ({
   type: GameBaseActionTypes.CLOSE_GAME,
+});
+
+export const gameIsPresentRequested = (): GameIsPresentRequestedAction => ({
+  type: GameReconnectActionTypes.GAME_IS_PRESENT_REQUESTED,
+});
+
+export const gameIsPresentSucceeded = (
+  gameId: string,
+): GameIsPresentSucceededAction => ({
+  type: GameReconnectActionTypes.GAME_IS_PRESENT_SUCCEEDED,
+  payload: { gameId },
+});
+
+export const gameIsPresentFailed = (): GameIsPresentFailedAction => ({
+  type: GameReconnectActionTypes.GAME_IS_PRESENT_FAILED,
+});
+export const gameReconnectRequested = (): GameReconnectRequestedAction => ({
+  type: GameReconnectActionTypes.GAME_RECONNECT_REQUESTED,
+});
+
+export const gameReconnectSucceeded = (
+  game: Game,
+): GameReconnectSucceededAction => ({
+  type: GameReconnectActionTypes.GAME_RECONNECT_SUCCEEDED,
+  payload: {
+    game,
+  },
+});
+
+export const gameReconnectFailed = (): GameReconnectFailedAction => ({
+  type: GameReconnectActionTypes.GAME_RECONNECT_FAILED,
+});
+
+export const clearGame = (): ClearGameAction => ({
+  type: GameBaseActionTypes.CLEAR_GAME,
 });

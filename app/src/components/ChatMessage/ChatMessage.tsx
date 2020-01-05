@@ -2,8 +2,8 @@ import React from 'react';
 import { ChatMessageType } from '../../interfaces/chatMessageType';
 import styled from '@emotion/styled';
 import { useTheme } from '@emotion/core';
-import { isoDateToSecondsMinutesAndHours } from '../../../test/utils/isoDateToSecondsMinutesAndHours';
 import PlayerAvatar from '../PlayerAvatar/PlayerAvatar';
+import moment from 'moment';
 
 interface StyledMessageProps {
   isSender: boolean;
@@ -44,7 +44,7 @@ const ChatMessage: React.FC<Props> = ({ chatMessage, userLogin }) => {
   const theme = useTheme();
   return (
     <StyledHeaderWrapper>
-      <div>{isoDateToSecondsMinutesAndHours(sendDate)}</div>
+      {sendDate && <div>{moment(sendDate).format()}</div>}
       <StyledContainer>
         {sender && (
           <StyledPlayerAvatar name={sender} isThumbnail>

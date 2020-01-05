@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { Redirect, Route, RouteProps } from 'react-router-dom';
 import React from 'react';
 import { locations } from '../../contants/locations';
+import Cookies from 'js-cookie';
 
 interface Props extends RouteProps {
   withAuthentication?: boolean;
@@ -13,7 +14,8 @@ const ProtectedRoute: React.FC<Props> = ({
   withAuthentication,
   ...rest
 }) => {
-  const isAuthenticated = useSelector(isAuthenticatedSelector);
+  const isAuthenticated =
+    useSelector(isAuthenticatedSelector) || Cookies.get('token');
   return (
     <Route
       {...rest}

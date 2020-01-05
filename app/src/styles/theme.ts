@@ -4,6 +4,7 @@ const colors = {
   textLight: '#ffffff',
   background: '#f8f8f8',
   foreground: '#ffffff',
+  backgroundHover: '#00000011',
   primary: '#1976d2',
   primaryHover: '#1976d2cc',
   secondary: '',
@@ -31,6 +32,7 @@ export const theme = {
     giga: space[4],
   },
   fontSizes: {
+    small: fontSizes[0],
     body: fontSizes[2],
     larger: fontSizes[4],
   },

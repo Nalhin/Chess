@@ -10,6 +10,7 @@ import { Player, PlayerColor } from '../../interfaces/player';
 import { GamePhase } from '../../interfaces/game';
 import { BoardPosition } from '../../interfaces/boardPosition';
 import { CheckState } from '../../interfaces/checkState';
+import { CustomRouterActionTypes } from '../customRouter/customRouter.types';
 
 export const GAME_INITIAL_STATE: GameState = {
   gameState: {
@@ -37,6 +38,7 @@ export const GAME_INITIAL_STATE: GameState = {
     position: {} as BoardPosition,
   },
   gameId: '',
+  isReconnect: false,
 };
 
 const gameReducer: Reducer<GameState, GameActions> = (
@@ -49,7 +51,9 @@ const gameReducer: Reducer<GameState, GameActions> = (
         draft.gameId = action.payload.id;
         break;
       case GameActionTypes.GAME_STARTED:
+      case GameActionTypes.GAME_RECONNECT_SUCCEEDED:
         draft.gameState = action.payload.game;
+        draft.isReconnect = false;
         break;
       case GameActionTypes.PLAYER_MOVED:
         draft.gameState = action.payload.game;
@@ -61,8 +65,12 @@ const gameReducer: Reducer<GameState, GameActions> = (
       case GameActionTypes.AVAILABLE_MOVES:
         draft.selectedPiece = action.payload;
         break;
-      case GameActionTypes.CLOSE_GAME:
+      case GameActionTypes.CLEAR_GAME:
         draft = GAME_INITIAL_STATE;
+        break;
+      case GameActionTypes.GAME_IS_PRESENT_SUCCEEDED:
+        draft.isReconnect = true;
+        draft.gameId = action.payload.gameId;
         break;
       default:
         break;

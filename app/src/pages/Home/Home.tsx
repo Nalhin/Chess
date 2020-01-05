@@ -14,6 +14,9 @@ const Home: React.FC<Props> = ({
   joinQueue,
   isInQueue,
   queueCount,
+  gameIsPresent,
+  gameReconnect,
+  isReconnectShown,
 }) => {
   return (
     <StyledContainer data-testid="home">
@@ -22,6 +25,9 @@ const Home: React.FC<Props> = ({
           queueCount={queueCount}
           joinQueue={joinQueue}
           isInQueue={isInQueue}
+          gameIsPresent={gameIsPresent}
+          gameReconnect={gameReconnect}
+          isReconnectShown={isReconnectShown}
         />
       ) : (
         <span>Log in first.</span>

@@ -1,22 +1,26 @@
 package com.chess.queueservice.controller;
 
 import com.chess.queueservice.exception.QueueException;
-import com.chess.queueservice.messages.CountMessage;
-import com.chess.queueservice.messages.ErrorMessage;
-import com.chess.queueservice.messages.GameFoundMessage;
-import com.chess.queueservice.messages.QueueJoinedMessage;
-import com.chess.queueservice.messages.payloads.CountPayload;
-import com.chess.queueservice.messages.payloads.ErrorPayload;
-import com.chess.queueservice.messages.payloads.GameFoundPayload;
-import com.chess.queueservice.messages.payloads.QueueJoinedMessagePayload;
+import com.chess.queueservice.messages.websocket.CountMessage;
+import com.chess.queueservice.messages.websocket.ErrorMessage;
+import com.chess.queueservice.messages.websocket.GameFoundMessage;
+import com.chess.queueservice.messages.websocket.QueueJoinedMessage;
+import com.chess.queueservice.messages.websocket.payload.CountPayload;
+import com.chess.queueservice.messages.websocket.payload.ErrorPayload;
+import com.chess.queueservice.messages.websocket.payload.GameFoundPayload;
+import com.chess.queueservice.messages.websocket.payload.QueueJoinedMessagePayload;
 import com.chess.queueservice.models.User;
+import com.chess.queueservice.service.KafkaService;
 import com.chess.queueservice.service.QueueService;
 import lombok.AllArgsConstructor;
+import org.springframework.context.event.EventListener;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
 import java.time.Instant;
 import java.time.ZoneOffset;
@@ -29,17 +33,15 @@ import java.util.UUID;
 public class QueueController {
     private final QueueService queueService;
     private final SimpMessagingTemplate simpMessagingTemplate;
-
+    private final KafkaService kafkaService;
 
     @MessageMapping("/queue")
-    public void joinQueue(@Header("name") String name) throws QueueException {
-
-        ArrayList<User> users = queueService.joinQueue(new User(name));
-
+    public void joinQueue(SimpMessageHeaderAccessor headerAccessor, @Header("name") String name) throws QueueException {
+        ArrayList<User> users = queueService.joinQueue(new User(name,headerAccessor.getSessionId()));
         if (users != null) {
             UUID gameId = UUID.randomUUID();
             GameFoundMessage gameFoundMessage = new GameFoundMessage(new GameFoundPayload(gameId.toString()));
-
+            kafkaService.sendGameFound(gameId,users);
             for (User user : users) {
                 simpMessagingTemplate.convertAndSend("/queue/personal/" + user.getName(), gameFoundMessage);
             }
@@ -55,6 +57,11 @@ public class QueueController {
             CountMessage userCountMessage = new CountMessage(new CountPayload(queueSize));
             simpMessagingTemplate.convertAndSend("/topic/state", userCountMessage);
         }
+    }
+
+    @EventListener
+    public void onDisconnectEvent(SessionDisconnectEvent event){
+        queueService.removeUser(event.getSessionId());
     }
 
     @MessageExceptionHandler

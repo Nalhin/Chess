@@ -55,7 +55,7 @@ interface ToastProps {
   type: ToastTypes;
 }
 
-const autoHideDuration = 5000;
+const autoHideDuration = 3000;
 
 const Toast: React.FC<ToastProps> = ({ onClose, message, id, type }) => {
   const handleClose = React.useCallback(() => onClose(id), [id]);

@@ -6,12 +6,30 @@ interface Props {
   joinQueue: () => void;
   queueCount: number;
   isInQueue: boolean;
+  gameReconnect: () => void;
+  gameIsPresent: () => void;
+  isReconnectShown: boolean;
 }
 
-const Queue: React.FC<Props> = ({ queueCount, joinQueue, isInQueue }) => {
+const Queue: React.FC<Props> = ({
+  queueCount,
+  joinQueue,
+  isInQueue,
+  isReconnectShown,
+  gameReconnect,
+  gameIsPresent,
+}) => {
+  React.useEffect(() => {
+    gameIsPresent();
+  }, []);
+
   return (
     <div>
-      <Button onClick={joinQueue}>Play</Button>
+      {isReconnectShown ? (
+        <Button onClick={gameReconnect}>Reconnect</Button>
+      ) : (
+        <Button onClick={joinQueue}>Play</Button>
+      )}
       {isInQueue && <QueueLoader />}
     </div>
   );

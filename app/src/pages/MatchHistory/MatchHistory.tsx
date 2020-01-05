@@ -1,6 +1,6 @@
 import React from 'react';
 import Loader from '../../components/Loader/Loader';
-import { HistoryGameWithTurnCount } from '../../interfaces/MatchGame';
+import { HistoryGameWithTurnCount } from '../../interfaces/HistoryGame';
 import MatchHistoryGame from './MatchHistoryGame';
 import styled from '@emotion/styled';
 import { useTheme } from '@emotion/core';

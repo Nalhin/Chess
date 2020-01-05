@@ -1,9 +1,6 @@
 server:
   port: 8084
 
-spring:
-  application:
-    name: queue-service
 eureka:
   client:
     registerWithEureka: true
@@ -11,5 +8,8 @@ eureka:
     serviceUrl:
       defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
 
-kafka:
-  bootstrap-servers: localhost:9092
+spring:
+  application:
+    name: queue-service
+  kafka:
+    bootstrap-servers: localhost:9092

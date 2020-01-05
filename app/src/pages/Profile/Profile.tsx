@@ -24,6 +24,7 @@ const StyledContainer = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  padding-top: ${props => props.theme.space.giga}px;
 `;
 
 interface Props extends ProfileContainerProps {}
@@ -32,7 +33,7 @@ const Profile: React.FC<Props> = ({ user, addToast }) => {
   const theme = useTheme();
 
   return (
-    <StyledContainer>
+    <StyledContainer theme={theme}>
       <div>
         <StyledHeader theme={theme}>Your Profile</StyledHeader>
         <List>

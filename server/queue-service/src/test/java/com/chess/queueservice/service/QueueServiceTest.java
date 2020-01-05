@@ -5,10 +5,7 @@ import com.chess.queueservice.models.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.kafka.core.KafkaTemplate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -16,21 +13,17 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 @ExtendWith(MockitoExtension.class)
 class QueueServiceTest {
 
-    @Mock
-    private KafkaTemplate<String, String>  kafkaTemplate;
-
-    @InjectMocks
     private QueueService queueService;
 
     @BeforeEach
     void setUp() {
-        queueService = new QueueService(kafkaTemplate);
+        queueService = new QueueService();
     }
 
     @Test
     void joinQueue() throws QueueException {
-        var firstUser = new User("1");
-        var secondUser = new User("2");
+        User firstUser = new User("1", "1");
+        User secondUser = new User("2", "1");
 
         var users = queueService.joinQueue(firstUser);
         assertNull(users);
@@ -41,12 +34,24 @@ class QueueServiceTest {
 
     @Test
     void getQueueSize() throws QueueException {
-        var firstUser = new User("1");
+        User firstUser = new User("1", "1");
         int expectedCount = 1;
 
         queueService.joinQueue(firstUser);
         int userCount = queueService.getQueueSize();
 
         assertEquals(expectedCount, userCount);
+    }
+
+    @Test
+    void removeUser() throws QueueException {
+        String sessionId = "2";
+        User firstUser = new User("1", sessionId);
+        int expectedCount = 0;
+
+        queueService.joinQueue(firstUser);
+        queueService.removeUser(sessionId);
+
+        assertEquals(expectedCount, queueService.getQueueSize());
     }
 }

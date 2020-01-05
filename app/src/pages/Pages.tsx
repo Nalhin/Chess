@@ -12,7 +12,7 @@ const StyledContentContainer = styled.div`
   padding-top: 70px;
 `;
 
-const GameRoom = React.lazy(() => import('./GameRoom/GameRoom'));
+const GameRoom = React.lazy(() => import('./GameRoom/GameRoom.container'));
 const Home = React.lazy(() => import('./Home/Home.container'));
 const Profile = React.lazy(() => import('./Profile/Profile.container'));
 const SignIn = React.lazy(() => import('./SignIn/SignIn'));

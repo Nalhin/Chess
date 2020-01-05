@@ -2,6 +2,7 @@ import { Game } from '../../interfaces/game';
 import { BoardPosition } from '../../interfaces/boardPosition';
 import { AvailableMoves } from '../../interfaces/availableMoves';
 import { PieceType } from '../../interfaces/piece';
+import { CustomRouterLocationChangeAction } from '../customRouter/customRouter.types';
 
 export interface GameState {
   readonly gameState: Game;
@@ -10,6 +11,7 @@ export interface GameState {
     availableMoves: AvailableMoves;
   };
   readonly gameId: string;
+  readonly isReconnect: boolean;
 }
 
 export enum GameBaseActionTypes {
@@ -18,6 +20,7 @@ export enum GameBaseActionTypes {
   GET_AVAILABLE_MOVES = 'GET_AVAILABLE_MOVES',
   MAKE_MOVE = 'MAKE_MOVE',
   CLOSE_GAME = 'CLOSE_GAME',
+  CLEAR_GAME = 'CLEAR_GAME',
 }
 
 export enum GamePersonalSubscriptionActionTypes {
@@ -36,13 +39,14 @@ export enum GameReconnectActionTypes {
   GAME_IS_PRESENT_SUCCEEDED = 'GAME_IS_PRESENT_SUCCEEDED',
   GAME_IS_PRESENT_FAILED = 'GAME_IS_PRESENT_FAILED',
   GAME_RECONNECT_REQUESTED = 'GAME_RECONNECT_REQUESTED',
-  GAME_RECONNECT_SUCCEEDED = 'GAME_FOUND_SUCCEEDED',
+  GAME_RECONNECT_SUCCEEDED = 'GAME_RECONNECT_SUCCEEDED',
   GAME_RECONNECT_FAILED = 'GAME_RECONNECT_FAILED',
 }
 
 export const GameSubscriptionActionTypes = {
   ...GamePersonalSubscriptionActionTypes,
   ...GameStateSubscriptionActionTypes,
+  ...GameReconnectActionTypes,
 };
 
 export const GameActionTypes = {
@@ -111,6 +115,38 @@ export interface CloseGameAction {
   type: typeof GameBaseActionTypes.CLOSE_GAME;
 }
 
+export interface GameIsPresentRequestedAction {
+  type: GameReconnectActionTypes.GAME_IS_PRESENT_REQUESTED;
+}
+
+export interface GameIsPresentSucceededAction {
+  type: GameReconnectActionTypes.GAME_IS_PRESENT_SUCCEEDED;
+  payload: {
+    gameId: string;
+  };
+}
+
+export interface GameIsPresentFailedAction {
+  type: GameReconnectActionTypes.GAME_IS_PRESENT_FAILED;
+}
+
+export interface GameReconnectRequestedAction {
+  type: GameReconnectActionTypes.GAME_RECONNECT_REQUESTED;
+}
+
+export interface GameReconnectSucceededAction {
+  type: GameReconnectActionTypes.GAME_RECONNECT_SUCCEEDED;
+  payload: {
+    game: Game;
+  };
+}
+export interface GameReconnectFailedAction {
+  type: GameReconnectActionTypes.GAME_RECONNECT_FAILED;
+}
+export interface ClearGameAction {
+  type: GameBaseActionTypes.CLEAR_GAME;
+}
+
 export type GameActions =
   | InitGameAction
   | GetAvailableMovesRequestedAction
@@ -120,4 +156,11 @@ export type GameActions =
   | GameOverSubscriptionAction
   | AvailableMovesSubscriptionAction
   | PromotePawnAction
-  | CloseGameAction;
+  | CloseGameAction
+  | GameIsPresentRequestedAction
+  | GameIsPresentSucceededAction
+  | GameIsPresentFailedAction
+  | GameReconnectRequestedAction
+  | GameReconnectSucceededAction
+  | GameReconnectFailedAction
+  | ClearGameAction;

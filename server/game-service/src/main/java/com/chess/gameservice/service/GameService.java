@@ -7,12 +7,17 @@ import com.chess.gameservice.game.player.Player;
 import com.chess.gameservice.game.player.PlayerColor;
 import com.chess.gameservice.game.position.Position;
 import com.chess.gameservice.messages.events.GameOverEvent;
+import com.chess.gameservice.messages.external.StartGameMessage;
+import com.chess.gameservice.messages.external.User;
 import com.chess.gameservice.messages.payloads.AvailableMovesPayload;
 import com.chess.gameservice.messages.payloads.PlayerMovePayload;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Optional;
 import java.util.UUID;
@@ -21,49 +26,51 @@ import java.util.UUID;
 @Service
 public class GameService {
 
-    private HashMap<UUID, Game> games=new HashMap<>();
+    private HashMap<UUID, Game> games = new HashMap<>();
     private ApplicationEventPublisher applicationEventPublisher;
 
     public GameService(ApplicationEventPublisher applicationEventPublisher) {
         this.applicationEventPublisher = applicationEventPublisher;
     }
 
-    public Optional<UUID> getGameWithUser(String playerName){
-        for (Game game:games.values()) {
+    public Optional<UUID> getGameWithUser(String playerName) {
+        for (Game game : games.values()) {
             Optional<UUID> gameId = game.isPlayerPresentInGame(playerName);
-            if(gameId.isPresent()){
+            if (gameId.isPresent()) {
                 return gameId;
             }
         }
         return Optional.empty();
     }
 
-    public Optional<Game> reconnect(UUID gameId, String playerName){
+    public Optional<Game> reconnect(UUID gameId, String playerName) {
         Game game = games.get(gameId);
         Optional<UUID> response = game.isPlayerPresentInGame(playerName);
-        if(response.isEmpty()){
-           return Optional.empty();
+        if (response.isEmpty()) {
+            return Optional.empty();
         }
         return Optional.of(game);
     }
 
-    public synchronized Game initialConnect(UUID gameId, String playerName) {
+    public synchronized Optional<Game> connect(UUID gameId, String playerName) {
         Game game = games.get(gameId);
-
-        if (game == null) {
-            game = new Game();
-            game.setGameId(gameId);
-            var player = new Player(playerName);
-            game.setPlayer(player, PlayerColor.WHITE);
-            games.put(gameId, game);
-            return null;
+        Optional<UUID> response = game.isPlayerPresentInGame(playerName);
+        if (response.isEmpty()) {
+            return Optional.empty();
         }
+        return Optional.of(game);
+    }
 
-        var player = new Player(playerName);
-        game.setPlayer(player, PlayerColor.BLACK);
+    @KafkaListener(topics = "start-game")
+    public void initGame(@Payload StartGameMessage message) {
+        UUID gameId = message.getGameId();
+        Game game = new Game();
+        ArrayList<User> players = message.getUsers();
+        game.setGameId(gameId);
+        game.setPlayer(new Player(players.get(0).getName()), PlayerColor.WHITE);
+        game.setPlayer(new Player(players.get(1).getName()), PlayerColor.BLACK);
+        games.put(gameId, game);
         game.initGame(gameId);
-
-        return game;
     }
 
     public AvailableMovesPayload getAvailableMoves(UUID gameId, Position position, String name) throws GameException {
@@ -92,7 +99,7 @@ public class GameService {
         return game;
     }
 
-    public Game playerOutOfTime(UUID gameId){
+    public Game playerOutOfTime(UUID gameId) {
         Game game = games.get(gameId);
         game.playerTimedOutOrOutOfTime();
         gameFinished(game, gameId);

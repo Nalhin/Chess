@@ -5,10 +5,10 @@ import { AvailableMoves } from '../../../../interfaces/availableMoves';
 import { Piece } from '../../../../interfaces/piece';
 import { BoardPosition } from '../../../../interfaces/boardPosition';
 import { arePositionsEqual } from '../../../../utils/arePositionsEqual';
-import BoardLetters from './BoardLetters';
-import BoardNumbers from './BoardNumbers';
 import { CheckState } from '../../../../interfaces/checkState';
 import { PlayerColor } from '../../../../interfaces/player';
+import BoardLetters from './BoardLetters';
+import BoardNumbers from './BoardNumbers';
 
 const StyledContainer = styled.div`
   display: grid;
@@ -45,7 +45,7 @@ const Board: React.FC<Props> = ({
 }) => {
   return (
     <StyledContainer>
-      <BoardLetters />
+      <BoardNumbers />
       <StyledBoardContainer>
         {boardState.map((row, x) =>
           row.map((cell, y) => {
@@ -70,7 +70,7 @@ const Board: React.FC<Props> = ({
           }),
         )}
       </StyledBoardContainer>
-      <BoardNumbers />
+      <BoardLetters />
     </StyledContainer>
   );
 };
