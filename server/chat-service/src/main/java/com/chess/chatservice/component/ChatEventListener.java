@@ -2,6 +2,7 @@ package com.chess.chatservice.component;
 
 import com.chess.chatservice.model.InfoMessage;
 import com.chess.chatservice.service.ChatService;
+import com.chess.chatservice.utils.IsoDate;
 import org.springframework.context.event.EventListener;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
@@ -10,8 +11,6 @@ import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 import org.springframework.web.socket.messaging.SessionSubscribeEvent;
 import org.springframework.web.socket.messaging.SessionUnsubscribeEvent;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.UUID;
 
 @Component
@@ -43,24 +42,24 @@ public class ChatEventListener {
 
     @EventListener
     public void sessionUnsubscribeEvent(SessionUnsubscribeEvent unsubscribeEvent) {
-        var accessor = StompHeaderAccessor.wrap(unsubscribeEvent.getMessage());
-        var chatId = chatService.getChatIdAndRemoveFromChat(accessor.getSubscriptionId());
+        StompHeaderAccessor accessor = StompHeaderAccessor.wrap(unsubscribeEvent.getMessage());
+        UUID chatId = chatService.getChatIdAndRemoveFromChat(accessor.getSubscriptionId());
         sendInfoMessage(chatId.toString(), "User left the chat.");
     }
 
     @EventListener
     public void sessionDisconnectEvent(SessionDisconnectEvent disconnectEvent) {
-        var accessor = StompHeaderAccessor.wrap(disconnectEvent.getMessage());
-        var chatId = chatService.getChatIdAndRemoveFromChat(accessor.getSubscriptionId());
+        StompHeaderAccessor accessor = StompHeaderAccessor.wrap(disconnectEvent.getMessage());
+        UUID chatId = chatService.getChatIdAndRemoveFromChat(accessor.getSubscriptionId());
         if (chatId != null) {
             sendInfoMessage(chatId.toString(), "User disconnected.");
         }
     }
 
     private void sendInfoMessage(String chatId, String content) {
-        var message = new InfoMessage();
+        InfoMessage message = new InfoMessage();
         message.setContent(content);
-        message.setSendDate(new SimpleDateFormat("HH:mm:ss").format(new Date()));
+        message.setSendDate(IsoDate.getCurrentIsoDate());
         message.setId(UUID.randomUUID().toString());
         messagingTemplate.convertAndSend("/topic/chat/" + chatId, message);
     }

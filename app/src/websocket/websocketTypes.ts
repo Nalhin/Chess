@@ -1,4 +1,4 @@
-export enum websocketTypes {
+export enum WebsocketTypes {
   GAME,
   CHAT,
   QUEUE,

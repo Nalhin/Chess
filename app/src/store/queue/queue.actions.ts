@@ -1,9 +1,11 @@
 import {
   JoinQueueAction,
+  LeaveQueueAction,
   QueueActionTypes,
   QueueCountAction,
   QueueGameFoundAction,
   QueueJoinedAction,
+  QueueLeftAction,
 } from './queue.types';
 
 export const joinQueue = (): JoinQueueAction => ({
@@ -29,4 +31,12 @@ export const gameFound = (gameId: string): QueueGameFoundAction => ({
   payload: {
     gameId,
   },
+});
+
+export const queueLeft = (): QueueLeftAction => ({
+  type: QueueActionTypes.QUEUE_LEFT,
+});
+
+export const leaveQueue = (): LeaveQueueAction => ({
+  type: QueueActionTypes.LEAVE_QUEUE,
 });

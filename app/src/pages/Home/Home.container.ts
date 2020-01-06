@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import Home from './Home';
 import { isAuthenticatedSelector } from '../../store/user/user.selectors';
 import { isInQueueSelector } from '../../store/queue/queue.selectors';
-import { joinQueue } from '../../store/queue/queue.actions';
+import { joinQueue, leaveQueue } from '../../store/queue/queue.actions';
 import {
   gameIsPresentRequested,
   gameReconnectRequested,
@@ -16,11 +16,13 @@ const mapStateToProps = (state: AppState) => {
   const isInQueue = isInQueueSelector(state);
   const queueCount = state.queue.queueUserCount;
   const isReconnectShown = state.game.isReconnect;
+  const timeJoined = state.queue.timeJoined;
   return {
     isAuthenticated,
     isInQueue,
     queueCount,
     isReconnectShown,
+    timeJoined,
   };
 };
 
@@ -30,6 +32,7 @@ const mapDispatchToProps = (dispatch: Dispatch<RootAction>) =>
       joinQueue,
       gameIsPresent: gameIsPresentRequested,
       gameReconnect: gameReconnectRequested,
+      leaveQueue,
     },
     dispatch,
   );

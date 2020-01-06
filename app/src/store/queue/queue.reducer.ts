@@ -3,7 +3,7 @@ import { Reducer } from 'redux';
 import produce from 'immer';
 
 export const QUEUE_INITIAL_STATE: QueueState = {
-  queueUserCount: null,
+  queueUserCount: 0,
   timeJoined: '',
 };
 
@@ -20,7 +20,10 @@ const queueReducer: Reducer<QueueState, QueueActions> = (
         draft.timeJoined = action.payload.timeJoined;
         break;
       case QueueActionTypes.QUEUE_GAME_FOUND:
-        draft = QUEUE_INITIAL_STATE;
+      case QueueActionTypes.QUEUE_LEFT:
+        draft.timeJoined = '';
+        break;
+      default:
         break;
     }
   });

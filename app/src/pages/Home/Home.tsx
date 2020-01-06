@@ -5,6 +5,13 @@ import styled from '@emotion/styled';
 
 const StyledContainer = styled.div`
   margin: 0 auto;
+  text-align: center;
+`;
+
+const StyledHeader = styled.h1`
+  padding-top: ${props => props.theme.space.large}px;
+  font-size: ${props => props.theme.fontSizes.larger}px;
+  font-weight: ${props => props.theme.fontWeights.heading}px;
 `;
 
 interface Props extends HomeContainerProps {}
@@ -17,6 +24,8 @@ const Home: React.FC<Props> = ({
   gameIsPresent,
   gameReconnect,
   isReconnectShown,
+  leaveQueue,
+  timeJoined,
 }) => {
   return (
     <StyledContainer data-testid="home">
@@ -28,9 +37,11 @@ const Home: React.FC<Props> = ({
           gameIsPresent={gameIsPresent}
           gameReconnect={gameReconnect}
           isReconnectShown={isReconnectShown}
+          leaveQueue={leaveQueue}
+          timeJoined={timeJoined}
         />
       ) : (
-        <span>Log in first.</span>
+        <StyledHeader>Log in first.</StyledHeader>
       )}
     </StyledContainer>
   );

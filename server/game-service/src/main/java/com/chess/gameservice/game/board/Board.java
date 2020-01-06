@@ -188,6 +188,7 @@ public class Board {
 
         setBoardPosition(position, promotedPiece);
         positionAwaitingPromotion = null;
+        setCheckState(CheckChecker.getCheckState(this, PlayerColor.getOtherColor(piece.getPlayerColor())));
     }
 
 }

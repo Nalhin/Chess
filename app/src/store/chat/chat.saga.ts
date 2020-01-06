@@ -8,7 +8,7 @@ import {
 import { StompSingleton } from '../../websocket/stompClient';
 import { userSelector } from '../user/user.selectors';
 import { chatSubscription } from './chat.subscriptions';
-import { websocketTypes } from '../../websocket/websocketTypes';
+import { WebsocketTypes } from '../../websocket/websocketTypes';
 
 export function* chatRootSaga(): SagaIterator {
   yield all([
@@ -18,16 +18,17 @@ export function* chatRootSaga(): SagaIterator {
 }
 
 export function* initChatSaga(action: InitChatAction): SagaIterator {
-  const chatStomp = StompSingleton.getInstance(websocketTypes.CHAT);
+  const chatStomp = StompSingleton.getInstance(WebsocketTypes.CHAT);
 
   const subscription = chatSubscription(chatStomp, action.payload.chatId);
 
   yield take(ChatBaseActionTypes.CLOSE_CHAT);
   subscription.unsubscribe();
+  StompSingleton.deactivateInstance(WebsocketTypes.CHAT);
 }
 
 export function* sendMessageSaga(action: SendMessageAction): SagaIterator {
-  const chatStomp = StompSingleton.getInstance(websocketTypes.CHAT);
+  const chatStomp = StompSingleton.getInstance(WebsocketTypes.CHAT);
 
   const [user, chatId] = yield all([
     select(userSelector),

@@ -18,8 +18,8 @@ public class QueueService {
         if (queue.contains(user)) {
             throw new QueueException("Player already in queue.");
         }
-        queue.offer(user);
 
+        queue.offer(user);
         if (queue.size() >= 2) {
             var users = new ArrayList<User>();
             users.add(queue.remove());

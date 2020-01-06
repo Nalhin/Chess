@@ -12,6 +12,7 @@ import { cellSize } from '../../../../styles/cellSize';
 
 interface StyledCellProps {
   isChecked: boolean;
+  isHoverShown: boolean;
 }
 
 const StyledCell = styled.div<StyledCellProps>`
@@ -49,6 +50,8 @@ const StyledCell = styled.div<StyledCellProps>`
     width: ${cellSize.mobile};
     height: ${cellSize.mobile};
   }
+
+  ${props => props.isHoverShown && 'cursor:pointer'}
 `;
 
 interface StyledOverlayProps {
@@ -82,6 +85,7 @@ interface CellProps {
   pieceColor: PlayerColor;
   currentPlayerColor: PlayerColor;
   checkState: CheckState;
+  userColor: PlayerColor;
 }
 
 const Cell: React.FC<CellProps> = ({
@@ -94,6 +98,7 @@ const Cell: React.FC<CellProps> = ({
   checkState,
   currentPlayerColor,
   pieceColor,
+  userColor,
 }) => {
   const theme = useTheme();
 
@@ -115,6 +120,9 @@ const Cell: React.FC<CellProps> = ({
     getAvailableMoves(position);
   }
 
+  const belongsToPlayer = pieceColor === userColor;
+  const isHoverShown = belongsToPlayer || isMoveAvailable;
+
   const isChecked =
     checkState !== CheckState.NONE &&
     currentPlayerColor === pieceColor &&
@@ -122,6 +130,7 @@ const Cell: React.FC<CellProps> = ({
 
   return (
     <StyledCell
+      isHoverShown={isHoverShown}
       onClick={handleOnClick}
       ref={drop}
       isChecked={isChecked}

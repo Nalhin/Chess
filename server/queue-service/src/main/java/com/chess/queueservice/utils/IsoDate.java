@@ -1,4 +1,4 @@
-package com.chess.chatservice.utils;
+package com.chess.queueservice.utils;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

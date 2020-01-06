@@ -6,7 +6,10 @@ import com.chess.authenticationservice.model.User;
 import com.chess.authenticationservice.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -34,6 +37,5 @@ public class UserController {
         var user = userService.authorize(req);
         return ResponseEntity.ok().body(user);
     }
-
 
 }

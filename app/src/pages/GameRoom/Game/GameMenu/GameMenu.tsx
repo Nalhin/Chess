@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import { Card } from '@material-ui/core';
+import { useTheme } from '@emotion/core';
 
 const StyledContainer = styled.div`
   position: absolute;
@@ -10,10 +12,11 @@ const StyledContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  background: #444444dd;
 `;
 
-const StyledMenu = styled.div`
-  background: #444444dd;
+const StyledMenu = styled(Card)`
+  padding: ${props => props.theme.space.medium}px;
 `;
 
 interface Props {
@@ -21,13 +24,14 @@ interface Props {
 }
 
 const GameMenu: React.FC<Props> = ({ isShown, children }) => {
+  const theme = useTheme();
   if (!isShown) {
     return null;
   }
 
   return (
     <StyledContainer>
-      <StyledMenu>{children}</StyledMenu>
+      <StyledMenu theme={theme}>{children}</StyledMenu>
     </StyledContainer>
   );
 };

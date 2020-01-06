@@ -20,7 +20,8 @@ const chatReducer: Reducer<ChatState, ChatActions> = (
         draft.messages.push(action.payload.message);
         break;
       case ChatActionTypes.CLOSE_CHAT:
-        draft = CHAT_INITIAL_STATE;
+        draft.messages = [];
+        draft.id = '';
         break;
       default:
         break;

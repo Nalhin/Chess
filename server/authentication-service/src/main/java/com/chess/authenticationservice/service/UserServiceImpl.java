@@ -6,24 +6,14 @@ import com.chess.authenticationservice.model.User;
 import com.chess.authenticationservice.repositories.UserRepository;
 import com.chess.authenticationservice.security.JwtTokenProvider;
 import lombok.AllArgsConstructor;
-import net.coobird.thumbnailator.Thumbnails;
-import net.coobird.thumbnailator.name.Rename;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 @Service
 @AllArgsConstructor
@@ -37,11 +27,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto save(User user) throws CustomException {
-
-        if (userRepository.existsByEmail(user.getEmail()) || userRepository.existsByLogin(user.getLogin())) {
-            throw CustomException.builder().message("Email or password already taken. ").httpStatus(HttpStatus.UNPROCESSABLE_ENTITY).build();
+        if(user.getPassword()==null||user.getEmail()==null||user.getLogin()==null){
+            throw CustomException.builder().message("Empty field provided.").httpStatus(HttpStatus.UNPROCESSABLE_ENTITY).build();
         }
-
+        if (userRepository.existsByEmail(user.getEmail()) || userRepository.existsByLogin(user.getLogin())) {
+            throw CustomException.builder().message("Login or email already taken.").httpStatus(HttpStatus.UNPROCESSABLE_ENTITY).build();
+        }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         User savedUser = userRepository.save(user);
         String token = jwtTokenProvider.createToken(user.getLogin());
@@ -64,11 +55,9 @@ public class UserServiceImpl implements UserService {
     public UserDto authorize(HttpServletRequest req) throws CustomException {
         String token = jwtTokenProvider.resolveToken(req);
         User user = userRepository.findByLogin(jwtTokenProvider.getLogin(token));
-
         if (user == null) {
             throw CustomException.builder().message("Incorrect credentials.").httpStatus(HttpStatus.NOT_FOUND).build();
         }
-
         return UserDto.builder().email(user.getEmail()).login(user.getLogin()).token(token).build();
     }
 

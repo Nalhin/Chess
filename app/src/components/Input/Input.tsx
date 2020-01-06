@@ -8,8 +8,8 @@ const StyledTextField = styled(TextField)`
 `;
 
 interface Props {
-  label: string;
-  name: string;
+  label?: string;
+  name?: string;
   required?: boolean;
   value: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;

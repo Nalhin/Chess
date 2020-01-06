@@ -18,7 +18,7 @@ import {
 import { StompSingleton } from '../../websocket/stompClient';
 import { gameIdSelector, selectedPieceSelector } from './game.selectors';
 import { userSelector } from '../user/user.selectors';
-import { websocketTypes } from '../../websocket/websocketTypes';
+import { WebsocketTypes } from '../../websocket/websocketTypes';
 import { call, put } from 'redux-saga-test-plan/matchers';
 import { fetchIsGamePresent } from './game.api';
 import {
@@ -32,7 +32,7 @@ import { locations } from '../../contants/locations';
 import { addToast } from '../toaster/toaster.action';
 import { generateToast } from '../../utils/toastFactory';
 import { ToastTypes } from '../../interfaces/ToastTypes';
-import { initChat } from '../chat/chat.actions';
+import { closeChat, initChat } from '../chat/chat.actions';
 
 export function* gameRootSaga(): SagaIterator {
   yield all([
@@ -68,7 +68,7 @@ export function* reconnectToGameSaga(action: GameReconnectRequestedAction) {
 }
 
 export function* initGameSaga(action: InitGameAction) {
-  const gameStomp = StompSingleton.getInstance(websocketTypes.GAME);
+  const gameStomp = StompSingleton.getInstance(WebsocketTypes.GAME);
 
   const gameId = action.payload.id;
   const { login } = yield select(userSelector);
@@ -86,12 +86,14 @@ export function* initGameSaga(action: InitGameAction) {
     // take(CustomRouterActionTypes.LOCATION_CHANGE),
   ]);
   yield put(clearGame());
+  yield put(closeChat());
   gameSubscription.unsubscribe();
   availableMoves.unsubscribe();
+  StompSingleton.deactivateInstance(WebsocketTypes.GAME);
 }
 
 export function* forfeitGameSaga() {
-  const gameStomp = StompSingleton.getInstance(websocketTypes.GAME);
+  const gameStomp = StompSingleton.getInstance(WebsocketTypes.GAME);
 
   const [gameId, { login }] = yield all([
     select(gameIdSelector),
@@ -117,7 +119,7 @@ export function* isGamePresentSaga(action: GameIsPresentRequestedAction) {
 function* getAvailableMovesSaga(
   action: GetAvailableMovesRequestedAction,
 ): SagaIterator {
-  const gameStomp = StompSingleton.getInstance(websocketTypes.GAME);
+  const gameStomp = StompSingleton.getInstance(WebsocketTypes.GAME);
   const [gameId, user] = yield all([
     select(gameIdSelector),
     select(userSelector),
@@ -132,7 +134,7 @@ function* getAvailableMovesSaga(
 }
 
 function* makeMoveSaga(action: MakeMoveRequestedAction): SagaIterator {
-  const gameStomp = StompSingleton.getInstance(websocketTypes.GAME);
+  const gameStomp = StompSingleton.getInstance(WebsocketTypes.GAME);
 
   const [initialPosition, gameId, user] = yield all([
     select(selectedPieceSelector),
@@ -149,7 +151,7 @@ function* makeMoveSaga(action: MakeMoveRequestedAction): SagaIterator {
 }
 
 function* promotePawnSaga(action: PromotePawnAction) {
-  const gameStomp = StompSingleton.getInstance(websocketTypes.GAME);
+  const gameStomp = StompSingleton.getInstance(WebsocketTypes.GAME);
 
   const [gameId, user] = yield all([
     select(gameIdSelector),

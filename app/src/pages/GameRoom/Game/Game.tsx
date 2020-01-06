@@ -12,7 +12,14 @@ import { Prompt } from 'react-router-dom';
 import ForfeitGame from './ForfeitGame/ForfeitGame';
 
 const StyledContainer = styled.div`
-  margin: 0 auto;
+  margin-left: auto;
+  ${props => props.theme.mediaQueries.small} {
+    margin: 0 auto;
+  }
+`;
+
+const StyledBoardContainer = styled.div`
+  position: relative;
 `;
 
 interface Props extends GameContainerProps {}
@@ -43,9 +50,11 @@ const Game: React.FC<Props> = ({
         when={gamePhase !== GamePhase.GAME_OVER}
         message="Are sure you want to leave the game??"
       />
-      {userColor === PlayerColor.BLACK && (
-        <ForfeitGame forfeitGame={forfeitGame} />
-      )}
+      <ForfeitGame
+        forfeitGame={forfeitGame}
+        userColor={userColor}
+        displayedFor={PlayerColor.BLACK}
+      />
       <Timer
         isActive={
           currentTurn.turnNumber !== 0 &&
@@ -57,25 +66,28 @@ const Game: React.FC<Props> = ({
         }
       />
       <Graveyard pieces={graveyards.blackGraveyard} />
-      <Board
-        boardState={gameState.board.state}
-        getAvailableMoves={getAvailableMoves}
-        availableMoves={availableMoves}
-        makeMove={makeMove}
-        selectedPosition={selectedPosition}
-        checkState={checkState}
-        currentPlayerColor={currentPlayerColor}
-      />
-      <PromotionMenu
-        isShown={isPromotionShown}
-        playerColor={currentPlayerColor}
-        positionAwaitingPromotion={positionAwaitingPromotion}
-        promotePawn={promotePawn}
-      />
-      <GameOverMenu
-        isShown={gamePhase === GamePhase.GAME_OVER}
-        closeGame={closeGame}
-      />
+      <StyledBoardContainer>
+        <Board
+          boardState={gameState.board.state}
+          getAvailableMoves={getAvailableMoves}
+          availableMoves={availableMoves}
+          makeMove={makeMove}
+          selectedPosition={selectedPosition}
+          checkState={checkState}
+          currentPlayerColor={currentPlayerColor}
+          userColor={userColor}
+        />
+        <PromotionMenu
+          isShown={isPromotionShown}
+          playerColor={currentPlayerColor}
+          positionAwaitingPromotion={positionAwaitingPromotion}
+          promotePawn={promotePawn}
+        />
+        <GameOverMenu
+          isShown={gamePhase === GamePhase.GAME_OVER}
+          closeGame={closeGame}
+        />
+      </StyledBoardContainer>
       <Graveyard pieces={graveyards.whiteGraveyard} />
       <Timer
         isActive={
@@ -87,9 +99,12 @@ const Game: React.FC<Props> = ({
           players[PlayerColor.WHITE].totalTurnTimeRemaining
         }
       />
-      {userColor === PlayerColor.BLACK && (
-        <ForfeitGame forfeitGame={forfeitGame} />
-      )}
+
+      <ForfeitGame
+        forfeitGame={forfeitGame}
+        userColor={userColor}
+        displayedFor={PlayerColor.WHITE}
+      />
     </StyledContainer>
   );
 };

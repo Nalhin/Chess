@@ -13,6 +13,7 @@ export enum QueueSubscriptionActionTypes {
   QUEUE_COUNT = 'QUEUE_COUNT',
   QUEUE_JOINED = 'QUEUE_JOINED',
   QUEUE_GAME_FOUND = 'QUEUE_GAME_FOUND',
+  QUEUE_LEFT = 'QUEUE_LEFT',
 }
 
 export const QueueActionTypes = {
@@ -49,9 +50,14 @@ export interface LeaveQueueAction {
   type: typeof QueueActionTypes.LEAVE_QUEUE;
 }
 
+export interface QueueLeftAction {
+  type: typeof QueueActionTypes.QUEUE_LEFT;
+}
+
 export type QueueActions =
   | JoinQueueAction
   | QueueCountAction
   | QueueGameFoundAction
   | QueueJoinedAction
-  | LeaveQueueAction;
+  | LeaveQueueAction
+  | QueueLeftAction;
