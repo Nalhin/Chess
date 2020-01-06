@@ -60,7 +60,7 @@ class GameServiceTest {
 
 
     @Test
-    void initialConnectTest() {
+    void initialConnectTest() throws InterruptedException {
         gameService.initGame(startGameMessage);
 
         Game game = gameService.connect(gameId, secondPlayerName).get();
@@ -75,7 +75,7 @@ class GameServiceTest {
         gameService.initGame(startGameMessage);
 
         Position pawnPosition = new Position(6, 5);
-        ArrayList<Position> expectedMoves = new ArrayList<Position>();
+        ArrayList<Position> expectedMoves = new ArrayList<>();
         expectedMoves.add(new Position(5, 5));
         expectedMoves.add(new Position(4, 5));
         AvailableMovesPayload expectedAvailableMoves = new AvailableMovesPayload();
@@ -88,7 +88,7 @@ class GameServiceTest {
     }
 
     @Test
-    void moveTest() throws GameException {
+    void moveTest() throws GameException, InterruptedException {
         gameService.initGame(startGameMessage);
 
         gameService.connect(gameId, firstPlayerName);

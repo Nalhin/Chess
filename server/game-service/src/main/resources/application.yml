@@ -1,8 +1,6 @@
 server:
   port: 8081
 
-
-
 eureka:
   client:
     registerWithEureka: true

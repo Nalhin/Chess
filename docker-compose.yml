@@ -24,6 +24,7 @@ services:
     depends_on:
       - eureka-server
       - gateway-service
+      - kafka
     environment:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
       SPRING_KAFKA_BOOTSTRAPSERVERS: kafka:9092
@@ -47,7 +48,7 @@ services:
       - gateway-service
       - mysql
     volumes:
-    - ./app/public/assets/images/user:/images
+      - ./app/public/assets/images/user:/images
     environment:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/chess
@@ -59,8 +60,10 @@ services:
     depends_on:
       - eureka-server
       - gateway-service
+      - kafka
     environment:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
+      SPRING_KAFKA_BOOTSTRAPSERVERS: kafka:9092
 
   history-service:
     build: server/history-service
@@ -97,10 +100,11 @@ services:
     depends_on:
       - zookeeper
     environment:
+      KAFKA_BROKER_ID: 1
       KAFKA_ADVERTISED_HOST_NAME: kafka
       KAFKA_ADVERTISED_PORT: 9092
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_CREATE_TOPICS: "game:1:1"
+      KAFKA_CREATE_TOPICS: "game:1:1, start-game:1:1"
 
 volumes:
   db:

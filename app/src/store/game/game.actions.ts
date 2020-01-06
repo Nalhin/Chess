@@ -2,6 +2,7 @@ import {
   AvailableMovesSubscriptionAction,
   ClearGameAction,
   CloseGameAction,
+  ForfeitGameAction,
   GameBaseActionTypes,
   GameIsPresentFailedAction,
   GameIsPresentRequestedAction,
@@ -126,4 +127,8 @@ export const gameReconnectFailed = (): GameReconnectFailedAction => ({
 
 export const clearGame = (): ClearGameAction => ({
   type: GameBaseActionTypes.CLEAR_GAME,
+});
+
+export const forfeitGame = (): ForfeitGameAction => ({
+  type: GameBaseActionTypes.FORFEIT_GAME,
 });

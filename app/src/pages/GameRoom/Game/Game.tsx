@@ -9,6 +9,7 @@ import GameOverMenu from './GameOverMenu/GameOverMenu';
 import { GamePhase } from '../../../interfaces/game';
 import Timer from './Timer/Timer';
 import { Prompt } from 'react-router-dom';
+import ForfeitGame from './ForfeitGame/ForfeitGame';
 
 const StyledContainer = styled.div`
   margin: 0 auto;
@@ -25,6 +26,8 @@ const Game: React.FC<Props> = ({
   isCurrentTurn,
   promotePawn,
   closeGame,
+  userColor,
+  forfeitGame,
 }) => {
   const positionAwaitingPromotion = gameState.board.positionAwaitingPromotion;
   const graveyards = gameState.board.graveyards;
@@ -40,6 +43,9 @@ const Game: React.FC<Props> = ({
         when={gamePhase !== GamePhase.GAME_OVER}
         message="Are sure you want to leave the game??"
       />
+      {userColor === PlayerColor.BLACK && (
+        <ForfeitGame forfeitGame={forfeitGame} />
+      )}
       <Timer
         isActive={
           currentTurn.turnNumber !== 0 &&
@@ -71,7 +77,6 @@ const Game: React.FC<Props> = ({
         closeGame={closeGame}
       />
       <Graveyard pieces={graveyards.whiteGraveyard} />
-
       <Timer
         isActive={
           currentTurn.turnNumber !== 0 &&
@@ -82,6 +87,9 @@ const Game: React.FC<Props> = ({
           players[PlayerColor.WHITE].totalTurnTimeRemaining
         }
       />
+      {userColor === PlayerColor.BLACK && (
+        <ForfeitGame forfeitGame={forfeitGame} />
+      )}
     </StyledContainer>
   );
 };

@@ -37,11 +37,11 @@ public class QueueController {
 
     @MessageMapping("/queue")
     public void joinQueue(SimpMessageHeaderAccessor headerAccessor, @Header("name") String name) throws QueueException {
-        ArrayList<User> users = queueService.joinQueue(new User(name,headerAccessor.getSessionId()));
+        ArrayList<User> users = queueService.joinQueue(new User(name, headerAccessor.getSessionId()));
         if (users != null) {
             UUID gameId = UUID.randomUUID();
             GameFoundMessage gameFoundMessage = new GameFoundMessage(new GameFoundPayload(gameId.toString()));
-            kafkaService.sendGameFound(gameId,users);
+            kafkaService.sendGameFound(gameId, users);
             for (User user : users) {
                 simpMessagingTemplate.convertAndSend("/queue/personal/" + user.getName(), gameFoundMessage);
             }
@@ -51,7 +51,7 @@ public class QueueController {
                     .withZone(ZoneOffset.UTC)
                     .format(Instant.now());
 
-            QueueJoinedMessage queueJoinedMessage = new QueueJoinedMessage(new QueueJoinedMessagePayload( date));
+            QueueJoinedMessage queueJoinedMessage = new QueueJoinedMessage(new QueueJoinedMessagePayload(date));
             simpMessagingTemplate.convertAndSend("/queue/personal/" + name, queueJoinedMessage);
 
             CountMessage userCountMessage = new CountMessage(new CountPayload(queueSize));
@@ -59,8 +59,11 @@ public class QueueController {
         }
     }
 
+    @MessageMapping("/leave-queue")
+    public void leaveQueue()
+
     @EventListener
-    public void onDisconnectEvent(SessionDisconnectEvent event){
+    public void onDisconnectEvent(SessionDisconnectEvent event) {
         queueService.removeUser(event.getSessionId());
     }
 

@@ -36,6 +36,17 @@ export const gameStateSubscription = (stomp: RxStomp, gameId: string) => {
           case GameStateSubscriptionActionTypes.GAME_OVER:
             store.dispatch(gameOver(payload));
             break;
+          case GameStateSubscriptionActionTypes.GAME_FORFEIT:
+            store.dispatch(playerMoved(payload.game));
+            store.dispatch(
+              addToast(
+                generateToast(
+                  `${payload.name} forfeit the game!`,
+                  ToastTypes.INFO,
+                ),
+              ),
+            );
+            break;
           default:
             break;
         }

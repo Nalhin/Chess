@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class KafkaService implements ApplicationListener<GameOverEvent> {
 
-    String kafkaTopic = "game";
+    private final String kafkaTopic = "game";
 
     private final KafkaTemplate<String, HistoryMessage> kafkaTemplate;
 
@@ -34,7 +34,6 @@ public class KafkaService implements ApplicationListener<GameOverEvent> {
                                 .winner(game.getCurrentTurn().getCurrentPlayerColor()).build())
                         .setHeader(KafkaHeaders.TOPIC, kafkaTopic)
                         .build();
-
         kafkaTemplate.send(message);
     }
 

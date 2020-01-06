@@ -14,7 +14,7 @@ import java.util.UUID;
 @Service
 public class KafkaService {
 
-    private final String kafkaTopic = "game-found";
+    private final String KAFKA_TOPIC = "start-game";
     private final KafkaTemplate<String, StartGameMessage> kafkaTemplate;
 
     public KafkaService(KafkaTemplate<String, StartGameMessage> kafkaTemplate) {
@@ -26,8 +26,9 @@ public class KafkaService {
                 .withPayload(StartGameMessage
                         .builder().gameId(gameId)
                         .users(users).build())
-                .setHeader(KafkaHeaders.TOPIC, kafkaTopic).build();
+                .setHeader(KafkaHeaders.TOPIC, KAFKA_TOPIC).build();
 
+        System.out.println(gameId);
         kafkaTemplate.send(message);
     }
 

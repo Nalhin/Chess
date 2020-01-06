@@ -27,11 +27,11 @@ public class KafkaConfig {
 
     @Bean
     public ProducerFactory<String, HistoryMessage> producerFactory() {
-        return new DefaultKafkaProducerFactory<>(kafkaConfigs());
+        return new DefaultKafkaProducerFactory<>(producerConfig());
     }
 
     @Bean
-    public Map<String, Object> kafkaConfigs() {
+    public Map<String, Object> producerConfig() {
         Map<String, Object> props = new HashMap<>();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         props.put(ProducerConfig.RETRIES_CONFIG, 0);

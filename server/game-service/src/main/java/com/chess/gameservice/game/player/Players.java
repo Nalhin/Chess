@@ -1,5 +1,6 @@
 package com.chess.gameservice.game.player;
 
+import com.chess.gameservice.game.turn.CurrentTurn;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,10 +18,18 @@ public class Players extends EnumMap<PlayerColor, Player> {
         super(PlayerColor.class);
     }
 
-    public void changeTurn(PlayerColor currentTurn,UUID gameId) {
+    public void changeTurn(PlayerColor currentTurn, UUID gameId) {
         this.get(currentTurn);
         this.get(currentTurn).endTurn();
         this.get(PlayerColor.getOtherColor(currentTurn)).startTurn(gameId);
+    }
+
+    public PlayerColor forfeitAndGetWinner(PlayerColor currentTurnColor, String playerName) {
+        if (get(currentTurnColor).getName().equals(playerName)) {
+            this.get(currentTurnColor).endTurn();
+            return currentTurnColor;
+        }
+        return PlayerColor.getOtherColor(currentTurnColor);
     }
 
     @JsonIgnore

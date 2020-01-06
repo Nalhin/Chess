@@ -30,7 +30,12 @@ const Queue: React.FC<Props> = ({
       ) : (
         <Button onClick={joinQueue}>Play</Button>
       )}
-      {isInQueue && <QueueLoader />}
+      {isInQueue && (
+        <div>
+          <Button>Leave queue</Button>
+          <QueueLoader />
+        </div>
+      )}
     </div>
   );
 };

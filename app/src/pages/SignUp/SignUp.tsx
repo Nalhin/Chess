@@ -49,7 +49,7 @@ const SignUp = () => {
           value={formState.password}
         />
         <StyledLink to={locations.signIn}>Sign in?</StyledLink>
-        <Button onClick={submitForm}>Sign in</Button>
+        <Button onClick={submitForm}>Sign up</Button>
       </StyledContainer>
     </StyledWrapper>
   );

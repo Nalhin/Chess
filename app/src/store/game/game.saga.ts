@@ -1,5 +1,5 @@
 import { SagaIterator } from '@redux-saga/core';
-import { all, select, take, takeEvery, race } from '@redux-saga/core/effects';
+import { all, race, select, take, takeEvery } from '@redux-saga/core/effects';
 import {
   GameActionTypes,
   GameBaseActionTypes,
@@ -20,21 +20,19 @@ import { gameIdSelector, selectedPieceSelector } from './game.selectors';
 import { userSelector } from '../user/user.selectors';
 import { websocketTypes } from '../../websocket/websocketTypes';
 import { call, put } from 'redux-saga-test-plan/matchers';
-import { fetchIsGamePresent, fetchReconnectToGame } from './game.api';
+import { fetchIsGamePresent } from './game.api';
 import {
   clearGame,
   gameIsPresentFailed,
   gameIsPresentSucceeded,
-  gameReconnectFailed,
-  gameReconnectSucceeded,
+  initGameRequested,
 } from './game.actions';
 import { push } from 'connected-react-router';
 import { locations } from '../../contants/locations';
 import { addToast } from '../toaster/toaster.action';
 import { generateToast } from '../../utils/toastFactory';
 import { ToastTypes } from '../../interfaces/ToastTypes';
-import { CustomRouterActionTypes } from '../customRouter/customRouter.types';
-import { closeChat, initChat } from '../chat/chat.actions';
+import { initChat } from '../chat/chat.actions';
 
 export function* gameRootSaga(): SagaIterator {
   yield all([
@@ -53,7 +51,20 @@ export function* gameRootSaga(): SagaIterator {
       GameReconnectActionTypes.GAME_RECONNECT_REQUESTED,
       reconnectToGameSaga,
     ),
+    yield takeEvery(GameBaseActionTypes.FORFEIT_GAME, forfeitGameSaga),
   ]);
+}
+
+export function* reconnectToGameSaga(action: GameReconnectRequestedAction) {
+  const gameId = yield select(gameIdSelector);
+
+  yield put(initChat(gameId));
+  yield put(initGameRequested(gameId));
+
+  yield put(push(`${locations.game}${gameId}`));
+  yield put(
+    addToast(generateToast('Reconnect successful!', ToastTypes.SUCCESS)),
+  );
 }
 
 export function* initGameSaga(action: InitGameAction) {
@@ -72,59 +83,35 @@ export function* initGameSaga(action: InitGameAction) {
 
   yield race([
     take(GameActionTypes.CLOSE_GAME),
-    take(CustomRouterActionTypes.LOCATION_CHANGE),
+    // take(CustomRouterActionTypes.LOCATION_CHANGE),
   ]);
   yield put(clearGame());
   gameSubscription.unsubscribe();
   availableMoves.unsubscribe();
+}
+
+export function* forfeitGameSaga() {
+  const gameStomp = StompSingleton.getInstance(websocketTypes.GAME);
+
+  const [gameId, { login }] = yield all([
+    select(gameIdSelector),
+    select(userSelector),
+  ]);
+
+  gameStomp.publish({
+    destination: `/app/forfeit/${gameId}`,
+    headers: { name: login },
+  });
 }
 
 export function* isGamePresentSaga(action: GameIsPresentRequestedAction) {
   try {
     const user = yield select(userSelector);
     const response = yield call(fetchIsGamePresent, user.login);
-
     yield put(gameIsPresentSucceeded(response.data.gameId));
   } catch (e) {
     yield put(gameIsPresentFailed());
   }
-}
-
-//TODO UNIFY WITH INIT GAME
-export function* reconnectToGameSaga(action: GameReconnectRequestedAction) {
-  const gameStomp = StompSingleton.getInstance(websocketTypes.GAME);
-
-  const [gameId, user] = yield all([
-    select(gameIdSelector),
-    select(userSelector),
-  ]);
-
-  try {
-    const response = yield call(fetchReconnectToGame, gameId, user.login);
-    yield put(gameReconnectSucceeded(response.data.game));
-  } catch (e) {
-    yield put(gameReconnectFailed());
-  }
-  yield put(initChat(gameId));
-  yield put(push(`${locations.game}${gameId}`));
-  yield put(
-    addToast(generateToast('Reconnect successful!', ToastTypes.SUCCESS)),
-  );
-
-  const gameSubscription = gameStateSubscription(gameStomp, gameId);
-  const availableMoves = gamePersonalSubscription(
-    gameStomp,
-    gameId,
-    user.login,
-  );
-  yield race([
-    take(GameActionTypes.CLOSE_GAME),
-    take(CustomRouterActionTypes.LOCATION_CHANGE),
-  ]);
-  yield put(clearGame());
-  yield put(closeChat());
-  gameSubscription.unsubscribe();
-  availableMoves.unsubscribe();
 }
 
 function* getAvailableMovesSaga(

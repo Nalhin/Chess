@@ -28,7 +28,7 @@ export const StyledContainer = styled(Card)`
   flex-direction: column;
   max-width: 90%;
   width: 400px;
-  margin: 0 auto;
+  margin: ${props => props.theme.space.giga}px auto;
   padding: ${props => props.theme.space.large}px;
 `;
 

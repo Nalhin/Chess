@@ -5,23 +5,29 @@ import { AppState } from '../../../store/rootReducer';
 import { RootAction } from '../../../store/rootAction';
 import {
   closeGame,
+  forfeitGame,
   getAvailableMovesRequested,
   initGameRequested,
   makeMoveRequested,
   promotePawn,
 } from '../../../store/game/game.actions';
-import { isCurrentTurnSelector } from '../../../store/game/game.selectors';
+import {
+  isCurrentTurnSelector,
+  userColorSelector,
+} from '../../../store/game/game.selectors';
 
 const mapStateToProps = (state: AppState) => {
   const selectedPosition = state.game.selectedPiece.position;
   const availableMoves = state.game.selectedPiece.availableMoves;
   const isCurrentTurn = isCurrentTurnSelector(state);
   const gameState = state.game.gameState;
+  const userColor = userColorSelector(state);
   return {
     selectedPosition,
     availableMoves,
     isCurrentTurn,
     gameState,
+    userColor,
   };
 };
 
@@ -33,6 +39,7 @@ const mapDispatchToProps = (dispatch: Dispatch<RootAction>) =>
       makeMove: makeMoveRequested,
       promotePawn,
       closeGame,
+      forfeitGame,
     },
     dispatch,
   );

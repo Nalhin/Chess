@@ -4,16 +4,9 @@ import com.chess.gameservice.exception.GameException;
 import com.chess.gameservice.game.Game;
 import com.chess.gameservice.game.position.Position;
 import com.chess.gameservice.messages.events.PlayerOutOfTimeEvent;
-import com.chess.gameservice.messages.payloads.AvailableMovesPayload;
-import com.chess.gameservice.messages.payloads.ErrorPayload;
-import com.chess.gameservice.messages.payloads.PlayerMovePayload;
-import com.chess.gameservice.messages.payloads.UserPromotionPayload;
+import com.chess.gameservice.messages.payloads.*;
 import com.chess.gameservice.messages.rest.GamePresentMessage;
-import com.chess.gameservice.messages.rest.ReconnectMessage;
-import com.chess.gameservice.messages.socket.AvailableMovesMessage;
-import com.chess.gameservice.messages.socket.ErrorMessage;
-import com.chess.gameservice.messages.socket.GameStartedMessage;
-import com.chess.gameservice.messages.socket.PlayerMovedMessage;
+import com.chess.gameservice.messages.socket.*;
 import com.chess.gameservice.service.GameService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.ApplicationListener;
@@ -37,7 +30,7 @@ public class GameController implements ApplicationListener<PlayerOutOfTimeEvent>
 
 
     @MessageMapping("/connect/{gameId}")
-    public void initialConnect(@DestinationVariable String gameId, @Header("name") String playerName) {
+    public void initialConnect(@DestinationVariable String gameId, @Header("name") String playerName) throws InterruptedException {
         Optional<Game> game = gameService.connect(UUID.fromString(gameId), playerName);
         if (game.isPresent()) {
             GameStartedMessage gameStartedMessage = new GameStartedMessage();
@@ -48,25 +41,26 @@ public class GameController implements ApplicationListener<PlayerOutOfTimeEvent>
 
     @GetMapping("/game/is-game-present/{playerName}")
     public ResponseEntity<GamePresentMessage> isGamePresent(@PathVariable String playerName) {
-        System.out.println(playerName);
         Optional<UUID> gameId = gameService.getGameWithUser(playerName);
         return gameId.map(uuid -> new ResponseEntity<>(new GamePresentMessage(uuid), HttpStatus.OK))
-                .orElseGet(() ->  ResponseEntity.notFound().build());
-    }
-
-    @GetMapping("/game/reconnect/{playerName}/{gameId}")
-    public ResponseEntity<ReconnectMessage> reconnect(@PathVariable String gameId, @PathVariable String playerName) {
-        Optional<Game> game = gameService.reconnect(UUID.fromString(gameId), playerName);
-        return game.map(g -> new ResponseEntity<>(new ReconnectMessage(g), HttpStatus.OK))
-                .orElseGet(() ->  ResponseEntity.notFound().build());
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @MessageMapping("/move/{gameId}")
-    public void makeMove(@DestinationVariable String gameId, @Payload PlayerMovePayload playerMovePayload, @Header("name") String name, @Header("simpSessionId") String sessionId) throws GameException {
+    public void makeMove(@DestinationVariable String gameId, @Payload PlayerMovePayload playerMovePayload, @Header("name") String name) throws GameException {
         Game game = gameService.makeMove(UUID.fromString(gameId), playerMovePayload, name);
         var playerMovedMessage = new PlayerMovedMessage();
         playerMovedMessage.setPayload(game);
         simpMessagingTemplate.convertAndSend("/topic/state/" + gameId, playerMovedMessage);
+    }
+
+
+    @MessageMapping("/forfeit/{gameId}")
+    public void forfeit(@DestinationVariable String gameId, @Header("name") String name) throws GameException {
+        Game game = gameService.forfeitGame(UUID.fromString(gameId), name);
+        GameForfeitMessage gameForfeitMessage = new GameForfeitMessage();
+        gameForfeitMessage.setPayload(GameForfeitPayload.builder().game(game).name(name).build());
+        simpMessagingTemplate.convertAndSend("/topic/state/" + gameId, gameForfeitMessage);
     }
 
     @MessageMapping("/available-moves/{gameId}")

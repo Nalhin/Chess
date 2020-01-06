@@ -2,7 +2,6 @@ import { Game } from '../../interfaces/game';
 import { BoardPosition } from '../../interfaces/boardPosition';
 import { AvailableMoves } from '../../interfaces/availableMoves';
 import { PieceType } from '../../interfaces/piece';
-import { CustomRouterLocationChangeAction } from '../customRouter/customRouter.types';
 
 export interface GameState {
   readonly gameState: Game;
@@ -21,6 +20,7 @@ export enum GameBaseActionTypes {
   MAKE_MOVE = 'MAKE_MOVE',
   CLOSE_GAME = 'CLOSE_GAME',
   CLEAR_GAME = 'CLEAR_GAME',
+  FORFEIT_GAME = 'FORFEIT_GAME',
 }
 
 export enum GamePersonalSubscriptionActionTypes {
@@ -32,6 +32,7 @@ export enum GameStateSubscriptionActionTypes {
   GAME_STARTED = 'GAME_STARTED',
   PLAYER_MOVED = 'PLAYER_MOVED',
   GAME_OVER = 'GAME_OVER',
+  GAME_FORFEIT = 'GAME_FORFEIT',
 }
 
 export enum GameReconnectActionTypes {
@@ -147,6 +148,10 @@ export interface ClearGameAction {
   type: GameBaseActionTypes.CLEAR_GAME;
 }
 
+export interface ForfeitGameAction {
+  type: GameBaseActionTypes.FORFEIT_GAME;
+}
+
 export type GameActions =
   | InitGameAction
   | GetAvailableMovesRequestedAction
@@ -163,4 +168,5 @@ export type GameActions =
   | GameReconnectRequestedAction
   | GameReconnectSucceededAction
   | GameReconnectFailedAction
-  | ClearGameAction;
+  | ClearGameAction
+  | ForfeitGameAction;

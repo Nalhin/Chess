@@ -1,6 +1,8 @@
 package com.chess.queueservice.config;
 
 import com.chess.queueservice.messages.kafka.StartGameMessage;
+import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;

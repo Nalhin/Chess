@@ -14,7 +14,6 @@ import com.chess.gameservice.messages.payloads.PlayerMovePayload;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -26,7 +25,7 @@ import java.util.UUID;
 @Service
 public class GameService {
 
-    private HashMap<UUID, Game> games = new HashMap<>();
+    private final HashMap<UUID, Game> games = new HashMap<>();
     private ApplicationEventPublisher applicationEventPublisher;
 
     public GameService(ApplicationEventPublisher applicationEventPublisher) {
@@ -43,22 +42,29 @@ public class GameService {
         return Optional.empty();
     }
 
-    public Optional<Game> reconnect(UUID gameId, String playerName) {
+    public Game forfeitGame(UUID gameId, String playerName) throws GameException {
         Game game = games.get(gameId);
         Optional<UUID> response = game.isPlayerPresentInGame(playerName);
-        if (response.isEmpty()) {
-            return Optional.empty();
+        if (response.isPresent()) {
+            game.forfeit(playerName);
+            gameFinished(game, gameId);
+            return game;
         }
-        return Optional.of(game);
+        throw new GameException("Player not in game.");
     }
 
-    public synchronized Optional<Game> connect(UUID gameId, String playerName) {
-        Game game = games.get(gameId);
-        Optional<UUID> response = game.isPlayerPresentInGame(playerName);
-        if (response.isEmpty()) {
-            return Optional.empty();
+    public Optional<Game> connect(UUID gameId, String playerName) throws InterruptedException {
+        synchronized (games) {
+            while (!games.containsKey(gameId)) {
+                games.wait();
+            }
+            Game game = games.get(gameId);
+            Optional<UUID> response = game.isPlayerPresentInGame(playerName);
+            if (response.isEmpty()) {
+                return Optional.empty();
+            }
+            return Optional.of(game);
         }
-        return Optional.of(game);
     }
 
     @KafkaListener(topics = "start-game")
@@ -69,8 +75,8 @@ public class GameService {
         game.setGameId(gameId);
         game.setPlayer(new Player(players.get(0).getName()), PlayerColor.WHITE);
         game.setPlayer(new Player(players.get(1).getName()), PlayerColor.BLACK);
-        games.put(gameId, game);
         game.initGame(gameId);
+        games.put(gameId, game);
     }
 
     public AvailableMovesPayload getAvailableMoves(UUID gameId, Position position, String name) throws GameException {
@@ -106,8 +112,7 @@ public class GameService {
         return game;
     }
 
-    @Async
-    public void gameFinished(Game game, UUID gameId) {
+    public synchronized void gameFinished(Game game, UUID gameId) {
         applicationEventPublisher.publishEvent(new GameOverEvent(this, game));
         games.remove(gameId);
     }

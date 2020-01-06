@@ -3,6 +3,7 @@ import { userSelector } from '../user/user.selectors';
 import { createSelector } from 'reselect';
 import isEqual from 'lodash/isEqual';
 import { GAME_INITIAL_STATE } from './game.reducer';
+import { PlayerColor } from '../../interfaces/player';
 
 export const gameIdSelector = (state: AppState) => state.game.gameId;
 
@@ -25,3 +26,14 @@ export const isCurrentTurnSelector = createSelector(
 
 export const isGameLoadingSelector = (state: AppState) =>
   isEqual(state.game.gameState, GAME_INITIAL_STATE.gameState);
+
+export const userColorSelector = createSelector(
+  gamePlayersSelector,
+  userSelector,
+  (players, user) => {
+    if (players[PlayerColor.BLACK].name === user.login) {
+      return PlayerColor.BLACK;
+    }
+    return PlayerColor.WHITE;
+  },
+);

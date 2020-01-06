@@ -100,11 +100,11 @@ public class Game {
     }
 
     private void changeTurn() {
-        players.changeTurn(currentTurn.getCurrentPlayerColor(),gameId);
+        players.changeTurn(currentTurn.getCurrentPlayerColor(), gameId);
         currentTurn.changeTurn();
     }
 
-    public void playerTimedOutOrOutOfTime(){
+    public void playerTimedOutOrOutOfTime() {
         setGamePhase(GamePhase.GAME_OVER);
         currentTurn.changeTurnWithoutIncrementingTurnNumber();
     }
@@ -115,15 +115,23 @@ public class Game {
         return gamePhase == GamePhase.GAME_OVER;
     }
 
-    public Optional<UUID> isPlayerPresentInGame(String playerName){
-        if(getPlayers().values().stream().anyMatch(user->user.getName().equals(playerName))){
+    public Optional<UUID> isPlayerPresentInGame(String playerName) {
+        if (getPlayers().values().stream().anyMatch(user -> user.getName().equals(playerName))) {
             return Optional.of(gameId);
         }
         return Optional.empty();
     }
 
+    public void forfeit(String playerName) {
+        PlayerColor winner = players.forfeitAndGetWinner(currentTurn.getCurrentPlayerColor(), playerName);
+        if (currentTurn.getCurrentPlayerColor() != winner) {
+            currentTurn.changeTurnWithoutIncrementingTurnNumber();
+        }
+        setGamePhase(GamePhase.GAME_OVER);
+    }
+
     @JsonIgnore
-    public Duration getGameDuration(){
+    public Duration getGameDuration() {
         return players.getGameDuration();
     }
 
