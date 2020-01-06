@@ -9,6 +9,7 @@ import { ChatBaseActionTypes } from '../chat.types';
 jest.mock('../../../websocket/stompClient', () => ({
   StompSingleton: {
     getInstance: jest.fn(),
+    deactivateInstance: jest.fn(),
   },
 }));
 

@@ -118,7 +118,7 @@ class GameControllerTestIntegrationTest {
         stompHeaders.set("name", firstPlayerName);
         stompSession.send(stompHeaders, null);
 
-        Thread.sleep(1000); //Ensure that first player connects first
+        Thread.sleep(2000); //Ensure that first player connects first
 
         stompHeaders.set("name", secondPlayerName);
         stompSession.send(stompHeaders, null);
