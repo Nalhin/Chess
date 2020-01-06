@@ -57,8 +57,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 class GameControllerTestIntegrationTest {
 
 
-
-
     @Autowired
     private KafkaTemplate<String, StartGameMessage> template;
 
@@ -118,7 +116,7 @@ class GameControllerTestIntegrationTest {
         stompHeaders.set("name", firstPlayerName);
         stompSession.send(stompHeaders, null);
 
-        Thread.sleep(2000); //Ensure that first player connects first
+        Thread.sleep(1000); //Ensure that first player connects first
 
         stompHeaders.set("name", secondPlayerName);
         stompSession.send(stompHeaders, null);
@@ -151,8 +149,16 @@ class GameControllerTestIntegrationTest {
         stompSession.send(stompHeaders, playerMove);
 
         var message = blockingQueue.poll(10, SECONDS);
+
+        var secondPlayerMove = objectMapper.writeValueAsBytes(new PlayerMovePayload(new Position(1, 0), new Position(2, 0)));
+        stompHeaders.setDestination(MAKE_MOVE_ENDPOINT + gameId);
+        stompHeaders.set("name", secondPlayerName);
+        stompSession.send(stompHeaders, secondPlayerMove );
+
+        var secondPlayerMessage= blockingQueue.poll(10, SECONDS);
+
         assertNotNull(message);
-        assertEquals(MessageTypes.PLAYER_MOVED.toString(), message.get("type"));
+        assertEquals(MessageTypes.PLAYER_MOVED.toString(), secondPlayerMessage.get("type"));
         subscription.unsubscribe();
     }
 
@@ -245,7 +251,6 @@ class GameControllerTestIntegrationTest {
             props.put(ProducerConfig.BUFFER_MEMORY_CONFIG, 33554432);
             props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
             props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
-
             return props;
 
         }
