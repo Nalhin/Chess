@@ -23,8 +23,7 @@ public class Player {
     private final int PLAYER_GAME_TIME = 300;
 
     private Duration totalTurnTimeRemaining = Duration.ofSeconds(PLAYER_GAME_TIME);
-
-    String name;
+    private String name;
 
 
     @JsonIgnore
