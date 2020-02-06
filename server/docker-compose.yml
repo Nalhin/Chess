@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   eureka-server:
-    build: server/eureka-server
+    build: eureka-server
     ports:
       - "8761:8761"
     environment:
@@ -9,7 +9,7 @@ services:
 
 
   gateway-service:
-    build: server/gateway-service
+    build: gateway-service
     ports:
       - "8090:8090"
     depends_on:
@@ -18,7 +18,7 @@ services:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
 
   game-service:
-    build: server/game-service
+    build: game-service
     ports:
       - "8081:8081"
     depends_on:
@@ -30,7 +30,7 @@ services:
       SPRING_KAFKA_BOOTSTRAPSERVERS: kafka:9092
 
   chat-service:
-    build: server/chat-service
+    build: chat-service
     ports:
       - "8082:8082"
     depends_on:
@@ -40,7 +40,7 @@ services:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
 
   authentication-service:
-    build: server/authentication-service
+    build: authentication-service
     ports:
       - "8083:8083"
     depends_on:
@@ -48,13 +48,13 @@ services:
       - gateway-service
       - mysql
     volumes:
-      - ./app/public/assets/images/user:/images
+      - ../app/public/assets/images/user:/images
     environment:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/chess
 
   queue-service:
-    build: server/queue-service
+    build: queue-service
     ports:
       - "8084:8084"
     depends_on:
@@ -66,7 +66,7 @@ services:
       SPRING_KAFKA_BOOTSTRAPSERVERS: kafka:9092
 
   history-service:
-    build: server/history-service
+    build: history-service
     ports:
       - "8085:8085"
     depends_on:
