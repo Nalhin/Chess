@@ -1,5 +1,6 @@
 node_modules
 coverage
+.idea
 dist
 .env
 public/assets/images/user
