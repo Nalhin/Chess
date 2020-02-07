@@ -1,9 +1,9 @@
 import React from 'react';
 import Loader from '../../components/Loader/Loader';
-import { HistoryGameWithTurnCount } from '../../interfaces/HistoryGame';
 import MatchHistoryGame from './MatchHistoryGame';
 import styled from '@emotion/styled';
 import { useTheme } from '@emotion/core';
+import { MatchHistoryContainerProps } from './MatchHistory.container';
 
 const StyledLoader = styled(Loader)`
   padding-top: ${props => props.theme.space.giga}px;
@@ -16,18 +16,13 @@ const StyledHeader = styled.h2`
   padding-bottom: ${props => props.theme.space.medium}px;
 `;
 
-interface Props {
-  historyGames: HistoryGameWithTurnCount[];
-  getHistoryGames: () => void;
-  isLoading: boolean;
-  login: string;
-}
+interface Props extends MatchHistoryContainerProps {}
 
 const MatchHistory: React.FC<Props> = ({
   historyGames,
   getHistoryGames,
   isLoading,
-  login,
+  user,
 }) => {
   const theme = useTheme();
 
@@ -41,7 +36,7 @@ const MatchHistory: React.FC<Props> = ({
     <StyledLoader isLoading={isLoading} theme={theme}>
       <StyledHeader>Previous matches</StyledHeader>
       {historyGames.map(game => (
-        <MatchHistoryGame key={game.gameId} game={game} login={login} />
+        <MatchHistoryGame key={game.gameId} game={game} login={user.login} />
       ))}
     </StyledLoader>
   );

@@ -9,7 +9,9 @@ declare module '@emotion/core' {
       primary: string;
       primaryHover: string;
       secondary: string;
+      secondaryHover: string;
       background: string;
+      backgroundDarker: string;
       foreground: string;
       backgroundHover: string;
       error: string;

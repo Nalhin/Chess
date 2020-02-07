@@ -4,10 +4,12 @@ const colors = {
   textLight: '#ffffff',
   background: '#f8f8f8',
   foreground: '#ffffff',
+  backgroundDarker: '#d6d6d6',
   backgroundHover: '#00000011',
   primary: '#1976d2',
   primaryHover: '#1976d2cc',
-  secondary: '',
+  secondary: '#ffc107',
+  secondaryHover: '#ffc107cc',
   error: '#f44336',
   success: '#43a047',
 };

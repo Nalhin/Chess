@@ -9,15 +9,17 @@ import {
   ListItemText,
 } from '@material-ui/core';
 import styled from '@emotion/styled';
-import moment from 'moment';
 import MatchHistoryPlayer from '../../components/MatchHistoryPlayer/MatchHistoryPlayer';
 import { PlayerColor } from '../../interfaces/player';
 import { StyledWrapper } from '../SignIn/SignIn';
 import { useTheme } from '@emotion/core';
-import { positionToChessPosition } from '../../utils/positionToChessPosition';
 import { getPieceUrl } from '../../utils/getPieceUrl';
 import PlayerAvatar from '../../components/PlayerAvatar/PlayerAvatar';
 import ChessMove from '../../components/ChessMove/ChessMove';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+
+dayjs.extend(relativeTime);
 
 const StyledCard = styled(Card)`
   max-width: 90%;
@@ -80,7 +82,7 @@ const IndividualMatch: React.FC<Props> = ({ game }) => {
   return (
     <StyledCard>
       <StyledDateContainer>
-        {moment(game.finishTime).fromNow()}
+        {dayjs(game.finishTime).from(dayjs())}
       </StyledDateContainer>
       <StyledWrapper>
         <MatchHistoryPlayer

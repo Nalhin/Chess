@@ -12,10 +12,22 @@ interface Props {
   name?: string;
   required?: boolean;
   value: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  className?: string;
+  placeholder?: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => any;
+  onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => any;
 }
 
-const Input: React.FC<Props> = ({ value, label, required, onChange, name }) => {
+const Input: React.FC<Props> = ({
+  value,
+  label,
+  required,
+  onChange,
+  name,
+  className,
+  placeholder,
+  onKeyDown,
+}) => {
   const theme = useTheme();
 
   return (
@@ -26,6 +38,9 @@ const Input: React.FC<Props> = ({ value, label, required, onChange, name }) => {
       required={required}
       onChange={onChange}
       value={value}
+      placeholder={placeholder}
+      className={className}
+      onKeyDown={onKeyDown}
       type="text"
     />
   );

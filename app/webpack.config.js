@@ -4,6 +4,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 
 module.exports = env => ({
   mode: env.development ? 'development' : 'production',
@@ -68,6 +70,7 @@ module.exports = env => ({
     ]),
     new Dotenv(),
     new webpack.EnvironmentPlugin({ ...env }),
+    new BundleAnalyzerPlugin()
   ],
   optimization: {
     splitChunks: {

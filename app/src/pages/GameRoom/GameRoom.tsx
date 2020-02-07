@@ -4,7 +4,6 @@ import Chat from './Chat/Chat.container';
 import styled from '@emotion/styled';
 import { useTheme } from '@emotion/core';
 import { GameRoomContainerProps } from './GameRoom.container';
-import QueueLoader from '../../components/Loader/QueueLoader';
 import GameLoader from './GameLoader/GameLoader';
 
 const StyledContainer = styled.div`

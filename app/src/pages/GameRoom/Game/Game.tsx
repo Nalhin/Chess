@@ -12,10 +12,7 @@ import { Prompt } from 'react-router-dom';
 import ForfeitGame from './ForfeitGame/ForfeitGame';
 
 const StyledContainer = styled.div`
-  margin-left: auto;
-  ${props => props.theme.mediaQueries.small} {
-    margin: 0 auto;
-  }
+  margin: 0 auto;
 `;
 
 const StyledBoardContainer = styled.div`

@@ -7,7 +7,7 @@ import { sendMessage } from '../../../store/chat/chat.actions';
 import { userSelector } from '../../../store/user/user.selectors';
 
 const mapStateToProps = (state: AppState) => {
-  const chatMessages = state.chat.messages;
+  const chatMessages = [...state.chat.messages].reverse();
   const userLogin = userSelector(state).login;
   return {
     chatMessages,

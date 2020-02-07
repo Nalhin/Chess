@@ -25,7 +25,7 @@ const StyledToast = styled(MdSnackbar)`
   pointer-events: all;
   position: unset;
   transform: none;
-  margin: ${props => props.theme.space.large}px;
+  margin: ${props => props.theme.space.medium}px;
   user-select: none;
   font-size: ${props => props.theme.fontSizes.larger}px;
 `;

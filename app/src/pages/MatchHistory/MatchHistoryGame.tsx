@@ -6,7 +6,10 @@ import { Card } from '@material-ui/core';
 import { PlayerColor } from '../../interfaces/player';
 import MatchHistoryPlayer from '../../components/MatchHistoryPlayer/MatchHistoryPlayer';
 import { useTheme } from '@emotion/core';
-import moment from 'moment';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+
+dayjs.extend(relativeTime);
 
 interface StyledCardProps {
   isWinner: boolean;
@@ -73,7 +76,7 @@ const MatchHistoryGame: React.FC<Props> = ({ game, login }) => {
       isWinner={winningPlayerName === login}
     >
       <StyledDateContainer>
-        {moment(game.finishTime).fromNow()}
+        {dayjs(game.finishTime).from(dayjs())}
       </StyledDateContainer>
       <StyledWrapper>
         <MatchHistoryPlayer

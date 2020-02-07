@@ -1,9 +1,9 @@
 import React from 'react';
-import { ChatMessageType } from '../../../../interfaces/chatMessageType';
+import { ChatMessageType } from '../../../interfaces/chatMessageType';
 import styled from '@emotion/styled';
 import { useTheme } from '@emotion/core';
-import PlayerAvatar from '../../../../components/PlayerAvatar/PlayerAvatar';
-import moment from 'moment';
+import PlayerAvatar from '../../../components/PlayerAvatar/PlayerAvatar';
+import dayjs from 'dayjs';
 
 interface StyledMessageProps {
   isSender: boolean;
@@ -13,19 +13,20 @@ const StyledMessage = styled.div<StyledMessageProps>`
   background: ${props =>
     props.isSender
       ? props.theme.colors.primary
-      : props.theme.colors.textSecondary};
-  color: #fff;
+      : props.theme.colors.backgroundDarker};
+  color: ${props => (props.isSender ? '#fff' : '#000')};
   border-radius: 20px;
   padding: ${props => props.theme.space.medium}px;
   align-items: center;
+  word-wrap: break-word;
+  overflow: auto;
 `;
 
 const StyledContainer = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
 `;
-
-const StyledHeaderWrapper = styled.div``;
 
 const StyledPlayerAvatar = styled(PlayerAvatar)`
   width: 30px;
@@ -49,9 +50,9 @@ const ChatMessage: React.FC<Props> = ({ chatMessage, userLogin }) => {
   const isSender = sender === userLogin;
   const theme = useTheme();
   return (
-    <StyledHeaderWrapper>
+    <div>
       {sendDate && (
-        <StyledSendDate>{moment(sendDate).format('HH:mm:ss')}</StyledSendDate>
+        <StyledSendDate>{dayjs(sendDate).format('HH:mm:ss')}</StyledSendDate>
       )}
       <StyledContainer>
         {sender && (
@@ -65,10 +66,10 @@ const ChatMessage: React.FC<Props> = ({ chatMessage, userLogin }) => {
           isSender={isSender}
           theme={theme}
         >
-          <div>{content}</div>
+          {content}
         </StyledMessage>
       </StyledContainer>
-    </StyledHeaderWrapper>
+    </div>
   );
 };
 
