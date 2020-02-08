@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { UserRegisterData } from '../../interfaces/User';
+import { UserRegisterData } from '../../interfaces/User/User';
 import { registerUserRequested } from '../../store/user/user.actions';
 import { StyledContainer, StyledLink, StyledWrapper } from '../SignIn/SignIn';
 import { locations } from '../../contants/locations';

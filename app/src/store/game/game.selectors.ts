@@ -3,7 +3,7 @@ import { userSelector } from '../user/user.selectors';
 import { createSelector } from 'reselect';
 import isEqual from 'lodash/isEqual';
 import { GAME_INITIAL_STATE } from './game.reducer';
-import { PlayerColor } from '../../interfaces/player';
+import { PlayerColor } from '../../interfaces/Game/Player';
 
 export const gameIdSelector = (state: AppState) => state.game.gameId;
 
@@ -31,9 +31,9 @@ export const userColorSelector = createSelector(
   gamePlayersSelector,
   userSelector,
   (players, user) => {
-    if (players[PlayerColor.BLACK].name === user.login) {
-      return PlayerColor.BLACK;
+    if (players[PlayerColor.Black].name === user.login) {
+      return PlayerColor.Black;
     }
-    return PlayerColor.WHITE;
+    return PlayerColor.White;
   },
 );

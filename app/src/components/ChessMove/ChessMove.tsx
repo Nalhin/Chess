@@ -1,7 +1,6 @@
 import React from 'react';
-import { BoardPosition } from '../../interfaces/boardPosition';
+import { BoardPosition } from '../../interfaces/Game/BoardPosition';
 import { positionToChessPosition } from '../../utils/positionToChessPosition';
-import styled from '@emotion/styled';
 import { Typography } from '@material-ui/core';
 
 interface Props {

@@ -1,6 +1,6 @@
-import { Game, GamePhase } from '../../../src/interfaces/game';
-import { PlayerColor } from '../../../src/interfaces/player';
-import { CheckState } from '../../../src/interfaces/checkState';
+import { Game, GamePhase } from '../../../src/interfaces/Game/Game';
+import { PlayerColor } from '../../../src/interfaces/Game/Player';
+import { CheckState } from '../../../src/interfaces/Game/CheckState';
 
 export const fakeGame: Game = {
   board: {
@@ -10,15 +10,15 @@ export const fakeGame: Game = {
       blackGraveyard: [],
     },
     positionAwaitingPromotion: { x: 0, y: 2 },
-    checkState: CheckState.NONE,
+    checkState: CheckState.None,
   },
   currentTurn: {
-    currentPlayerColor: PlayerColor.WHITE,
+    currentPlayerColor: PlayerColor.White,
     turnNumber: 0,
   },
   gamePhase: GamePhase.WAITING_FOR_PLAYERS,
   players: {
-    [PlayerColor.WHITE]: { name: 'name', totalTurnTimeRemaining: 300 },
-    [PlayerColor.BLACK]: { name: 'name', totalTurnTimeRemaining: 300 },
+    [PlayerColor.White]: { name: 'name', totalTurnTimeRemaining: 300 },
+    [PlayerColor.Black]: { name: 'name', totalTurnTimeRemaining: 300 },
   },
 };

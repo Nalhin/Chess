@@ -1,7 +1,7 @@
-import { Game } from '../../interfaces/game';
-import { BoardPosition } from '../../interfaces/boardPosition';
-import { AvailableMoves } from '../../interfaces/availableMoves';
-import { PieceType } from '../../interfaces/piece';
+import { Game } from '../../interfaces/Game/Game';
+import { BoardPosition } from '../../interfaces/Game/BoardPosition';
+import { AvailableMoves } from '../../interfaces/Game/AvailableMoves';
+import { PieceType } from '../../interfaces/Game/Piece';
 
 export interface GameState {
   readonly gameState: Game;

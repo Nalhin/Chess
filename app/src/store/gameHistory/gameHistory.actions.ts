@@ -10,7 +10,7 @@ import {
 import {
   HistoryGameWithTurnCount,
   HistoryGameWithTurns,
-} from '../../interfaces/HistoryGame';
+} from '../../interfaces/History/HistoryGame';
 
 export const getHistoryGameByIdRequested = (
   gameId: number,

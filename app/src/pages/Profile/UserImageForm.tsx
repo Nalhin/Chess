@@ -1,11 +1,11 @@
 import React from 'react';
-import { User } from '../../interfaces/User';
+import { User } from '../../interfaces/User/User';
 import Loader from '../../components/Loader/Loader';
 import { fetchSaveImage } from '../../store/user/user.api';
 import { Avatar, Button, useTheme } from '@material-ui/core';
 import styled from '@emotion/styled';
 import { generateToast } from '../../utils/toastFactory';
-import { Toast, ToastTypes } from '../../interfaces/ToastTypes';
+import { Toast, ToastTypes } from '../../interfaces/Toaster/ToastTypes';
 import mixins from '../../styles/mixins';
 
 const StyledLoader = styled(Loader)`
@@ -45,11 +45,11 @@ const UserImageForm: React.FC<Props> = ({ user, addToast }) => {
     try {
       await fetchSaveImage(formData, user.token);
       setImageTime(new Date().getTime());
-      addToast(generateToast('Image saved successfully!', ToastTypes.SUCCESS));
+      addToast(generateToast('Image saved successfully!', ToastTypes.Success));
       setLoading(false);
       setFile(null);
     } catch (e) {
-      addToast(generateToast('Uploading image failed!', ToastTypes.ERROR));
+      addToast(generateToast('Uploading image failed!', ToastTypes.Error));
     }
   };
 

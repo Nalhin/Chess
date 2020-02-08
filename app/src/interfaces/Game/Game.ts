@@ -1,8 +1,8 @@
-import { Piece } from './piece';
-import { PlayerColor } from './player';
-import { Players } from './players';
-import { BoardPosition } from './boardPosition';
-import { CheckState } from './checkState';
+import { Piece } from './Piece';
+import { PlayerColor } from './Player';
+import { Players } from './Players';
+import { BoardPosition } from './BoardPosition';
+import { CheckState } from './CheckState';
 
 export enum GamePhase {
   WAITING_FOR_PLAYERS = 'WAITING_FOR_PLAYERS',

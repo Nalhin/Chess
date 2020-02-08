@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { PieceType } from '../../../../interfaces/piece';
-import { BoardPosition } from '../../../../interfaces/boardPosition';
-import { PlayerColor } from '../../../../interfaces/player';
+import { PieceType } from '../../../../interfaces/Game/Piece';
+import { BoardPosition } from '../../../../interfaces/Game/BoardPosition';
+import { PlayerColor } from '../../../../interfaces/Game/Player';
 import PieceIcon from './PieceIcon';
 import { useDrop } from 'react-dnd';
 import { DragAndDropTypes } from '../../../../contants/dragAndDropTypes';
-import { CheckState } from '../../../../interfaces/checkState';
+import { CheckState } from '../../../../interfaces/Game/CheckState';
 import { cellSize } from '../../../../styles/cellSize';
 import mixins from '../../../../styles/mixins';
 import { useTheme } from '@material-ui/core';
@@ -123,7 +123,7 @@ const Cell: React.FC<CellProps> = ({
   const isHoverShown = belongsToPlayer || isMoveAvailable;
 
   const isChecked =
-    checkState !== CheckState.NONE &&
+    checkState !== CheckState.None &&
     currentPlayerColor === pieceColor &&
     type === PieceType.KING;
 

@@ -18,5 +18,4 @@ public class ChatService {
         userHashMap.remove(playerSessionId);
         return user;
     }
-
 }

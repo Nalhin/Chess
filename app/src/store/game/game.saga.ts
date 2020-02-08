@@ -31,7 +31,7 @@ import { push } from 'connected-react-router';
 import { locations } from '../../contants/locations';
 import { addToast } from '../toaster/toaster.action';
 import { generateToast } from '../../utils/toastFactory';
-import { ToastTypes } from '../../interfaces/ToastTypes';
+import { ToastTypes } from '../../interfaces/Toaster/ToastTypes';
 import { closeChat, initChat } from '../chat/chat.actions';
 
 export function* gameRootSaga(): SagaIterator {
@@ -63,7 +63,7 @@ export function* reconnectToGameSaga(action: GameReconnectRequestedAction) {
 
   yield put(push(`${locations.game}${gameId}`));
   yield put(
-    addToast(generateToast('Reconnect successful!', ToastTypes.SUCCESS)),
+    addToast(generateToast('Reconnect successful!', ToastTypes.Success)),
   );
 }
 

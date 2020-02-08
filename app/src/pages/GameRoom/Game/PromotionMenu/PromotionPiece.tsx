@@ -1,7 +1,7 @@
 import React from 'react';
-import { PlayerColor } from '../../../../interfaces/player';
-import { BoardPosition } from '../../../../interfaces/boardPosition';
-import { PieceType } from '../../../../interfaces/piece';
+import { PlayerColor } from '../../../../interfaces/Game/Player';
+import { BoardPosition } from '../../../../interfaces/Game/BoardPosition';
+import { PieceType } from '../../../../interfaces/Game/Piece';
 import { getPieceUrl } from '../../../../utils/getPieceUrl';
 
 interface Props {

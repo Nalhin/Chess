@@ -43,16 +43,14 @@ public class ChatController {
     @EventListener
     public void sessionSubscribeEvent(SessionSubscribeEvent subscribeEvent) throws InterruptedException {
         StompHeaderAccessor accessor = StompHeaderAccessor.wrap(subscribeEvent.getMessage());
-        @SuppressWarnings("unchecked")
-        final MultiValueMap<String, String> nativeHeaders = (MultiValueMap<String, String>) accessor.getHeader(StompHeaderAccessor.NATIVE_HEADERS);
-        var login = nativeHeaders != null ? nativeHeaders.get("login").get(0) : "User";
+        @SuppressWarnings("unchecked") final MultiValueMap<String, String> nativeHeaders = (MultiValueMap<String, String>) accessor.getHeader(StompHeaderAccessor.NATIVE_HEADERS);
+        String login = nativeHeaders != null ? nativeHeaders.get("login").get(0) : "User";
         String address = accessor.getDestination();
 
         if (address != null) {
             String chatId = parseAddress(address);
             chatService.addUser(accessor.getSubscriptionId(), new User(login, UUID.fromString(chatId)));
-            Thread.sleep(1000);
-            sendInfoMessage(chatId, login + " connected.");
+            sendInfoMessage(chatId, login + " connected.", login);
         }
     }
 
@@ -71,12 +69,13 @@ public class ChatController {
     private void sendDisconnectMessage(StompHeaderAccessor accessor) {
         User user = chatService.getChatIdAndRemoveUser(accessor.getSubscriptionId());
         if (user != null) {
-            sendInfoMessage(user.getChatId().toString(), user.getLogin() + " disconnected.");
+            sendInfoMessage(user.getChatId().toString(), user.getLogin() + " disconnected.", user.getLogin());
         }
     }
 
-    private void sendInfoMessage(String chatId, String content) {
+    private void sendInfoMessage(String chatId, String content, String sender) {
         InfoMessage message = new InfoMessage();
+        message.setSender(sender);
         message.setContent(content);
         message.setSendDate(IsoDate.getCurrentIsoDate());
         message.setId(UUID.randomUUID().toString());

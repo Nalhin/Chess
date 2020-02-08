@@ -1,12 +1,12 @@
 import React from 'react';
 import { GameContainerProps } from './Game.container';
 import Graveyard from './Graveyard/Graveyard';
-import { PlayerColor } from '../../../interfaces/player';
+import { PlayerColor } from '../../../interfaces/Game/Player';
 import Board from './Board/Board';
 import PromotionMenu from './PromotionMenu/PromotionMenu';
 import styled from '@emotion/styled';
 import GameOverMenu from './GameOverMenu/GameOverMenu';
-import { GamePhase } from '../../../interfaces/game';
+import { GamePhase } from '../../../interfaces/Game/Game';
 import Timer from './Timer/Timer';
 import { Prompt } from 'react-router-dom';
 import ForfeitGame from './ForfeitGame/ForfeitGame';
@@ -50,16 +50,16 @@ const Game: React.FC<Props> = ({
       <ForfeitGame
         forfeitGame={forfeitGame}
         userColor={userColor}
-        displayedFor={PlayerColor.BLACK}
+        displayedFor={PlayerColor.Black}
       />
       <Timer
         isActive={
           currentTurn.turnNumber !== 0 &&
-          currentTurn.currentPlayerColor === PlayerColor.BLACK &&
+          currentTurn.currentPlayerColor === PlayerColor.Black &&
           gamePhase !== GamePhase.GAME_OVER
         }
         totalTurnTimeRemaining={
-          players[PlayerColor.BLACK].totalTurnTimeRemaining
+          players[PlayerColor.Black].totalTurnTimeRemaining
         }
       />
       <Graveyard pieces={graveyards.blackGraveyard} />
@@ -89,18 +89,18 @@ const Game: React.FC<Props> = ({
       <Timer
         isActive={
           currentTurn.turnNumber !== 0 &&
-          currentTurn.currentPlayerColor === PlayerColor.WHITE &&
+          currentTurn.currentPlayerColor === PlayerColor.White &&
           gamePhase !== GamePhase.GAME_OVER
         }
         totalTurnTimeRemaining={
-          players[PlayerColor.WHITE].totalTurnTimeRemaining
+          players[PlayerColor.White].totalTurnTimeRemaining
         }
       />
 
       <ForfeitGame
         forfeitGame={forfeitGame}
         userColor={userColor}
-        displayedFor={PlayerColor.WHITE}
+        displayedFor={PlayerColor.White}
       />
     </StyledContainer>
   );

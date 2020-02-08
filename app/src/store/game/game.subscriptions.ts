@@ -13,7 +13,7 @@ import {
 import { store } from '../../App';
 import { addToast } from '../toaster/toaster.action';
 import { generateToast } from '../../utils/toastFactory';
-import { ToastTypes } from '../../interfaces/ToastTypes';
+import { ToastTypes } from '../../interfaces/Toaster/ToastTypes';
 
 export const gameStateSubscription = (stomp: RxStomp, gameId: string) => {
   return stomp
@@ -42,7 +42,7 @@ export const gameStateSubscription = (stomp: RxStomp, gameId: string) => {
               addToast(
                 generateToast(
                   `${payload.name} forfeit the game!`,
-                  ToastTypes.INFO,
+                  ToastTypes.Info,
                 ),
               ),
             );
@@ -78,7 +78,7 @@ export const gamePersonalSubscription = (
             break;
           case GamePersonalSubscriptionActionTypes.ERROR:
             store.dispatch(
-              addToast(generateToast(payload.error, ToastTypes.ERROR)),
+              addToast(generateToast(payload.error, ToastTypes.Error)),
             );
             break;
           default:

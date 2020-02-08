@@ -1,5 +1,8 @@
 import React from 'react';
-import { ChatMessageType } from '../../../interfaces/chatMessageType';
+import {
+  ChatMessage,
+  ChatMessageTypes,
+} from '../../../interfaces/Chat/ChatMessage';
 import styled from '@emotion/styled';
 import PlayerAvatar from '../../../components/PlayerAvatar/PlayerAvatar';
 import dayjs from 'dayjs';
@@ -38,15 +41,16 @@ const StyledPlayerAvatar = styled(PlayerAvatar)`
 `;
 
 interface Props {
-  chatMessage: ChatMessageType;
+  chatMessage: ChatMessage;
   userLogin: string;
 }
 
-const ChatMessage: React.FC<Props> = ({ chatMessage, userLogin }) => {
-  const { sendDate, content, sender } = chatMessage;
+const ChatUserMessage: React.FC<Props> = ({ chatMessage, userLogin }) => {
+  const theme = useTheme();
+  const { sendDate, content, sender, type } = chatMessage;
 
   const isSender = sender === userLogin;
-  const theme = useTheme();
+  const shouldShowAvatar = sender && type != ChatMessageTypes.InfoMessage;
   return (
     <div>
       {sendDate && (
@@ -55,7 +59,7 @@ const ChatMessage: React.FC<Props> = ({ chatMessage, userLogin }) => {
         </Typography>
       )}
       <StyledContainer>
-        {sender && (
+        {shouldShowAvatar && (
           <StyledPlayerAvatar theme={theme} name={sender} isThumbnail>
             {sender[0].toUpperCase()}
           </StyledPlayerAvatar>
@@ -73,4 +77,4 @@ const ChatMessage: React.FC<Props> = ({ chatMessage, userLogin }) => {
   );
 };
 
-export default ChatMessage;
+export default ChatUserMessage;

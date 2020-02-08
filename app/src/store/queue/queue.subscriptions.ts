@@ -5,7 +5,7 @@ import { gameFound, queueCount, queueJoined, queueLeft } from './queue.actions';
 import { store } from '../../App';
 import { addToast } from '../toaster/toaster.action';
 import { generateToast } from '../../utils/toastFactory';
-import { ToastTypes } from '../../interfaces/ToastTypes';
+import { ToastTypes } from '../../interfaces/Toaster/ToastTypes';
 
 export const queueStateSubscription = (stomp: RxStomp) => {
   return stomp
@@ -45,7 +45,7 @@ export const queuePersonalSubscription = (stomp: RxStomp, login: string) => {
             break;
           case QueueActionTypes.QUEUE_ERROR:
             store.dispatch(
-              addToast(generateToast(payload.error, ToastTypes.ERROR)),
+              addToast(generateToast(payload.error, ToastTypes.Error)),
             );
             break;
           case QueueActionTypes.QUEUE_GAME_FOUND:
@@ -57,7 +57,7 @@ export const queuePersonalSubscription = (stomp: RxStomp, login: string) => {
               addToast(
                 generateToast(
                   `You (${payload.name}) left the queue`,
-                  ToastTypes.INFO,
+                  ToastTypes.Info,
                 ),
               ),
             );

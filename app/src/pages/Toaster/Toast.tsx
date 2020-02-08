@@ -1,4 +1,4 @@
-import { ToastTypes } from '../../interfaces/ToastTypes';
+import { ToastTypes } from '../../interfaces/Toaster/ToastTypes';
 import styled from '@emotion/styled';
 import { IconButton, SnackbarContent, useTheme } from '@material-ui/core';
 import React from 'react';
@@ -11,10 +11,10 @@ import WarningIcon from '@material-ui/icons/Warning';
 import mixins from '../../styles/mixins';
 
 const ToastIcon = {
-  [ToastTypes.SUCCESS]: CheckCircleIcon,
-  [ToastTypes.ERROR]: ErrorIcon,
-  [ToastTypes.INFO]: InfoIcon,
-  [ToastTypes.WARNING]: WarningIcon,
+  [ToastTypes.Success]: CheckCircleIcon,
+  [ToastTypes.Error]: ErrorIcon,
+  [ToastTypes.Info]: InfoIcon,
+  [ToastTypes.Warning]: WarningIcon,
 };
 
 const StyledToast = styled(MdSnackbar)`
@@ -45,13 +45,13 @@ interface StyledToastProps {
 const StyledToastContent = styled(SnackbarContent)<StyledToastProps>`
   background: ${props => {
     switch (props.type) {
-      case ToastTypes.SUCCESS:
+      case ToastTypes.Success:
         return props.theme.palette.success.main;
-      case ToastTypes.ERROR:
+      case ToastTypes.Error:
         return props.theme.palette.error.main;
-      case ToastTypes.INFO:
+      case ToastTypes.Info:
         return props.theme.palette.info.main;
-      case ToastTypes.WARNING:
+      case ToastTypes.Warning:
         return props.theme.palette.warning.main;
     }
   }};

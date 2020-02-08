@@ -1,4 +1,4 @@
-import { BoardPosition } from '../interfaces/boardPosition';
+import { BoardPosition } from '../interfaces/Game/BoardPosition';
 
 const letters: { [key: string]: string } = {
   0: 'A',

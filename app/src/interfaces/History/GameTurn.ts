@@ -1,6 +1,6 @@
-import { BoardPosition } from './boardPosition';
-import { PieceType } from './piece';
-import { PlayerColor } from './player';
+import { BoardPosition } from '../Game/BoardPosition';
+import { PieceType } from '../Game/Piece';
+import { PlayerColor } from '../Game/Player';
 
 export interface GameTurn {
   turnId: number;

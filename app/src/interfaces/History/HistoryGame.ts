@@ -1,4 +1,4 @@
-import { PlayerColor } from './player';
+import { PlayerColor } from '../Game/Player';
 import { GameTurn } from './GameTurn';
 
 interface HistoryGame {

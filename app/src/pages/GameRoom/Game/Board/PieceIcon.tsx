@@ -1,6 +1,6 @@
 import React from 'react';
-import { PieceType } from '../../../../interfaces/piece';
-import { PlayerColor } from '../../../../interfaces/player';
+import { PieceType } from '../../../../interfaces/Game/Piece';
+import { PlayerColor } from '../../../../interfaces/Game/Player';
 import { DragPreviewImage, useDrag } from 'react-dnd';
 import { DragAndDropTypes } from '../../../../contants/dragAndDropTypes';
 import { getPieceUrl } from '../../../../utils/getPieceUrl';

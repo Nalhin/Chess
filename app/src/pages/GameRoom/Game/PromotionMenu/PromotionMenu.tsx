@@ -1,7 +1,7 @@
 import React from 'react';
-import { PlayerColor } from '../../../../interfaces/player';
-import { PieceType } from '../../../../interfaces/piece';
-import { BoardPosition } from '../../../../interfaces/boardPosition';
+import { PlayerColor } from '../../../../interfaces/Game/Player';
+import { PieceType } from '../../../../interfaces/Game/Piece';
+import { BoardPosition } from '../../../../interfaces/Game/BoardPosition';
 import PromotionPiece from './PromotionPiece';
 import GameMenu from '../GameMenu/GameMenu';
 

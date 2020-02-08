@@ -25,7 +25,7 @@ import { closeGame } from '../game/game.actions';
 import { push } from 'connected-react-router';
 import { locations } from '../../contants/locations';
 import { addToast } from '../toaster/toaster.action';
-import { ToastTypes } from '../../interfaces/ToastTypes';
+import { ToastTypes } from '../../interfaces/Toaster/ToastTypes';
 import { generateToast } from '../../utils/toastFactory';
 import { generateErrorMessage } from '../../utils/generateErrorMessage';
 
@@ -45,12 +45,12 @@ export function* loginUserSaga(action: LoginUserRequestedAction) {
     yield put(loginUserSucceeded(response.data));
     yield put(
       addToast(
-        generateToast(`Welcome ${response.data.login}`, ToastTypes.INFO),
+        generateToast(`Welcome ${response.data.login}`, ToastTypes.Info),
       ),
     );
   } catch (e) {
     yield put(
-      addToast(generateToast(generateErrorMessage(e), ToastTypes.ERROR)),
+      addToast(generateToast(generateErrorMessage(e), ToastTypes.Error)),
     );
     yield put(registerUserFailedAction('error'));
   }
@@ -63,12 +63,12 @@ export function* registerUserSaga(action: RegisterUserRequestedAction) {
     yield put(registerUserSucceeded(response.data));
     yield put(
       addToast(
-        generateToast(`Welcome ${response.data.login}`, ToastTypes.INFO),
+        generateToast(`Welcome ${response.data.login}`, ToastTypes.Info),
       ),
     );
   } catch (e) {
     yield put(
-      addToast(generateToast(generateErrorMessage(e), ToastTypes.ERROR)),
+      addToast(generateToast(generateErrorMessage(e), ToastTypes.Error)),
     );
     yield put(loginUserFailedAction(generateErrorMessage(e)));
   }
@@ -96,5 +96,5 @@ export function* logoutSaga() {
   yield put(push(locations.logout));
   yield put(closeChat());
   yield put(closeGame());
-  yield put(addToast(generateToast('Logout successful', ToastTypes.INFO)));
+  yield put(addToast(generateToast('Logout successful', ToastTypes.Info)));
 }

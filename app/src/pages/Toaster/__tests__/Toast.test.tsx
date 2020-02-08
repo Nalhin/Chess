@@ -1,7 +1,7 @@
 import { cleanup, fireEvent } from '@testing-library/react';
 import React from 'react';
 import { matchers } from 'jest-emotion';
-import { ToastTypes } from '../../../interfaces/ToastTypes';
+import { ToastTypes } from '../../../interfaces/Toaster/ToastTypes';
 import Toast from '../Toast';
 import { renderWithStyles } from '../../../../test/utils/renderWithStyles';
 
@@ -11,7 +11,7 @@ const props = {
   onClose: jest.fn(),
   message: 'message',
   id: '1',
-  type: ToastTypes.SUCCESS,
+  type: ToastTypes.Success,
 };
 
 describe('Snackbar Component', () => {

@@ -1,6 +1,6 @@
-import { Board } from '../../../src/interfaces/board';
+import { Board } from '../../../src/interfaces/Game/Board';
 
-import { PieceType } from '../../../src/interfaces/piece';
+import { PieceType } from '../../../src/interfaces/Game/Piece';
 
 export const fakeBoard: Board = {
   state: [

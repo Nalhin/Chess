@@ -1,9 +1,9 @@
 import React from 'react';
-import { HistoryGameWithTurnCount } from '../../interfaces/HistoryGame';
+import { HistoryGameWithTurnCount } from '../../interfaces/History/HistoryGame';
 import { useHistory } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { Card, CardActionArea, Typography, useTheme } from '@material-ui/core';
-import { PlayerColor } from '../../interfaces/player';
+import { PlayerColor } from '../../interfaces/Game/Player';
 import MatchHistoryPlayer from '../../components/MatchHistoryPlayer/MatchHistoryPlayer';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -63,7 +63,7 @@ const MatchHistoryGame: React.FC<Props> = ({ game, login }) => {
   const history = useHistory();
   const theme = useTheme();
   const winningPlayerName =
-    game.winner === PlayerColor.BLACK
+    game.winner === PlayerColor.Black
       ? game.blackPlayerName
       : game.whitePlayerName;
 
@@ -82,7 +82,7 @@ const MatchHistoryGame: React.FC<Props> = ({ game, login }) => {
         <StyledWrapper>
           <MatchHistoryPlayer
             name={game.whitePlayerName}
-            isWinner={game.winner === PlayerColor.WHITE}
+            isWinner={game.winner === PlayerColor.White}
           />
           <StyledGameTimeContainer theme={theme} variant="body1">
             <span>{game.totalTurns} Turns</span>
@@ -90,7 +90,7 @@ const MatchHistoryGame: React.FC<Props> = ({ game, login }) => {
           </StyledGameTimeContainer>
           <StyledBlackPlayer
             name={game.blackPlayerName}
-            isWinner={game.winner === PlayerColor.BLACK}
+            isWinner={game.winner === PlayerColor.Black}
           />
         </StyledWrapper>
       </StyledCardActionArea>

@@ -3,7 +3,7 @@ import {
   RemoveToastAction,
   ToasterActionTypes,
 } from './toaster.types';
-import { Toast } from '../../interfaces/ToastTypes';
+import { Toast } from '../../interfaces/Toaster/ToastTypes';
 
 export const addToast = (toast: Toast): AddToastAction => ({
   type: ToasterActionTypes.ADD_TOAST,

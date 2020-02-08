@@ -1,4 +1,4 @@
-import { PlayerColor } from './player';
+import { PlayerColor } from './Player';
 
 export enum PieceType {
   PAWN = 'PAWN',

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { PlayerColor } from '../../../../interfaces/player';
+import { PlayerColor } from '../../../../interfaces/Game/Player';
 import mixins from '../../../../styles/mixins';
 import { Button } from '@material-ui/core';
 

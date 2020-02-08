@@ -1,5 +1,5 @@
 import React from 'react';
-import { HistoryGameWithTurns } from '../../interfaces/HistoryGame';
+import { HistoryGameWithTurns } from '../../interfaces/History/HistoryGame';
 import {
   Card,
   Divider,
@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core';
 import styled from '@emotion/styled';
 import MatchHistoryPlayer from '../../components/MatchHistoryPlayer/MatchHistoryPlayer';
-import { PlayerColor } from '../../interfaces/player';
+import { PlayerColor } from '../../interfaces/Game/Player';
 import { StyledWrapper } from '../SignIn/SignIn';
 import { getPieceUrl } from '../../utils/getPieceUrl';
 import PlayerAvatar from '../../components/PlayerAvatar/PlayerAvatar';
@@ -84,7 +84,7 @@ const IndividualMatch: React.FC<Props> = ({ game }) => {
       <StyledWrapper>
         <MatchHistoryPlayer
           name={game.whitePlayerName}
-          isWinner={game.winner === PlayerColor.WHITE}
+          isWinner={game.winner === PlayerColor.White}
         />
         <StyledGameTimeContainer theme={theme}>
           <span>{game.turns.length} Turns</span>
@@ -92,7 +92,7 @@ const IndividualMatch: React.FC<Props> = ({ game }) => {
         </StyledGameTimeContainer>
         <StyledBlackPlayer
           name={game.blackPlayerName}
-          isWinner={game.winner === PlayerColor.BLACK}
+          isWinner={game.winner === PlayerColor.Black}
         />
       </StyledWrapper>
       <List>
@@ -103,7 +103,7 @@ const IndividualMatch: React.FC<Props> = ({ game }) => {
               <ListItemIcon>
                 <StyledPlayerAvatar
                   name={
-                    turn.playerColor === PlayerColor.WHITE
+                    turn.playerColor === PlayerColor.White
                       ? game.whitePlayerName
                       : game.blackPlayerName
                   }

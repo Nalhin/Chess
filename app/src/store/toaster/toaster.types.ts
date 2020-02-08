@@ -1,4 +1,4 @@
-import { Toast } from '../../interfaces/ToastTypes';
+import { Toast } from '../../interfaces/Toaster/ToastTypes';
 
 export interface ToasterState {
   readonly toasterData: Toast[];

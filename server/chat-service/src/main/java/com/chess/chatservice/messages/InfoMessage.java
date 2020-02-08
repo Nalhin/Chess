@@ -7,7 +7,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class InfoMessage extends Message {
+
     public InfoMessage() {
-        type= MessageTypes.INFO_MESSAGE;
+        super(MessageTypes.INFO_MESSAGE);
     }
 }

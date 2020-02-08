@@ -19,7 +19,7 @@ module.exports = env => ({
   devtool: env.development && 'eval-source-map',
   devServer: {
     contentBase: [
-      path.join(__dirname, 'public')
+      path.join(__dirname, 'public'),
     ],
     hot: true,
     open: false,
@@ -30,12 +30,12 @@ module.exports = env => ({
     rules: [
       {
         test: [/\.js$/],
-        exclude: [/node_modules/,/test/],
+        exclude: [/node_modules/, /test/],
         loader: ['babel-loader', 'eslint-loader'],
       },
       {
         test: /\.(ts|tsx)$/,
-        exclude: [/node_modules/, /\*.test.(ts|tsx)$/],
+        exclude: [/node_modules/, /src\/*.test.(ts|tsx)/, /test/],
         loader: ['babel-loader', 'ts-loader'],
       },
       {
@@ -70,7 +70,9 @@ module.exports = env => ({
     ]),
     new Dotenv(),
     new webpack.EnvironmentPlugin({ ...env }),
-    new BundleAnalyzerPlugin()
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'disabled',
+    }),
   ],
   optimization: {
     splitChunks: {

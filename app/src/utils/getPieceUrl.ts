@@ -1,9 +1,9 @@
-import { PlayerColor } from '../interfaces/player';
-import { PieceType } from '../interfaces/piece';
+import { PlayerColor } from '../interfaces/Game/Player';
+import { PieceType } from '../interfaces/Game/Piece';
 
 const colorUrl = {
-  [PlayerColor.WHITE]: 'WHITE',
-  [PlayerColor.BLACK]: 'BLACK',
+  [PlayerColor.White]: 'WHITE',
+  [PlayerColor.Black]: 'BLACK',
 };
 
 export const getPieceUrl = (playerColor: PlayerColor, type: PieceType) => {

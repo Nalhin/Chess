@@ -1,7 +1,7 @@
 import {
   HistoryGameWithTurnCount,
   HistoryGameWithTurns,
-} from '../../interfaces/HistoryGame';
+} from '../../interfaces/History/HistoryGame';
 
 export interface HistoryState {
   readonly historyGames: {

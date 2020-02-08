@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { loginUserRequested } from '../../store/user/user.actions';
-import { UserLoginData } from '../../interfaces/User';
+import { UserLoginData } from '../../interfaces/User/User';
 import styled from '@emotion/styled';
 import { Button, Card, TextField, useTheme } from '@material-ui/core';
 import { Link } from 'react-router-dom';

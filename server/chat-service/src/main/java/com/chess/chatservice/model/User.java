@@ -10,6 +10,6 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 public class User {
-  private  String login;
-  private  UUID chatId;
+    private String login;
+    private UUID chatId;
 }

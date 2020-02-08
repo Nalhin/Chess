@@ -1,4 +1,4 @@
-import { UserLoginData, UserRegisterData } from '../../interfaces/User';
+import { UserLoginData, UserRegisterData } from '../../interfaces/User/User';
 import axios from 'axios';
 
 export const fetchLoginUser = (user: UserLoginData) =>

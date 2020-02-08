@@ -1,12 +1,12 @@
 import React from 'react';
 import Cell from './Cell';
 import styled from '@emotion/styled';
-import { AvailableMoves } from '../../../../interfaces/availableMoves';
-import { Piece } from '../../../../interfaces/piece';
-import { BoardPosition } from '../../../../interfaces/boardPosition';
+import { AvailableMoves } from '../../../../interfaces/Game/AvailableMoves';
+import { Piece } from '../../../../interfaces/Game/Piece';
+import { BoardPosition } from '../../../../interfaces/Game/BoardPosition';
 import { arePositionsEqual } from '../../../../utils/arePositionsEqual';
-import { CheckState } from '../../../../interfaces/checkState';
-import { PlayerColor } from '../../../../interfaces/player';
+import { CheckState } from '../../../../interfaces/Game/CheckState';
+import { PlayerColor } from '../../../../interfaces/Game/Player';
 import BoardLetters from './BoardLetters';
 import BoardNumbers from './BoardNumbers';
 

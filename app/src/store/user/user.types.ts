@@ -1,4 +1,8 @@
-import { User, UserLoginData, UserRegisterData } from '../../interfaces/User';
+import {
+  User,
+  UserLoginData,
+  UserRegisterData,
+} from '../../interfaces/User/User';
 
 export interface UserState {
   readonly data: {

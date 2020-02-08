@@ -1,6 +1,6 @@
 export enum PlayerColor {
-  WHITE = 0,
-  BLACK = 1,
+  White = 0,
+  Black = 1,
 }
 
 export interface Player {

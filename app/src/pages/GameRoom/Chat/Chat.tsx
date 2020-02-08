@@ -1,5 +1,5 @@
 import React from 'react';
-import ChatMessage from './ChatMessage';
+import ChatUserMessage from './ChatUserMessage';
 import { ChatContainerProps } from './Chat.container';
 import styled from '@emotion/styled';
 import ChatTypeMenu from './ChatTypeMenu';
@@ -85,7 +85,7 @@ const Chat: React.FC<Props> = ({ chatMessages, sendMessage, userLogin }) => {
           </StyledTitle>
           <StyledMessageWrapper theme={theme}>
             {chatMessages.map(message => (
-              <ChatMessage
+              <ChatUserMessage
                 key={message.id}
                 chatMessage={message}
                 userLogin={userLogin}

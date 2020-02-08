@@ -20,10 +20,10 @@ import {
   MakeMoveRequestedAction,
   PlayerMovedSubscriptionAction,
 } from './game.types';
-import { Game } from '../../interfaces/game';
-import { AvailableMoves } from '../../interfaces/availableMoves';
-import { BoardPosition } from '../../interfaces/boardPosition';
-import { PieceType } from '../../interfaces/piece';
+import { Game } from '../../interfaces/Game/Game';
+import { AvailableMoves } from '../../interfaces/Game/AvailableMoves';
+import { BoardPosition } from '../../interfaces/Game/BoardPosition';
+import { PieceType } from '../../interfaces/Game/Piece';
 
 export const gameStarted = (game: Game): GameStartedSubscriptionAction => ({
   type: GameStateSubscriptionActionTypes.GAME_STARTED,

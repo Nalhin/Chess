@@ -6,11 +6,10 @@ import {
 } from './game.types';
 import { Reducer } from 'react';
 import produce from 'immer';
-import { Player, PlayerColor } from '../../interfaces/player';
-import { GamePhase } from '../../interfaces/game';
-import { BoardPosition } from '../../interfaces/boardPosition';
-import { CheckState } from '../../interfaces/checkState';
-import { CustomRouterActionTypes } from '../customRouter/customRouter.types';
+import { Player, PlayerColor } from '../../interfaces/Game/Player';
+import { GamePhase } from '../../interfaces/Game/Game';
+import { BoardPosition } from '../../interfaces/Game/BoardPosition';
+import { CheckState } from '../../interfaces/Game/CheckState';
 
 export const GAME_INITIAL_STATE: GameState = {
   gameState: {
@@ -21,16 +20,16 @@ export const GAME_INITIAL_STATE: GameState = {
         blackGraveyard: [],
       },
       positionAwaitingPromotion: null,
-      checkState: CheckState.NONE,
+      checkState: CheckState.None,
     },
     currentTurn: {
-      currentPlayerColor: PlayerColor.WHITE,
+      currentPlayerColor: PlayerColor.White,
       turnNumber: 0,
     },
     gamePhase: GamePhase.WAITING_FOR_PLAYERS,
     players: {
-      [PlayerColor.WHITE]: {} as Player,
-      [PlayerColor.BLACK]: {} as Player,
+      [PlayerColor.White]: {} as Player,
+      [PlayerColor.Black]: {} as Player,
     },
   },
   selectedPiece: {

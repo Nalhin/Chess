@@ -1,6 +1,6 @@
 import React from 'react';
-import { PieceType } from '../../../../interfaces/piece';
-import { PlayerColor } from '../../../../interfaces/player';
+import { PieceType } from '../../../../interfaces/Game/Piece';
+import { PlayerColor } from '../../../../interfaces/Game/Player';
 import { getPieceUrl } from '../../../../utils/getPieceUrl';
 import { StyledChessImage } from '../Board/PieceIcon';
 

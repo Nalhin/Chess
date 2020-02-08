@@ -27,6 +27,7 @@ describe('initChatSaga', () => {
 
     testSaga(initChatSaga, action)
       .next()
+      .next({ login: 'xd' })
       .take(ChatBaseActionTypes.CLOSE_CHAT)
       .next()
       .isDone();

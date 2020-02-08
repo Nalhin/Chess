@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.TimeZone;
 
 public class IsoDate {
-    public static String getCurrentIsoDate(){
+    public static String getCurrentIsoDate() {
         TimeZone tz = TimeZone.getTimeZone("UTC");
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
         df.setTimeZone(tz);

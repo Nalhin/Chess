@@ -1,4 +1,4 @@
-import { BoardPosition } from '../interfaces/boardPosition';
+import { BoardPosition } from '../interfaces/Game/BoardPosition';
 
 export const arePositionsEqual = (
   firstPosition: BoardPosition,

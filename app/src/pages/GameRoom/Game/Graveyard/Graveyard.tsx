@@ -1,4 +1,4 @@
-import { Piece } from '../../../../interfaces/piece';
+import { Piece } from '../../../../interfaces/Game/Piece';
 import React from 'react';
 import GraveyardIcon from './GraveyardIcon';
 
