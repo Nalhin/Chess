@@ -1,18 +1,21 @@
 import React from 'react';
 import QueueLoader from '../../components/Loader/QueueLoader';
-import Button from '../../components/Button/Button';
 import styled from '@emotion/styled';
 import { calculateTimeDifferenceInSeconds } from '../../utils/calculateTimeDifferenceInSeconds';
+import mixins from '../../styles/mixins';
+import { Button, useTheme } from '@material-ui/core';
 
 const StyledQueue = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${mixins.flexCenter};
   flex-direction: column;
 `;
 
 const StyledText = styled.span`
-  padding: ${props => props.theme.space.large}px;
+  padding: ${props => props.theme.spacing(3)}px;
+`;
+
+const StyledButton = styled(Button)`
+  margin: ${props => props.theme.spacing(2)}px;
 `;
 
 interface Props {
@@ -41,6 +44,7 @@ const Queue: React.FC<Props> = ({
   }, []);
 
   const [shownTime, setShownTime] = React.useState(null);
+  const theme = useTheme();
 
   React.useEffect(() => {
     if (!timeJoined) {
@@ -58,14 +62,37 @@ const Queue: React.FC<Props> = ({
   return (
     <StyledQueue>
       {isReconnectShown ? (
-        <Button onClick={gameReconnect}>Reconnect</Button>
+        <StyledButton
+          theme={theme}
+          color="primary"
+          variant="contained"
+          onClick={gameReconnect}
+        >
+          Reconnect
+        </StyledButton>
       ) : (
-        !isInQueue && <Button onClick={joinQueue}>Play</Button>
+        !isInQueue && (
+          <StyledButton
+            theme={theme}
+            color="primary"
+            variant="contained"
+            onClick={joinQueue}
+          >
+            Play
+          </StyledButton>
+        )
       )}
       {isInQueue && (
         <>
-          <Button onClick={leaveQueue}>Leave queue</Button>
-          <StyledText>
+          <StyledButton
+            theme={theme}
+            color="primary"
+            variant="contained"
+            onClick={leaveQueue}
+          >
+            Leave queue
+          </StyledButton>
+          <StyledText theme={theme}>
             In queue for {shownTime} seconds with {queueCount} other users.
           </StyledText>
           <QueueLoader />

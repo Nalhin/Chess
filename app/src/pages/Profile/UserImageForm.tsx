@@ -1,20 +1,15 @@
 import React from 'react';
-import { User } from '../../../interfaces/User';
-import Loader from '../../../components/Loader/Loader';
-import { fetchSaveImage } from '../../../store/user/user.api';
-import Button, {
-  StyledMaterialButton,
-} from '../../../components/Button/Button';
-import { Avatar } from '@material-ui/core';
+import { User } from '../../interfaces/User';
+import Loader from '../../components/Loader/Loader';
+import { fetchSaveImage } from '../../store/user/user.api';
+import { Avatar, Button, useTheme } from '@material-ui/core';
 import styled from '@emotion/styled';
-import { generateToast } from '../../../utils/toastFactory';
-import { Toast, ToastTypes } from '../../../interfaces/ToastTypes';
-import { useTheme } from '@emotion/core';
+import { generateToast } from '../../utils/toastFactory';
+import { Toast, ToastTypes } from '../../interfaces/ToastTypes';
+import mixins from '../../styles/mixins';
 
 const StyledLoader = styled(Loader)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  ${mixins.flexCenter};
   flex-direction: column;
 `;
 
@@ -23,16 +18,20 @@ const StyledAvatar = styled(Avatar)`
   height: 200px;
 `;
 
+const StyledButton = styled(Button)`
+  margin: ${props => props.theme.spacing(2)}px;
+`;
+
 interface Props {
   user: User;
   addToast: (toast: Toast) => void;
 }
 
 const UserImageForm: React.FC<Props> = ({ user, addToast }) => {
+  const theme = useTheme();
   const [file, setFile] = React.useState(null);
   const [isLoading, setLoading] = React.useState(false);
   const [imageTime, setImageTime] = React.useState(new Date().getTime());
-  const theme = useTheme();
 
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFile(e.target.files[0]);
@@ -70,18 +69,25 @@ const UserImageForm: React.FC<Props> = ({ user, addToast }) => {
           onChange={handleFile}
         />
         <label htmlFor="raised-button-file">
-          <StyledMaterialButton
+          <StyledButton
             variant="contained"
+            color="primary"
             // @ts-ignore
             component="span"
             theme={theme}
           >
             Change Avatar
-          </StyledMaterialButton>
+          </StyledButton>
         </label>
-        <Button onClick={saveFile} disabled={!file}>
+        <StyledButton
+          onClick={saveFile}
+          color="primary"
+          variant="contained"
+          disabled={!file}
+          theme={theme}
+        >
           Save
-        </Button>
+        </StyledButton>
       </div>
     </StyledLoader>
   );

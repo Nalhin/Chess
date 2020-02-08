@@ -2,8 +2,8 @@ import * as React from 'react';
 import { createMemoryHistory, History } from 'history';
 import { render } from '@testing-library/react';
 import { Router } from 'react-router-dom';
-import { theme } from '../../src/styles/theme';
-import { ThemeProvider } from '@emotion/core';
+import { ThemeProvider } from '@material-ui/core';
+import { muiTheme } from '../../src/styles/theme';
 
 export const renderWithRouter = (
   ui: JSX.Element,
@@ -14,11 +14,11 @@ export const renderWithRouter = (
 ) => {
   return {
     ...render(
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={muiTheme}>
         <Router history={history}>{ui}</Router>
       </ThemeProvider>,
     ),
     history,
-    theme,
+    theme: muiTheme,
   };
 };

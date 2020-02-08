@@ -1,20 +1,15 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
 import { BounceLoader } from 'react-spinners';
+import mixins from '../../styles/mixins';
 
 const Wrapper = styled.div`
   position: relative;
 `;
 
 const SpinnerWrapper = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  ${mixins.fixedCenter};
+  ${mixins.absoluteCenter};
   z-index: 1000;
 `;
 

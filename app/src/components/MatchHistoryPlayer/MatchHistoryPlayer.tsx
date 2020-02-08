@@ -2,12 +2,12 @@ import React from 'react';
 import PlayerAvatar from '../PlayerAvatar/PlayerAvatar';
 import Crown from './Crown';
 import styled from '@emotion/styled';
-import { useTheme } from '@emotion/core';
+import { Typography, useTheme } from '@material-ui/core';
 
 const StyledContainer = styled.div`
   display: flex;
   flex-direction: row;
-  padding-top: ${props => props.theme.space.large}px;
+  padding-top: ${props => props.theme.spacing(3)}px;
 `;
 
 const StyledCrown = styled(Crown)`
@@ -28,14 +28,6 @@ const StyledAvatarContainer = styled.div`
   position: relative;
 `;
 
-const StyledName = styled.span`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: ${props => props.theme.space.medium}px 0;
-  font-weight: ${props => props.theme.fontWeights.heading};
-`;
-
 interface Props {
   name: string;
   isWinner: boolean;
@@ -49,7 +41,7 @@ const MatchHistoryPlayer: React.FC<Props> = ({ name, isWinner, className }) => {
       <StyledAvatarContainer theme={theme}>
         {isWinner && <StyledCrown />}
         <StyledPlayerAvatar name={name} />
-        <StyledName>{name}</StyledName>
+        <Typography variant="body1">{name}</Typography>
       </StyledAvatarContainer>
     </StyledContainer>
   );

@@ -7,12 +7,13 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  Typography,
+  useTheme,
 } from '@material-ui/core';
 import styled from '@emotion/styled';
 import MatchHistoryPlayer from '../../components/MatchHistoryPlayer/MatchHistoryPlayer';
 import { PlayerColor } from '../../interfaces/player';
 import { StyledWrapper } from '../SignIn/SignIn';
-import { useTheme } from '@emotion/core';
 import { getPieceUrl } from '../../utils/getPieceUrl';
 import PlayerAvatar from '../../components/PlayerAvatar/PlayerAvatar';
 import ChessMove from '../../components/ChessMove/ChessMove';
@@ -24,7 +25,7 @@ dayjs.extend(relativeTime);
 const StyledCard = styled(Card)`
   max-width: 90%;
   margin: 0 auto;
-  padding: ${props => props.theme.space.large}px;
+  padding: ${props => props.theme.spacing(3)}px;
   width: 500px;
 `;
 
@@ -42,22 +43,18 @@ const StyledGameTimeContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: ${props => props.theme.fontWeights.heading};
   flex-direction: column;
 `;
 
-const StyledDateContainer = styled.div`
-  font-size: ${props => props.theme.fontSizes.small}px;
+const StyledDateContainer = styled(Typography)`
   text-align: right;
-  font-weight: ${props => props.theme.fontWeights.heading};
-  margin-bottom: ${props => props.theme.space.large}px;
 `;
 
 const StyledPlayerAvatar = styled(PlayerAvatar)`
   width: 50px;
   height: 50px;
-  margin-left: ${props => props.theme.space.large}px;
-  ${props => props.theme.mediaQueries.small} {
+  margin-left: ${props => props.theme.spacing(3)}px;
+  ${props => props.theme.breakpoints.down('sm')} {
     width: 40px;
     height: 40px;
   }
@@ -66,8 +63,8 @@ const StyledPlayerAvatar = styled(PlayerAvatar)`
 const StyledImage = styled.img`
   width: 85px;
   height: 85px;
-  margin-left: ${props => props.theme.space.large}px;
-  ${props => props.theme.mediaQueries.small} {
+  margin-left: ${props => props.theme.spacing(3)}px;
+  ${props => props.theme.breakpoints.down('sm')} {
     width: 60px;
     height: 60px;
   }
@@ -80,8 +77,8 @@ interface Props {
 const IndividualMatch: React.FC<Props> = ({ game }) => {
   const theme = useTheme();
   return (
-    <StyledCard>
-      <StyledDateContainer>
+    <StyledCard theme={theme}>
+      <StyledDateContainer variant="subtitle2">
         {dayjs(game.finishTime).from(dayjs())}
       </StyledDateContainer>
       <StyledWrapper>
@@ -100,8 +97,8 @@ const IndividualMatch: React.FC<Props> = ({ game }) => {
       </StyledWrapper>
       <List>
         {game.turns.map(turn => (
-          <>
-            <StyledTurn key={turn.turnId} button>
+          <li key={turn.turnId}>
+            <StyledTurn button>
               <span>{turn.turnNumber}.</span>
               <ListItemIcon>
                 <StyledPlayerAvatar
@@ -131,7 +128,7 @@ const IndividualMatch: React.FC<Props> = ({ game }) => {
               />
             </StyledTurn>
             <Divider variant="middle" component="li" />
-          </>
+          </li>
         ))}
       </List>
     </StyledCard>

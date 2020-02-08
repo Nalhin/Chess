@@ -1,33 +1,28 @@
 import React from 'react';
 import styled from '@emotion/styled';
-
-export const BoardTextBase = styled.div`
-  font-size: ${props => props.theme.fontSizes.larger}px;
-  font-weight: ${props => props.theme.fontWeights.heading};
-
-  ${props => props.theme.mediaQueries.small} {
-    font-size: ${props => props.theme.fontSizes.body}px;
-  }
-`;
+import { Typography, useTheme } from '@material-ui/core';
 
 const StyledLetters = styled.div`
   display: grid;
 `;
 
-const StyledLetterContainer = styled(BoardTextBase)`
+const StyledLetterContainer = styled(Typography)`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  padding-right: ${props => props.theme.space.large}px;
+  padding-right: ${props => props.theme.spacing(2)}px;
 `;
 
 const boardNumbers = ['1', '2', '3', '4', '5', '6', '7', '8'].reverse();
 
 const BoardNumbers = React.memo(() => {
+  const theme = useTheme();
   return (
     <StyledLetters>
       {boardNumbers.map(number => (
-        <StyledLetterContainer key={number}>{number}</StyledLetterContainer>
+        <StyledLetterContainer variant="body1" key={number} theme={theme}>
+          {number}
+        </StyledLetterContainer>
       ))}
     </StyledLetters>
   );

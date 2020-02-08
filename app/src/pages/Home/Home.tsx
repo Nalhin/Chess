@@ -2,16 +2,15 @@ import React from 'react';
 import { HomeContainerProps } from './Home.container';
 import Queue from './Queue';
 import styled from '@emotion/styled';
+import { Typography, useTheme } from '@material-ui/core';
 
 const StyledContainer = styled.div`
   margin: 0 auto;
   text-align: center;
 `;
 
-const StyledHeader = styled.h1`
-  padding-top: ${props => props.theme.space.large}px;
-  font-size: ${props => props.theme.fontSizes.larger}px;
-  font-weight: ${props => props.theme.fontWeights.heading}px;
+const StyledHeader = styled(Typography)`
+  padding-top: ${props => props.theme.spacing(3)}px;
 `;
 
 interface Props extends HomeContainerProps {}
@@ -27,6 +26,7 @@ const Home: React.FC<Props> = ({
   leaveQueue,
   timeJoined,
 }) => {
+  const theme = useTheme();
   return (
     <StyledContainer data-testid="home">
       {isAuthenticated ? (
@@ -41,7 +41,9 @@ const Home: React.FC<Props> = ({
           timeJoined={timeJoined}
         />
       ) : (
-        <StyledHeader>Log in first.</StyledHeader>
+        <StyledHeader variant="h4" theme={theme}>
+          Log in first.
+        </StyledHeader>
       )}
     </StyledContainer>
   );

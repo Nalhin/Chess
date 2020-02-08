@@ -1,17 +1,17 @@
 import React from 'react';
-import Input from '../../../components/Input/Input';
 import styled from '@emotion/styled';
-import { useTheme } from '@emotion/core';
 import SendIcon from '@material-ui/icons/Send';
 import IconButton from '@material-ui/core/IconButton';
+import { TextField, useTheme } from '@material-ui/core';
 
 const StyledContainer = styled.div`
-  border-top: 1px solid ${props => props.theme.colors.backgroundDarker};
+  border-top: 1px solid ${props => props.theme.palette.divider};
   display: flex;
 `;
 
-const StyledInput = styled(Input)`
+const StyledInput = styled(TextField)`
   width: 100%;
+  margin: ${props => props.theme.spacing(1)}px;
 `;
 
 interface Props {
@@ -48,10 +48,12 @@ const ChatTypeMenu: React.FC<Props> = ({ sendMessage }) => {
         onKeyDown={handleKeyDown}
         value={messageInputValue}
         placeholder="Type a message..."
+        theme={theme}
       />
       <IconButton
         data-testid="chat__send-message-button"
         onClick={handleSendMessage}
+        color="primary"
       >
         <SendIcon />
       </IconButton>

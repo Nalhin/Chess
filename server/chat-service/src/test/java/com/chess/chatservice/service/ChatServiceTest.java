@@ -1,5 +1,6 @@
 package com.chess.chatservice.service;
 
+import com.chess.chatservice.model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,26 +13,30 @@ class ChatServiceTest {
 
     private ChatService chatService;
     private final String sessionId = "123";
-    private UUID uuid;
+    private UUID chatId;
+    private String userLogin = "login";
 
     @BeforeEach
     void setUp() {
         chatService = new ChatService();
-        uuid = UUID.randomUUID();
+        chatId = UUID.randomUUID();
     }
 
     @Test
     void setChatId() {
-        chatService.setChatId(sessionId, uuid);
+        User user = new User(userLogin, chatId);
+        chatService.addUser(sessionId, user);
 
-        assertEquals(chatService.getChatIdAndRemoveFromChat(sessionId), uuid);
+        assertEquals(chatService.getChatIdAndRemoveUser(sessionId).getChatId(), chatId);
     }
 
     @Test
     void getChatIdAndRemoveFromChat() {
-        chatService.setChatId(sessionId, uuid);
-        chatService.getChatIdAndRemoveFromChat(sessionId);
+        User user = new User(userLogin, chatId);
 
-        assertNull(chatService.getChatIdAndRemoveFromChat(sessionId));
+        chatService.addUser(sessionId, user);
+        chatService.getChatIdAndRemoveUser(sessionId);
+
+        assertNull(chatService.getChatIdAndRemoveUser(sessionId));
     }
 }

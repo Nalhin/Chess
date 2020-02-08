@@ -7,8 +7,9 @@ import PieceIcon from './PieceIcon';
 import { useDrop } from 'react-dnd';
 import { DragAndDropTypes } from '../../../../contants/dragAndDropTypes';
 import { CheckState } from '../../../../interfaces/checkState';
-import { useTheme } from '@emotion/core';
 import { cellSize } from '../../../../styles/cellSize';
+import mixins from '../../../../styles/mixins';
+import { useTheme } from '@material-ui/core';
 
 interface StyledCellProps {
   isChecked: boolean;
@@ -16,9 +17,7 @@ interface StyledCellProps {
 }
 
 const StyledCell = styled.div<StyledCellProps>`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${mixins.flexCenter};
   position: relative;
 
   &:nth-of-type(16n + 1),
@@ -41,12 +40,12 @@ const StyledCell = styled.div<StyledCellProps>`
   width: ${cellSize.desktop};
   height: ${cellSize.desktop};
 
-  ${props => props.theme.mediaQueries.medium} {
+  ${props => props.theme.breakpoints.down('md')} {
     width: ${cellSize.tablet};
     height: ${cellSize.tablet};
   }
 
-  ${props => props.theme.mediaQueries.small} {
+  ${props => props.theme.breakpoints.down('sm')} {
     width: ${cellSize.mobile};
     height: ${cellSize.mobile};
   }

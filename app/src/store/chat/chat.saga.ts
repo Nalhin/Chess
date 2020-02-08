@@ -20,7 +20,13 @@ export function* chatRootSaga(): SagaIterator {
 export function* initChatSaga(action: InitChatAction): SagaIterator {
   const chatStomp = StompSingleton.getInstance(WebsocketTypes.CHAT);
 
-  const subscription = chatSubscription(chatStomp, action.payload.chatId);
+  const user = yield select(userSelector);
+
+  const subscription = chatSubscription(
+    chatStomp,
+    action.payload.chatId,
+    user.login,
+  );
 
   yield take(ChatBaseActionTypes.CLOSE_CHAT);
   subscription.unsubscribe();

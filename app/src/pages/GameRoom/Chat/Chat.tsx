@@ -3,9 +3,8 @@ import ChatMessage from './ChatMessage';
 import { ChatContainerProps } from './Chat.container';
 import styled from '@emotion/styled';
 import ChatTypeMenu from './ChatTypeMenu';
-import { Popover } from '@material-ui/core';
+import { Popover, useTheme } from '@material-ui/core';
 import ChatActionButton from './ChatActionButton';
-import { useTheme } from '@emotion/core';
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 
@@ -16,16 +15,18 @@ const StyledChatWrapper = styled(Popover)`
 `;
 
 const StyledMessageWrapper = styled.div`
-  display: flex;
-  flex-direction: column-reverse;
-  height: 300px;
-  width: 300px;
-  overflow-x: auto;
-  padding: 0 ${props => props.theme.space.large}px
-    ${props => props.theme.space.large}px;
-  ${props => props.theme.mediaQueries.small} {
-    height: 200px;
-  }
+  ${props => `
+    display: flex;
+    flex-direction: column-reverse;
+    height: 300px;
+    width: 300px;
+    overflow-x: auto;
+    padding: 0 ${props.theme.spacing(2)}px
+    ${props.theme.spacing(2)}px;
+    ${props.theme.breakpoints.down('sm')} {
+      height: 200px;
+    }
+  `}
 `;
 
 const StyledContentWrapper = styled.div`
@@ -33,12 +34,15 @@ const StyledContentWrapper = styled.div`
 `;
 
 const StyledTitle = styled.div`
-  background: ${props => props.theme.colors.primary};
-  text-align: center;
-  font-size: ${props => props.theme.fontSizes.larger}px;
-  color: #fff;
-  padding: ${props => props.theme.space.medium * 1.3}px 0;
-  position: relative;
+  ${props => `
+    background: ${props.theme.palette.primary.main};
+    text-align: center;
+    font-size: ${props.theme.typography.h5.fontSize};
+    font-weight: ${props.theme.typography.h5.fontWeight};
+    color: #fff;
+    padding: ${props.theme.spacing(1) * 1.3}px 0;
+    position: relative;
+  `}
 `;
 
 const StyledIconButton = styled(IconButton)`

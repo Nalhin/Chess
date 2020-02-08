@@ -1,22 +1,22 @@
 package com.chess.chatservice.service;
 
+import com.chess.chatservice.model.User;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
-import java.util.UUID;
 
 @Service
 public class ChatService {
-    private HashMap<String, UUID> playerChat = new HashMap<>();
+    private HashMap<String, User> userHashMap = new HashMap<>();
 
-    public void setChatId(String playerSessionId, UUID chatId) {
-        playerChat.put(playerSessionId, chatId);
+    public void addUser(String playerSessionId, User user) {
+        userHashMap.put(playerSessionId, user);
     }
 
-    public UUID getChatIdAndRemoveFromChat(String playerSessionId) {
-        var chatId = playerChat.get(playerSessionId);
-        playerChat.remove(playerSessionId);
-        return chatId;
+    public User getChatIdAndRemoveUser(String playerSessionId) {
+        User user = userHashMap.get(playerSessionId);
+        userHashMap.remove(playerSessionId);
+        return user;
     }
 
 }

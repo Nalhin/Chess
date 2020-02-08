@@ -1,4 +1,4 @@
-package com.chess.chatservice.model;
+package com.chess.chatservice.messages;
 
 import lombok.Getter;
 import lombok.Setter;

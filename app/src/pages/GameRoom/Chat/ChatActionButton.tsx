@@ -1,18 +1,16 @@
 import React from 'react';
-import { Badge, Fade } from '@material-ui/core';
+import { Badge, Fade, useTheme } from '@material-ui/core';
 import SmsIcon from '@material-ui/icons/Sms';
 import styled from '@emotion/styled';
 import Fab from '@material-ui/core/Fab';
 import { useUnreadMessagesCount } from './useUnreadMessagesCount';
 
 const StyledFab = styled(Fab)`
-  position: fixed;
-  bottom: ${props => props.theme.space.medium}px;
-  right: ${props => props.theme.space.medium}px;
-  background: ${props => props.theme.colors.secondary};
-  &:hover {
-    background: ${props => props.theme.colors.secondaryHover};
-  }
+  ${props => `
+    position: fixed;
+    bottom: ${props.theme.spacing(2)}px;
+    right: ${props.theme.spacing(2)}px;
+  `}
 `;
 
 interface Props {
@@ -27,12 +25,12 @@ const ChatActionButton: React.FC<Props> = ({
   messageCount,
 }) => {
   const unreadMessagesCount = useUnreadMessagesCount(messageCount, !isOpen);
-
+  const theme = useTheme();
   return (
     <Fade in={isOpen}>
-      <StyledFab onClick={handleClick}>
+      <StyledFab onClick={handleClick} color="secondary" theme={theme}>
         <Badge
-          color="secondary"
+          color="primary"
           badgeContent={unreadMessagesCount}
           showZero={false}
         >

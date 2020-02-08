@@ -2,13 +2,10 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { loginUserRequested } from '../../store/user/user.actions';
 import { UserLoginData } from '../../interfaces/User';
-import Input from '../../components/Input/Input';
 import styled from '@emotion/styled';
-import { Card } from '@material-ui/core';
-import Button from '../../components/Button/Button';
+import { Button, Card, TextField, useTheme } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { locations } from '../../contants/locations';
-import { useTheme } from '@emotion/core';
 
 const INITIAL_STATE = {
   login: '',
@@ -28,18 +25,15 @@ export const StyledContainer = styled(Card)`
   flex-direction: column;
   max-width: 90%;
   width: 400px;
-  margin: ${props => props.theme.space.giga}px auto;
-  padding: ${props => props.theme.space.large}px;
+  margin: ${props => props.theme.spacing(4)}px auto;
+  padding: ${props => props.theme.spacing(2)}px;
 `;
 
 export const StyledLink = styled(Link)`
   display: block;
-  padding: ${props => props.theme.space.small}px
-    ${props => props.theme.space.medium}px;
+  padding: ${props => props.theme.spacing(0)}px
+    ${props => props.theme.spacing(1)}px;
   text-align: right;
-  &:visited {
-    color: ${props => props.theme.colors.primary};
-  }
 `;
 
 const SignIn = () => {
@@ -60,20 +54,24 @@ const SignIn = () => {
   return (
     <StyledWrapper>
       <StyledContainer theme={theme}>
-        <Input
+        <TextField
           label="Login"
           name="login"
           onChange={onFormChange}
           value={formState.login}
         />
-        <Input
+        <TextField
           label="Password"
           name="password"
           onChange={onFormChange}
           value={formState.password}
         />
-        <StyledLink to={locations.signUp}>Don't have an account?</StyledLink>
-        <Button onClick={submitForm}>Sign in</Button>
+        <StyledLink to={locations.signUp} theme={theme}>
+          Don't have an account?
+        </StyledLink>
+        <Button color="primary" onClick={submitForm}>
+          Sign in
+        </Button>
       </StyledContainer>
     </StyledWrapper>
   );

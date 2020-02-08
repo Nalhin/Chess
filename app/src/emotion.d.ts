@@ -1,42 +1,6 @@
 import '@emotion/core';
+import { Theme as MuiTheme } from '@material-ui/core/styles/createMuiTheme';
 
 declare module '@emotion/core' {
-  export interface Theme {
-    colors: {
-      textPrimary: string;
-      textSecondary: string;
-      textLight: string;
-      primary: string;
-      primaryHover: string;
-      secondary: string;
-      secondaryHover: string;
-      background: string;
-      backgroundDarker: string;
-      foreground: string;
-      backgroundHover: string;
-      error: string;
-      success: string;
-    };
-    breakpoints: string[];
-    fontWeights: {
-      body: number;
-      heading: number;
-    };
-    space: {
-      small: number;
-      medium: number;
-      large: number;
-      giga: number;
-    };
-    fontSizes: {
-      small: number;
-      body: number;
-      larger: number;
-    };
-    mediaQueries: {
-      small: string;
-      medium: string;
-      large: string;
-    };
-  }
+  export interface Theme extends MuiTheme {}
 }

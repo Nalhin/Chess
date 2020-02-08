@@ -1,22 +1,16 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Card } from '@material-ui/core';
-import { useTheme } from '@emotion/core';
+import { Card, useTheme } from '@material-ui/core';
+import mixins from '../../../../styles/mixins';
 
 const StyledContainer = styled.div`
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #444444dd;
+  ${mixins.absoluteCenter}
+  ${mixins.flexCenter};
+  ${props => props.theme.palette.grey['200']};
 `;
 
 const StyledMenu = styled(Card)`
-  padding: ${props => props.theme.space.medium}px;
+  padding: ${props => props.theme.spacing(2)}px;
 `;
 
 interface Props {
@@ -30,7 +24,7 @@ const GameMenu: React.FC<Props> = ({ isShown, children }) => {
   }
 
   return (
-    <StyledContainer>
+    <StyledContainer theme={theme}>
       <StyledMenu theme={theme}>{children}</StyledMenu>
     </StyledContainer>
   );

@@ -2,20 +2,14 @@ import React from 'react';
 import GameMenu from '../GameMenu/GameMenu';
 import { useHistory } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { useTheme } from '@emotion/core';
-import Button from '../../../../components/Button/Button';
+import { Button, Typography, useTheme } from '@material-ui/core';
 
 const StyledContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: ${props => props.theme.space.large}px;
-`;
-
-const StyledTitle = styled.h2`
-  font-weight: ${props => props.theme.fontWeights.heading};
-  font-size: ${props => props.theme.fontSizes.larger}px;
+  padding: ${props => props.theme.spacing(2)}px;
 `;
 
 interface Props {
@@ -34,8 +28,10 @@ const GameOverMenu: React.FC<Props> = ({ isShown, closeGame }) => {
   return (
     <GameMenu isShown={isShown}>
       <StyledContainer theme={theme}>
-        <StyledTitle>Game Over</StyledTitle>
-        <Button onClick={goToMainMenu}>Go to main menu</Button>
+        <Typography variant="h4">Game Over</Typography>
+        <Button color="primary" onClick={goToMainMenu}>
+          Go to main menu
+        </Button>
       </StyledContainer>
     </GameMenu>
   );

@@ -1,6 +1,6 @@
 import React from 'react';
 import { ProfileContainerProps } from './Profile.container';
-import UserImageForm from './UserImageForm/UserImageForm';
+import UserImageForm from './UserImageForm';
 import AlternateEmailIcon from '@material-ui/icons/AlternateEmail';
 import PersonIcon from '@material-ui/icons/Person';
 import {
@@ -9,22 +9,20 @@ import {
   ListItem,
   ListItemAvatar,
   ListItemText,
+  Typography,
+  useTheme,
 } from '@material-ui/core';
 import styled from '@emotion/styled';
-import { useTheme } from '@emotion/core';
+import mixins from '../../styles/mixins';
 
-const StyledHeader = styled.h1`
-  font-weight: ${props => props.theme.fontWeights.heading};
-  font-size: ${props => props.theme.fontSizes.larger}px;
+const StyledHeader = styled(Typography)`
   text-align: center;
 `;
 
 const StyledContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  ${mixins.flexCenter};
   flex-direction: column;
-  padding-top: ${props => props.theme.space.giga}px;
+  padding-top: ${props => props.theme.spacing(5)}px;
 `;
 
 interface Props extends ProfileContainerProps {}
@@ -35,7 +33,9 @@ const Profile: React.FC<Props> = ({ user, addToast }) => {
   return (
     <StyledContainer theme={theme}>
       <div>
-        <StyledHeader theme={theme}>Your Profile</StyledHeader>
+        <StyledHeader theme={theme} variant="h4">
+          Your Profile
+        </StyledHeader>
         <List>
           <ListItem>
             <ListItemAvatar>

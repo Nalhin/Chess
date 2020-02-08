@@ -2,10 +2,9 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { UserRegisterData } from '../../interfaces/User';
 import { registerUserRequested } from '../../store/user/user.actions';
-import Input from '../../components/Input/Input';
-import Button from '../../components/Button/Button';
 import { StyledContainer, StyledLink, StyledWrapper } from '../SignIn/SignIn';
 import { locations } from '../../contants/locations';
+import { Button, TextField, useTheme } from '@material-ui/core';
 
 const INITIAL_STATE = {
   login: '',
@@ -17,6 +16,7 @@ const SignUp = () => {
   const [formState, setFormState] = React.useState<UserRegisterData>(
     INITIAL_STATE,
   );
+  const theme = useTheme();
   const dispatch = useDispatch();
 
   const submitForm = () => {
@@ -29,27 +29,31 @@ const SignUp = () => {
 
   return (
     <StyledWrapper>
-      <StyledContainer>
-        <Input
+      <StyledContainer theme={theme}>
+        <TextField
           label="Login"
           name="login"
           onChange={onFormChange}
           value={formState.login}
         />
-        <Input
+        <TextField
           label="Email"
           name="email"
           onChange={onFormChange}
           value={formState.email}
         />
-        <Input
+        <TextField
           label="Password"
           name="password"
           onChange={onFormChange}
           value={formState.password}
         />
-        <StyledLink to={locations.signIn}>Sign in?</StyledLink>
-        <Button onClick={submitForm}>Sign up</Button>
+        <StyledLink to={locations.signIn} theme={theme}>
+          Sign in?
+        </StyledLink>
+        <Button color="primary" onClick={submitForm}>
+          Sign up
+        </Button>
       </StyledContainer>
     </StyledWrapper>
   );

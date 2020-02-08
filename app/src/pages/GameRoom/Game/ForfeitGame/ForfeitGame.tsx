@@ -1,12 +1,11 @@
 import React from 'react';
-import Button from '../../../../components/Button/Button';
 import styled from '@emotion/styled';
 import { PlayerColor } from '../../../../interfaces/player';
+import mixins from '../../../../styles/mixins';
+import { Button } from '@material-ui/core';
 
 const StyledContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  ${mixins.flexCenter}
 `;
 
 interface Props {
@@ -26,7 +25,9 @@ const ForfeitGame: React.FC<Props> = ({
 
   return (
     <StyledContainer>
-      <Button onClick={forfeitGame}>Forfeit</Button>
+      <Button color="primary" onClick={forfeitGame}>
+        Forfeit
+      </Button>
     </StyledContainer>
   );
 };

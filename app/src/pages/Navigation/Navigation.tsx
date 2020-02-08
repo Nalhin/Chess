@@ -9,7 +9,6 @@ import { locations } from '../../contants/locations';
 import { NavigationContainerProps } from './Navigation.container';
 
 const StyledToolbar = styled(Toolbar)`
-  background: ${props => props.theme.colors.primary};
   user-select: none;
 `;
 

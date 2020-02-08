@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { BoardTextBase } from './BoardNumbers';
+import { Typography, useTheme } from '@material-ui/core';
+import mixins from '../../../../styles/mixins';
 
 const StyledNumbers = styled.div`
   display: grid;
@@ -9,20 +10,22 @@ const StyledNumbers = styled.div`
   grid-column-end: 8;
 `;
 
-const StyledNumberContainer = styled(BoardTextBase)`
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding-top: ${props => props.theme.space.medium}px;
+const StyledNumberContainer = styled(Typography)`
+  ${mixins.flexCenter};
+  padding-top: ${props => props.theme.spacing(2)}px;
 `;
 
 const boardLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].reverse();
 
 const BoardLetters = React.memo(() => {
+  const theme = useTheme();
+
   return (
     <StyledNumbers>
       {boardLetters.map(letter => (
-        <StyledNumberContainer key={letter}>{letter}</StyledNumberContainer>
+        <StyledNumberContainer variant="body1" key={letter} theme={theme}>
+          {letter}
+        </StyledNumberContainer>
       ))}
     </StyledNumbers>
   );

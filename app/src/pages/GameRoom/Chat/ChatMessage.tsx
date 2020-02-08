@@ -1,25 +1,28 @@
 import React from 'react';
 import { ChatMessageType } from '../../../interfaces/chatMessageType';
 import styled from '@emotion/styled';
-import { useTheme } from '@emotion/core';
 import PlayerAvatar from '../../../components/PlayerAvatar/PlayerAvatar';
 import dayjs from 'dayjs';
+import { Typography, useTheme } from '@material-ui/core';
 
 interface StyledMessageProps {
   isSender: boolean;
 }
 
 const StyledMessage = styled.div<StyledMessageProps>`
-  background: ${props =>
+  ${props => `
+  background: ${
     props.isSender
-      ? props.theme.colors.primary
-      : props.theme.colors.backgroundDarker};
-  color: ${props => (props.isSender ? '#fff' : '#000')};
+      ? props.theme.palette.primary.main
+      : props.theme.palette.grey['200']
+  };
+  color: ${props.isSender ? '#fff' : '#000'};
   border-radius: 20px;
-  padding: ${props => props.theme.space.medium}px;
+  padding: ${props.theme.spacing(1)}px;
   align-items: center;
   word-wrap: break-word;
   overflow: auto;
+  `}
 `;
 
 const StyledContainer = styled.div`
@@ -31,12 +34,7 @@ const StyledContainer = styled.div`
 const StyledPlayerAvatar = styled(PlayerAvatar)`
   width: 30px;
   height: 30px;
-  margin-right: ${props => props.theme.space.medium}px;
-`;
-
-const StyledSendDate = styled.div`
-  color: ${props => props.theme.colors.textSecondary};
-  font-size: ${props => props.theme.fontSizes.small}px;
+  margin-right: ${props => props.theme.spacing(1)}px;
 `;
 
 interface Props {
@@ -52,11 +50,13 @@ const ChatMessage: React.FC<Props> = ({ chatMessage, userLogin }) => {
   return (
     <div>
       {sendDate && (
-        <StyledSendDate>{dayjs(sendDate).format('HH:mm:ss')}</StyledSendDate>
+        <Typography variant="subtitle2" color="textSecondary">
+          {dayjs(sendDate).format('HH:mm:ss')}
+        </Typography>
       )}
       <StyledContainer>
         {sender && (
-          <StyledPlayerAvatar name={sender} isThumbnail>
+          <StyledPlayerAvatar theme={theme} name={sender} isThumbnail>
             {sender[0].toUpperCase()}
           </StyledPlayerAvatar>
         )}

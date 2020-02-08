@@ -1,26 +1,27 @@
 import React from 'react';
 import QueueLoader from '../../../components/Loader/QueueLoader';
 import styled from '@emotion/styled';
+import { Typography, useTheme } from '@material-ui/core';
+import mixins from '../../../styles/mixins';
 
-const StyledTitle = styled.h2`
-  font-weight: ${props => props.theme.fontWeights.heading};
-  font-size: ${props => props.theme.fontSizes.larger}px;
-  padding: ${props => props.theme.space.large}px;
+const StyledTitle = styled(Typography)`
+  padding: ${props => props.theme.spacing(3)}px;
 `;
 
 const StyledContainer = styled.div`
-  align-items: center;
-  display: flex;
-  justify-content: center;
+  ${mixins.flexCenter};
   flex-direction: column;
 `;
 
 interface Props {}
 
 const GameLoader: React.FC<Props> = () => {
+  const theme = useTheme();
   return (
     <StyledContainer>
-      <StyledTitle>Loading game...</StyledTitle>
+      <StyledTitle variant="h3" theme={theme}>
+        Loading game...
+      </StyledTitle>
       <QueueLoader />
     </StyledContainer>
   );

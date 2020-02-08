@@ -1,3 +1,7 @@
+import { createMuiTheme } from '@material-ui/core/styles';
+import purple from '@material-ui/core/colors/purple';
+import green from '@material-ui/core/colors/green';
+
 const colors = {
   textPrimary: '#000000',
   textSecondary: '#3e3e3e',
@@ -8,7 +12,7 @@ const colors = {
   backgroundHover: '#00000011',
   primary: '#1976d2',
   primaryHover: '#1976d2cc',
-  secondary: '#ffc107',
+  secondary: '#f50057',
   secondaryHover: '#ffc107cc',
   error: '#f44336',
   success: '#43a047',
@@ -44,3 +48,14 @@ export const theme = {
     large: `@media screen and (max-width: ${breakpoints[2]})`,
   },
 };
+
+export const muiTheme = createMuiTheme({
+  palette: {
+    primary: {
+      main: theme.colors.primary,
+    },
+    secondary: {
+      main: theme.colors.secondary,
+    },
+  },
+});
