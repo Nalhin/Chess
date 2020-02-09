@@ -4,6 +4,7 @@ import {
   IconButton,
   Menu,
   MenuItem,
+  Switch,
   Toolbar,
   useTheme,
 } from '@material-ui/core';
@@ -13,16 +14,14 @@ import NavigationDrawer from './NavigationDrawer';
 import { StyledLink } from '../../components/StyledLink/StyledLink';
 import { locations } from '../../contants/locations';
 import { NavigationContainerProps } from './Navigation.container';
-import InvertColorsIcon from '@material-ui/icons/InvertColors';
 import { useColorModeContext } from '../../styles/colorModeContext';
 import { ColorMode } from '../../interfaces/Styles/ColorMode';
+import Brightness3Icon from '@material-ui/icons/Brightness3';
+import WbSunnyIcon from '@material-ui/icons/WbSunny';
+import mixins from '../../styles/mixins';
 
 const StyledToolbar = styled(Toolbar)`
   user-select: none;
-`;
-
-const StyledLeftIcon = styled(IconButton)`
-  margin-left: auto;
 `;
 
 const StyledAppBar = styled(AppBar)`
@@ -30,6 +29,11 @@ const StyledAppBar = styled(AppBar)`
     props.theme.palette.type === ColorMode.Light
       ? props.theme.palette.primary.main
       : props.theme.palette.background.paper};
+`;
+
+const DarkModeContainer = styled.div`
+  margin: 0 ${props => props.theme.spacing(2)}px 0 auto;
+  ${mixins.flexCenter}
 `;
 
 interface Props extends NavigationContainerProps {}
@@ -88,9 +92,16 @@ const Navigation: React.FC<Props> = ({ isAuthenticated, logoutUser }) => {
           >
             <MenuIcon />
           </IconButton>
-          <StyledLeftIcon color="inherit" onClick={changeTheme}>
-            <InvertColorsIcon />
-          </StyledLeftIcon>
+          <DarkModeContainer theme={theme}>
+            <WbSunnyIcon />
+            <Switch
+              onChange={changeTheme}
+              checked={theme.palette.type === ColorMode.Dark}
+              color="default"
+              inputProps={{ 'aria-label': 'change color theme' }}
+            />
+            <Brightness3Icon />
+          </DarkModeContainer>
           {isAuthenticated && (
             <div>
               <IconButton onClick={handleMenu} color="inherit">

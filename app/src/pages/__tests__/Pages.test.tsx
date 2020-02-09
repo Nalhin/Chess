@@ -1,5 +1,5 @@
 import { cleanup } from '@testing-library/react';
-import { renderWithStore } from '../../../test/utils/renderWithRouter';
+import { renderWithStore } from '../../../test/utils/renderWithStore';
 import React from 'react';
 import Pages from '../Pages';
 
