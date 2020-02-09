@@ -7,24 +7,23 @@ import styled from '@emotion/styled';
 import PlayerAvatar from '../../../components/PlayerAvatar/PlayerAvatar';
 import dayjs from 'dayjs';
 import { Typography, useTheme } from '@material-ui/core';
+import { css } from '@emotion/core';
 
 interface StyledMessageProps {
   isSender: boolean;
 }
 
-const StyledMessage = styled.div<StyledMessageProps>`
-  ${props => `
-  background: ${
-    props.isSender
+const StyledMessageText = styled.div<StyledMessageProps>`
+  ${props => css`
+    background: ${props.isSender
       ? props.theme.palette.primary.main
-      : props.theme.palette.grey['200']
-  };
-  color: ${props.isSender ? '#fff' : '#000'};
-  border-radius: 20px;
-  padding: ${props.theme.spacing(1)}px;
-  align-items: center;
-  word-wrap: break-word;
-  overflow: auto;
+      : props.theme.palette.divider};
+    color: ${props.isSender ? '#fff' : props.theme.palette.text.primary};
+    border-radius: 20px;
+    padding: ${props.theme.spacing(1)}px;
+    align-items: center;
+    word-wrap: break-word;
+    overflow: auto;
   `}
 `;
 
@@ -32,6 +31,7 @@ const StyledContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin-top: auto;
 `;
 
 const StyledPlayerAvatar = styled(PlayerAvatar)`
@@ -48,7 +48,6 @@ interface Props {
 const ChatUserMessage: React.FC<Props> = ({ chatMessage, userLogin }) => {
   const theme = useTheme();
   const { sendDate, content, sender, type } = chatMessage;
-
   const isSender = sender === userLogin;
   const shouldShowAvatar = sender && type != ChatMessageTypes.InfoMessage;
   return (
@@ -64,14 +63,13 @@ const ChatUserMessage: React.FC<Props> = ({ chatMessage, userLogin }) => {
             {sender[0].toUpperCase()}
           </StyledPlayerAvatar>
         )}
-
-        <StyledMessage
+        <StyledMessageText
           data-testid="chat__chat-message"
           isSender={isSender}
           theme={theme}
         >
           {content}
-        </StyledMessage>
+        </StyledMessageText>
       </StyledContainer>
     </div>
   );

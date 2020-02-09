@@ -1,34 +1,84 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { PlayerColor } from '../../../../interfaces/Game/Player';
-import mixins from '../../../../styles/mixins';
-import { Button } from '@material-ui/core';
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Fab,
+  Portal,
+  useMediaQuery,
+  useTheme,
+  Zoom,
+} from '@material-ui/core';
+import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 
-const StyledContainer = styled.div`
-  ${mixins.flexCenter}
+const StyledFabContainer = styled.div`
+  position: fixed;
+  transform: none;
+  left: ${props => props.theme.spacing(10)}px;
+  bottom: ${props => props.theme.spacing(2.25)}px;
+  ${props => props.theme.breakpoints.down('sm')} {
+    transform: translateX(-50%);
+    left: calc(50% - ${props => props.theme.spacing(3)}px);
+    bottom: ${props => props.theme.spacing(3)}px;
+  }
 `;
-
 interface Props {
   forfeitGame: () => void;
-  userColor: PlayerColor;
-  displayedFor: PlayerColor;
 }
 
-const ForfeitGame: React.FC<Props> = ({
-  forfeitGame,
-  userColor,
-  displayedFor,
-}) => {
-  if (userColor !== displayedFor) {
-    return null;
-  }
+const ForfeitGame: React.FC<Props> = ({ forfeitGame }) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const [isDialogOpen, setDialogOpen] = React.useState();
+
+  const handleClose = () => {
+    setDialogOpen(!isDialogOpen);
+  };
+
+  const handleForfeit = () => {
+    forfeitGame();
+    handleClose();
+  };
+
+  const size = isMobile ? 'small' : 'medium';
 
   return (
-    <StyledContainer>
-      <Button color="primary" onClick={forfeitGame}>
-        Forfeit
-      </Button>
-    </StyledContainer>
+    <>
+      <Dialog open={isDialogOpen} onClose={handleClose}>
+        <DialogTitle>Forfeit?</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Are you sure you want to forfeit the game?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleForfeit} color="primary" variant="contained">
+            Yes
+          </Button>
+          <Button
+            onClick={handleClose}
+            color="primary"
+            variant="contained"
+            autoFocus
+          >
+            No
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Portal>
+        <StyledFabContainer theme={theme}>
+          <Zoom in={true} unmountOnExit>
+            <Fab color="secondary" onClick={handleClose} size={size}>
+              <MeetingRoomIcon />
+            </Fab>
+          </Zoom>
+        </StyledFabContainer>
+      </Portal>
+    </>
   );
 };
 

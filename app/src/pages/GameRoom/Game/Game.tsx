@@ -1,15 +1,16 @@
 import React from 'react';
 import { GameContainerProps } from './Game.container';
-import Graveyard from './Graveyard/Graveyard';
 import { PlayerColor } from '../../../interfaces/Game/Player';
 import Board from './Board/Board';
 import PromotionMenu from './PromotionMenu/PromotionMenu';
 import styled from '@emotion/styled';
 import GameOverMenu from './GameOverMenu/GameOverMenu';
 import { GamePhase } from '../../../interfaces/Game/Game';
-import Timer from './Timer/Timer';
 import { Prompt } from 'react-router-dom';
 import ForfeitGame from './ForfeitGame/ForfeitGame';
+import GraveyardMenu from './Graveyard/GraveyardMenu';
+import PlayerPanel from './PlayerPanel/PlayerPanel';
+import { isPlayerActive } from '../../../utils/isPlayerActive';
 
 const StyledContainer = styled.div`
   margin: 0 auto;
@@ -47,22 +48,13 @@ const Game: React.FC<Props> = ({
         when={gamePhase !== GamePhase.GAME_OVER}
         message="Are sure you want to leave the game??"
       />
-      <ForfeitGame
-        forfeitGame={forfeitGame}
-        userColor={userColor}
-        displayedFor={PlayerColor.Black}
-      />
-      <Timer
-        isActive={
-          currentTurn.turnNumber !== 0 &&
-          currentTurn.currentPlayerColor === PlayerColor.Black &&
-          gamePhase !== GamePhase.GAME_OVER
-        }
+      <PlayerPanel
+        name={players[PlayerColor.Black].name}
+        isActive={isPlayerActive(currentTurn, gamePhase, PlayerColor.Black)}
         totalTurnTimeRemaining={
           players[PlayerColor.Black].totalTurnTimeRemaining
         }
       />
-      <Graveyard pieces={graveyards.blackGraveyard} />
       <StyledBoardContainer>
         <Board
           boardState={gameState.board.state}
@@ -83,25 +75,18 @@ const Game: React.FC<Props> = ({
         <GameOverMenu
           isShown={gamePhase === GamePhase.GAME_OVER}
           closeGame={closeGame}
+          isWinner={!isCurrentTurn}
         />
       </StyledBoardContainer>
-      <Graveyard pieces={graveyards.whiteGraveyard} />
-      <Timer
-        isActive={
-          currentTurn.turnNumber !== 0 &&
-          currentTurn.currentPlayerColor === PlayerColor.White &&
-          gamePhase !== GamePhase.GAME_OVER
-        }
+      <PlayerPanel
+        name={players[PlayerColor.White].name}
+        isActive={isPlayerActive(currentTurn, gamePhase, PlayerColor.White)}
         totalTurnTimeRemaining={
           players[PlayerColor.White].totalTurnTimeRemaining
         }
       />
-
-      <ForfeitGame
-        forfeitGame={forfeitGame}
-        userColor={userColor}
-        displayedFor={PlayerColor.White}
-      />
+      <ForfeitGame forfeitGame={forfeitGame} />
+      <GraveyardMenu graveyards={graveyards} userColor={userColor} />
     </StyledContainer>
   );
 };

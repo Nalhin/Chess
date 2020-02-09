@@ -3,7 +3,8 @@ import { createMemoryHistory, History } from 'history';
 import { render } from '@testing-library/react';
 import { Router } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/core';
-import { muiTheme } from '../../src/styles/theme';
+import { getMuiTheme } from '../../src/styles/theme';
+import { ColorMode } from '../../src/interfaces/Styles/ColorMode';
 
 export const renderWithRouter = (
   ui: JSX.Element,
@@ -14,11 +15,11 @@ export const renderWithRouter = (
 ) => {
   return {
     ...render(
-      <ThemeProvider theme={muiTheme}>
+      <ThemeProvider theme={getMuiTheme(ColorMode.Light)}>
         <Router history={history}>{ui}</Router>
       </ThemeProvider>,
     ),
     history,
-    theme: muiTheme,
+    theme: getMuiTheme(ColorMode.Light),
   };
 };

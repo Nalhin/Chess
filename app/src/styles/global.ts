@@ -1,3 +1,5 @@
+import { css } from '@emotion/core';
+
 const reset = `
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -21,7 +23,9 @@ time, mark, audio, video {
 }
 `;
 
-export const globalStyles = `
-${reset}
-
+export const globalStyles = css`
+  ${reset};
+  * {
+    transition: background 0.5s;
+  }
 `;

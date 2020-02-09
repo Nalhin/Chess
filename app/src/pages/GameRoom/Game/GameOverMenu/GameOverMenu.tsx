@@ -15,9 +15,10 @@ const StyledContainer = styled.div`
 interface Props {
   isShown: boolean;
   closeGame: () => void;
+  isWinner: boolean;
 }
 
-const GameOverMenu: React.FC<Props> = ({ isShown, closeGame }) => {
+const GameOverMenu: React.FC<Props> = ({ isShown, closeGame, isWinner }) => {
   const history = useHistory();
   const theme = useTheme();
   const goToMainMenu = () => {
@@ -26,9 +27,11 @@ const GameOverMenu: React.FC<Props> = ({ isShown, closeGame }) => {
   };
 
   return (
-    <GameMenu isShown={isShown}>
+    <GameMenu isShown={isShown} header={'Game Over'}>
       <StyledContainer theme={theme}>
-        <Typography variant="h4">Game Over</Typography>
+        <Typography variant="h4">
+          {isWinner ? 'You won' : 'You lost'}
+        </Typography>
         <Button color="primary" onClick={goToMainMenu}>
           Go to main menu
         </Button>

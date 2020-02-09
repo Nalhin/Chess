@@ -1,22 +1,38 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import { Card, useTheme } from '@material-ui/core';
 
-const StyledContainer = styled.div`
-  margin: 0 auto;
-  text-align: center;
+const StyledCard = styled(Card)`
+  min-width: ${props => props.theme.spacing(10)}px;
+  margin-right: auto;
   user-select: none;
+  align-self: flex-end;
+  padding: ${props => props.theme.spacing(2)}px;
+  font-weight: ${props => props.theme.typography.fontWeightBold};
+  font-size: ${props => props.theme.typography.h6.fontSize};
+  ${props => props.theme.breakpoints.down('sm')} {
+    font-size: ${props => props.theme.typography.body2.fontSize};
+    padding: ${props => props.theme.spacing(1)}px;
+    min-width: ${props => props.theme.spacing(6)}px;
+  }
 `;
 
 interface Props {
   totalTurnTimeRemaining: number;
   isActive: boolean;
+  className?: string;
 }
 
 const interval = 100;
 const decimalPrecision = 1;
 
-const Timer: React.FC<Props> = ({ totalTurnTimeRemaining, isActive }) => {
+const Timer: React.FC<Props> = ({
+  totalTurnTimeRemaining,
+  isActive,
+  className,
+}) => {
   const [counter, setCounter] = React.useState('');
+  const theme = useTheme();
 
   React.useEffect(() => {
     if (totalTurnTimeRemaining) {
@@ -32,7 +48,7 @@ const Timer: React.FC<Props> = ({ totalTurnTimeRemaining, isActive }) => {
         setCounter(prevState => {
           const number = parseFloat(prevState) - 0.1;
           if (number < 0) {
-            return 'Out of Time!';
+            return '0';
           }
           return number.toFixed(decimalPrecision);
         });
@@ -45,7 +61,11 @@ const Timer: React.FC<Props> = ({ totalTurnTimeRemaining, isActive }) => {
     };
   }, [isActive]);
 
-  return <StyledContainer>{counter}</StyledContainer>;
+  return (
+    <StyledCard raised={false} theme={theme} className={className}>
+      {counter.replace('.', ':')}
+    </StyledCard>
+  );
 };
 
 export default Timer;

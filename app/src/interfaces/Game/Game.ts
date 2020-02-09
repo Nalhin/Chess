@@ -1,8 +1,8 @@
 import { Piece } from './Piece';
-import { PlayerColor } from './Player';
 import { Players } from './Players';
 import { BoardPosition } from './BoardPosition';
 import { CheckState } from './CheckState';
+import { CurrentTurn } from './CurrentTurn';
 
 export enum GamePhase {
   WAITING_FOR_PLAYERS = 'WAITING_FOR_PLAYERS',
@@ -10,20 +10,19 @@ export enum GamePhase {
   GAME_OVER = 'GAME_OVER',
 }
 
+export interface Graveyards {
+  whiteGraveyard: Piece[];
+  blackGraveyard: Piece[];
+}
+
 export interface Game {
   board: {
     state: Piece[][];
-    graveyards: {
-      whiteGraveyard: Piece[];
-      blackGraveyard: Piece[];
-    };
+    graveyards: Graveyards;
     positionAwaitingPromotion: BoardPosition;
     checkState: CheckState;
   };
-  currentTurn: {
-    currentPlayerColor: PlayerColor;
-    turnNumber: number;
-  };
+  currentTurn: CurrentTurn;
   gamePhase: GamePhase;
   players: Players;
 }

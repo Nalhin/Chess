@@ -7,13 +7,15 @@ import PieceIcon from './PieceIcon';
 import { useDrop } from 'react-dnd';
 import { DragAndDropTypes } from '../../../../contants/dragAndDropTypes';
 import { CheckState } from '../../../../interfaces/Game/CheckState';
-import { cellSize } from '../../../../styles/cellSize';
 import mixins from '../../../../styles/mixins';
 import { useTheme } from '@material-ui/core';
+import { ColorMode } from '../../../../interfaces/Styles/ColorMode';
 
 interface StyledCellProps {
   isChecked: boolean;
   isHoverShown: boolean;
+  isSelected: boolean;
+  canBeAttacked: boolean;
 }
 
 const StyledCell = styled.div<StyledCellProps>`
@@ -28,50 +30,41 @@ const StyledCell = styled.div<StyledCellProps>`
   &:nth-of-type(16n + 12),
   &:nth-of-type(16n + 14),
   &:nth-of-type(16n + 16) {
-    background: black;
+    background: ${props =>
+      props.theme.palette.type === ColorMode.Dark ? '#779556' : '#000'};
   }
   background: ${props => {
     if (props.isChecked) {
-      return 'red !important';
+      return `${props.theme.palette.error.main} !important`;
     }
-    return 'white';
+    return props.theme.palette.type === ColorMode.Dark ? '#EBECD0' : '#fff';
   }};
-
-  width: ${cellSize.desktop};
-  height: ${cellSize.desktop};
-
-  ${props => props.theme.breakpoints.down('md')} {
-    width: ${cellSize.tablet};
-    height: ${cellSize.tablet};
-  }
-
-  ${props => props.theme.breakpoints.down('sm')} {
-    width: ${cellSize.mobile};
-    height: ${cellSize.mobile};
-  }
-
-  ${props => props.isHoverShown && 'cursor:pointer'}
+  border-style: solid;
+  border-width: 6px;
+  border-color: ${props => {
+    if (props.canBeAttacked) {
+      return props.theme.palette.error.main;
+    }
+    if (props.isSelected) {
+      return props.theme.palette.info.main;
+    }
+    return 'transparent';
+  }};
+  ${props => mixins.getCellSize(props)}
+  ${props => props.isHoverShown && 'cursor:pointer'};
 `;
 
-interface StyledOverlayProps {
-  isSelected: boolean;
-  isMoveAvailable: boolean;
-}
-
-const StyledOverlay = styled.div<StyledOverlayProps>`
+const StyledOverlay = styled.div`
+  transition: none;
   position: absolute;
-  width: 25%;
-  height: 25%;
+  width: 40%;
+  height: 40%;
   border-radius: 50%;
-  background: ${props => {
-    if (props.isSelected) {
-      return 'lightgreen';
-    }
-    if (props.isMoveAvailable) {
-      return 'blue';
-    }
-    return 'none';
-  }};
+  background: ${props => `${props.theme.palette.grey['600']}bb`};
+`;
+
+const StyledPieceIcon = styled(PieceIcon)`
+  position: absolute;
 `;
 
 interface CellProps {
@@ -121,6 +114,7 @@ const Cell: React.FC<CellProps> = ({
 
   const belongsToPlayer = pieceColor === userColor;
   const isHoverShown = belongsToPlayer || isMoveAvailable;
+  const canBeAttacked = type && isMoveAvailable && !belongsToPlayer;
 
   const isChecked =
     checkState !== CheckState.None &&
@@ -134,18 +128,17 @@ const Cell: React.FC<CellProps> = ({
       ref={drop}
       isChecked={isChecked}
       theme={theme}
+      isSelected={isSelected}
+      canBeAttacked={canBeAttacked}
     >
       {type && (
-        <PieceIcon
+        <StyledPieceIcon
           onDragBegin={onDragBegin}
           pieceColor={pieceColor}
           type={type}
         />
       )}
-      <StyledOverlay
-        isSelected={isSelected}
-        isMoveAvailable={isMoveAvailable}
-      />
+      {isMoveAvailable && !canBeAttacked && <StyledOverlay theme={theme} />}
     </StyledCell>
   );
 };

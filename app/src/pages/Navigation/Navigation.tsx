@@ -1,19 +1,35 @@
 import React from 'react';
-import { AppBar, IconButton, Menu, MenuItem, Toolbar } from '@material-ui/core';
+import {
+  AppBar,
+  IconButton,
+  Menu,
+  MenuItem,
+  Toolbar,
+  useTheme,
+} from '@material-ui/core';
 import { AccountCircle, Menu as MenuIcon } from '@material-ui/icons';
 import styled from '@emotion/styled';
-import { useTheme } from '@emotion/core';
 import NavigationDrawer from './NavigationDrawer';
 import { StyledLink } from '../../components/StyledLink/StyledLink';
 import { locations } from '../../contants/locations';
 import { NavigationContainerProps } from './Navigation.container';
+import InvertColorsIcon from '@material-ui/icons/InvertColors';
+import { useColorModeContext } from '../../styles/colorModeContext';
+import { ColorMode } from '../../interfaces/Styles/ColorMode';
 
 const StyledToolbar = styled(Toolbar)`
   user-select: none;
 `;
 
-const StyledUserIcon = styled.div`
+const StyledLeftIcon = styled(IconButton)`
   margin-left: auto;
+`;
+
+const StyledAppBar = styled(AppBar)`
+  background: ${props =>
+    props.theme.palette.type === ColorMode.Light
+      ? props.theme.palette.primary.main
+      : props.theme.palette.background.paper};
 `;
 
 interface Props extends NavigationContainerProps {}
@@ -22,8 +38,12 @@ const Navigation: React.FC<Props> = ({ isAuthenticated, logoutUser }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [isDrawerOpen, setDrawerOpen] = React.useState(false);
   const theme = useTheme();
+  const { changeColorTheme } = useColorModeContext();
+  const isUserMenuOpen = Boolean(anchorEl);
 
-  const open = Boolean(anchorEl);
+  const changeTheme = () => {
+    changeColorTheme();
+  };
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -52,7 +72,7 @@ const Navigation: React.FC<Props> = ({ isAuthenticated, logoutUser }) => {
 
   return (
     <nav>
-      <AppBar position="fixed">
+      <StyledAppBar position="fixed" theme={theme}>
         <NavigationDrawer
           isOpen={isDrawerOpen}
           toggleDrawer={handleDrawer}
@@ -68,13 +88,12 @@ const Navigation: React.FC<Props> = ({ isAuthenticated, logoutUser }) => {
           >
             <MenuIcon />
           </IconButton>
+          <StyledLeftIcon color="inherit" onClick={changeTheme}>
+            <InvertColorsIcon />
+          </StyledLeftIcon>
           {isAuthenticated && (
-            <StyledUserIcon>
-              <IconButton
-                aria-controls="menu-appbar"
-                onClick={handleMenu}
-                color="inherit"
-              >
+            <div>
+              <IconButton onClick={handleMenu} color="inherit">
                 <AccountCircle />
               </IconButton>
               <Menu
@@ -88,7 +107,7 @@ const Navigation: React.FC<Props> = ({ isAuthenticated, logoutUser }) => {
                   vertical: 'top',
                   horizontal: 'right',
                 }}
-                open={open}
+                open={isUserMenuOpen}
                 onClose={handleClose}
               >
                 <StyledLink to={locations.profile}>
@@ -96,10 +115,10 @@ const Navigation: React.FC<Props> = ({ isAuthenticated, logoutUser }) => {
                 </StyledLink>
                 <MenuItem onClick={logout}>Logout</MenuItem>
               </Menu>
-            </StyledUserIcon>
+            </div>
           )}
         </StyledToolbar>
-      </AppBar>
+      </StyledAppBar>
     </nav>
   );
 };

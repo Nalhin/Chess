@@ -14,20 +14,23 @@ const StyledFab = styled(Fab)`
 `;
 
 interface Props {
-  isOpen: boolean;
+  isDisplayed: boolean;
   handleClick: (event: React.MouseEvent<HTMLElement>) => void;
   messageCount: number;
 }
 
 const ChatActionButton: React.FC<Props> = ({
-  isOpen,
+  isDisplayed,
   handleClick,
   messageCount,
 }) => {
-  const unreadMessagesCount = useUnreadMessagesCount(messageCount, !isOpen);
+  const unreadMessagesCount = useUnreadMessagesCount(
+    messageCount,
+    !isDisplayed,
+  );
   const theme = useTheme();
   return (
-    <Fade in={isOpen}>
+    <Fade in={isDisplayed}>
       <StyledFab onClick={handleClick} color="secondary" theme={theme}>
         <Badge
           color="primary"

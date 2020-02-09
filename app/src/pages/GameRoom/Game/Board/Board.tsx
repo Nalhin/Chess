@@ -7,13 +7,11 @@ import { BoardPosition } from '../../../../interfaces/Game/BoardPosition';
 import { arePositionsEqual } from '../../../../utils/arePositionsEqual';
 import { CheckState } from '../../../../interfaces/Game/CheckState';
 import { PlayerColor } from '../../../../interfaces/Game/Player';
-import BoardLetters from './BoardLetters';
-import BoardNumbers from './BoardNumbers';
 
 const StyledContainer = styled.div`
   display: grid;
-  grid-template-columns: 1fr 8fr 1fr;
-  grid-template-rows: 8fr 1fr;
+  grid-template-columns: 8fr;
+  grid-template-rows: 8fr;
   user-select: none;
   width: fit-content;
 `;
@@ -47,7 +45,6 @@ const Board: React.FC<Props> = ({
 }) => {
   return (
     <StyledContainer>
-      <BoardNumbers />
       <StyledBoardContainer>
         {boardState.map((row, x) =>
           row.map((cell, y) => {
@@ -73,7 +70,6 @@ const Board: React.FC<Props> = ({
           }),
         )}
       </StyledBoardContainer>
-      <BoardLetters />
     </StyledContainer>
   );
 };

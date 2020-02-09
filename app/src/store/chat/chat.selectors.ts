@@ -10,10 +10,12 @@ export const chatMessagesSelector = createSelector(
   chatPureMessagesSelector,
   userSelector,
   (messages, user) => {
-    return messages.filter(
-      message =>
-        message.type !== ChatMessageTypes.InfoMessage ||
-        message.sender !== user.login,
-    );
+    return messages
+      .filter(
+        message =>
+          message.type !== ChatMessageTypes.InfoMessage ||
+          message.sender !== user.login,
+      )
+      .reverse();
   },
 );

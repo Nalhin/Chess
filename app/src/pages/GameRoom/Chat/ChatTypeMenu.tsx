@@ -48,6 +48,7 @@ const ChatTypeMenu: React.FC<Props> = ({ sendMessage }) => {
         onKeyDown={handleKeyDown}
         value={messageInputValue}
         placeholder="Type a message..."
+        color="secondary"
         theme={theme}
       />
       <IconButton

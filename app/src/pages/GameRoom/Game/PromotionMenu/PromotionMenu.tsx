@@ -26,7 +26,7 @@ const PromotionMenu: React.FC<Props> = ({
   isShown,
 }) => {
   return (
-    <GameMenu isShown={isShown}>
+    <GameMenu isShown={isShown} header={'Promote piece!'}>
       {promotionPieces.map(piece => (
         <PromotionPiece
           key={piece}

@@ -1,4 +1,31 @@
-import { css } from '@emotion/core';
+import { css, SerializedStyles, Theme } from '@emotion/core';
+
+interface Props {
+  theme?: Theme;
+}
+
+const cellSizes = {
+  desktop: '5rem',
+  tablet: '3.5rem',
+  mobile: '2rem',
+};
+
+export const getCellSize = (props: Props): SerializedStyles => {
+  return css`
+    width: ${cellSizes.desktop};
+    height: ${cellSizes.desktop};
+
+    ${props.theme.breakpoints.down('md')} {
+      width: ${cellSizes.tablet};
+      height: ${cellSizes.tablet};
+    }
+
+    ${props.theme.breakpoints.down('sm')} {
+      width: ${cellSizes.mobile};
+      height: ${cellSizes.mobile};
+    }
+  `;
+};
 
 const flexCenter = css`
   display: flex;
@@ -26,4 +53,5 @@ export default {
   flexCenter,
   absoluteCenter,
   fixedCenter,
+  getCellSize,
 };

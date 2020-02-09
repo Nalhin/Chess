@@ -17,12 +17,12 @@ const StyledChatWrapper = styled(Popover)`
 const StyledMessageWrapper = styled.div`
   ${props => `
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
     height: 300px;
     width: 300px;
-    overflow-x: auto;
-    padding: 0 ${props.theme.spacing(2)}px
-    ${props.theme.spacing(2)}px;
+    overflow: auto;
+    white-space: pre-line;
+
     ${props.theme.breakpoints.down('sm')} {
       height: 200px;
     }
@@ -50,6 +50,15 @@ const StyledIconButton = styled(IconButton)`
   top: 0;
   right: 0;
   color: #fff;
+`;
+
+const StyledInner = styled.div`
+  ${props => `
+    display: flex;
+    flex-direction: column-reverse;
+    flex-grow: 1;
+    padding: 0 ${props.theme.spacing(2)}px ${props.theme.spacing(2)}px;
+  `}
 `;
 
 interface Props extends ChatContainerProps {}
@@ -84,20 +93,22 @@ const Chat: React.FC<Props> = ({ chatMessages, sendMessage, userLogin }) => {
             </StyledIconButton>
           </StyledTitle>
           <StyledMessageWrapper theme={theme}>
-            {chatMessages.map(message => (
-              <ChatUserMessage
-                key={message.id}
-                chatMessage={message}
-                userLogin={userLogin}
-              />
-            ))}
+            <StyledInner theme={theme}>
+              {chatMessages.map(message => (
+                <ChatUserMessage
+                  key={message.id}
+                  chatMessage={message}
+                  userLogin={userLogin}
+                />
+              ))}
+            </StyledInner>
           </StyledMessageWrapper>
           <ChatTypeMenu sendMessage={sendMessage} />
         </StyledContentWrapper>
       </StyledChatWrapper>
       <ChatActionButton
         messageCount={chatMessages.length}
-        isOpen={!isOpen}
+        isDisplayed={!isOpen}
         handleClick={handleClick}
       />
     </div>

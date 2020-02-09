@@ -17,7 +17,6 @@ import {
   loginUserSucceeded,
   registerUserFailedAction,
   registerUserSucceeded,
-  setToken,
 } from './user.actions';
 import Cookies from 'js-cookie';
 import { closeChat } from '../chat/chat.actions';
@@ -41,7 +40,7 @@ export function* userRootSaga(): SagaIterator {
 export function* loginUserSaga(action: LoginUserRequestedAction) {
   try {
     const response = yield call(fetchLoginUser, action.payload.user);
-    Cookies.set('token', response.data.token);
+    Cookies.set('token', response.data.token, { expires: 7 });
     yield put(loginUserSucceeded(response.data));
     yield put(
       addToast(
@@ -59,7 +58,7 @@ export function* loginUserSaga(action: LoginUserRequestedAction) {
 export function* registerUserSaga(action: RegisterUserRequestedAction) {
   try {
     const response = yield call(fetchRegisterUser, action.payload.user);
-    Cookies.set('token', response.data.token);
+    Cookies.set('token', response.data.token, { expires: 7 });
     yield put(registerUserSucceeded(response.data));
     yield put(
       addToast(
@@ -77,11 +76,10 @@ export function* registerUserSaga(action: RegisterUserRequestedAction) {
 export function* authenticateUserSaga() {
   try {
     const token = Cookies.get('token');
-
     if (!token) {
       return;
     }
-    yield put(setToken(token));
+
     const response = yield call(fetchAuthenticateUser, token);
 
     yield put(authenticationSucceededAction(response.data));

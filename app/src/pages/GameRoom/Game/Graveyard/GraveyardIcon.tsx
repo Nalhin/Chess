@@ -3,6 +3,8 @@ import { PieceType } from '../../../../interfaces/Game/Piece';
 import { PlayerColor } from '../../../../interfaces/Game/Player';
 import { getPieceUrl } from '../../../../utils/getPieceUrl';
 import { StyledChessImage } from '../Board/PieceIcon';
+import { useTheme } from '@material-ui/core';
+import PieceTooltip from '../../../../components/PieceTooltip/PieceTooltip';
 
 interface Props {
   type: PieceType;
@@ -10,13 +12,17 @@ interface Props {
 }
 
 const GraveyardIcon: React.FC<Props> = ({ type, playerColor }) => {
+  const theme = useTheme();
   const pieceUrl = getPieceUrl(playerColor, type);
 
   return (
-    <StyledChessImage
-      src={`/assets/images/chess/${pieceUrl}.png`}
-      alt={`${type} ${playerColor}`}
-    />
+    <PieceTooltip pieceType={type}>
+      <StyledChessImage
+        src={`/assets/images/chess/${pieceUrl}.png`}
+        alt={`${type} ${playerColor}`}
+        theme={theme}
+      />
+    </PieceTooltip>
   );
 };
 

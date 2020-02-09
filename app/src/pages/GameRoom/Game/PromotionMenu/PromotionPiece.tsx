@@ -3,6 +3,17 @@ import { PlayerColor } from '../../../../interfaces/Game/Player';
 import { BoardPosition } from '../../../../interfaces/Game/BoardPosition';
 import { PieceType } from '../../../../interfaces/Game/Piece';
 import { getPieceUrl } from '../../../../utils/getPieceUrl';
+import styled from '@emotion/styled';
+import { useTheme } from '@material-ui/core';
+import PieceTooltip from '../../../../components/PieceTooltip/PieceTooltip';
+
+const StyledImage = styled.img`
+  cursor: pointer;
+  ${props => props.theme.breakpoints.down('sm')} {
+    width: 50px;
+    height: 50px;
+  }
+`;
 
 interface Props {
   playerColor: PlayerColor;
@@ -17,16 +28,21 @@ const PromotionPiece: React.FC<Props> = ({
   positionAwaitingPromotion,
   promotePawn,
 }) => {
+  const theme = useTheme();
+
   const onClick = () => {
     promotePawn(positionAwaitingPromotion, pieceType);
   };
 
   return (
-    <img
-      onClick={onClick}
-      src={`/assets/images/chess/${getPieceUrl(playerColor, pieceType)}.png`}
-      alt={`${playerColor} ${pieceType}`}
-    />
+    <PieceTooltip pieceType={pieceType}>
+      <StyledImage
+        onClick={onClick}
+        src={`/assets/images/chess/${getPieceUrl(playerColor, pieceType)}.png`}
+        alt={`${playerColor} ${pieceType}`}
+        theme={theme}
+      />
+    </PieceTooltip>
   );
 };
 

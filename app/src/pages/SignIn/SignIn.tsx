@@ -57,19 +57,21 @@ const SignIn = () => {
         <TextField
           label="Login"
           name="login"
+          color="secondary"
           onChange={onFormChange}
           value={formState.login}
         />
         <TextField
           label="Password"
           name="password"
+          color="secondary"
           onChange={onFormChange}
           value={formState.password}
         />
         <StyledLink to={locations.signUp} theme={theme}>
           Don't have an account?
         </StyledLink>
-        <Button color="primary" onClick={submitForm}>
+        <Button color="primary" variant="contained" onClick={submitForm}>
           Sign in
         </Button>
       </StyledContainer>

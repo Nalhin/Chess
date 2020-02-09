@@ -6,7 +6,8 @@ import * as React from 'react';
 import { Router } from 'react-router-dom';
 import { AppState, createRootReducer } from '../../src/store/rootReducer';
 import { ThemeProvider } from '@material-ui/core';
-import { muiTheme } from '../../src/styles/theme';
+import { getMuiTheme } from '../../src/styles/theme';
+import { ColorMode } from '../../src/interfaces/Styles/ColorMode';
 
 export const renderWithStore = (
   ui: JSX.Element,
@@ -25,7 +26,7 @@ export const renderWithStore = (
   } = {},
 ) => ({
   ...render(
-    <ThemeProvider theme={muiTheme}>
+    <ThemeProvider theme={getMuiTheme(ColorMode.Light)}>
       <Router history={history}>
         <Provider store={store}>{ui}</Provider>
       </Router>
@@ -33,5 +34,5 @@ export const renderWithStore = (
   ),
   store,
   history,
-  theme: muiTheme,
+  theme: getMuiTheme(ColorMode.Light),
 });

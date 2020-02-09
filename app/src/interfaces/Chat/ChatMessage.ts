@@ -7,6 +7,6 @@ export interface ChatMessage {
 }
 
 export enum ChatMessageTypes {
-  ChatMessage = 'ChatMessage',
-  InfoMessage = 'InfoMessage',
+  ChatMessage = 'CHAT_MESSAGE',
+  InfoMessage = 'INFO_MESSAGE',
 }
