@@ -10,13 +10,14 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.EnumMap;
 
 @Getter
 @Setter
 @EqualsAndHashCode
-public class Board {
+public class Board implements Serializable{
     @JsonIgnore
     public static final int BOARD_SIZE = 7;
     @JsonIgnore
@@ -42,6 +43,16 @@ public class Board {
         state = new Piece[BOARD_SIZE + 1][BOARD_SIZE + 1];
         checkState = CheckState.NONE;
         populateBoard();
+    }
+
+    public Board deepCopy() throws IOException, ClassNotFoundException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(baos);
+        oos.writeObject(this);
+
+        ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+        ObjectInputStream ois = new ObjectInputStream(bais);
+        return (Board) ois.readObject();
     }
 
     private void populateBoard() {

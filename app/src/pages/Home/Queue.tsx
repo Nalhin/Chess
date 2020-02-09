@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import { calculateTimeDifferenceInSeconds } from '../../utils/calculateTimeDifferenceInSeconds';
 import mixins from '../../styles/mixins';
 import { Button, useTheme } from '@material-ui/core';
+import { joinQueueAi } from '../../store/queue/queue.actions';
 
 const StyledQueue = styled.div`
   ${mixins.flexCenter};
@@ -25,6 +26,7 @@ interface Props {
   gameReconnect: () => void;
   gameIsPresent: () => void;
   leaveQueue: () => void;
+  joinQueueAi: () => void;
   isReconnectShown: boolean;
   timeJoined: string;
 }
@@ -38,6 +40,7 @@ const Queue: React.FC<Props> = ({
   gameIsPresent,
   leaveQueue,
   timeJoined,
+  joinQueueAi,
 }) => {
   React.useEffect(() => {
     gameIsPresent();
@@ -72,14 +75,24 @@ const Queue: React.FC<Props> = ({
         </StyledButton>
       ) : (
         !isInQueue && (
-          <StyledButton
-            theme={theme}
-            color="primary"
-            variant="contained"
-            onClick={joinQueue}
-          >
-            Play
-          </StyledButton>
+          <div>
+            <StyledButton
+              theme={theme}
+              color="primary"
+              variant="contained"
+              onClick={joinQueue}
+            >
+              Play with other players
+            </StyledButton>
+            <StyledButton
+              theme={theme}
+              color="primary"
+              variant="contained"
+              onClick={joinQueueAi}
+            >
+              Play with AI
+            </StyledButton>
+          </div>
         )
       )}
       {isInQueue && (

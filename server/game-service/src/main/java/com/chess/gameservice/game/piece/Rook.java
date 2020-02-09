@@ -7,12 +7,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 @Setter
 @Getter
 @NoArgsConstructor
-public class Rook extends Piece {
+public class Rook extends Piece implements Serializable {
 
     Rook(PlayerColor playerColor) {
         super(playerColor, PieceType.ROOK);

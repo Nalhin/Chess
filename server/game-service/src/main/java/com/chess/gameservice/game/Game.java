@@ -31,6 +31,8 @@ public class Game {
     private GamePhase gamePhase;
     @JsonIgnore
     private UUID gameId;
+    @JsonIgnore
+    private boolean withAi;
 
     @JsonIgnore
     private ArrayList<GameTurn> gameTurns;
@@ -69,6 +71,14 @@ public class Game {
                 .destinationPosition(playerMovePayload.getDestinationPosition())
                 .turnNumber(currentTurn.getTurnNumber())
                 .pieceType(piece.getType()).build());
+    }
+
+    public void makeAiMove(PlayerMovePayload playerMovePayload, Player player) throws GameException {
+        makeMove(playerMovePayload, player);
+
+        if (board.getPositionAwaitingPromotion() != null) {
+            makePromotion(playerMovePayload.getDestinationPosition(), player, PieceType.QUEEN);
+        }
     }
 
     private void checkIfPlayerTurn(Player player) throws GameException {
@@ -129,6 +139,7 @@ public class Game {
         }
         setGamePhase(GamePhase.GAME_OVER);
     }
+
 
     @JsonIgnore
     public Duration getGameDuration() {

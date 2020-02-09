@@ -13,4 +13,5 @@ import java.util.UUID;
 public class StartGameMessage {
     UUID gameId;
     ArrayList<User> users;
+    boolean withAi;
 }

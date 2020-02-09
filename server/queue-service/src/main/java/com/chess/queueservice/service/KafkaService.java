@@ -21,14 +21,13 @@ public class KafkaService {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    public void sendGameFound(UUID gameId, ArrayList<User> users) {
+    public void sendGameFound(UUID gameId, ArrayList<User> users, boolean withAi) {
         Message<StartGameMessage> message = MessageBuilder
                 .withPayload(StartGameMessage
                         .builder().gameId(gameId)
-                        .users(users).build())
+                        .users(users).withAi(withAi).build())
                 .setHeader(KafkaHeaders.TOPIC, KAFKA_TOPIC).build();
 
-        System.out.println(gameId);
         kafkaTemplate.send(message);
     }
 

@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.io.IOException;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -47,11 +48,19 @@ public class GameController implements ApplicationListener<PlayerOutOfTimeEvent>
     }
 
     @MessageMapping("/move/{gameId}")
-    public void makeMove(@DestinationVariable String gameId, @Payload PlayerMovePayload playerMovePayload, @Header("name") String name) throws GameException {
+    public void makeMove(@DestinationVariable String gameId, @Payload PlayerMovePayload playerMovePayload, @Header("name") String name) throws GameException, IOException, ClassNotFoundException {
         Game game = gameService.makeMove(UUID.fromString(gameId), playerMovePayload, name);
         var playerMovedMessage = new PlayerMovedMessage();
         playerMovedMessage.setPayload(game);
         simpMessagingTemplate.convertAndSend("/topic/state/" + gameId, playerMovedMessage);
+
+        if(game.isWithAi()) {
+            game = gameService.aiMove(UUID.fromString(gameId));
+            if (game != null) {
+                playerMovedMessage.setPayload(game);
+                simpMessagingTemplate.convertAndSend("/topic/state/" + gameId, playerMovedMessage);
+            }
+        }
     }
 
 
@@ -69,14 +78,22 @@ public class GameController implements ApplicationListener<PlayerOutOfTimeEvent>
         AvailableMovesMessage availableMovesMessage = new AvailableMovesMessage();
         availableMovesMessage.setPayload(availableMovesPayload);
         simpMessagingTemplate.convertAndSend("/queue/personal/" + name + "/" + gameId, availableMovesMessage);
+
     }
 
     @MessageMapping("/promotion/{gameId}")
-    public void pawnPromotion(@DestinationVariable String gameId, @Payload UserPromotionPayload userPromotionPayload, @Header("name") String name) throws GameException {
+    public void pawnPromotion(@DestinationVariable String gameId, @Payload UserPromotionPayload userPromotionPayload, @Header("name") String name) throws GameException, IOException, ClassNotFoundException {
         Game game = gameService.makePromotion(UUID.fromString(gameId), userPromotionPayload.getPosition(), userPromotionPayload.getPieceType(), name);
         PlayerMovedMessage playerMovedMessage = new PlayerMovedMessage();
         playerMovedMessage.setPayload(game);
         simpMessagingTemplate.convertAndSend("/topic/state/" + gameId, playerMovedMessage);
+        if(game.isWithAi()){
+            game =  gameService.aiMove(UUID.fromString(gameId));
+            if(game!=null){
+                playerMovedMessage.setPayload(game);
+                simpMessagingTemplate.convertAndSend("/topic/state/" + gameId, playerMovedMessage);
+            }
+        }
     }
 
     @MessageExceptionHandler

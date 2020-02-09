@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
@@ -17,7 +18,7 @@ import static com.chess.gameservice.game.piece.Rook.getCastlingDestinationPositi
 @Setter
 @Getter
 @NoArgsConstructor
-public class King extends Piece {
+public class King extends Piece implements Serializable {
 
     public static final int SHORT_CASTLING_Y = 6;
     public static final int LONG_CASTLING_Y = 2;

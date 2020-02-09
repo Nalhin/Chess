@@ -9,12 +9,15 @@ import com.chess.queueservice.service.QueueService;
 import com.chess.queueservice.utils.IsoDate;
 import lombok.AllArgsConstructor;
 import org.springframework.context.event.EventListener;
+import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
 import java.util.ArrayList;
@@ -34,7 +37,7 @@ public class QueueController {
         if (users != null) {
             UUID gameId = UUID.randomUUID();
             GameFoundMessage gameFoundMessage = new GameFoundMessage(new GameFoundPayload(gameId.toString()));
-            kafkaService.sendGameFound(gameId, users);
+            kafkaService.sendGameFound(gameId, users,false);
             for (User user : users) {
                 simpMessagingTemplate.convertAndSend("/queue/personal/" + user.getName(), gameFoundMessage);
             }
@@ -54,6 +57,17 @@ public class QueueController {
         QueueLeftMessage message = new QueueLeftMessage( new QueueLeftPayload(name));
         simpMessagingTemplate.convertAndSend("/queue/personal/" + name, message );
     };
+
+    @PostMapping(value = "/queue/with-ai")
+    public ResponseEntity<GameFoundMessage> playWithAi(@RequestBody User user) {
+        UUID gameId = UUID.randomUUID();
+        GameFoundMessage gameFoundMessage = new GameFoundMessage(new GameFoundPayload(gameId.toString()));
+        ArrayList<User> users = new ArrayList<>();
+        users.add(user);
+        users.add(new User("Computer","Computer"));
+        kafkaService.sendGameFound(gameId, users,true);
+        return ResponseEntity.ok(gameFoundMessage);
+    }
 
     @EventListener
     public void onDisconnectEvent(SessionDisconnectEvent event) {

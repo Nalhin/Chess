@@ -1,7 +1,9 @@
 import {
   JoinQueueAction,
+  JoinQueueAi,
   LeaveQueueAction,
   QueueActionTypes,
+  QueueBaseActionTypes,
   QueueCountAction,
   QueueGameFoundAction,
   QueueJoinedAction,
@@ -39,4 +41,8 @@ export const queueLeft = (): QueueLeftAction => ({
 
 export const leaveQueue = (): LeaveQueueAction => ({
   type: QueueActionTypes.LEAVE_QUEUE,
+});
+
+export const joinQueueAi = (): JoinQueueAi => ({
+  type: QueueBaseActionTypes.JOIN_QUEUE_AI,
 });

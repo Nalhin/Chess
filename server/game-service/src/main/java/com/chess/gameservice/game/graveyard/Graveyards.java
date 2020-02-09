@@ -4,9 +4,11 @@ import com.chess.gameservice.game.piece.Piece;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
-public class Graveyards {
+public class Graveyards implements Serializable {
     private Graveyard whiteGraveyard = new Graveyard();
     private Graveyard blackGraveyard = new Graveyard();
 

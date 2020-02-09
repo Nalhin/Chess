@@ -2,6 +2,8 @@ package com.chess.gameservice.service;
 
 import com.chess.gameservice.exception.GameException;
 import com.chess.gameservice.game.Game;
+import com.chess.gameservice.game.ai.MinMax;
+import com.chess.gameservice.game.ai.MinMaxReturn;
 import com.chess.gameservice.game.piece.PieceType;
 import com.chess.gameservice.game.player.Player;
 import com.chess.gameservice.game.player.PlayerColor;
@@ -16,6 +18,7 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Optional;
@@ -26,6 +29,7 @@ import java.util.UUID;
 public class GameService {
 
     private final HashMap<UUID, Game> games = new HashMap<>();
+    private final MinMax minMax = new MinMax();
     private ApplicationEventPublisher applicationEventPublisher;
 
     public GameService(ApplicationEventPublisher applicationEventPublisher) {
@@ -73,6 +77,7 @@ public class GameService {
         Game game = new Game();
         ArrayList<User> players = message.getUsers();
         game.setGameId(gameId);
+        game.setWithAi(message.isWithAi());
         game.setPlayer(new Player(players.get(0).getName()), PlayerColor.WHITE);
         game.setPlayer(new Player(players.get(1).getName()), PlayerColor.BLACK);
         game.initGame(gameId);
@@ -110,6 +115,16 @@ public class GameService {
         game.playerTimedOutOrOutOfTime();
         gameFinished(game, gameId);
         return game;
+    }
+
+    public Game aiMove(UUID gameId) throws IOException, GameException, ClassNotFoundException {
+        Game game = games.get(gameId);
+        if (game.getBoard().getPositionAwaitingPromotion() == null) {
+            MinMaxReturn bestMove = minMax.getBestMove(game.getBoard(), game.getCurrentTurn().getCurrentPlayerColor());
+            game.makeAiMove(new PlayerMovePayload(bestMove.getInitialPosition(), bestMove.getDestinationPosition()), new Player("Computer"));
+            return game;
+        }
+        return null;
     }
 
     public synchronized void gameFinished(Game game, UUID gameId) {

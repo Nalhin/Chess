@@ -1,11 +1,11 @@
 package com.chess.gameservice.game.player;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-import java.util.Arrays;
+import java.io.Serializable;
 
-public enum PlayerColor {
+
+public enum PlayerColor implements Serializable {
     WHITE(0), BLACK(1);
 
     PlayerColor(int type) {
@@ -17,11 +17,6 @@ public enum PlayerColor {
     @JsonValue
     int toValue() {
         return value;
-    }
-
-    @JsonCreator
-    static PlayerColor fromValue(int value) {
-        return Arrays.stream(PlayerColor.values()).filter(e -> e.value == value).findFirst().get();
     }
 
     public static PlayerColor getOtherColor(PlayerColor playerColor) {

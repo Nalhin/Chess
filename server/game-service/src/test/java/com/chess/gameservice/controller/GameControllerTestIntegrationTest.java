@@ -106,7 +106,7 @@ class GameControllerTestIntegrationTest {
         users.add(u1);
         users.add(u2);
         Message<StartGameMessage> message= MessageBuilder
-                .withPayload(new StartGameMessage(UUID.fromString(gameId),users))
+                .withPayload(new StartGameMessage(UUID.fromString(gameId),users,false))
                 .setHeader(KafkaHeaders.TOPIC,"start-game").build();
         template.send(message);
     }

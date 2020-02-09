@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 @Setter
 @NoArgsConstructor
 @JsonIgnoreProperties("firstMove")
-public abstract class Piece {
+public abstract class Piece implements Serializable {
 
     private boolean isFirstMove = true;
     private PlayerColor playerColor;

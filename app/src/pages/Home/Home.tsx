@@ -3,6 +3,7 @@ import { HomeContainerProps } from './Home.container';
 import Queue from './Queue';
 import styled from '@emotion/styled';
 import { Typography, useTheme } from '@material-ui/core';
+import { joinQueueAi } from '../../store/queue/queue.actions';
 
 const StyledContainer = styled.div`
   margin: 0 auto;
@@ -25,6 +26,7 @@ const Home: React.FC<Props> = ({
   isReconnectShown,
   leaveQueue,
   timeJoined,
+  joinQueueAi,
 }) => {
   const theme = useTheme();
   return (
@@ -39,6 +41,7 @@ const Home: React.FC<Props> = ({
           isReconnectShown={isReconnectShown}
           leaveQueue={leaveQueue}
           timeJoined={timeJoined}
+          joinQueueAi={joinQueueAi}
         />
       ) : (
         <StyledHeader variant="h4" theme={theme}>

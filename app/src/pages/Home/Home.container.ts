@@ -5,7 +5,11 @@ import { connect } from 'react-redux';
 import Home from './Home';
 import { isAuthenticatedSelector } from '../../store/user/user.selectors';
 import { isInQueueSelector } from '../../store/queue/queue.selectors';
-import { joinQueue, leaveQueue } from '../../store/queue/queue.actions';
+import {
+  joinQueue,
+  joinQueueAi,
+  leaveQueue,
+} from '../../store/queue/queue.actions';
 import {
   gameIsPresentRequested,
   gameReconnectRequested,
@@ -33,6 +37,7 @@ const mapDispatchToProps = (dispatch: Dispatch<RootAction>) =>
       gameIsPresent: gameIsPresentRequested,
       gameReconnect: gameReconnectRequested,
       leaveQueue,
+      joinQueueAi,
     },
     dispatch,
   );

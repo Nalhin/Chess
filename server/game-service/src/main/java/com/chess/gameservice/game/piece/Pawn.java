@@ -7,13 +7,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 @Setter
 @Getter
 @NoArgsConstructor
-public class Pawn extends Piece {
+public class Pawn extends Piece implements Serializable {
 
     Pawn(PlayerColor playerColor) {
         super(playerColor, PieceType.PAWN);
