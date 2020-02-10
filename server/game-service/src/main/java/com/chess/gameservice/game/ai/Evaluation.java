@@ -8,9 +8,9 @@ import com.chess.gameservice.game.position.Position;
 
 import java.util.EnumMap;
 
-public class PositionValues {
+public class Evaluation {
 
-    private final int[][] PAWN_POSITION_VALUES = {{0, 0, 0, 0, 0, 0, 0, 0,},
+    private final int[][] PAWN_POSITION_VALUES = {{0, 0, 0, 0, 0, 0, 0, 0},
             {50, 50, 50, 50, 50, 50, 50, 50},
             {10, 10, 20, 30, 30, 20, 10, 10},
             {5, 5, 10, 25, 25, 10, 5, 5},
@@ -65,7 +65,6 @@ public class PositionValues {
             {20, 30, 10, 0, 0, 10, 30, 20}};
 
     private final EnumMap<PieceType, int[][]> piecePositionValuesBlack = new EnumMap<>(PieceType.class);
-
     {
         piecePositionValuesBlack.put(PieceType.PAWN, PAWN_POSITION_VALUES);
         piecePositionValuesBlack.put(PieceType.KNIGHT, KNIGHT_POSITION_VALUES);
@@ -76,35 +75,32 @@ public class PositionValues {
     }
 
     private final EnumMap<PieceType, Integer> pieceValues = new EnumMap<>(PieceType.class);
-
     {
-        pieceValues.put(PieceType.PAWN, 10);
-        pieceValues.put(PieceType.KNIGHT, 30);
-        pieceValues.put(PieceType.BISHOP, 30);
-        pieceValues.put(PieceType.ROOK, 50);
-        pieceValues.put(PieceType.QUEEN, 90);
-        pieceValues.put(PieceType.KING, 900);
+        pieceValues.put(PieceType.PAWN, 100);
+        pieceValues.put(PieceType.KNIGHT, 320);
+        pieceValues.put(PieceType.BISHOP, 330);
+        pieceValues.put(PieceType.ROOK, 500);
+        pieceValues.put(PieceType.QUEEN, 900);
+        pieceValues.put(PieceType.KING, 20000);
     }
 
-    public int getPositionValue(PieceType pieceType, Position position, PlayerColor color, PlayerColor pieceColor) {
+    public int getPositionValue(PieceType pieceType, Position position, PlayerColor playerColor, PlayerColor pieceColor) {
         int pieceValue = pieceValues.get(pieceType);
-        int multip = color == pieceColor ? 1 : -1;
-        if (color == PlayerColor.BLACK) {
+        int multip = playerColor == pieceColor ? 1 : -1;
+        if (pieceColor == PlayerColor.BLACK) {
             return multip * (pieceValue + piecePositionValuesBlack.get(pieceType)[position.getX()][position.getY()]);
         }
-        return multip * (pieceValue + piecePositionValuesBlack.get(pieceType)[Board.BOARD_SIZE - position.getX()][Board.BOARD_SIZE - position.getY()]);
+        return multip * (pieceValue + piecePositionValuesBlack.get(pieceType)[Board.BOARD_SIZE - position.getX()][position.getY()]);
     }
 
-    public int calculateBoardValue(Board board, PlayerColor color) {
+    public int calculateBoardValue(Board board, PlayerColor playerColor) {
         int value = 0;
         for (int i = 0; i < Board.BOARD_SIZE; i++) {
             for (int j = 0; j < Board.BOARD_SIZE; j++) {
                 Position position = new Position(i, j);
                 Piece piece = board.getPieceByPosition(position);
-                if (piece == null) {
-                    value += 0;
-                } else {
-                    value += getPositionValue(piece.getType(), position, color, piece.getPlayerColor());
+                if (piece != null) {
+                    value += getPositionValue(piece.getType(), position, playerColor, piece.getPlayerColor());
                 }
             }
         }

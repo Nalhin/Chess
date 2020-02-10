@@ -74,7 +74,11 @@ public class Game {
     }
 
     public void makeAiMove(PlayerMovePayload playerMovePayload, Player player) throws GameException {
-        makeMove(playerMovePayload, player);
+        try {
+            makeMove(playerMovePayload, player);
+        }catch (GameException exception){
+            forfeit(player.getName());
+        }
 
         if (board.getPositionAwaitingPromotion() != null) {
             makePromotion(playerMovePayload.getDestinationPosition(), player, PieceType.QUEEN);

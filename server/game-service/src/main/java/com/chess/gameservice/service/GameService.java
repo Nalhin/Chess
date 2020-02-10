@@ -86,6 +86,9 @@ public class GameService {
 
     public AvailableMovesPayload getAvailableMoves(UUID gameId, Position position, String name) throws GameException {
         Game game = games.get(gameId);
+        if(game==null){
+            throw new GameException("Game is already over");
+        }
         Player player = new Player(name);
         AvailableMovesPayload availableMovesPayload = new AvailableMovesPayload();
         availableMovesPayload.setPosition(position);

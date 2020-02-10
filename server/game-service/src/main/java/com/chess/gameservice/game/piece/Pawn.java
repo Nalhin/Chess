@@ -36,12 +36,12 @@ public class Pawn extends Piece implements Serializable {
         Position forwardPosition = new Position(initialPosition.getX() + direction, initialPosition.getY());
         if (forwardPosition.isWithinBounds() && board.isBoardPositionEmpty(forwardPosition)) {
             availableMoves.add(forwardPosition);
-        }
 
-        if (isFirstMove()) {
-            var position = new Position(initialPosition.getX() + direction * 2, initialPosition.getY());
-            if (board.isBoardPositionEmpty(position)) {
-                availableMoves.add(position);
+            if (isFirstMove()) {
+                Position position = new Position(initialPosition.getX() + direction * 2, initialPosition.getY());
+                if (board.isBoardPositionEmpty(position)) {
+                    availableMoves.add(position);
+                }
             }
         }
         Position enPessantPosition = board.getEnPessantPosition();
