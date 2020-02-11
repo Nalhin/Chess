@@ -33,39 +33,33 @@ const Pages = () => {
         <Switch>
           <React.Suspense fallback={<Loader isLoading />}>
             <Route path={locations.home} component={Home} exact />
-            <Route path={locations.logout} component={Logout} exact />
+            <ProtectedRoute path={locations.logout} component={Logout} exact />
             <ProtectedRoute
               path={`${locations.game}:id`}
               component={GameRoom}
               exact
+              shouldBeAuthenticated
             />
             <ProtectedRoute
               path={locations.profile}
               component={Profile}
               exact
+              shouldBeAuthenticated
             />
             <ProtectedRoute
               path={locations.matchHistory}
               component={MatchHistory}
               exact
+              shouldBeAuthenticated
             />
             <ProtectedRoute
               path={`${locations.individualMatchHistory}:id`}
               component={IndividualGameHistory}
               exact
+              shouldBeAuthenticated
             />
-            <ProtectedRoute
-              withAuthentication
-              path={locations.signIn}
-              component={SignIn}
-              exact
-            />
-            <ProtectedRoute
-              withAuthentication
-              path={locations.signUp}
-              component={SignUp}
-              exact
-            />
+            <ProtectedRoute path={locations.signIn} component={SignIn} exact />
+            <ProtectedRoute path={locations.signUp} component={SignUp} exact />
           </React.Suspense>
           <Route component={NoMatch} />
         </Switch>

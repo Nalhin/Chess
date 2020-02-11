@@ -97,7 +97,7 @@ public class King extends Piece implements Serializable {
             if (!board.isBoardPositionEmpty(position)) {
                 return false;
             }
-            if (CheckChecker.isSquareThreatened(board,position,getPlayerColor())) {
+            if (CheckChecker.isSquareThreatened(board, position, getPlayerColor())) {
                 return false;
             }
         }

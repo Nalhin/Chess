@@ -80,12 +80,12 @@ public class CheckChecker {
         return false;
     }
 
-    private static boolean isThreatenedByKnight(Board board, Position position, PlayerColor color) {
-        Piece knight = PieceFactory.buildPiece(PieceType.KNIGHT, PlayerColor.BLACK);
+    private static boolean isThreatenedByKnight(Board board, Position position, PlayerColor threatenedColor) {
+        Piece knight = PieceFactory.buildPiece(PieceType.KNIGHT, threatenedColor);
         return knight.getAvailableMoves(board, position)
                 .stream()
                 .map(board::getPieceByPosition)
-                .anyMatch(piece -> piece instanceof Knight && piece.getPlayerColor() != color);
+                .anyMatch(piece -> piece instanceof Knight && piece.getPlayerColor() != threatenedColor);
 
     }
 

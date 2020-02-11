@@ -17,6 +17,7 @@ import {
   loginUserSucceeded,
   registerUserFailedAction,
   registerUserSucceeded,
+  setToken,
 } from './user.actions';
 import Cookies from 'js-cookie';
 import { closeChat } from '../chat/chat.actions';
@@ -79,9 +80,8 @@ export function* authenticateUserSaga() {
     if (!token) {
       return;
     }
-
+    yield put(setToken(token));
     const response = yield call(fetchAuthenticateUser, token);
-
     yield put(authenticationSucceededAction(response.data));
   } catch (e) {
     Cookies.remove('token');

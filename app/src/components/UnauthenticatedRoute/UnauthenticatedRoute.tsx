@@ -5,20 +5,22 @@ import React from 'react';
 import { locations } from '../../contants/locations';
 
 interface Props extends RouteProps {
-  withAuthentication?: boolean;
+  shouldBeAuthenticated?: boolean;
+  redirectTo?: string;
 }
 
 const ProtectedRoute: React.FC<Props> = ({
   component: Component,
-  withAuthentication,
+  shouldBeAuthenticated,
   ...rest
 }) => {
   const isAuthenticated = useSelector(isAuthenticatedSelector);
+
   return (
     <Route
       {...rest}
       render={props =>
-        !isAuthenticated === withAuthentication ? (
+        isAuthenticated === shouldBeAuthenticated ? (
           <Component {...props} />
         ) : (
           <Redirect to={locations.home} />
@@ -29,7 +31,8 @@ const ProtectedRoute: React.FC<Props> = ({
 };
 
 ProtectedRoute.defaultProps = {
-  withAuthentication: false,
+  shouldBeAuthenticated: false,
+  redirectTo: locations.home,
 };
 
 export default ProtectedRoute;

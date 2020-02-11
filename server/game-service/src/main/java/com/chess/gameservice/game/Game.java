@@ -45,7 +45,7 @@ public class Game {
         gameTurns = new ArrayList<>();
         gamePhase = GamePhase.WAITING_FOR_PLAYERS;
         currentTurn = new CurrentTurn();
-        latestMove= new PlayerMove();
+        latestMove = new PlayerMove();
     }
 
     public void setPlayer(Player player, PlayerColor playerColor) {
@@ -68,7 +68,7 @@ public class Game {
             changeTurn();
         }
 
-        latestMove= PlayerMove.builder().initialPosition(playerMovePayload.getInitialPosition())
+        latestMove = PlayerMove.builder().initialPosition(playerMovePayload.getInitialPosition())
                 .destinationPosition(playerMovePayload.getDestinationPosition()).build();
 
         gameTurns.add(GameTurn.builder()
@@ -84,6 +84,7 @@ public class Game {
 
         if (board.getPositionAwaitingPromotion() != null) {
             makePromotion(playerMovePayload.getDestinationPosition(), player, PieceType.QUEEN);
+            changeTurn();
         }
     }
 
@@ -150,6 +151,11 @@ public class Game {
     @JsonIgnore
     public Duration getGameDuration() {
         return players.getGameDuration();
+    }
+
+    @JsonIgnore
+    public PlayerColor getCurrentPlayerColor() {
+        return currentTurn.getCurrentPlayerColor();
     }
 
     public void initGame(UUID gameId) {

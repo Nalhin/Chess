@@ -43,26 +43,29 @@ public class GameController implements ApplicationListener<PlayerOutOfTimeEvent>
     @GetMapping("/game/is-game-present/{playerName}")
     public ResponseEntity<GamePresentMessage> isGamePresent(@PathVariable String playerName) {
         Optional<UUID> gameId = gameService.getGameWithUser(playerName);
-        return gameId.map(uuid -> new ResponseEntity<>(new GamePresentMessage(uuid), HttpStatus.OK))
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        return gameId.map(uuid -> ResponseEntity.ok(new GamePresentMessage(uuid, true)))
+                .orElseGet(() -> ResponseEntity.ok(new GamePresentMessage(null, false)));
     }
 
     @MessageMapping("/move/{gameId}")
-    public void makeMove(@DestinationVariable String gameId, @Payload PlayerMovePayload playerMovePayload, @Header("name") String name) throws GameException, IOException, ClassNotFoundException {
+    public void makeMove(@DestinationVariable String gameId, @Payload PlayerMovePayload playerMovePayload, @Header("name") String name) throws GameException {
         Game game = gameService.makeMove(UUID.fromString(gameId), playerMovePayload, name);
-        var playerMovedMessage = new PlayerMovedMessage();
+        PlayerMovedMessage playerMovedMessage = new PlayerMovedMessage();
         playerMovedMessage.setPayload(game);
         simpMessagingTemplate.convertAndSend("/topic/state/" + gameId, playerMovedMessage);
-
-        if(game.isWithAi()) {
-            game = gameService.aiMove(UUID.fromString(gameId));
-            if (game != null) {
-                playerMovedMessage.setPayload(game);
-                simpMessagingTemplate.convertAndSend("/topic/state/" + gameId, playerMovedMessage);
-            }
+        if (game.isWithAi()) {
+            makeMoveAi(gameId);
         }
     }
 
+    public void makeMoveAi(String gameId) throws GameException {
+        Game game = gameService.aiMove(UUID.fromString(gameId));
+        if (game != null) {
+            PlayerMovedMessage playerMovedMessage = new PlayerMovedMessage();
+            playerMovedMessage.setPayload(game);
+            simpMessagingTemplate.convertAndSend("/topic/state/" + gameId, playerMovedMessage);
+        }
+    }
 
     @MessageMapping("/forfeit/{gameId}")
     public void forfeit(@DestinationVariable String gameId, @Header("name") String name) throws GameException {
@@ -87,12 +90,8 @@ public class GameController implements ApplicationListener<PlayerOutOfTimeEvent>
         PlayerMovedMessage playerMovedMessage = new PlayerMovedMessage();
         playerMovedMessage.setPayload(game);
         simpMessagingTemplate.convertAndSend("/topic/state/" + gameId, playerMovedMessage);
-        if(game.isWithAi()){
-            game =  gameService.aiMove(UUID.fromString(gameId));
-            if(game!=null){
-                playerMovedMessage.setPayload(game);
-                simpMessagingTemplate.convertAndSend("/topic/state/" + gameId, playerMovedMessage);
-            }
+        if (game.isWithAi()) {
+            makeMoveAi(gameId);
         }
     }
 

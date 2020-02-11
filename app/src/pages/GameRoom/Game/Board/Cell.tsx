@@ -22,7 +22,6 @@ interface StyledCellProps {
 const StyledCell = styled.div<StyledCellProps>`
   ${mixins.flexCenter};
   position: relative;
-
   &:nth-of-type(16n + 1),
   &:nth-of-type(16n + 3),
   &:nth-of-type(16n + 5),
@@ -42,6 +41,9 @@ const StyledCell = styled.div<StyledCellProps>`
   }};
   border-style: solid;
   border-width: 6px;
+  ${props => props.theme.breakpoints.down('sm')} {
+    border-width: 3px;
+  }
   border-color: ${props => {
     if (props.isSelected) {
       return props.theme.palette.info.main;
@@ -85,78 +87,75 @@ interface CellProps {
   isLatestMove: boolean;
 }
 
-const Cell: React.FC<CellProps> = React.memo(
-  ({
-    type,
-    getAvailableMoves,
-    position,
-    isSelected,
-    isMoveAvailable,
-    makeMove,
-    checkState,
-    currentPlayerColor,
-    pieceColor,
-    userColor,
-    isLatestMove,
-  }) => {
-    const theme = useTheme();
-
-    const handleOnClick = React.useCallback(() => {
-      if (isMoveAvailable) {
-        makeMove(position);
-      } else {
-        getAvailableMoves(position);
-      }
-    }, [position]);
-
-    const [{ isOver, canDrop }, drop] = useDrop({
-      accept: DragAndDropTypes.PIECE,
-      canDrop: () => isMoveAvailable,
-      drop: () => {
-        makeMove(position);
-      },
-      collect: monitor => ({
-        isOver: !!monitor.isOver(),
-        canDrop: !!monitor.canDrop(),
-      }),
-    });
-
-    const onDragBegin = () => {
+const Cell: React.FC<CellProps> = ({
+  type,
+  getAvailableMoves,
+  position,
+  isSelected,
+  isMoveAvailable,
+  makeMove,
+  checkState,
+  currentPlayerColor,
+  pieceColor,
+  userColor,
+  isLatestMove,
+}) => {
+  const theme = useTheme();
+  const handleOnClick = React.useCallback(() => {
+    if (isMoveAvailable) {
+      makeMove(position);
+    } else {
       getAvailableMoves(position);
-    };
+    }
+  }, [position]);
 
-    const belongsToPlayer = pieceColor === userColor;
-    const isHoverShown = belongsToPlayer || isMoveAvailable;
-    const canBeAttacked = type && isMoveAvailable && !belongsToPlayer;
+  const [{ isOver, canDrop }, drop] = useDrop({
+    accept: DragAndDropTypes.PIECE,
+    canDrop: () => isMoveAvailable,
+    drop: () => {
+      makeMove(position);
+    },
+    collect: monitor => ({
+      isOver: !!monitor.isOver(),
+      canDrop: !!monitor.canDrop(),
+    }),
+  });
 
-    const isChecked =
-      checkState !== CheckState.None &&
-      currentPlayerColor === pieceColor &&
-      type === PieceType.KING;
+  const onDragBegin = () => {
+    getAvailableMoves(position);
+  };
 
-    const dndSelected = isOver && canDrop;
-    return (
-      <StyledCell
-        isHoverShown={isHoverShown}
-        onClick={handleOnClick}
-        ref={drop}
-        isChecked={isChecked}
-        theme={theme}
-        isSelected={isSelected || dndSelected}
-        canBeAttacked={canBeAttacked}
-        isLatestMove={isLatestMove}
-      >
-        {type && (
-          <StyledPieceIcon
-            onDragBegin={onDragBegin}
-            pieceColor={pieceColor}
-            type={type}
-          />
-        )}
-        {isMoveAvailable && !canBeAttacked && <StyledOverlay theme={theme} />}
-      </StyledCell>
-    );
-  },
-);
+  const belongsToPlayer = pieceColor === userColor;
+  const isHoverShown = belongsToPlayer || isMoveAvailable;
+  const canBeAttacked = type && isMoveAvailable && !belongsToPlayer;
+
+  const isChecked =
+    checkState !== CheckState.None &&
+    currentPlayerColor === pieceColor &&
+    type === PieceType.KING;
+
+  const dndSelected = isOver && canDrop;
+  return (
+    <StyledCell
+      isHoverShown={isHoverShown}
+      onClick={handleOnClick}
+      ref={drop}
+      isChecked={isChecked}
+      theme={theme}
+      isSelected={isSelected || dndSelected}
+      canBeAttacked={canBeAttacked}
+      isLatestMove={isLatestMove}
+    >
+      {type && (
+        <StyledPieceIcon
+          onDragBegin={onDragBegin}
+          pieceColor={pieceColor}
+          type={type}
+        />
+      )}
+      {isMoveAvailable && !canBeAttacked && <StyledOverlay theme={theme} />}
+    </StyledCell>
+  );
+};
 
 export default Cell;

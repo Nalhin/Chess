@@ -88,8 +88,8 @@ export function* joinQueueAiSaga(action: JoinQueueAi) {
 
 export function* queueGameFoundSaga(action: QueueGameFoundAction) {
   const { gameId } = action.payload;
+  yield put(push(`${locations.game}${gameId}`));
   yield put(initChat(gameId));
   yield put(initGameRequested(gameId));
-  yield put(push(`${locations.game}${gameId}`));
   yield put(addToast(generateToast('Game found!', ToastTypes.Info)));
 }

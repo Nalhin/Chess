@@ -7,4 +7,5 @@ export const locations = {
   signIn: '/sign-in',
   signUp: '/sign-up',
   logout: '/logout',
+  play: '/play',
 };

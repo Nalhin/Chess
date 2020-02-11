@@ -16,16 +16,20 @@ import { StyledLink } from '../../components/StyledLink/StyledLink';
 import { locations } from '../../contants/locations';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 
+const StyledList = styled(List)`
+  width: 220px;
+`;
+
+const StyledDivider = styled(Divider)`
+  height: 2px;
+`;
+
 interface Props {
   isOpen: boolean;
   toggleDrawer: (event: React.KeyboardEvent | React.MouseEvent) => void;
   isAuthenticated: boolean;
   logoutUser: () => void;
 }
-
-const StyledList = styled(List)`
-  width: 220px;
-`;
 
 const NavigationDrawer: React.FC<Props> = ({
   isOpen,
@@ -61,7 +65,7 @@ const NavigationDrawer: React.FC<Props> = ({
             </StyledLink>
           )}
         </StyledList>
-        <Divider />
+        <StyledDivider />
         <StyledList>
           {isAuthenticated ? (
             <ListItem button onClick={logoutUser}>

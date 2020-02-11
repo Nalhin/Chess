@@ -4,40 +4,19 @@ import { RootAction } from '../../store/rootAction';
 import { connect } from 'react-redux';
 import Home from './Home';
 import { isAuthenticatedSelector } from '../../store/user/user.selectors';
-import { isInQueueSelector } from '../../store/queue/queue.selectors';
-import {
-  joinQueue,
-  joinQueueAi,
-  leaveQueue,
-} from '../../store/queue/queue.actions';
-import {
-  gameIsPresentRequested,
-  gameReconnectRequested,
-} from '../../store/game/game.actions';
+import { registerUserRequested } from '../../store/user/user.actions';
 
 const mapStateToProps = (state: AppState) => {
   const isAuthenticated = isAuthenticatedSelector(state);
-  const isInQueue = isInQueueSelector(state);
-  const queueCount = state.queue.queueUserCount;
-  const isReconnectShown = state.game.isReconnect;
-  const timeJoined = state.queue.timeJoined;
   return {
     isAuthenticated,
-    isInQueue,
-    queueCount,
-    isReconnectShown,
-    timeJoined,
   };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<RootAction>) =>
   bindActionCreators(
     {
-      joinQueue,
-      gameIsPresent: gameIsPresentRequested,
-      gameReconnect: gameReconnectRequested,
-      leaveQueue,
-      joinQueueAi,
+      registerUser: registerUserRequested,
     },
     dispatch,
   );

@@ -37,3 +37,8 @@ export const userColorSelector = createSelector(
     return PlayerColor.White;
   },
 );
+
+export const gameBoardSelector = (state: AppState) =>
+  state.game.gameState.board.state.map((row, i) =>
+    row.map((cell, j) => (cell === null ? { id: `${i}${j}` } : cell)),
+  );

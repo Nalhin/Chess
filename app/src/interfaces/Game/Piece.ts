@@ -12,4 +12,5 @@ export enum PieceType {
 export interface Piece {
   type: PieceType;
   playerColor: PlayerColor;
+  id?: string;
 }

@@ -22,7 +22,7 @@ const StyledFabContainer = styled.div`
   bottom: ${props => props.theme.spacing(2.25)}px;
   ${props => props.theme.breakpoints.down('sm')} {
     transform: translateX(-50%);
-    left: calc(50% - ${props => props.theme.spacing(3)}px);
+    left: calc(50% - ${props => props.theme.spacing(4)}px);
     bottom: ${props => props.theme.spacing(3)}px;
   }
 `;

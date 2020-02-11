@@ -1,10 +1,10 @@
 import React from 'react';
-import QueueLoader from '../../components/Loader/QueueLoader';
+import QueueLoader from '../../../components/Loader/QueueLoader';
 import styled from '@emotion/styled';
-import { calculateTimeDifferenceInSeconds } from '../../utils/calculateTimeDifferenceInSeconds';
-import mixins from '../../styles/mixins';
+import { calculateTimeDifferenceInSeconds } from '../../../utils/calculateTimeDifferenceInSeconds';
+import mixins from '../../../styles/mixins';
 import { Button, useTheme } from '@material-ui/core';
-import { joinQueueAi } from '../../store/queue/queue.actions';
+import { QueueContainerProps } from './Queue.container';
 
 const StyledQueue = styled.div`
   ${mixins.flexCenter};
@@ -19,17 +19,7 @@ const StyledButton = styled(Button)`
   margin: ${props => props.theme.spacing(2)}px;
 `;
 
-interface Props {
-  joinQueue: () => void;
-  queueCount: number;
-  isInQueue: boolean;
-  gameReconnect: () => void;
-  gameIsPresent: () => void;
-  leaveQueue: () => void;
-  joinQueueAi: () => void;
-  isReconnectShown: boolean;
-  timeJoined: string;
-}
+interface Props extends QueueContainerProps {}
 
 const Queue: React.FC<Props> = ({
   queueCount,
@@ -62,40 +52,9 @@ const Queue: React.FC<Props> = ({
     };
   }, [timeJoined]);
 
-  return (
-    <StyledQueue>
-      {isReconnectShown ? (
-        <StyledButton
-          theme={theme}
-          color="primary"
-          variant="contained"
-          onClick={gameReconnect}
-        >
-          Reconnect
-        </StyledButton>
-      ) : (
-        !isInQueue && (
-          <div>
-            <StyledButton
-              theme={theme}
-              color="primary"
-              variant="contained"
-              onClick={joinQueue}
-            >
-              Play with other players
-            </StyledButton>
-            <StyledButton
-              theme={theme}
-              color="primary"
-              variant="contained"
-              onClick={joinQueueAi}
-            >
-              Play with AI
-            </StyledButton>
-          </div>
-        )
-      )}
-      {isInQueue && (
+  const renderComponent = () => {
+    if (isInQueue) {
+      return (
         <>
           <StyledButton
             theme={theme}
@@ -110,9 +69,43 @@ const Queue: React.FC<Props> = ({
           </StyledText>
           <QueueLoader />
         </>
-      )}
-    </StyledQueue>
-  );
+      );
+    }
+    if (isReconnectShown) {
+      return (
+        <StyledButton
+          theme={theme}
+          color="primary"
+          variant="contained"
+          onClick={gameReconnect}
+        >
+          Reconnect
+        </StyledButton>
+      );
+    }
+    return (
+      <>
+        <StyledButton
+          theme={theme}
+          color="primary"
+          variant="contained"
+          onClick={joinQueue}
+        >
+          Play with other players
+        </StyledButton>
+        <StyledButton
+          theme={theme}
+          color="primary"
+          variant="contained"
+          onClick={joinQueueAi}
+        >
+          Play with AI
+        </StyledButton>
+      </>
+    );
+  };
+
+  return <StyledQueue>{renderComponent()}</StyledQueue>;
 };
 
 export default Queue;

@@ -18,12 +18,12 @@ public class CustomStopwatch {
     private Timer timer;
     private TimerTask task;
 
-    public void start(Duration totalTurnTimeRemaining, UUID gameId,String name) {
+    public void start(Duration totalTurnTimeRemaining, UUID gameId, String name) {
         timer = new Timer();
         task = new TimerTask() {
             @Override
             public void run() {
-                StopwatchEventPublisher.publishPlayerOutOfTime(gameId,name);
+                StopwatchEventPublisher.publishPlayerOutOfTime(gameId, name);
             }
         };
 
@@ -33,7 +33,7 @@ public class CustomStopwatch {
 
     public Duration end() {
 
-        if(task!=null && timer!=null){
+        if (task != null && timer != null) {
             task.cancel();
             timer.cancel();
         }

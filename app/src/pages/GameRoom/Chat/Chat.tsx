@@ -65,7 +65,16 @@ interface Props extends ChatContainerProps {}
 
 const Chat: React.FC<Props> = ({ chatMessages, sendMessage, userLogin }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const ref = React.useRef(null);
   const theme = useTheme();
+
+  React.useEffect(() => {
+    if (ref.current) {
+      const { scrollHeight, clientHeight } = ref.current;
+      const maxScrollTop = scrollHeight - clientHeight;
+      ref.current.scrollTop = maxScrollTop > 0 ? maxScrollTop : 0;
+    }
+  }, [chatMessages.length]);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -92,7 +101,7 @@ const Chat: React.FC<Props> = ({ chatMessages, sendMessage, userLogin }) => {
               <CloseIcon />
             </StyledIconButton>
           </StyledTitle>
-          <StyledMessageWrapper theme={theme}>
+          <StyledMessageWrapper theme={theme} ref={ref}>
             <StyledInner theme={theme}>
               {chatMessages.map(message => (
                 <ChatUserMessage

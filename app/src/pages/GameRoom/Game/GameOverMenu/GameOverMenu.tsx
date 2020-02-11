@@ -32,7 +32,7 @@ const GameOverMenu: React.FC<Props> = ({ isShown, closeGame, isWinner }) => {
         <Typography variant="h4">
           {isWinner ? 'You won' : 'You lost'}
         </Typography>
-        <Button color="primary" onClick={goToMainMenu}>
+        <Button color="primary" onClick={goToMainMenu} variant="contained">
           Go to main menu
         </Button>
       </StyledContainer>

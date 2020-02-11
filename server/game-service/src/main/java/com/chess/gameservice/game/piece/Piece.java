@@ -10,6 +10,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.UUID;
 
 
 @Getter
@@ -28,26 +29,23 @@ public abstract class Piece implements Serializable {
     }
 
     ArrayList<Position> getMovesInDirection(Board board, Position initialPosition, int dx, int dy) {
-        var availableMoves = new ArrayList<Position>();
-        var position = new Position(initialPosition.getX(), initialPosition.getY());
+        ArrayList<Position> availableMoves = new ArrayList<Position>();
+        Position position = new Position(initialPosition.getX(), initialPosition.getY());
 
         while (true) {
-            var newX = position.getX() + dx;
-            var newY = position.getY() + dy;
-            position.setX(newX);
-            position.setY(newY);
+            position.setX(position.getX() + dx);
+            position.setY(position.getY() + dy);
             if (!position.isWithinBounds()) {
                 break;
             }
             if (!board.isBoardPositionEmpty(position)) {
                 if (board.isTakenPositionMovable(position, playerColor)) {
-                    availableMoves.add(new Position(newX, newY));
-                    break;
+                    availableMoves.add(new Position(position.getX(),position.getY()));
                 }
                 break;
             }
 
-            availableMoves.add(new Position(newX, newY));
+            availableMoves.add(new Position(position.getX(),position.getY()));
         }
         return availableMoves;
     }
@@ -91,7 +89,7 @@ public abstract class Piece implements Serializable {
     private boolean isDirectionUnobstructed(Position currentPosition, Position destinationPosition,
                                             Board board, int dx, int dy) {
 
-        var position = new Position(currentPosition.getX(), currentPosition.getY());
+        Position position = new Position(currentPosition.getX(), currentPosition.getY());
         do {
             position.setX(position.getX() + dx);
             position.setY(position.getY() + dy);

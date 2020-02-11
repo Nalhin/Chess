@@ -26,7 +26,7 @@ public class Knight extends Piece implements Serializable {
         int[] dx = {-2, -2, -1, 1, 2, 2, 1, -1};
         int[] dy = {-1, 1, 2, 2, 1, -1, -2, -2};
 
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i <= Board.BOARD_SIZE; i++) {
             int newPositionX = initialPosition.getX() + dx[i];
             int newPositionY = initialPosition.getY() + dy[i];
 

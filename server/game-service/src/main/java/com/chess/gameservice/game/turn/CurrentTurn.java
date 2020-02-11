@@ -7,10 +7,14 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
 public class CurrentTurn {
-    private PlayerColor currentPlayerColor = PlayerColor.WHITE;
-    private int turnNumber = 0;
+    private PlayerColor currentPlayerColor;
+    private int turnNumber;
+
+    public CurrentTurn() {
+        currentPlayerColor = PlayerColor.WHITE;
+        turnNumber = 0;
+    }
 
     public void changeTurn() {
         turnNumber++;

@@ -42,10 +42,11 @@ const Game: React.FC<Props> = ({
   const players = gameState.players;
   const checkState = gameState.board.checkState;
   const currentTurn = gameState.currentTurn;
+  const isGameOver = gamePhase === GamePhase.GAME_OVER;
   return (
     <StyledContainer>
       <Prompt
-        when={gamePhase !== GamePhase.GAME_OVER}
+        when={!isGameOver}
         message="Are sure you want to leave the game??"
       />
       <PlayerPanel
@@ -71,9 +72,9 @@ const Game: React.FC<Props> = ({
           promotePawn={promotePawn}
         />
         <GameOverMenu
-          isShown={gamePhase === GamePhase.GAME_OVER}
+          isShown={isGameOver}
           closeGame={closeGame}
-          isWinner={!isCurrentTurn}
+          isWinner={isCurrentTurn}
         />
       </StyledBoardContainer>
       <PlayerPanel

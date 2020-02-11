@@ -1,9 +1,12 @@
 import React from 'react';
 import { HomeContainerProps } from './Home.container';
-import Queue from './Queue';
 import styled from '@emotion/styled';
-import { Typography, useTheme } from '@material-ui/core';
-import { joinQueueAi } from '../../store/queue/queue.actions';
+import { Button, Card, Typography, useTheme } from '@material-ui/core';
+import Board from '../GameRoom/Game/Board/Board';
+import { defaultBoardState } from './defaultBoardState';
+import { locations } from '../../contants/locations';
+import { StyledLink } from '../../components/StyledLink/StyledLink';
+import { generatePlaceholderAccount } from '../../utils/generatePlaceholderAccount';
 
 const StyledContainer = styled.div`
   margin: 0 auto;
@@ -11,43 +14,78 @@ const StyledContainer = styled.div`
 `;
 
 const StyledHeader = styled(Typography)`
-  padding-top: ${props => props.theme.spacing(3)}px;
+  padding: ${props => props.theme.spacing(3)}px 0
+    ${props => props.theme.spacing(3)}px;
+`;
+
+const StyledBoardContainer = styled.div`
+  position: relative;
+`;
+
+const StyledCard = styled(Card)`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: ${props => props.theme.spacing(3)}px;
+`;
+
+const StyledButton = styled(Button)`
+  margin: ${props => props.theme.spacing(1)}px;
 `;
 
 interface Props extends HomeContainerProps {}
 
-const Home: React.FC<Props> = ({
-  isAuthenticated,
-  joinQueue,
-  isInQueue,
-  queueCount,
-  gameIsPresent,
-  gameReconnect,
-  isReconnectShown,
-  leaveQueue,
-  timeJoined,
-  joinQueueAi,
-}) => {
+const Home: React.FC<Props> = ({ isAuthenticated, registerUser }) => {
   const theme = useTheme();
+
+  const handleRegisterUser = () => {
+    registerUser(generatePlaceholderAccount());
+  };
+
   return (
     <StyledContainer data-testid="home">
-      {isAuthenticated ? (
-        <Queue
-          queueCount={queueCount}
-          joinQueue={joinQueue}
-          isInQueue={isInQueue}
-          gameIsPresent={gameIsPresent}
-          gameReconnect={gameReconnect}
-          isReconnectShown={isReconnectShown}
-          leaveQueue={leaveQueue}
-          timeJoined={timeJoined}
-          joinQueueAi={joinQueueAi}
+      <StyledHeader variant="h4" theme={theme}>
+        Chess
+      </StyledHeader>
+      <StyledBoardContainer>
+        <Board
+          boardState={defaultBoardState}
+          getAvailableMoves={null}
+          selectedPosition={null}
+          makeMove={null}
+          availableMoves={[]}
+          checkState={null}
+          currentPlayerColor={null}
+          userColor={null}
+          latestMove={{
+            destinationPosition: { x: -1, y: -1 },
+            initialPosition: { x: -1, y: -1 },
+          }}
         />
-      ) : (
-        <StyledHeader variant="h4" theme={theme}>
-          Log in first.
-        </StyledHeader>
-      )}
+        <StyledCard theme={theme}>
+          <Typography variant="h6">Play!</Typography>
+          <Typography variant="body1">
+            Account is required in order to play.
+          </Typography>
+          <StyledLink to={locations.signUp}>
+            <StyledButton variant="contained" color="primary" theme={theme}>
+              Register
+            </StyledButton>
+          </StyledLink>
+          <StyledButton
+            variant="contained"
+            color="primary"
+            theme={theme}
+            onClick={handleRegisterUser}
+          >
+            Placeholder account
+          </StyledButton>
+        </StyledCard>
+      </StyledBoardContainer>
     </StyledContainer>
   );
 };

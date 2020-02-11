@@ -49,7 +49,7 @@ const Board: React.FC<Props> = ({
             const position = { x, y };
             return (
               <Cell
-                key={`${x}#${y}`}
+                key={`${x}${y}`}
                 getAvailableMoves={getAvailableMoves}
                 isSelected={arePositionsEqual(position, selectedPosition)}
                 isMoveAvailable={availableMoves.some(item =>

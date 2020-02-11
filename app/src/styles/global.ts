@@ -1,6 +1,4 @@
-import { css } from '@emotion/core';
-
-const reset = `
+export const reset = `
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -21,11 +19,4 @@ time, mark, audio, video {
   font: inherit;
   vertical-align: baseline;
 }
-`;
-
-export const globalStyles = css`
-  ${reset};
-  * {
-    transition: background 0.5s;
-  }
 `;

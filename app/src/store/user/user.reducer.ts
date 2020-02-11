@@ -25,6 +25,9 @@ const userReducer: Reducer<UserState, UserActions> = (
         draft.data.email = action.payload.user.email;
         draft.data.token = action.payload.user.token;
         break;
+      case UserActionTypes.SET_TOKEN:
+        draft.data.token = action.payload.token;
+        break;
       case UserActionTypes.LOGIN_USER_FAILED:
         break;
       case UserActionTypes.REGISTER_USER_REQUESTED:

@@ -125,7 +125,7 @@ public class GameService {
         Player player = new Player("Computer");
         if (game.getBoard().getPositionAwaitingPromotion() == null) {
             try {
-                PlayerMove bestMove = minMax.getBestMove(game.getBoard(), game.getCurrentTurn().getCurrentPlayerColor());
+                PlayerMove bestMove = minMax.getBestMove(game.getBoard(), game.getCurrentPlayerColor());
                 game.makeAiMove(new PlayerMovePayload(bestMove.getInitialPosition(), bestMove.getDestinationPosition()), player);
             } catch (GameException exception) {
                 forfeitGame(gameId, player.getName());

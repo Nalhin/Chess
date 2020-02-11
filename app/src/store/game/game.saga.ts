@@ -1,7 +1,6 @@
 import { SagaIterator } from '@redux-saga/core';
-import { all, race, select, take, takeEvery } from '@redux-saga/core/effects';
+import { all, select, take, takeEvery } from '@redux-saga/core/effects';
 import {
-  GameActionTypes,
   GameBaseActionTypes,
   GameIsPresentRequestedAction,
   GameReconnectActionTypes,
@@ -33,6 +32,8 @@ import { addToast } from '../toaster/toaster.action';
 import { generateToast } from '../../utils/toastFactory';
 import { ToastTypes } from '../../interfaces/Toaster/ToastTypes';
 import { closeChat, initChat } from '../chat/chat.actions';
+import { CustomRouterActionTypes } from '../customRouter/customRouter.types';
+import { didRouteChange } from '../customRouter/customRouter.selectors';
 
 export function* gameRootSaga(): SagaIterator {
   yield all([
@@ -56,12 +57,25 @@ export function* gameRootSaga(): SagaIterator {
 }
 
 export function* reconnectToGameSaga(action: GameReconnectRequestedAction) {
+  const user = yield select(userSelector);
+  try {
+    const response = yield call(fetchIsGamePresent, user.login);
+    const { isPresent } = response.data;
+
+    if (!isPresent) {
+      throw Error();
+    }
+  } catch (e) {
+    yield put(addToast(generateToast('Game not found!', ToastTypes.Error)));
+    return;
+  }
+
   const gameId = yield select(gameIdSelector);
+  yield put(push(`${locations.game}${gameId}`));
 
   yield put(initChat(gameId));
   yield put(initGameRequested(gameId));
 
-  yield put(push(`${locations.game}${gameId}`));
   yield put(
     addToast(generateToast('Reconnect successful!', ToastTypes.Success)),
   );
@@ -81,10 +95,12 @@ export function* initGameSaga(action: InitGameAction) {
     headers: { name: login },
   });
 
-  yield race([
-    take(GameActionTypes.CLOSE_GAME),
-    // take(CustomRouterActionTypes.LOCATION_CHANGE),
-  ]);
+  let isOver = false;
+  while (!isOver) {
+    yield take(CustomRouterActionTypes.LOCATION_CHANGE);
+    isOver = yield select(didRouteChange);
+  }
+
   yield put(clearGame());
   yield put(closeChat());
   gameSubscription.unsubscribe();
@@ -110,7 +126,9 @@ export function* isGamePresentSaga(action: GameIsPresentRequestedAction) {
   try {
     const user = yield select(userSelector);
     const response = yield call(fetchIsGamePresent, user.login);
-    yield put(gameIsPresentSucceeded(response.data.gameId));
+    if (response.data.isPresent) {
+      yield put(gameIsPresentSucceeded(response.data.gameId));
+    }
   } catch (e) {
     yield put(gameIsPresentFailed());
   }
