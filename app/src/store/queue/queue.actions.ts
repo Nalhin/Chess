@@ -4,7 +4,6 @@ import {
   LeaveQueueAction,
   QueueActionTypes,
   QueueBaseActionTypes,
-  QueueCountAction,
   QueueGameFoundAction,
   QueueJoinedAction,
   QueueLeftAction,
@@ -12,13 +11,6 @@ import {
 
 export const joinQueue = (): JoinQueueAction => ({
   type: QueueActionTypes.JOIN_QUEUE,
-});
-
-export const queueCount = (queueUserCount: number): QueueCountAction => ({
-  type: QueueActionTypes.QUEUE_COUNT,
-  payload: {
-    queueUserCount,
-  },
 });
 
 export const queueJoined = (timeJoined: string): QueueJoinedAction => ({

@@ -26,21 +26,10 @@ class QueueServiceTest {
         User secondUser = new User("2", "1");
 
         var users = queueService.joinQueue(firstUser);
-        assertNull(users);
+        assertEquals(users.size(),0);
 
         users = queueService.joinQueue(secondUser);
         assertEquals(users.size(), 2);
-    }
-
-    @Test
-    void getQueueSize() throws QueueException {
-        User firstUser = new User("1", "1");
-        int expectedCount = 1;
-
-        queueService.joinQueue(firstUser);
-        int userCount = queueService.getQueueSize();
-
-        assertEquals(expectedCount, userCount);
     }
 
     @Test
@@ -52,6 +41,6 @@ class QueueServiceTest {
         queueService.joinQueue(firstUser);
         queueService.removeUser(sessionId);
 
-        assertEquals(expectedCount, queueService.getQueueSize());
+        assertEquals(expectedCount, queueService.getQueue().size());
     }
 }

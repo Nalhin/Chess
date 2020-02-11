@@ -7,6 +7,7 @@ import com.chess.gameservice.messages.payloads.PlayerMovePayload;
 import com.chess.gameservice.messages.socket.MessageTypes;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.JsonObject;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.json.JSONException;
@@ -31,9 +32,11 @@ import org.springframework.messaging.Message;
 import org.springframework.messaging.simp.stomp.StompFrameHandler;
 import org.springframework.messaging.simp.stomp.StompHeaders;
 import org.springframework.messaging.simp.stomp.StompSession;
+import org.springframework.messaging.simp.stomp.StompSession.Subscription;
 import org.springframework.messaging.simp.stomp.StompSessionHandlerAdapter;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.socket.client.standard.StandardWebSocketClient;
 import org.springframework.web.socket.messaging.WebSocketStompClient;
 
@@ -51,6 +54,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @Tag("integration-test")
+@ActiveProfiles("test")
 @EmbeddedKafka(topics = "start-game")
 @DirtiesContext
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -100,14 +104,14 @@ class GameControllerTestIntegrationTest {
         objectMapper = new ObjectMapper();
 
         template.setDefaultTopic("start-game");
-        User u1 = new User(firstPlayerName,"1");
-        User u2 = new User(secondPlayerName,"2");
+        User u1 = new User(firstPlayerName, "1");
+        User u2 = new User(secondPlayerName, "2");
         ArrayList<User> users = new ArrayList<>();
         users.add(u1);
         users.add(u2);
-        Message<StartGameMessage> message= MessageBuilder
-                .withPayload(new StartGameMessage(UUID.fromString(gameId),users,false))
-                .setHeader(KafkaHeaders.TOPIC,"start-game").build();
+        Message<StartGameMessage> message = MessageBuilder
+                .withPayload(new StartGameMessage(UUID.fromString(gameId), users, false))
+                .setHeader(KafkaHeaders.TOPIC, "start-game").build();
         template.send(message);
     }
 
@@ -125,7 +129,7 @@ class GameControllerTestIntegrationTest {
 
     @Test
     void initialConnect() throws InterruptedException, JSONException {
-        var subscription = stompSession.subscribe(SUBSCRIBE_STATE_ENDPOINT +  gameId, new CreateStompFrameHandler());
+        Subscription subscription = stompSession.subscribe(SUBSCRIBE_STATE_ENDPOINT + gameId, new CreateStompFrameHandler());
 
         startGame();
 
@@ -138,43 +142,43 @@ class GameControllerTestIntegrationTest {
 
     @Test
     void makeMove() throws InterruptedException, JSONException, JsonProcessingException {
-        var subscription = stompSession.subscribe( SUBSCRIBE_STATE_ENDPOINT + gameId, new CreateStompFrameHandler());
+        Subscription subscription = stompSession.subscribe(SUBSCRIBE_STATE_ENDPOINT + gameId, new CreateStompFrameHandler());
 
         startGame();
         blockingQueue.poll(10, SECONDS);
 
-        var playerMove = objectMapper.writeValueAsBytes(new PlayerMovePayload(new Position(6, 0), new Position(5, 0)));
+        byte[] playerMove = objectMapper.writeValueAsBytes(new PlayerMovePayload(new Position(6, 0), new Position(5, 0)));
         stompHeaders.setDestination(MAKE_MOVE_ENDPOINT + gameId);
         stompHeaders.set("name", firstPlayerName);
         stompSession.send(stompHeaders, playerMove);
 
-        var message = blockingQueue.poll(10, SECONDS);
+        blockingQueue.poll(10, SECONDS);
 
-        var secondPlayerMove = objectMapper.writeValueAsBytes(new PlayerMovePayload(new Position(1, 0), new Position(2, 0)));
+        byte[]  secondPlayerMove = objectMapper.writeValueAsBytes(new PlayerMovePayload(new Position(1, 0), new Position(2, 0)));
         stompHeaders.setDestination(MAKE_MOVE_ENDPOINT + gameId);
         stompHeaders.set("name", secondPlayerName);
-        stompSession.send(stompHeaders, secondPlayerMove );
+        stompSession.send(stompHeaders, secondPlayerMove);
 
-        var secondPlayerMessage= blockingQueue.poll(10, SECONDS);
+        JSONObject secondPlayerMessage = blockingQueue.poll(10, SECONDS);
 
-        assertNotNull(message);
+        assertNotNull(secondPlayerMessage);
         assertEquals(MessageTypes.PLAYER_MOVED.toString(), secondPlayerMessage.get("type"));
         subscription.unsubscribe();
     }
 
     @Test
     void makeMoveError() throws InterruptedException, JSONException, JsonProcessingException {
-        var subscription = stompSession.subscribe(SUBSCRIBE_PERSONAL_ENDPOINT + firstPlayerName + "/" + gameId, new CreateStompFrameHandler());
+        Subscription subscription = stompSession.subscribe(SUBSCRIBE_PERSONAL_ENDPOINT + firstPlayerName + "/" + gameId, new CreateStompFrameHandler());
 
         startGame();
         blockingQueue.poll(10, SECONDS);
 
-        var playerMove = objectMapper.writeValueAsBytes(new PlayerMovePayload(new Position(1, 0), new Position(2, 0)));
+        byte[] playerMove = objectMapper.writeValueAsBytes(new PlayerMovePayload(new Position(1, 0), new Position(2, 0)));
         stompHeaders.setDestination(MAKE_MOVE_ENDPOINT + gameId);
         stompHeaders.set("name", firstPlayerName);
         stompSession.send(stompHeaders, playerMove);
 
-        var message = blockingQueue.poll(10, SECONDS);
+        JSONObject message = blockingQueue.poll(10, SECONDS);
         assertNotNull(message);
         assertEquals(MessageTypes.ERROR.toString(), message.get("type"));
         subscription.unsubscribe();
@@ -182,17 +186,17 @@ class GameControllerTestIntegrationTest {
 
     @Test
     void availableMoves() throws InterruptedException, JsonProcessingException, JSONException {
-        var subscription = stompSession.subscribe(SUBSCRIBE_PERSONAL_ENDPOINT + firstPlayerName + "/" + gameId, new CreateStompFrameHandler());
+        Subscription subscription = stompSession.subscribe(SUBSCRIBE_PERSONAL_ENDPOINT + firstPlayerName + "/" + gameId, new CreateStompFrameHandler());
 
         startGame();
         blockingQueue.poll(10, SECONDS);
 
-        var move = objectMapper.writeValueAsBytes(new Position(6, 0));
+        byte[] move = objectMapper.writeValueAsBytes(new Position(6, 0));
         stompHeaders.setDestination(AVAILABLE_MOVES_ENDPOINT + gameId);
         stompHeaders.set("name", firstPlayerName);
         stompSession.send(stompHeaders, move);
 
-        var message = blockingQueue.poll(10, SECONDS);
+        JSONObject message = blockingQueue.poll(10, SECONDS);
         assertNotNull(message);
         assertEquals(MessageTypes.AVAILABLE_MOVES.toString(), message.get("type"));
         subscription.unsubscribe();
@@ -200,17 +204,17 @@ class GameControllerTestIntegrationTest {
 
     @Test
     void availableMovesError() throws InterruptedException, JsonProcessingException, JSONException {
-        var subscription = stompSession.subscribe(SUBSCRIBE_PERSONAL_ENDPOINT + secondPlayerName + "/" + gameId, new CreateStompFrameHandler());
+        Subscription subscription = stompSession.subscribe(SUBSCRIBE_PERSONAL_ENDPOINT + secondPlayerName + "/" + gameId, new CreateStompFrameHandler());
 
         startGame();
         blockingQueue.poll(10, SECONDS);
 
-        var move = objectMapper.writeValueAsBytes(new Position(1, 0));
+        byte[] move = objectMapper.writeValueAsBytes(new Position(1, 0));
         stompHeaders.setDestination(AVAILABLE_MOVES_ENDPOINT + gameId);
         stompHeaders.set("name", secondPlayerName);
         stompSession.send(stompHeaders, move);
 
-        var message = blockingQueue.poll(10, SECONDS);
+        JSONObject message = blockingQueue.poll(10, SECONDS);
         assertNotNull(message);
         assertEquals(MessageTypes.ERROR.toString(), message.get("type"));
         subscription.unsubscribe();
@@ -235,7 +239,7 @@ class GameControllerTestIntegrationTest {
     }
 
     @TestConfiguration
-    public static class TestConfig{
+    public static class TestConfig {
 
         @Value("${spring.kafka.bootstrap-servers}")
         private String bootstrapServers;

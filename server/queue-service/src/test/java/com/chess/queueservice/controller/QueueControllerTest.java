@@ -12,8 +12,10 @@ import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.messaging.simp.stomp.StompFrameHandler;
 import org.springframework.messaging.simp.stomp.StompHeaders;
 import org.springframework.messaging.simp.stomp.StompSession;
+import org.springframework.messaging.simp.stomp.StompSession.Subscription;
 import org.springframework.messaging.simp.stomp.StompSessionHandlerAdapter;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.web.socket.client.standard.StandardWebSocketClient;
 import org.springframework.web.socket.messaging.WebSocketStompClient;
@@ -28,6 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @Tag("integration-test")
+@ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @EmbeddedKafka(topics = "game-found",
         bootstrapServersProperty = "spring.kafka.bootstrap-servers")
@@ -68,8 +71,8 @@ class QueueControllerTest {
 
     @Test
     void joinQueueWaiting() throws InterruptedException, JSONException {
-        var subscription = stompSession.subscribe(SUBSCRIBE_STATE_ENDPOINT, new CreateStompFrameHandler());
-        var personalSubscription = stompSession.subscribe(SUBSCRIBE_PERSONAL_ENDPOINT + firstPlayerName, new CreateStompFrameHandler());
+        Subscription subscription = stompSession.subscribe(SUBSCRIBE_STATE_ENDPOINT, new CreateStompFrameHandler());
+       Subscription personalSubscription = stompSession.subscribe(SUBSCRIBE_PERSONAL_ENDPOINT + firstPlayerName, new CreateStompFrameHandler());
 
         stompHeaders.setDestination(JOIN_QUEUE_ENDPOINT);
         stompHeaders.set("name", firstPlayerName);
@@ -78,10 +81,6 @@ class QueueControllerTest {
         JSONObject joinedMessage = blockingQueue.poll(10, SECONDS);
         assertNotNull(joinedMessage);
         assertEquals(MessageTypes.QUEUE_JOINED.toString(), joinedMessage.get("type"));
-
-        JSONObject userCountMessage = blockingQueue.poll(10, SECONDS);
-        assertNotNull(userCountMessage);
-        assertEquals(MessageTypes.QUEUE_COUNT.toString(), userCountMessage.get("type"));
 
         stompHeaders.setDestination(JOIN_QUEUE_ENDPOINT);
         stompHeaders.set("name", secondPlayerName);
@@ -103,10 +102,10 @@ class QueueControllerTest {
         stompHeaders.setDestination(JOIN_QUEUE_ENDPOINT);
         stompHeaders.set("name", firstPlayerName);
         stompSession.send(stompHeaders, null);
-
         stompHeaders.set("name", secondPlayerName);
         stompSession.send(stompHeaders, null);
         JSONObject message = blockingQueue.poll(10, SECONDS);
+
         assertNotNull(message);
         assertEquals(MessageTypes.QUEUE_GAME_FOUND.toString(), message.get("type"));
         subscription.unsubscribe();
@@ -114,8 +113,8 @@ class QueueControllerTest {
 
     @Test
     void handleQueueException() throws InterruptedException, JSONException {
-        var subscription = stompSession.subscribe(SUBSCRIBE_PERSONAL_ENDPOINT + firstPlayerName, new CreateStompFrameHandler());
-        var personalSubscription = stompSession.subscribe(SUBSCRIBE_PERSONAL_ENDPOINT + firstPlayerName, new CreateStompFrameHandler());
+        Subscription subscription = stompSession.subscribe(SUBSCRIBE_PERSONAL_ENDPOINT + firstPlayerName, new CreateStompFrameHandler());
+        Subscription personalSubscription = stompSession.subscribe(SUBSCRIBE_PERSONAL_ENDPOINT + firstPlayerName, new CreateStompFrameHandler());
 
         stompHeaders.setDestination(JOIN_QUEUE_ENDPOINT);
         stompHeaders.set("name", firstPlayerName);
@@ -123,6 +122,7 @@ class QueueControllerTest {
 
         blockingQueue.poll(10, SECONDS);
         JSONObject joinedMessage = blockingQueue.poll(10, SECONDS);
+
         assertNotNull(joinedMessage);
         assertEquals(MessageTypes.QUEUE_JOINED.toString(), joinedMessage.get("type"));
 
@@ -132,6 +132,7 @@ class QueueControllerTest {
         JSONObject errorMessage = blockingQueue.poll(10, SECONDS);
         assertNotNull(errorMessage);
         assertEquals(MessageTypes.QUEUE_ERROR.toString(), errorMessage.get("type"));
+
         personalSubscription.unsubscribe();
         subscription.unsubscribe();
     }

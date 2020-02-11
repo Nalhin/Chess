@@ -30,11 +30,10 @@ public class QueueController {
     private final SimpMessagingTemplate simpMessagingTemplate;
     private final KafkaService kafkaService;
 
-    //TODO REFACTOR
     @MessageMapping("/queue")
     public void joinQueue(SimpMessageHeaderAccessor headerAccessor, @Header("name") String name) throws QueueException {
         ArrayList<User> users = queueService.joinQueue(new User(name, headerAccessor.getSessionId()));
-        if (users != null) {
+        if (users.size()>0) {
             UUID gameId = UUID.randomUUID();
             GameFoundMessage gameFoundMessage = new GameFoundMessage(new GameFoundPayload(gameId.toString()));
             kafkaService.sendGameFound(gameId, users,false);
@@ -42,12 +41,8 @@ public class QueueController {
                 simpMessagingTemplate.convertAndSend("/queue/personal/" + user.getName(), gameFoundMessage);
             }
         } else {
-            int queueSize = queueService.getQueueSize();
             QueueJoinedMessage queueJoinedMessage = new QueueJoinedMessage(new QueueJoinedMessagePayload(IsoDate.getCurrentIsoDate()));
             simpMessagingTemplate.convertAndSend("/queue/personal/" + name, queueJoinedMessage);
-
-            CountMessage userCountMessage = new CountMessage(new CountPayload(queueSize));
-            simpMessagingTemplate.convertAndSend("/topic/state", userCountMessage);
         }
     }
 

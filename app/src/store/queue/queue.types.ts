@@ -1,5 +1,4 @@
 export interface QueueState {
-  readonly queueUserCount: number;
   readonly timeJoined: string;
 }
 
@@ -11,7 +10,6 @@ export enum QueueBaseActionTypes {
 
 export enum QueueSubscriptionActionTypes {
   QUEUE_ERROR = 'QUEUE_ERROR',
-  QUEUE_COUNT = 'QUEUE_COUNT',
   QUEUE_JOINED = 'QUEUE_JOINED',
   QUEUE_GAME_FOUND = 'QUEUE_GAME_FOUND',
   QUEUE_LEFT = 'QUEUE_LEFT',
@@ -24,13 +22,6 @@ export const QueueActionTypes = {
 
 export interface JoinQueueAction {
   type: typeof QueueActionTypes.JOIN_QUEUE;
-}
-
-export interface QueueCountAction {
-  type: typeof QueueActionTypes.QUEUE_COUNT;
-  payload: {
-    queueUserCount: number;
-  };
 }
 
 export interface QueueJoinedAction {
@@ -61,7 +52,6 @@ export interface JoinQueueAi {
 
 export type QueueActions =
   | JoinQueueAction
-  | QueueCountAction
   | QueueGameFoundAction
   | QueueJoinedAction
   | LeaveQueueAction

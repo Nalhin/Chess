@@ -58,6 +58,7 @@ export function* gameRootSaga(): SagaIterator {
 
 export function* reconnectToGameSaga(action: GameReconnectRequestedAction) {
   const user = yield select(userSelector);
+  let gameId;
   try {
     const response = yield call(fetchIsGamePresent, user.login);
     const { isPresent } = response.data;
@@ -65,12 +66,13 @@ export function* reconnectToGameSaga(action: GameReconnectRequestedAction) {
     if (!isPresent) {
       throw Error();
     }
+
+    gameId = response.data.gameId;
   } catch (e) {
     yield put(addToast(generateToast('Game not found!', ToastTypes.Error)));
     return;
   }
 
-  const gameId = yield select(gameIdSelector);
   yield put(push(`${locations.game}${gameId}`));
 
   yield put(initChat(gameId));

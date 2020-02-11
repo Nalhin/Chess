@@ -13,17 +13,18 @@ import {
 } from '../../../store/game/game.actions';
 import { connect } from 'react-redux';
 import Queue from './Queue';
+import { isUserLoggedInSelector } from '../../../store/user/user.selectors';
 
 const mapStateToProps = (state: AppState) => {
   const isInQueue = isInQueueSelector(state);
-  const queueCount = state.queue.queueUserCount;
   const isReconnectShown = state.game.isReconnect;
   const timeJoined = state.queue.timeJoined;
+  const isUserLoggedIn = isUserLoggedInSelector(state);
   return {
     isInQueue,
-    queueCount,
     isReconnectShown,
     timeJoined,
+    isUserLoggedIn,
   };
 };
 

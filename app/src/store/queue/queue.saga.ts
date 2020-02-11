@@ -10,10 +10,7 @@ import {
   QueueGameFoundAction,
 } from './queue.types';
 import { all } from 'redux-saga/effects';
-import {
-  queuePersonalSubscription,
-  queueStateSubscription,
-} from './queue.subscriptions';
+import { queuePersonalSubscription } from './queue.subscriptions';
 import { call, fork, put } from 'redux-saga-test-plan/matchers';
 import { initChat } from '../chat/chat.actions';
 import { initGameRequested } from '../game/game.actions';
@@ -52,7 +49,6 @@ export function* joinQueueSaga(action: JoinQueueAction) {
     return;
   }
 
-  const queueSubscription = queueStateSubscription(queueStomp);
   const queuePrivateSubscription = queuePersonalSubscription(
     queueStomp,
     user.login,
@@ -62,7 +58,6 @@ export function* joinQueueSaga(action: JoinQueueAction) {
     take(QueueActionTypes.QUEUE_GAME_FOUND),
     take(QueueActionTypes.QUEUE_LEFT),
   ]);
-  queueSubscription.unsubscribe();
   queuePrivateSubscription.unsubscribe();
   StompSingleton.deactivateInstance(WebsocketTypes.QUEUE);
 }

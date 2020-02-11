@@ -1,12 +1,11 @@
 import React from 'react';
 import { HomeContainerProps } from './Home.container';
 import styled from '@emotion/styled';
-import { Button, Card, Typography, useTheme } from '@material-ui/core';
+import { Card, Typography, useTheme } from '@material-ui/core';
 import Board from '../GameRoom/Game/Board/Board';
 import { defaultBoardState } from './defaultBoardState';
-import { locations } from '../../contants/locations';
-import { StyledLink } from '../../components/StyledLink/StyledLink';
-import { generatePlaceholderAccount } from '../../utils/generatePlaceholderAccount';
+import Queue from './Queue/Queue.container';
+import Info from './Info';
 
 const StyledContainer = styled.div`
   margin: 0 auto;
@@ -33,18 +32,10 @@ const StyledCard = styled(Card)`
   padding: ${props => props.theme.spacing(3)}px;
 `;
 
-const StyledButton = styled(Button)`
-  margin: ${props => props.theme.spacing(1)}px;
-`;
-
 interface Props extends HomeContainerProps {}
 
 const Home: React.FC<Props> = ({ isAuthenticated, registerUser }) => {
   const theme = useTheme();
-
-  const handleRegisterUser = () => {
-    registerUser(generatePlaceholderAccount());
-  };
 
   return (
     <StyledContainer data-testid="home">
@@ -68,22 +59,7 @@ const Home: React.FC<Props> = ({ isAuthenticated, registerUser }) => {
         />
         <StyledCard theme={theme}>
           <Typography variant="h6">Play!</Typography>
-          <Typography variant="body1">
-            Account is required in order to play.
-          </Typography>
-          <StyledLink to={locations.signUp}>
-            <StyledButton variant="contained" color="primary" theme={theme}>
-              Register
-            </StyledButton>
-          </StyledLink>
-          <StyledButton
-            variant="contained"
-            color="primary"
-            theme={theme}
-            onClick={handleRegisterUser}
-          >
-            Placeholder account
-          </StyledButton>
+          {isAuthenticated ? <Queue /> : <Info registerUser={registerUser} />}
         </StyledCard>
       </StyledBoardContainer>
     </StyledContainer>

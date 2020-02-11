@@ -1,10 +1,10 @@
 import React from 'react';
-import QueueLoader from '../../../components/Loader/QueueLoader';
 import styled from '@emotion/styled';
 import { calculateTimeDifferenceInSeconds } from '../../../utils/calculateTimeDifferenceInSeconds';
 import mixins from '../../../styles/mixins';
 import { Button, useTheme } from '@material-ui/core';
 import { QueueContainerProps } from './Queue.container';
+import QueueLoader from '../../../components/Loader/QueueLoader';
 
 const StyledQueue = styled.div`
   ${mixins.flexCenter};
@@ -22,7 +22,6 @@ const StyledButton = styled(Button)`
 interface Props extends QueueContainerProps {}
 
 const Queue: React.FC<Props> = ({
-  queueCount,
   joinQueue,
   isInQueue,
   isReconnectShown,
@@ -31,10 +30,13 @@ const Queue: React.FC<Props> = ({
   leaveQueue,
   timeJoined,
   joinQueueAi,
+  isUserLoggedIn,
 }) => {
   React.useEffect(() => {
-    gameIsPresent();
-  }, []);
+    if (isUserLoggedIn) {
+      gameIsPresent();
+    }
+  }, [isUserLoggedIn]);
 
   const [shownTime, setShownTime] = React.useState(null);
   const theme = useTheme();
@@ -56,6 +58,10 @@ const Queue: React.FC<Props> = ({
     if (isInQueue) {
       return (
         <>
+          <StyledText theme={theme}>
+            In queue for {shownTime} seconds.
+          </StyledText>
+          <QueueLoader />
           <StyledButton
             theme={theme}
             color="primary"
@@ -64,10 +70,6 @@ const Queue: React.FC<Props> = ({
           >
             Leave queue
           </StyledButton>
-          <StyledText theme={theme}>
-            In queue for {shownTime} seconds with {queueCount} other users.
-          </StyledText>
-          <QueueLoader />
         </>
       );
     }
@@ -91,7 +93,7 @@ const Queue: React.FC<Props> = ({
           variant="contained"
           onClick={joinQueue}
         >
-          Play with other players
+          Players
         </StyledButton>
         <StyledButton
           theme={theme}
@@ -99,7 +101,7 @@ const Queue: React.FC<Props> = ({
           variant="contained"
           onClick={joinQueueAi}
         >
-          Play with AI
+          AI
         </StyledButton>
       </>
     );

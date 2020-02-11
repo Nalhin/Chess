@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
-import { BounceLoader } from 'react-spinners';
+import BounceLoader from 'react-spinners/BounceLoader';
 import mixins from '../../styles/mixins';
 
 const Wrapper = styled.div`

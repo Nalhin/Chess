@@ -1,6 +1,12 @@
 server:
   port: 8081
 
+spring:
+  profiles:
+    active: dev
+
+---
+
 eureka:
   client:
     registerWithEureka: true
@@ -11,6 +17,17 @@ eureka:
 spring:
   application:
     name: game-service
+  profiles: dev
   kafka:
     bootstrap-servers: localhost:9092
+
+---
+
+spring:
+  profiles: test
+
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
 
