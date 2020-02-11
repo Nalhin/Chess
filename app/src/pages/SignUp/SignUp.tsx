@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { UserRegisterData } from '../../interfaces/User/User';
 import { registerUserRequested } from '../../store/user/user.actions';
-import { StyledContainer, StyledLink, StyledWrapper } from '../SignIn/SignIn';
+import { StyledForm, StyledLink, StyledWrapper } from '../SignIn/SignIn';
 import { locations } from '../../contants/locations';
 import { Button, TextField, useTheme } from '@material-ui/core';
 
@@ -29,7 +29,7 @@ const SignUp = () => {
 
   return (
     <StyledWrapper>
-      <StyledContainer theme={theme}>
+      <StyledForm theme={theme}>
         <TextField
           label="Login"
           name="login"
@@ -54,7 +54,7 @@ const SignUp = () => {
         <Button color="primary" onClick={submitForm}>
           Sign up
         </Button>
-      </StyledContainer>
+      </StyledForm>
     </StyledWrapper>
   );
 };

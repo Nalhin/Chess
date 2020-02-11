@@ -12,7 +12,6 @@ public class CurrentTurn {
     private PlayerColor currentPlayerColor = PlayerColor.WHITE;
     private int turnNumber = 0;
 
-
     public void changeTurn() {
         turnNumber++;
         setCurrentPlayerColor(PlayerColor.getOtherColor(currentPlayerColor));

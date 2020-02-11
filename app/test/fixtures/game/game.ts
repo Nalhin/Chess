@@ -18,7 +18,19 @@ export const fakeGame: Game = {
   },
   gamePhase: GamePhase.WAITING_FOR_PLAYERS,
   players: {
-    [PlayerColor.White]: { name: 'name', totalTurnTimeRemaining: 300 },
-    [PlayerColor.Black]: { name: 'name', totalTurnTimeRemaining: 300 },
+    [PlayerColor.White]: {
+      name: 'name',
+      totalTurnTimeRemaining: 300,
+      turnStartDate: '2004-02-12T15:19:21+00:00',
+    },
+    [PlayerColor.Black]: {
+      name: 'name',
+      totalTurnTimeRemaining: 300,
+      turnStartDate: '2004-02-12T15:19:21+00:00',
+    },
+  },
+  latestMove: {
+    initialPosition: { x: 2, y: 3 },
+    destinationPosition: { x: 3, y: 4 },
   },
 };

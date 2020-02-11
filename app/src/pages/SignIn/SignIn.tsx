@@ -3,9 +3,19 @@ import { useDispatch } from 'react-redux';
 import { loginUserRequested } from '../../store/user/user.actions';
 import { UserLoginData } from '../../interfaces/User/User';
 import styled from '@emotion/styled';
-import { Button, Card, TextField, useTheme } from '@material-ui/core';
+import {
+  Button,
+  Card,
+  FormControl,
+  IconButton,
+  Input,
+  InputAdornment,
+  InputLabel,
+  useTheme,
+} from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { locations } from '../../contants/locations';
+import { Visibility, VisibilityOff } from '@material-ui/icons';
 
 const INITIAL_STATE = {
   login: '',
@@ -20,17 +30,16 @@ export const StyledWrapper = styled.div`
   align-items: center;
 `;
 
-export const StyledContainer = styled(Card)`
+export const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   max-width: 90%;
   width: 400px;
   margin: ${props => props.theme.spacing(4)}px auto;
-  padding: ${props => props.theme.spacing(2)}px;
 `;
 
 export const StyledLink = styled(Link)`
-  display: block;
+  display: inline-block;
   padding: ${props => props.theme.spacing(0)}px
     ${props => props.theme.spacing(1)}px;
   text-align: right;
@@ -40,8 +49,13 @@ const SignIn = () => {
   const [formState, setFormState] = React.useState<UserLoginData>(
     INITIAL_STATE,
   );
+  const [showPassword, setShowPassword] = React.useState(false);
   const theme = useTheme();
   const dispatch = useDispatch();
+
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   const submitForm = () => {
     dispatch(loginUserRequested(formState));
@@ -53,28 +67,58 @@ const SignIn = () => {
 
   return (
     <StyledWrapper>
-      <StyledContainer theme={theme}>
-        <TextField
-          label="Login"
-          name="login"
-          color="secondary"
-          onChange={onFormChange}
-          value={formState.login}
-        />
-        <TextField
-          label="Password"
-          name="password"
-          color="secondary"
-          onChange={onFormChange}
-          value={formState.password}
-        />
-        <StyledLink to={locations.signUp} theme={theme}>
-          Don't have an account?
-        </StyledLink>
-        <Button color="primary" variant="contained" onClick={submitForm}>
-          Sign in
-        </Button>
-      </StyledContainer>
+      <Card>
+        <StyledForm theme={theme}>
+          <FormControl>
+            <InputLabel htmlFor="login-input" color="secondary" required>
+              Login
+            </InputLabel>
+            <Input
+              id="login-input"
+              name="login"
+              color="secondary"
+              required
+              onChange={onFormChange}
+              value={formState.login}
+            />
+          </FormControl>
+          <FormControl>
+            <InputLabel htmlFor="password-input" color="secondary" required>
+              Password
+            </InputLabel>
+            <Input
+              id="password-input"
+              name="password"
+              color="secondary"
+              type="password"
+              onChange={onFormChange}
+              value={formState.password}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={handleShowPassword}
+                    onMouseDown={handleShowPassword}
+                    color="secondary"
+                  >
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+          </FormControl>
+          <StyledLink to={locations.signUp} theme={theme}>
+            No account?
+          </StyledLink>
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={submitForm}
+            aria-label="login"
+          >
+            Sign in
+          </Button>
+        </StyledForm>
+      </Card>
     </StyledWrapper>
   );
 };

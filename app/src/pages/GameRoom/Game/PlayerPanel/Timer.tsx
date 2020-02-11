@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { Card, useTheme } from '@material-ui/core';
+import dayjs from 'dayjs';
 
 const StyledCard = styled(Card)`
   min-width: ${props => props.theme.spacing(10)}px;
@@ -20,6 +21,7 @@ const StyledCard = styled(Card)`
 interface Props {
   totalTurnTimeRemaining: number;
   isActive: boolean;
+  turnStartDate: string;
   className?: string;
 }
 
@@ -29,6 +31,7 @@ const decimalPrecision = 1;
 const Timer: React.FC<Props> = ({
   totalTurnTimeRemaining,
   isActive,
+  turnStartDate,
   className,
 }) => {
   const [counter, setCounter] = React.useState('');
@@ -36,7 +39,12 @@ const Timer: React.FC<Props> = ({
 
   React.useEffect(() => {
     if (totalTurnTimeRemaining) {
-      setCounter(totalTurnTimeRemaining.toFixed(decimalPrecision));
+      const timeOffset = turnStartDate
+        ? dayjs().diff(dayjs(turnStartDate), 'second', true)
+        : 0;
+      setCounter(
+        (totalTurnTimeRemaining - timeOffset).toFixed(decimalPrecision),
+      );
     }
   }, [totalTurnTimeRemaining]);
 

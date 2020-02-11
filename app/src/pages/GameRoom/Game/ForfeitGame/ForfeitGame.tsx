@@ -33,7 +33,7 @@ interface Props {
 const ForfeitGame: React.FC<Props> = ({ forfeitGame }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const [isDialogOpen, setDialogOpen] = React.useState();
+  const [isDialogOpen, setDialogOpen] = React.useState(false);
 
   const handleClose = () => {
     setDialogOpen(!isDialogOpen);

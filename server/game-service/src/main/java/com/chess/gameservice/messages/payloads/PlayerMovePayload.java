@@ -13,6 +13,4 @@ import lombok.Setter;
 public class PlayerMovePayload {
     private Position initialPosition;
     private Position destinationPosition;
-
-
 }

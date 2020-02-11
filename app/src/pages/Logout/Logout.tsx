@@ -17,8 +17,10 @@ const StyledTitle = styled(Typography)`
 
 const StyledLink = styled(Link)`
   text-decoration: none;
+  color: ${props => props.theme.palette.primary.light};
+
   &:visited {
-    color: initial;
+    color: ${props => props.theme.palette.primary.light};
   }
 `;
 

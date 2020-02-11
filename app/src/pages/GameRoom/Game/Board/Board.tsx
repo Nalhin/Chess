@@ -7,19 +7,14 @@ import { BoardPosition } from '../../../../interfaces/Game/BoardPosition';
 import { arePositionsEqual } from '../../../../utils/arePositionsEqual';
 import { CheckState } from '../../../../interfaces/Game/CheckState';
 import { PlayerColor } from '../../../../interfaces/Game/Player';
-
-const StyledContainer = styled.div`
-  display: grid;
-  grid-template-columns: 8fr;
-  grid-template-rows: 8fr;
-  user-select: none;
-  width: fit-content;
-`;
+import { LatestMove } from '../../../../interfaces/Game/LatestMove';
+import BoardDragLayer from './BoardDragLayer';
 
 const StyledBoardContainer = styled.div`
   display: inline-grid;
   grid-template-columns: repeat(8, 1fr);
   grid-template-rows: repeat(8, 1fr);
+  position: relative;
 `;
 
 interface Props {
@@ -31,6 +26,7 @@ interface Props {
   checkState: CheckState;
   currentPlayerColor: PlayerColor;
   userColor: PlayerColor;
+  latestMove: LatestMove;
 }
 
 const Board: React.FC<Props> = ({
@@ -42,14 +38,15 @@ const Board: React.FC<Props> = ({
   checkState,
   currentPlayerColor,
   userColor,
+  latestMove,
 }) => {
   return (
-    <StyledContainer>
+    <div>
+      <BoardDragLayer />
       <StyledBoardContainer>
         {boardState.map((row, x) =>
           row.map((cell, y) => {
             const position = { x, y };
-
             return (
               <Cell
                 key={`${x}#${y}`}
@@ -61,6 +58,10 @@ const Board: React.FC<Props> = ({
                 makeMove={makeMove}
                 checkState={checkState}
                 currentPlayerColor={currentPlayerColor}
+                isLatestMove={
+                  arePositionsEqual(position, latestMove.destinationPosition) ||
+                  arePositionsEqual(position, latestMove.initialPosition)
+                }
                 position={position}
                 type={cell?.type}
                 pieceColor={cell?.playerColor}
@@ -70,7 +71,7 @@ const Board: React.FC<Props> = ({
           }),
         )}
       </StyledBoardContainer>
-    </StyledContainer>
+    </div>
   );
 };
 

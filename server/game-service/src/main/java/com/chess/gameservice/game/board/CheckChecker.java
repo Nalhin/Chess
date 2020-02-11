@@ -39,13 +39,11 @@ public class CheckChecker {
                 if (!dirPosition.isWithinBounds()) {
                     break;
                 }
-
                 Piece piece = board.getPieceByPosition(dirPosition);
                 if (piece != null) {
                     if (piece.getPlayerColor() == threatenedColor) {
                         break;
                     }
-
                     if (isThreatInDirection(piece, distanceFromOrigin, dir, pawnThreats)) {
                         return true;
                     } else {
@@ -55,7 +53,6 @@ public class CheckChecker {
                 }
             }
         }
-
         return false;
     }
 

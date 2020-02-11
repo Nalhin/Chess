@@ -2,9 +2,14 @@ import React from 'react';
 import { PieceType } from '../../../../interfaces/Game/Piece';
 import { PlayerColor } from '../../../../interfaces/Game/Player';
 import { getPieceUrl } from '../../../../utils/getPieceUrl';
-import { StyledChessImage } from '../Board/PieceIcon';
 import { useTheme } from '@material-ui/core';
 import PieceTooltip from '../../../../components/PieceTooltip/PieceTooltip';
+import styled from '@emotion/styled';
+import mixins from '../../../../styles/mixins';
+
+const StyledChessImage = styled.img`
+  ${props => mixins.getCellSize(props)};
+`;
 
 interface Props {
   type: PieceType;

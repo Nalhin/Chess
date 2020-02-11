@@ -3,6 +3,7 @@ import { Players } from './Players';
 import { BoardPosition } from './BoardPosition';
 import { CheckState } from './CheckState';
 import { CurrentTurn } from './CurrentTurn';
+import { LatestMove } from './LatestMove';
 
 export enum GamePhase {
   WAITING_FOR_PLAYERS = 'WAITING_FOR_PLAYERS',
@@ -25,4 +26,5 @@ export interface Game {
   currentTurn: CurrentTurn;
   gamePhase: GamePhase;
   players: Players;
+  latestMove: LatestMove;
 }

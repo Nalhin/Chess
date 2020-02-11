@@ -29,6 +29,7 @@ public class Players extends EnumMap<PlayerColor, Player> {
             this.get(currentTurnColor).endTurn();
             return currentTurnColor;
         }
+        this.get(PlayerColor.getOtherColor(currentTurnColor)).endTurn();
         return PlayerColor.getOtherColor(currentTurnColor);
     }
 

@@ -1,6 +1,7 @@
 package com.chess.gameservice.game.player;
 
 import com.chess.gameservice.game.stopwatch.CustomStopwatch;
+import com.chess.gameservice.utils.IsoDate;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.Duration;
+import java.util.Date;
 import java.util.UUID;
 
 @Getter
@@ -23,6 +25,7 @@ public class Player {
     private final int PLAYER_GAME_TIME = 300;
 
     private Duration totalTurnTimeRemaining = Duration.ofSeconds(PLAYER_GAME_TIME);
+    private String turnStartDate;
     private String name;
 
 
@@ -37,10 +40,12 @@ public class Player {
     }
 
     public void startTurn(UUID gameId) {
-        playerStopwatch.start(totalTurnTimeRemaining, gameId,name);
+        playerStopwatch.start(totalTurnTimeRemaining, gameId, name);
+        turnStartDate = IsoDate.getCurrentIsoDate();
     }
 
     public void endTurn() {
+        turnStartDate = null;
         Duration turnDuration = playerStopwatch.end();
         setTotalTurnTimeRemaining(totalTurnTimeRemaining.minus(turnDuration));
     }

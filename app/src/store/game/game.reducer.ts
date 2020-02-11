@@ -31,6 +31,10 @@ export const GAME_INITIAL_STATE: GameState = {
       [PlayerColor.White]: {} as Player,
       [PlayerColor.Black]: {} as Player,
     },
+    latestMove: {
+      initialPosition: null,
+      destinationPosition: null,
+    },
   },
   selectedPiece: {
     availableMoves: [],

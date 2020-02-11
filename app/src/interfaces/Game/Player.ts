@@ -6,4 +6,5 @@ export enum PlayerColor {
 export interface Player {
   name: string;
   totalTurnTimeRemaining: number;
+  turnStartDate: string;
 }

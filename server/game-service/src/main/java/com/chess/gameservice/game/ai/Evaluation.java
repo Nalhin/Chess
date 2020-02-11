@@ -65,6 +65,7 @@ public class Evaluation {
             {20, 30, 10, 0, 0, 10, 30, 20}};
 
     private final EnumMap<PieceType, int[][]> piecePositionValuesBlack = new EnumMap<>(PieceType.class);
+
     {
         piecePositionValuesBlack.put(PieceType.PAWN, PAWN_POSITION_VALUES);
         piecePositionValuesBlack.put(PieceType.KNIGHT, KNIGHT_POSITION_VALUES);
@@ -75,6 +76,7 @@ public class Evaluation {
     }
 
     private final EnumMap<PieceType, Integer> pieceValues = new EnumMap<>(PieceType.class);
+
     {
         pieceValues.put(PieceType.PAWN, 100);
         pieceValues.put(PieceType.KNIGHT, 320);
@@ -84,23 +86,24 @@ public class Evaluation {
         pieceValues.put(PieceType.KING, 20000);
     }
 
-    public int getPositionValue(PieceType pieceType, Position position, PlayerColor playerColor, PlayerColor pieceColor) {
-        int pieceValue = pieceValues.get(pieceType);
-        int multip = playerColor == pieceColor ? 1 : -1;
-        if (pieceColor == PlayerColor.BLACK) {
-            return multip * (pieceValue + piecePositionValuesBlack.get(pieceType)[position.getX()][position.getY()]);
+    public int getPositionValue(Piece piece, Position position) {
+        int pieceValue = pieceValues.get(piece.getType());
+        if (piece.getPlayerColor() == PlayerColor.BLACK) {
+            return pieceValue + piecePositionValuesBlack.get(piece.getType())[position.getX()][position.getY()];
         }
-        return multip * (pieceValue + piecePositionValuesBlack.get(pieceType)[Board.BOARD_SIZE - position.getX()][position.getY()]);
+        return pieceValue + piecePositionValuesBlack.get(piece.getType())[Board.BOARD_SIZE - position.getX()][position.getY()];
     }
 
     public int calculateBoardValue(Board board, PlayerColor playerColor) {
         int value = 0;
+
         for (int i = 0; i < Board.BOARD_SIZE; i++) {
             for (int j = 0; j < Board.BOARD_SIZE; j++) {
                 Position position = new Position(i, j);
                 Piece piece = board.getPieceByPosition(position);
                 if (piece != null) {
-                    value += getPositionValue(piece.getType(), position, playerColor, piece.getPlayerColor());
+                    int mul = piece.getPlayerColor() == playerColor ? 1 : -1;
+                    value += mul * getPositionValue(piece, position);
                 }
             }
         }

@@ -3,6 +3,7 @@ package com.chess.gameservice.game;
 import com.chess.gameservice.exception.GameException;
 import com.chess.gameservice.game.board.Board;
 import com.chess.gameservice.game.board.CheckState;
+import com.chess.gameservice.game.move.PlayerMove;
 import com.chess.gameservice.game.piece.Piece;
 import com.chess.gameservice.game.piece.PieceType;
 import com.chess.gameservice.game.player.Player;
@@ -29,6 +30,7 @@ public class Game {
     private Players players;
     private CurrentTurn currentTurn;
     private GamePhase gamePhase;
+    private PlayerMove latestMove;
     @JsonIgnore
     private UUID gameId;
     @JsonIgnore
@@ -43,6 +45,7 @@ public class Game {
         gameTurns = new ArrayList<>();
         gamePhase = GamePhase.WAITING_FOR_PLAYERS;
         currentTurn = new CurrentTurn();
+        latestMove= new PlayerMove();
     }
 
     public void setPlayer(Player player, PlayerColor playerColor) {
@@ -65,6 +68,9 @@ public class Game {
             changeTurn();
         }
 
+        latestMove= PlayerMove.builder().initialPosition(playerMovePayload.getInitialPosition())
+                .destinationPosition(playerMovePayload.getDestinationPosition()).build();
+
         gameTurns.add(GameTurn.builder()
                 .playerColor(piece.getPlayerColor())
                 .initialPosition(playerMovePayload.getInitialPosition())
@@ -74,11 +80,7 @@ public class Game {
     }
 
     public void makeAiMove(PlayerMovePayload playerMovePayload, Player player) throws GameException {
-        try {
-            makeMove(playerMovePayload, player);
-        }catch (GameException exception){
-            forfeit(player.getName());
-        }
+        makeMove(playerMovePayload, player);
 
         if (board.getPositionAwaitingPromotion() != null) {
             makePromotion(playerMovePayload.getDestinationPosition(), player, PieceType.QUEEN);

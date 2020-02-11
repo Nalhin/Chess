@@ -19,7 +19,7 @@ class CheckCheckerTest {
     }
 
     @Test
-    void isSquareThreatenedTest() throws GameException {
+    void isSquareThreatenedTest() {
         board.setBoardPosition(new Position(1, 5), null);
         board.setBoardPosition(new Position(3, 7), PieceFactory.buildPiece(PieceType.QUEEN, PlayerColor.WHITE));
         Position threatenedPosition = board.getKingPosition(PlayerColor.BLACK);

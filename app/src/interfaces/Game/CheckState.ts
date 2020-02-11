@@ -1,5 +1,5 @@
 export enum CheckState {
   None = 'NONE',
-  Chech = 'CHECK',
+  Check = 'CHECK',
   CheckMate = 'CHECK_MATE',
 }

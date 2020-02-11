@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { useTheme } from '@material-ui/core';
 import Timer from './Timer';
 import PlayerInfo from './PlayerInfo';
+import { Player } from '../../../../interfaces/Game/Player';
 
 const StyledContainer = styled.div`
   display: flex;
@@ -19,24 +20,20 @@ const StyledPlayerInfo = styled(PlayerInfo)`
 `;
 
 interface Props {
-  name: string;
-  totalTurnTimeRemaining: number;
+  player: Player;
   isActive: boolean;
 }
 
-const PlayerPanel: React.FC<Props> = ({
-  name,
-  totalTurnTimeRemaining,
-  isActive,
-}) => {
+const PlayerPanel: React.FC<Props> = ({ player, isActive }) => {
   const theme = useTheme();
   return (
     <StyledContainer theme={theme}>
       <StyledTimer
         isActive={isActive}
-        totalTurnTimeRemaining={totalTurnTimeRemaining}
+        totalTurnTimeRemaining={player.totalTurnTimeRemaining}
+        turnStartDate={player.turnStartDate}
       />
-      <StyledPlayerInfo name={name} />
+      <StyledPlayerInfo name={player.name} />
     </StyledContainer>
   );
 };

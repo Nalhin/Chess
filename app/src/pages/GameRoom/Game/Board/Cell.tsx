@@ -16,6 +16,7 @@ interface StyledCellProps {
   isHoverShown: boolean;
   isSelected: boolean;
   canBeAttacked: boolean;
+  isLatestMove: boolean;
 }
 
 const StyledCell = styled.div<StyledCellProps>`
@@ -42,11 +43,14 @@ const StyledCell = styled.div<StyledCellProps>`
   border-style: solid;
   border-width: 6px;
   border-color: ${props => {
+    if (props.isSelected) {
+      return props.theme.palette.info.main;
+    }
     if (props.canBeAttacked) {
       return props.theme.palette.error.main;
     }
-    if (props.isSelected) {
-      return props.theme.palette.info.main;
+    if (props.isLatestMove) {
+      return props.theme.palette.warning.main;
     }
     return 'transparent';
   }};
@@ -78,69 +82,81 @@ interface CellProps {
   currentPlayerColor: PlayerColor;
   checkState: CheckState;
   userColor: PlayerColor;
+  isLatestMove: boolean;
 }
 
-const Cell: React.FC<CellProps> = ({
-  type,
-  getAvailableMoves,
-  position,
-  isSelected,
-  isMoveAvailable,
-  makeMove,
-  checkState,
-  currentPlayerColor,
-  pieceColor,
-  userColor,
-}) => {
-  const theme = useTheme();
+const Cell: React.FC<CellProps> = React.memo(
+  ({
+    type,
+    getAvailableMoves,
+    position,
+    isSelected,
+    isMoveAvailable,
+    makeMove,
+    checkState,
+    currentPlayerColor,
+    pieceColor,
+    userColor,
+    isLatestMove,
+  }) => {
+    const theme = useTheme();
 
-  const handleOnClick = React.useCallback(() => {
-    if (isMoveAvailable) {
-      makeMove(position);
-    } else {
+    const handleOnClick = React.useCallback(() => {
+      if (isMoveAvailable) {
+        makeMove(position);
+      } else {
+        getAvailableMoves(position);
+      }
+    }, [position]);
+
+    const [{ isOver, canDrop }, drop] = useDrop({
+      accept: DragAndDropTypes.PIECE,
+      canDrop: () => isMoveAvailable,
+      drop: () => {
+        makeMove(position);
+      },
+      collect: monitor => ({
+        isOver: !!monitor.isOver(),
+        canDrop: !!monitor.canDrop(),
+      }),
+    });
+
+    const onDragBegin = () => {
       getAvailableMoves(position);
-    }
-  }, [position]);
+    };
 
-  const [{}, drop] = useDrop({
-    accept: DragAndDropTypes.PIECE,
-    canDrop: () => isMoveAvailable,
-    drop: () => makeMove(position),
-  });
+    const belongsToPlayer = pieceColor === userColor;
+    const isHoverShown = belongsToPlayer || isMoveAvailable;
+    const canBeAttacked = type && isMoveAvailable && !belongsToPlayer;
 
-  function onDragBegin() {
-    getAvailableMoves(position);
-  }
+    const isChecked =
+      checkState !== CheckState.None &&
+      currentPlayerColor === pieceColor &&
+      type === PieceType.KING;
 
-  const belongsToPlayer = pieceColor === userColor;
-  const isHoverShown = belongsToPlayer || isMoveAvailable;
-  const canBeAttacked = type && isMoveAvailable && !belongsToPlayer;
-
-  const isChecked =
-    checkState !== CheckState.None &&
-    currentPlayerColor === pieceColor &&
-    type === PieceType.KING;
-
-  return (
-    <StyledCell
-      isHoverShown={isHoverShown}
-      onClick={handleOnClick}
-      ref={drop}
-      isChecked={isChecked}
-      theme={theme}
-      isSelected={isSelected}
-      canBeAttacked={canBeAttacked}
-    >
-      {type && (
-        <StyledPieceIcon
-          onDragBegin={onDragBegin}
-          pieceColor={pieceColor}
-          type={type}
-        />
-      )}
-      {isMoveAvailable && !canBeAttacked && <StyledOverlay theme={theme} />}
-    </StyledCell>
-  );
-};
+    const dndSelected = isOver && canDrop;
+    return (
+      <StyledCell
+        isHoverShown={isHoverShown}
+        onClick={handleOnClick}
+        ref={drop}
+        isChecked={isChecked}
+        theme={theme}
+        isSelected={isSelected || dndSelected}
+        canBeAttacked={canBeAttacked}
+        isLatestMove={isLatestMove}
+      >
+        {type && (
+          <StyledPieceIcon
+            onDragBegin={onDragBegin}
+            pieceColor={pieceColor}
+            type={type}
+          />
+        )}
+        {isMoveAvailable && !canBeAttacked && <StyledOverlay theme={theme} />}
+      </StyledCell>
+    );
+  },
+);
 
 export default Cell;

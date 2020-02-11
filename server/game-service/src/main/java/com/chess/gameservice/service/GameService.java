@@ -3,7 +3,7 @@ package com.chess.gameservice.service;
 import com.chess.gameservice.exception.GameException;
 import com.chess.gameservice.game.Game;
 import com.chess.gameservice.game.ai.MinMax;
-import com.chess.gameservice.game.ai.MinMaxReturn;
+import com.chess.gameservice.game.move.PlayerMove;
 import com.chess.gameservice.game.piece.PieceType;
 import com.chess.gameservice.game.player.Player;
 import com.chess.gameservice.game.player.PlayerColor;
@@ -86,7 +86,7 @@ public class GameService {
 
     public AvailableMovesPayload getAvailableMoves(UUID gameId, Position position, String name) throws GameException {
         Game game = games.get(gameId);
-        if(game==null){
+        if (game == null) {
             throw new GameException("Game is already over");
         }
         Player player = new Player(name);
@@ -120,14 +120,19 @@ public class GameService {
         return game;
     }
 
-    public Game aiMove(UUID gameId) throws IOException, GameException, ClassNotFoundException {
+    public Game aiMove(UUID gameId) throws GameException {
         Game game = games.get(gameId);
+        Player player = new Player("Computer");
         if (game.getBoard().getPositionAwaitingPromotion() == null) {
-            MinMaxReturn bestMove = minMax.getBestMove(game.getBoard(), game.getCurrentTurn().getCurrentPlayerColor());
-            game.makeAiMove(new PlayerMovePayload(bestMove.getInitialPosition(), bestMove.getDestinationPosition()), new Player("Computer"));
-            return game;
+            try {
+                PlayerMove bestMove = minMax.getBestMove(game.getBoard(), game.getCurrentTurn().getCurrentPlayerColor());
+                game.makeAiMove(new PlayerMovePayload(bestMove.getInitialPosition(), bestMove.getDestinationPosition()), player);
+            } catch (GameException exception) {
+                forfeitGame(gameId, player.getName());
+            }
         }
-        return null;
+        return game;
+
     }
 
     public synchronized void gameFinished(Game game, UUID gameId) {

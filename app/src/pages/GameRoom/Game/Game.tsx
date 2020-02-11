@@ -49,11 +49,8 @@ const Game: React.FC<Props> = ({
         message="Are sure you want to leave the game??"
       />
       <PlayerPanel
-        name={players[PlayerColor.Black].name}
+        player={players[PlayerColor.Black]}
         isActive={isPlayerActive(currentTurn, gamePhase, PlayerColor.Black)}
-        totalTurnTimeRemaining={
-          players[PlayerColor.Black].totalTurnTimeRemaining
-        }
       />
       <StyledBoardContainer>
         <Board
@@ -65,6 +62,7 @@ const Game: React.FC<Props> = ({
           checkState={checkState}
           currentPlayerColor={currentPlayerColor}
           userColor={userColor}
+          latestMove={gameState.latestMove}
         />
         <PromotionMenu
           isShown={isPromotionShown}
@@ -79,11 +77,8 @@ const Game: React.FC<Props> = ({
         />
       </StyledBoardContainer>
       <PlayerPanel
-        name={players[PlayerColor.White].name}
+        player={players[PlayerColor.White]}
         isActive={isPlayerActive(currentTurn, gamePhase, PlayerColor.White)}
-        totalTurnTimeRemaining={
-          players[PlayerColor.White].totalTurnTimeRemaining
-        }
       />
       <ForfeitGame forfeitGame={forfeitGame} />
       <GraveyardMenu graveyards={graveyards} userColor={userColor} />
