@@ -12,7 +12,7 @@ import { AccountCircle, Menu as MenuIcon } from '@material-ui/icons';
 import styled from '@emotion/styled';
 import NavigationDrawer from './NavigationDrawer';
 import { StyledLink } from '../../components/StyledLink/StyledLink';
-import { locations } from '../../contants/locations';
+import { Routes } from '../../interfaces/Router/Routes';
 import { NavigationContainerProps } from './Navigation.container';
 import { useColorModeContext } from '../../styles/colorModeContext';
 import { ColorTheme } from '../../interfaces/Styles/ColorTheme';
@@ -121,7 +121,7 @@ const Navigation: React.FC<Props> = ({ isAuthenticated, logoutUser }) => {
                 open={isUserMenuOpen}
                 onClose={handleClose}
               >
-                <StyledLink to={locations.profile}>
+                <StyledLink to={Routes.profile}>
                   <MenuItem onClick={handleClose}>Profile</MenuItem>
                 </StyledLink>
                 <MenuItem onClick={logout}>Logout</MenuItem>

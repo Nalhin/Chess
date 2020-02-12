@@ -10,10 +10,10 @@ export interface GameState {
     availableMoves: AvailableMoves;
   };
   readonly gameId: string;
-  readonly isReconnect: boolean;
+  readonly isReconnectAvailable: boolean;
 }
 
-export enum GameBaseActionTypes {
+enum GameBaseActionTypes {
   INIT_GAME = 'INIT_GAME',
   PROMOTE_PAWN = 'PROMOTE_PAWN',
   GET_AVAILABLE_MOVES = 'GET_AVAILABLE_MOVES',
@@ -23,28 +23,26 @@ export enum GameBaseActionTypes {
   FORFEIT_GAME = 'FORFEIT_GAME',
 }
 
-export enum GamePersonalSubscriptionActionTypes {
+enum GamePersonalSubscriptionActionTypes {
   AVAILABLE_MOVES = 'AVAILABLE_MOVES',
   ERROR = 'ERROR',
 }
 
-export enum GameStateSubscriptionActionTypes {
+enum GameStateSubscriptionActionTypes {
   GAME_STARTED = 'GAME_STARTED',
   PLAYER_MOVED = 'PLAYER_MOVED',
   GAME_OVER = 'GAME_OVER',
   GAME_FORFEIT = 'GAME_FORFEIT',
 }
 
-export enum GameReconnectActionTypes {
-  GAME_IS_PRESENT_REQUESTED = 'GAME_IS_PRESENT_REQUESTED',
-  GAME_IS_PRESENT_SUCCEEDED = 'GAME_IS_PRESENT_SUCCEEDED',
-  GAME_IS_PRESENT_FAILED = 'GAME_IS_PRESENT_FAILED',
-  GAME_RECONNECT_REQUESTED = 'GAME_RECONNECT_REQUESTED',
-  GAME_RECONNECT_SUCCEEDED = 'GAME_RECONNECT_SUCCEEDED',
-  GAME_RECONNECT_FAILED = 'GAME_RECONNECT_FAILED',
+enum GameReconnectActionTypes {
+  CHECK_IS_GAME_PRESENT_REQUESTED = 'CHECK_IS_GAME_PRESENT_REQUESTED',
+  CHECK_IS_GAME_PRESENT_SUCCEEDED = 'CHECK_IS_GAME_PRESENT_SUCCEEDED',
+  CHECK_IS_GAME_PRESENT_FAILED = 'CHECK_IS_GAME_PRESENT_FAILED',
+  RECONNECT_TO_GAME_REQUESTED = 'RECONNECT_TO_GAME_REQUESTED',
 }
 
-export const GameSubscriptionActionTypes = {
+const GameSubscriptionActionTypes = {
   ...GamePersonalSubscriptionActionTypes,
   ...GameStateSubscriptionActionTypes,
   ...GameReconnectActionTypes,
@@ -56,28 +54,28 @@ export const GameActionTypes = {
 };
 
 export interface GameStartedSubscriptionAction {
-  type: typeof GameStateSubscriptionActionTypes.GAME_STARTED;
+  type: typeof GameActionTypes.GAME_STARTED;
   payload: {
     game: Game;
   };
 }
 
 export interface PlayerMovedSubscriptionAction {
-  type: typeof GameStateSubscriptionActionTypes.PLAYER_MOVED;
+  type: typeof GameActionTypes.PLAYER_MOVED;
   payload: {
     game: Game;
   };
 }
 
 export interface GameOverSubscriptionAction {
-  type: typeof GameStateSubscriptionActionTypes.GAME_OVER;
+  type: typeof GameActionTypes.GAME_OVER;
   payload: {
     game: Game;
   };
 }
 
 export interface AvailableMovesSubscriptionAction {
-  type: typeof GamePersonalSubscriptionActionTypes.AVAILABLE_MOVES;
+  type: typeof GameActionTypes.AVAILABLE_MOVES;
   payload: {
     availableMoves: AvailableMoves;
     position: BoardPosition;
@@ -85,76 +83,67 @@ export interface AvailableMovesSubscriptionAction {
 }
 
 export interface InitGameAction {
-  type: typeof GameBaseActionTypes.INIT_GAME;
+  type: typeof GameActionTypes.INIT_GAME;
   payload: {
     id: string;
   };
 }
 
-export interface GetAvailableMovesRequestedAction {
-  type: typeof GameBaseActionTypes.GET_AVAILABLE_MOVES;
+export interface GetAvailableMovesAction {
+  type: typeof GameActionTypes.GET_AVAILABLE_MOVES;
   payload: {
     initialPosition: BoardPosition;
   };
 }
 
 export interface MakeMoveRequestedAction {
-  type: typeof GameBaseActionTypes.MAKE_MOVE;
+  type: typeof GameActionTypes.MAKE_MOVE;
   payload: {
     destinationPosition: BoardPosition;
   };
 }
 
 export interface PromotePawnAction {
-  type: typeof GameBaseActionTypes.PROMOTE_PAWN;
+  type: typeof GameActionTypes.PROMOTE_PAWN;
   payload: {
     pieceType: PieceType;
   };
 }
 
 export interface CloseGameAction {
-  type: typeof GameBaseActionTypes.CLOSE_GAME;
+  type: typeof GameActionTypes.CLOSE_GAME;
 }
 
-export interface GameIsPresentRequestedAction {
-  type: GameReconnectActionTypes.GAME_IS_PRESENT_REQUESTED;
+export interface CheckIsGamePresentRequestedAction {
+  type: typeof GameActionTypes.CHECK_IS_GAME_PRESENT_REQUESTED;
 }
 
-export interface GameIsPresentSucceededAction {
-  type: GameReconnectActionTypes.GAME_IS_PRESENT_SUCCEEDED;
+export interface CheckIsGamePresentSucceededAction {
+  type: typeof GameActionTypes.CHECK_IS_GAME_PRESENT_SUCCEEDED;
   payload: {
     gameId: string;
   };
 }
 
-export interface GameIsPresentFailedAction {
-  type: GameReconnectActionTypes.GAME_IS_PRESENT_FAILED;
+export interface CheckIsGamePresentFailedAction {
+  type: typeof GameActionTypes.CHECK_IS_GAME_PRESENT_FAILED;
 }
 
-export interface GameReconnectRequestedAction {
-  type: GameReconnectActionTypes.GAME_RECONNECT_REQUESTED;
+export interface ReconnectToGameRequestedAction {
+  type: typeof GameActionTypes.RECONNECT_TO_GAME_REQUESTED;
 }
 
-export interface GameReconnectSucceededAction {
-  type: GameReconnectActionTypes.GAME_RECONNECT_SUCCEEDED;
-  payload: {
-    game: Game;
-  };
-}
-export interface GameReconnectFailedAction {
-  type: GameReconnectActionTypes.GAME_RECONNECT_FAILED;
-}
 export interface ClearGameAction {
-  type: GameBaseActionTypes.CLEAR_GAME;
+  type: typeof GameActionTypes.CLEAR_GAME;
 }
 
 export interface ForfeitGameAction {
-  type: GameBaseActionTypes.FORFEIT_GAME;
+  type: typeof GameActionTypes.FORFEIT_GAME;
 }
 
 export type GameActions =
   | InitGameAction
-  | GetAvailableMovesRequestedAction
+  | GetAvailableMovesAction
   | MakeMoveRequestedAction
   | GameStartedSubscriptionAction
   | PlayerMovedSubscriptionAction
@@ -162,11 +151,9 @@ export type GameActions =
   | AvailableMovesSubscriptionAction
   | PromotePawnAction
   | CloseGameAction
-  | GameIsPresentRequestedAction
-  | GameIsPresentSucceededAction
-  | GameIsPresentFailedAction
-  | GameReconnectRequestedAction
-  | GameReconnectSucceededAction
-  | GameReconnectFailedAction
+  | CheckIsGamePresentRequestedAction
+  | CheckIsGamePresentSucceededAction
+  | CheckIsGamePresentFailedAction
+  | ReconnectToGameRequestedAction
   | ClearGameAction
   | ForfeitGameAction;

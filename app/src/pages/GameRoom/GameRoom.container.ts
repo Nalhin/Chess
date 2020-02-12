@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import GameRoom from './GameRoom';
 import { bindActionCreators, Dispatch } from 'redux';
 import { RootAction } from '../../store/rootAction';
-import { gameReconnectRequested } from '../../store/game/game.actions';
+import { reconnectToGame } from '../../store/game/game.actions';
 import { isUserLoggedInSelector } from '../../store/user/user.selectors';
 
 const mapStateToProps = (state: AppState) => {
@@ -23,7 +23,7 @@ const mapStateToProps = (state: AppState) => {
 const mapDispatchToProps = (dispatch: Dispatch<RootAction>) =>
   bindActionCreators(
     {
-      reconnectToGame: gameReconnectRequested,
+      reconnectToGame,
     },
     dispatch,
   );

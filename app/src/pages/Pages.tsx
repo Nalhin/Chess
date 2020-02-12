@@ -5,7 +5,7 @@ import ProtectedRoute from '../components/UnauthenticatedRoute/UnauthenticatedRo
 import NoMatch from './NoMatch/NoMatch';
 import Toasts from './Toaster/Toasts.container';
 import styled from '@emotion/styled';
-import { locations } from '../contants/locations';
+import { Routes } from '../interfaces/Router/Routes';
 import Loader from '../components/Loader/Loader';
 
 const StyledContentContainer = styled.div`
@@ -32,34 +32,34 @@ const Pages = () => {
       <StyledContentContainer>
         <Switch>
           <React.Suspense fallback={<Loader isLoading />}>
-            <Route path={locations.home} component={Home} exact />
-            <ProtectedRoute path={locations.logout} component={Logout} exact />
+            <Route path={Routes.home} component={Home} exact />
+            <ProtectedRoute path={Routes.logout} component={Logout} exact />
             <ProtectedRoute
-              path={`${locations.game}:id`}
+              path={`${Routes.game}:id`}
               component={GameRoom}
               exact
               shouldBeAuthenticated
             />
             <ProtectedRoute
-              path={locations.profile}
+              path={Routes.profile}
               component={Profile}
               exact
               shouldBeAuthenticated
             />
             <ProtectedRoute
-              path={locations.matchHistory}
+              path={Routes.matchHistory}
               component={MatchHistory}
               exact
               shouldBeAuthenticated
             />
             <ProtectedRoute
-              path={`${locations.individualMatchHistory}:id`}
+              path={`${Routes.individualMatchHistory}:id`}
               component={IndividualGameHistory}
               exact
               shouldBeAuthenticated
             />
-            <ProtectedRoute path={locations.signIn} component={SignIn} exact />
-            <ProtectedRoute path={locations.signUp} component={SignUp} exact />
+            <ProtectedRoute path={Routes.signIn} component={SignIn} exact />
+            <ProtectedRoute path={Routes.signUp} component={SignUp} exact />
           </React.Suspense>
           <Route component={NoMatch} />
         </Switch>

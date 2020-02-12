@@ -10,7 +10,6 @@ const Wrapper = styled.div`
 const SpinnerWrapper = styled.div`
   ${mixins.fixedCenter};
   ${mixins.absoluteCenter};
-  z-index: 1000;
 `;
 
 interface Props {

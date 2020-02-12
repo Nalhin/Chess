@@ -13,7 +13,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import styled from '@emotion/styled';
 import { StyledLink } from '../../components/StyledLink/StyledLink';
-import { locations } from '../../contants/locations';
+import { Routes } from '../../interfaces/Router/Routes';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 
 const StyledList = styled(List)`
@@ -46,7 +46,7 @@ const NavigationDrawer: React.FC<Props> = ({
     >
       <div role="presentation" onClick={toggleDrawer} onKeyDown={toggleDrawer}>
         <StyledList>
-          <StyledLink to={locations.home}>
+          <StyledLink to={Routes.home}>
             <ListItem button>
               <ListItemIcon>
                 <SportsEsportsIcon />
@@ -55,7 +55,7 @@ const NavigationDrawer: React.FC<Props> = ({
             </ListItem>
           </StyledLink>
           {isAuthenticated && (
-            <StyledLink to={locations.matchHistory}>
+            <StyledLink to={Routes.matchHistory}>
               <ListItem button>
                 <ListItemIcon>
                   <HistoryIcon />
@@ -76,7 +76,7 @@ const NavigationDrawer: React.FC<Props> = ({
             </ListItem>
           ) : (
             <>
-              <StyledLink to={locations.signIn}>
+              <StyledLink to={Routes.signIn}>
                 <ListItem button>
                   <ListItemIcon>
                     <ExitToAppIcon />
@@ -84,7 +84,7 @@ const NavigationDrawer: React.FC<Props> = ({
                   <ListItemText primary="Sign in" />
                 </ListItem>
               </StyledLink>
-              <StyledLink to={locations.signUp}>
+              <StyledLink to={Routes.signUp}>
                 <ListItem button>
                   <ListItemIcon>
                     <PersonAddIcon />

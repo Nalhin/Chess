@@ -1,14 +1,13 @@
 import { SagaIterator } from '@redux-saga/core';
 import { all, select, take, takeEvery } from '@redux-saga/core/effects';
 import {
-  GameBaseActionTypes,
-  GameIsPresentRequestedAction,
-  GameReconnectActionTypes,
-  GameReconnectRequestedAction,
-  GetAvailableMovesRequestedAction,
+  CheckIsGamePresentRequestedAction,
+  GameActionTypes,
+  GetAvailableMovesAction,
   InitGameAction,
   MakeMoveRequestedAction,
   PromotePawnAction,
+  ReconnectToGameRequestedAction,
 } from './game.types';
 import {
   gamePersonalSubscription,
@@ -21,13 +20,13 @@ import { WebsocketTypes } from '../../websocket/websocketTypes';
 import { call, put } from 'redux-saga-test-plan/matchers';
 import { fetchIsGamePresent } from './game.api';
 import {
+  checkIsGamePresentFailed,
+  checkIsGamePresentSucceeded,
   clearGame,
-  gameIsPresentFailed,
-  gameIsPresentSucceeded,
   initGameRequested,
 } from './game.actions';
 import { push } from 'connected-react-router';
-import { locations } from '../../contants/locations';
+import { Routes } from '../../interfaces/Router/Routes';
 import { addToast } from '../toaster/toaster.action';
 import { generateToast } from '../../utils/toastFactory';
 import { ToastTypes } from '../../interfaces/Toaster/ToastTypes';
@@ -37,26 +36,23 @@ import { didRouteChange } from '../customRouter/customRouter.selectors';
 
 export function* gameRootSaga(): SagaIterator {
   yield all([
-    yield takeEvery(GameBaseActionTypes.INIT_GAME, initGameSaga),
+    yield takeEvery(GameActionTypes.INIT_GAME, initGameSaga),
+    yield takeEvery(GameActionTypes.GET_AVAILABLE_MOVES, getAvailableMovesSaga),
+    yield takeEvery(GameActionTypes.MAKE_MOVE, makeMoveSaga),
+    yield takeEvery(GameActionTypes.PROMOTE_PAWN, promotePawnSaga),
     yield takeEvery(
-      GameBaseActionTypes.GET_AVAILABLE_MOVES,
-      getAvailableMovesSaga,
-    ),
-    yield takeEvery(GameBaseActionTypes.MAKE_MOVE, makeMoveSaga),
-    yield takeEvery(GameBaseActionTypes.PROMOTE_PAWN, promotePawnSaga),
-    yield takeEvery(
-      GameReconnectActionTypes.GAME_IS_PRESENT_REQUESTED,
-      isGamePresentSaga,
+      GameActionTypes.CHECK_IS_GAME_PRESENT_REQUESTED,
+      checkIsGamePresentSaga,
     ),
     yield takeEvery(
-      GameReconnectActionTypes.GAME_RECONNECT_REQUESTED,
+      GameActionTypes.RECONNECT_TO_GAME_REQUESTED,
       reconnectToGameSaga,
     ),
-    yield takeEvery(GameBaseActionTypes.FORFEIT_GAME, forfeitGameSaga),
+    yield takeEvery(GameActionTypes.FORFEIT_GAME, forfeitGameSaga),
   ]);
 }
 
-export function* reconnectToGameSaga(action: GameReconnectRequestedAction) {
+export function* reconnectToGameSaga(action: ReconnectToGameRequestedAction) {
   const user = yield select(userSelector);
   let gameId;
   try {
@@ -73,7 +69,7 @@ export function* reconnectToGameSaga(action: GameReconnectRequestedAction) {
     return;
   }
 
-  yield put(push(`${locations.game}${gameId}`));
+  yield put(push(`${Routes.game}${gameId}`));
 
   yield put(initChat(gameId));
   yield put(initGameRequested(gameId));
@@ -124,21 +120,21 @@ export function* forfeitGameSaga() {
   });
 }
 
-export function* isGamePresentSaga(action: GameIsPresentRequestedAction) {
+export function* checkIsGamePresentSaga(
+  action: CheckIsGamePresentRequestedAction,
+) {
   try {
     const user = yield select(userSelector);
     const response = yield call(fetchIsGamePresent, user.login);
     if (response.data.isPresent) {
-      yield put(gameIsPresentSucceeded(response.data.gameId));
+      yield put(checkIsGamePresentSucceeded(response.data.gameId));
     }
   } catch (e) {
-    yield put(gameIsPresentFailed());
+    yield put(checkIsGamePresentFailed());
   }
 }
 
-function* getAvailableMovesSaga(
-  action: GetAvailableMovesRequestedAction,
-): SagaIterator {
+function* getAvailableMovesSaga(action: GetAvailableMovesAction): SagaIterator {
   const gameStomp = StompSingleton.getInstance(WebsocketTypes.GAME);
   const [gameId, user] = yield all([
     select(gameIdSelector),

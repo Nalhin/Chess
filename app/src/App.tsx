@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Provider } from 'react-redux';
-import configureStore, { history } from './store/store';
+import { history, store } from './store/store';
 import ErrorBoundary from './ErrorBoundary';
 import Pages from './pages/Pages';
 import { Global } from '@emotion/core';
@@ -13,8 +13,6 @@ import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 import { useColorTheme } from './styles/useColorTheme';
 import { ColorModeContext } from './styles/colorModeContext';
 import { useGlobalStyles } from './styles/useGlobalStyles';
-
-export const store = configureStore();
 
 const App = () => {
   const styles = useGlobalStyles();

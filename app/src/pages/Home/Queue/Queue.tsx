@@ -25,8 +25,8 @@ const Queue: React.FC<Props> = ({
   joinQueue,
   isInQueue,
   isReconnectShown,
-  gameReconnect,
-  gameIsPresent,
+  reconnectToGame,
+  checkIsGamePresent,
   leaveQueue,
   timeJoined,
   joinQueueAi,
@@ -34,7 +34,7 @@ const Queue: React.FC<Props> = ({
 }) => {
   React.useEffect(() => {
     if (isUserLoggedIn) {
-      gameIsPresent();
+      checkIsGamePresent();
     }
   }, [isUserLoggedIn]);
 
@@ -79,7 +79,7 @@ const Queue: React.FC<Props> = ({
           theme={theme}
           color="primary"
           variant="contained"
-          onClick={gameReconnect}
+          onClick={reconnectToGame}
         >
           Reconnect
         </StyledButton>

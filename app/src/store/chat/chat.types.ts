@@ -5,21 +5,26 @@ export interface ChatState {
   readonly id: string;
 }
 
-export enum ChatSubscriptionActionTypes {
+enum ChatSubscriptionActionTypes {
   NEW_MESSAGE_RECEIVED = 'NEW_MESSAGE_RECEIVED',
 }
+
+enum ChatBaseActionTypes {
+  INIT_CHAT = 'INIT_CHAT',
+  CLOSE_CHAT = 'CLOSE_CHAT',
+  SEND_MESSAGE = 'SEND_MESSAGE',
+}
+
+export const ChatActionTypes = {
+  ...ChatSubscriptionActionTypes,
+  ...ChatBaseActionTypes,
+};
 
 export interface NewMessageReceivedAction {
   type: ChatSubscriptionActionTypes.NEW_MESSAGE_RECEIVED;
   payload: {
     message: ChatMessage;
   };
-}
-
-export enum ChatBaseActionTypes {
-  INIT_CHAT = 'INIT_CHAT',
-  CLOSE_CHAT = 'CLOSE_CHAT',
-  SEND_MESSAGE = 'SEND_MESSAGE',
 }
 
 export interface InitChatAction {
@@ -39,11 +44,6 @@ export interface SendMessageAction {
     content: string;
   };
 }
-
-export const ChatActionTypes = {
-  ...ChatSubscriptionActionTypes,
-  ...ChatBaseActionTypes,
-};
 
 export type ChatActions =
   | NewMessageReceivedAction

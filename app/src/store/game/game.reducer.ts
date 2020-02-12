@@ -1,9 +1,4 @@
-import {
-  GameActions,
-  GameActionTypes,
-  GameBaseActionTypes,
-  GameState,
-} from './game.types';
+import { GameActions, GameActionTypes, GameState } from './game.types';
 import { Reducer } from 'react';
 import produce from 'immer';
 import { Player, PlayerColor } from '../../interfaces/Game/Player';
@@ -41,7 +36,7 @@ export const GAME_INITIAL_STATE: GameState = {
     position: {} as BoardPosition,
   },
   gameId: '',
-  isReconnect: false,
+  isReconnectAvailable: false,
 };
 
 const gameReducer: Reducer<GameState, GameActions> = (
@@ -50,13 +45,12 @@ const gameReducer: Reducer<GameState, GameActions> = (
 ) => {
   return produce(state, draft => {
     switch (action.type) {
-      case GameBaseActionTypes.INIT_GAME:
+      case GameActionTypes.INIT_GAME:
         draft.gameId = action.payload.id;
         break;
       case GameActionTypes.GAME_STARTED:
-      case GameActionTypes.GAME_RECONNECT_SUCCEEDED:
         draft.gameState = action.payload.game;
-        draft.isReconnect = false;
+        draft.isReconnectAvailable = false;
         break;
       case GameActionTypes.PLAYER_MOVED:
         draft.gameState = action.payload.game;
@@ -71,8 +65,8 @@ const gameReducer: Reducer<GameState, GameActions> = (
       case GameActionTypes.CLEAR_GAME:
         draft = GAME_INITIAL_STATE;
         break;
-      case GameActionTypes.GAME_IS_PRESENT_SUCCEEDED:
-        draft.isReconnect = true;
+      case GameActionTypes.CHECK_IS_GAME_PRESENT_SUCCEEDED:
+        draft.isReconnectAvailable = true;
         draft.gameId = action.payload.gameId;
         break;
       default:

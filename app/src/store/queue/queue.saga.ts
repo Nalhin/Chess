@@ -19,7 +19,7 @@ import { addToast } from '../toaster/toaster.action';
 import { generateToast } from '../../utils/toastFactory';
 import { ToastTypes } from '../../interfaces/Toaster/ToastTypes';
 import { isInQueueSelector } from './queue.selectors';
-import { locations } from '../../contants/locations';
+import { Routes } from '../../interfaces/Router/Routes';
 import { fetchJoinQueueAi } from './queue.api';
 import { gameFound } from './queue.actions';
 
@@ -83,7 +83,7 @@ export function* joinQueueAiSaga(action: JoinQueueAi) {
 
 export function* queueGameFoundSaga(action: QueueGameFoundAction) {
   const { gameId } = action.payload;
-  yield put(push(`${locations.game}${gameId}`));
+  yield put(push(`${Routes.game}${gameId}`));
   yield put(initChat(gameId));
   yield put(initGameRequested(gameId));
   yield put(addToast(generateToast('Game found!', ToastTypes.Info)));

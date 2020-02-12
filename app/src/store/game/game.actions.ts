@@ -1,24 +1,19 @@
 import {
   AvailableMovesSubscriptionAction,
+  CheckIsGamePresentFailedAction,
+  CheckIsGamePresentRequestedAction,
+  CheckIsGamePresentSucceededAction,
   ClearGameAction,
   CloseGameAction,
   ForfeitGameAction,
-  GameBaseActionTypes,
-  GameIsPresentFailedAction,
-  GameIsPresentRequestedAction,
-  GameIsPresentSucceededAction,
+  GameActionTypes,
   GameOverSubscriptionAction,
-  GamePersonalSubscriptionActionTypes,
-  GameReconnectActionTypes,
-  GameReconnectFailedAction,
-  GameReconnectRequestedAction,
-  GameReconnectSucceededAction,
   GameStartedSubscriptionAction,
-  GameStateSubscriptionActionTypes,
-  GetAvailableMovesRequestedAction,
+  GetAvailableMovesAction,
   InitGameAction,
   MakeMoveRequestedAction,
   PlayerMovedSubscriptionAction,
+  ReconnectToGameRequestedAction,
 } from './game.types';
 import { Game } from '../../interfaces/Game/Game';
 import { AvailableMoves } from '../../interfaces/Game/AvailableMoves';
@@ -26,21 +21,21 @@ import { BoardPosition } from '../../interfaces/Game/BoardPosition';
 import { PieceType } from '../../interfaces/Game/Piece';
 
 export const gameStarted = (game: Game): GameStartedSubscriptionAction => ({
-  type: GameStateSubscriptionActionTypes.GAME_STARTED,
+  type: GameActionTypes.GAME_STARTED,
   payload: {
     game,
   },
 });
 
 export const playerMoved = (game: Game): PlayerMovedSubscriptionAction => ({
-  type: GameStateSubscriptionActionTypes.PLAYER_MOVED,
+  type: GameActionTypes.PLAYER_MOVED,
   payload: {
     game,
   },
 });
 
 export const gameOver = (game: Game): GameOverSubscriptionAction => ({
-  type: GameStateSubscriptionActionTypes.GAME_OVER,
+  type: GameActionTypes.GAME_OVER,
   payload: {
     game,
   },
@@ -50,7 +45,7 @@ export const availableMoves = (
   availableMoves: AvailableMoves,
   position: BoardPosition,
 ): AvailableMovesSubscriptionAction => ({
-  type: GamePersonalSubscriptionActionTypes.AVAILABLE_MOVES,
+  type: GameActionTypes.AVAILABLE_MOVES,
   payload: {
     availableMoves,
     position,
@@ -58,16 +53,16 @@ export const availableMoves = (
 });
 
 export const initGameRequested = (id: string): InitGameAction => ({
-  type: GameBaseActionTypes.INIT_GAME,
+  type: GameActionTypes.INIT_GAME,
   payload: {
     id,
   },
 });
 
-export const getAvailableMovesRequested = (
+export const getAvailableMoves = (
   initialPosition: BoardPosition,
-): GetAvailableMovesRequestedAction => ({
-  type: GameBaseActionTypes.GET_AVAILABLE_MOVES,
+): GetAvailableMovesAction => ({
+  type: GameActionTypes.GET_AVAILABLE_MOVES,
   payload: {
     initialPosition,
   },
@@ -76,14 +71,14 @@ export const getAvailableMovesRequested = (
 export const makeMoveRequested = (
   destinationPosition: BoardPosition,
 ): MakeMoveRequestedAction => ({
-  type: GameBaseActionTypes.MAKE_MOVE,
+  type: GameActionTypes.MAKE_MOVE,
   payload: {
     destinationPosition,
   },
 });
 
 export const promotePawn = (position: BoardPosition, pieceType: PieceType) => ({
-  type: GameBaseActionTypes.PROMOTE_PAWN,
+  type: GameActionTypes.PROMOTE_PAWN,
   payload: {
     pieceType,
     position,
@@ -91,44 +86,31 @@ export const promotePawn = (position: BoardPosition, pieceType: PieceType) => ({
 });
 
 export const closeGame = (): CloseGameAction => ({
-  type: GameBaseActionTypes.CLOSE_GAME,
+  type: GameActionTypes.CLOSE_GAME,
 });
 
-export const gameIsPresentRequested = (): GameIsPresentRequestedAction => ({
-  type: GameReconnectActionTypes.GAME_IS_PRESENT_REQUESTED,
+export const checkIsGamePresentRequested = (): CheckIsGamePresentRequestedAction => ({
+  type: GameActionTypes.CHECK_IS_GAME_PRESENT_REQUESTED,
 });
 
-export const gameIsPresentSucceeded = (
+export const checkIsGamePresentSucceeded = (
   gameId: string,
-): GameIsPresentSucceededAction => ({
-  type: GameReconnectActionTypes.GAME_IS_PRESENT_SUCCEEDED,
+): CheckIsGamePresentSucceededAction => ({
+  type: GameActionTypes.CHECK_IS_GAME_PRESENT_SUCCEEDED,
   payload: { gameId },
 });
 
-export const gameIsPresentFailed = (): GameIsPresentFailedAction => ({
-  type: GameReconnectActionTypes.GAME_IS_PRESENT_FAILED,
+export const checkIsGamePresentFailed = (): CheckIsGamePresentFailedAction => ({
+  type: GameActionTypes.CHECK_IS_GAME_PRESENT_FAILED,
 });
-export const gameReconnectRequested = (): GameReconnectRequestedAction => ({
-  type: GameReconnectActionTypes.GAME_RECONNECT_REQUESTED,
-});
-
-export const gameReconnectSucceeded = (
-  game: Game,
-): GameReconnectSucceededAction => ({
-  type: GameReconnectActionTypes.GAME_RECONNECT_SUCCEEDED,
-  payload: {
-    game,
-  },
-});
-
-export const gameReconnectFailed = (): GameReconnectFailedAction => ({
-  type: GameReconnectActionTypes.GAME_RECONNECT_FAILED,
+export const reconnectToGame = (): ReconnectToGameRequestedAction => ({
+  type: GameActionTypes.RECONNECT_TO_GAME_REQUESTED,
 });
 
 export const clearGame = (): ClearGameAction => ({
-  type: GameBaseActionTypes.CLEAR_GAME,
+  type: GameActionTypes.CLEAR_GAME,
 });
 
 export const forfeitGame = (): ForfeitGameAction => ({
-  type: GameBaseActionTypes.FORFEIT_GAME,
+  type: GameActionTypes.FORFEIT_GAME,
 });

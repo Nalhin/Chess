@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { UserRegisterData } from '../../interfaces/User/User';
 import { registerUserRequested } from '../../store/user/user.actions';
 import { StyledForm, StyledLink, StyledWrapper } from '../SignIn/SignIn';
-import { locations } from '../../contants/locations';
+import { Routes } from '../../interfaces/Router/Routes';
 import { Button, TextField, useTheme } from '@material-ui/core';
 
 const INITIAL_STATE = {
@@ -48,7 +48,7 @@ const SignUp = () => {
           onChange={onFormChange}
           value={formState.password}
         />
-        <StyledLink to={locations.signIn} theme={theme}>
+        <StyledLink to={Routes.signIn} theme={theme}>
           Sign in?
         </StyledLink>
         <Button color="primary" onClick={submitForm}>

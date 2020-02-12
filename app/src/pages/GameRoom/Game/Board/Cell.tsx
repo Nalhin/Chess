@@ -5,7 +5,7 @@ import { BoardPosition } from '../../../../interfaces/Game/BoardPosition';
 import { PlayerColor } from '../../../../interfaces/Game/Player';
 import PieceIcon from './PieceIcon';
 import { useDrop } from 'react-dnd';
-import { DragAndDropTypes } from '../../../../contants/dragAndDropTypes';
+import { DragAndDropTypes } from '../../../../interfaces/DragAndDrop/dragAndDropTypes';
 import { CheckState } from '../../../../interfaces/Game/CheckState';
 import mixins from '../../../../styles/mixins';
 import { useTheme } from '@material-ui/core';

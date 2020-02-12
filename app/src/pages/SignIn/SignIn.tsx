@@ -14,7 +14,7 @@ import {
   useTheme,
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import { locations } from '../../contants/locations';
+import { Routes } from '../../interfaces/Router/Routes';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 
 const INITIAL_STATE = {
@@ -106,7 +106,7 @@ const SignIn = () => {
               }
             />
           </FormControl>
-          <StyledLink to={locations.signUp} theme={theme}>
+          <StyledLink to={Routes.signUp} theme={theme}>
             No account?
           </StyledLink>
           <Button

@@ -2,13 +2,13 @@ export interface QueueState {
   readonly timeJoined: string;
 }
 
-export enum QueueBaseActionTypes {
+enum QueueBaseActionTypes {
   JOIN_QUEUE = 'JOIN_QUEUE',
   LEAVE_QUEUE = 'LEAVE_QUEUE',
   JOIN_QUEUE_AI = 'JOIN_QUEUE_AI',
 }
 
-export enum QueueSubscriptionActionTypes {
+enum QueueSubscriptionActionTypes {
   QUEUE_ERROR = 'QUEUE_ERROR',
   QUEUE_JOINED = 'QUEUE_JOINED',
   QUEUE_GAME_FOUND = 'QUEUE_GAME_FOUND',

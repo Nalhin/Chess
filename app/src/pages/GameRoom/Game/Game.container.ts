@@ -6,7 +6,7 @@ import { RootAction } from '../../../store/rootAction';
 import {
   closeGame,
   forfeitGame,
-  getAvailableMovesRequested,
+  getAvailableMoves,
   initGameRequested,
   makeMoveRequested,
   promotePawn,
@@ -35,7 +35,7 @@ const mapDispatchToProps = (dispatch: Dispatch<RootAction>) =>
   bindActionCreators(
     {
       initGame: initGameRequested,
-      getAvailableMoves: getAvailableMovesRequested,
+      getAvailableMoves: getAvailableMoves,
       makeMove: makeMoveRequested,
       promotePawn,
       closeGame,

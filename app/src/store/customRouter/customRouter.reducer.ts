@@ -1,19 +1,22 @@
 import { Reducer } from 'redux';
-import { LocationChangeAction } from 'connected-react-router';
-import { CustomRouterState } from './customRouter.types';
+import {
+  CustomRouterActions,
+  CustomRouterActionTypes,
+  CustomRouterState,
+} from './customRouter.types';
 import produce from 'immer';
 
-export const INITIAL_ROUTER_STATE: CustomRouterState = {
+export const CUSTOM_ROUTER_INITIAL_STATE: CustomRouterState = {
   previousLocations: [],
 };
 
-const customRouterReducer: Reducer<CustomRouterState, LocationChangeAction> = (
-  state = INITIAL_ROUTER_STATE,
+const customRouterReducer: Reducer<CustomRouterState, CustomRouterActions> = (
+  state = CUSTOM_ROUTER_INITIAL_STATE,
   action,
 ) => {
   return produce(state, draft => {
     switch (action.type) {
-      case '@@router/LOCATION_CHANGE':
+      case CustomRouterActionTypes.LOCATION_CHANGE:
         draft.previousLocations.push(action.payload.location);
         break;
       default:

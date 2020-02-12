@@ -1,3 +1,3 @@
 export const fakeUser = {
-  name: 'fakeName',
+  login: 'fakeName',
 };

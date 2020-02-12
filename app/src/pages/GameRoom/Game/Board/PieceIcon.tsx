@@ -2,7 +2,7 @@ import React from 'react';
 import { PieceType } from '../../../../interfaces/Game/Piece';
 import { PlayerColor } from '../../../../interfaces/Game/Player';
 import { DragSourceMonitor, useDrag } from 'react-dnd';
-import { DragAndDropTypes } from '../../../../contants/dragAndDropTypes';
+import { DragAndDropTypes } from '../../../../interfaces/DragAndDrop/dragAndDropTypes';
 import { getPieceUrl } from '../../../../utils/getPieceUrl';
 import styled from '@emotion/styled';
 import { useTheme } from '@material-ui/core';

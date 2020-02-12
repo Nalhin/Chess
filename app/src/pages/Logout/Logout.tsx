@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { locations } from '../../contants/locations';
+import { Routes } from '../../interfaces/Router/Routes';
 import { Card, Typography, useTheme } from '@material-ui/core';
 import styled from '@emotion/styled';
 
@@ -35,11 +35,11 @@ const Logout: React.FC<Props> = () => {
       </StyledTitle>
       <span>
         You can{' '}
-        <StyledLink to={locations.home} theme={theme}>
+        <StyledLink to={Routes.home} theme={theme}>
           return to the home page
         </StyledLink>{' '}
         or{' '}
-        <StyledLink to={locations.signIn} theme={theme}>
+        <StyledLink to={Routes.signIn} theme={theme}>
           sign in again
         </StyledLink>
         .

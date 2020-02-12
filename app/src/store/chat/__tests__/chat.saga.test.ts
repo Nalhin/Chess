@@ -4,7 +4,8 @@ import { testSaga } from 'redux-saga-test-plan';
 import MockStomp from '../../../../test/utils/MockStomp';
 import { initChatSaga, sendMessageSaga } from '../chat.saga';
 import { initChat, sendMessage } from '../chat.actions';
-import { ChatBaseActionTypes } from '../chat.types';
+import { ChatActionTypes, ChatBaseActionTypes } from '../chat.types';
+import { fakeUser } from '../../../../test/fixtures/user/user';
 
 jest.mock('../../../websocket/stompClient', () => ({
   StompSingleton: {
@@ -23,14 +24,17 @@ describe('initChatSaga', () => {
     stomp.StompSingleton.getInstance.mockImplementation(() => {
       return mockStomp;
     });
+
     const action = initChat();
 
     testSaga(initChatSaga, action)
       .next()
-      .next({ login: 'xd' })
-      .take(ChatBaseActionTypes.CLOSE_CHAT)
+      .next({ login: fakeUser.login })
+      .take(ChatActionTypes.CLOSE_CHAT)
       .next()
       .isDone();
+
+    expect(stomp.StompSingleton.deactivateInstance).toHaveBeenCalledTimes(1);
   });
 });
 
@@ -45,7 +49,7 @@ describe('sendMessageSaga', () => {
 
     testSaga(sendMessageSaga, action)
       .next()
-      .next([{ login: 'xd' }, 1])
+      .next([{ login: fakeUser.login }, 1])
       .next()
       .isDone();
 

@@ -13,7 +13,6 @@ class MockStomp {
     });
   };
   publish = jest.fn();
-  deactivate = jest.fn();
 }
 
 export default MockStomp;

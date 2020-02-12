@@ -6,12 +6,12 @@ import {
 import { Reducer } from 'react';
 import produce from 'immer';
 
-export const INITIAL_STATE: ToasterState = {
+export const TOASTER_INITIAL_STATE: ToasterState = {
   toasterData: [],
 };
 
 const toasterReducer: Reducer<ToasterState, ToasterActions> = (
-  state = INITIAL_STATE,
+  state = TOASTER_INITIAL_STATE,
   action,
 ) => {
   return produce(state, draft => {

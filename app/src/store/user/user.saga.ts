@@ -23,7 +23,7 @@ import Cookies from 'js-cookie';
 import { closeChat } from '../chat/chat.actions';
 import { closeGame } from '../game/game.actions';
 import { push } from 'connected-react-router';
-import { locations } from '../../contants/locations';
+import { Routes } from '../../interfaces/Router/Routes';
 import { addToast } from '../toaster/toaster.action';
 import { ToastTypes } from '../../interfaces/Toaster/ToastTypes';
 import { generateToast } from '../../utils/toastFactory';
@@ -91,7 +91,7 @@ export function* authenticateUserSaga() {
 
 export function* logoutSaga() {
   Cookies.remove('token');
-  yield put(push(locations.logout));
+  yield put(push(Routes.logout));
   yield put(closeChat());
   yield put(closeGame());
   yield put(addToast(generateToast('Logout successful', ToastTypes.Info)));

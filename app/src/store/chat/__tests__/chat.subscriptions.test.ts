@@ -7,7 +7,7 @@ import { RootAction } from '../../rootAction';
 
 const mockDispatchedActions = [];
 
-jest.mock('./../../../App', () => ({
+jest.mock('./../../store', () => ({
   store: {
     dispatch: (action: RootAction) => mockDispatchedActions.push(action),
   },

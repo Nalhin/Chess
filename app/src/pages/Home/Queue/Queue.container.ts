@@ -8,8 +8,8 @@ import {
   leaveQueue,
 } from '../../../store/queue/queue.actions';
 import {
-  gameIsPresentRequested,
-  gameReconnectRequested,
+  checkIsGamePresentRequested,
+  reconnectToGame,
 } from '../../../store/game/game.actions';
 import { connect } from 'react-redux';
 import Queue from './Queue';
@@ -17,7 +17,7 @@ import { isUserLoggedInSelector } from '../../../store/user/user.selectors';
 
 const mapStateToProps = (state: AppState) => {
   const isInQueue = isInQueueSelector(state);
-  const isReconnectShown = state.game.isReconnect;
+  const isReconnectShown = state.game.isReconnectAvailable;
   const timeJoined = state.queue.timeJoined;
   const isUserLoggedIn = isUserLoggedInSelector(state);
   return {
@@ -32,8 +32,8 @@ const mapDispatchToProps = (dispatch: Dispatch<RootAction>) =>
   bindActionCreators(
     {
       joinQueue,
-      gameIsPresent: gameIsPresentRequested,
-      gameReconnect: gameReconnectRequested,
+      checkIsGamePresent: checkIsGamePresentRequested,
+      reconnectToGame,
       leaveQueue,
       joinQueueAi,
     },

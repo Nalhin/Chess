@@ -6,15 +6,12 @@ import { connect } from 'react-redux';
 import { getHistoryGameByIdRequested } from '../../store/gameHistory/gameHistory.actions';
 import IndividualMatchHistory from './IndividualMatchHistory';
 import { shouldDisplayBack } from '../../store/customRouter/customRouter.selectors';
-import { locations } from '../../contants/locations';
+import { Routes } from '../../interfaces/Router/Routes';
 
 const mapStateToProps = (state: AppState) => {
   const individualGames = state.gameHistory.individualGames.data;
   const isLoading = state.gameHistory.individualGames.isLoading;
-  const shouldDisplayBackButton = shouldDisplayBack(
-    state,
-    locations.matchHistory,
-  );
+  const shouldDisplayBackButton = shouldDisplayBack(state, Routes.matchHistory);
   return {
     individualGames,
     isLoading,

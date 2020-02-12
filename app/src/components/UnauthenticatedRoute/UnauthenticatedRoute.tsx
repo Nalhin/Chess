@@ -2,7 +2,7 @@ import { isAuthenticatedSelector } from '../../store/user/user.selectors';
 import { useSelector } from 'react-redux';
 import { Redirect, Route, RouteProps } from 'react-router-dom';
 import React from 'react';
-import { locations } from '../../contants/locations';
+import { Routes } from '../../interfaces/Router/Routes';
 
 interface Props extends RouteProps {
   shouldBeAuthenticated?: boolean;
@@ -23,7 +23,7 @@ const ProtectedRoute: React.FC<Props> = ({
         isAuthenticated === shouldBeAuthenticated ? (
           <Component {...props} />
         ) : (
-          <Redirect to={locations.home} />
+          <Redirect to={Routes.home} />
         )
       }
     />
@@ -32,7 +32,7 @@ const ProtectedRoute: React.FC<Props> = ({
 
 ProtectedRoute.defaultProps = {
   shouldBeAuthenticated: false,
-  redirectTo: locations.home,
+  redirectTo: Routes.home,
 };
 
 export default ProtectedRoute;

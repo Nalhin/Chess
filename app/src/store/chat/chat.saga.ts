@@ -1,7 +1,7 @@
 import { SagaIterator } from 'redux-saga';
 import { all, select, take, takeEvery } from 'redux-saga/effects';
 import {
-  ChatBaseActionTypes,
+  ChatActionTypes,
   InitChatAction,
   SendMessageAction,
 } from './chat.types';
@@ -12,8 +12,8 @@ import { WebsocketTypes } from '../../websocket/websocketTypes';
 
 export function* chatRootSaga(): SagaIterator {
   yield all([
-    yield takeEvery(ChatBaseActionTypes.INIT_CHAT, initChatSaga),
-    yield takeEvery(ChatBaseActionTypes.SEND_MESSAGE, sendMessageSaga),
+    yield takeEvery(ChatActionTypes.INIT_CHAT, initChatSaga),
+    yield takeEvery(ChatActionTypes.SEND_MESSAGE, sendMessageSaga),
   ]);
 }
 
@@ -28,7 +28,7 @@ export function* initChatSaga(action: InitChatAction): SagaIterator {
     user.login,
   );
 
-  yield take(ChatBaseActionTypes.CLOSE_CHAT);
+  yield take(ChatActionTypes.CLOSE_CHAT);
   subscription.unsubscribe();
   StompSingleton.deactivateInstance(WebsocketTypes.CHAT);
 }
