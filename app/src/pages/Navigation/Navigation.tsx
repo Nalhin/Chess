@@ -15,7 +15,7 @@ import { StyledLink } from '../../components/StyledLink/StyledLink';
 import { locations } from '../../contants/locations';
 import { NavigationContainerProps } from './Navigation.container';
 import { useColorModeContext } from '../../styles/colorModeContext';
-import { ColorMode } from '../../interfaces/Styles/ColorMode';
+import { ColorTheme } from '../../interfaces/Styles/ColorTheme';
 import Brightness3Icon from '@material-ui/icons/Brightness3';
 import WbSunnyIcon from '@material-ui/icons/WbSunny';
 import mixins from '../../styles/mixins';
@@ -26,7 +26,7 @@ const StyledToolbar = styled(Toolbar)`
 
 const StyledAppBar = styled(AppBar)`
   background: ${props =>
-    props.theme.palette.type === ColorMode.Light
+    props.theme.palette.type === ColorTheme.Light
       ? props.theme.palette.primary.main
       : props.theme.palette.background.paper};
 `;
@@ -96,7 +96,7 @@ const Navigation: React.FC<Props> = ({ isAuthenticated, logoutUser }) => {
             <WbSunnyIcon />
             <Switch
               onChange={changeTheme}
-              checked={theme.palette.type === ColorMode.Dark}
+              checked={theme.palette.type === ColorTheme.Dark}
               color="default"
               inputProps={{ 'aria-label': 'change color theme' }}
             />

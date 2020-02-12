@@ -6,8 +6,8 @@ import * as React from 'react';
 import { Router } from 'react-router-dom';
 import { AppState, createRootReducer } from '../../src/store/rootReducer';
 import { ThemeProvider } from '@material-ui/core';
-import { getMuiTheme } from '../../src/styles/theme';
-import { ColorMode } from '../../src/interfaces/Styles/ColorMode';
+import { getMuiTheme } from '../../src/styles/muiTheme';
+import { ColorTheme } from '../../src/interfaces/Styles/ColorTheme';
 import { ColorModeContext } from '../../src/styles/colorModeContext';
 
 export const renderWithStore = (
@@ -29,7 +29,7 @@ export const renderWithStore = (
   return {
     ...render(
       <ColorModeContext.Provider value={{ changeColorTheme: () => {} }}>
-        <ThemeProvider theme={getMuiTheme(ColorMode.Light)}>
+        <ThemeProvider theme={getMuiTheme(ColorTheme.Light)}>
           <Router history={history}>
             <Provider store={store}>{ui}</Provider>
           </Router>
@@ -38,6 +38,6 @@ export const renderWithStore = (
     ),
     store,
     history,
-    theme: getMuiTheme(ColorMode.Light),
+    theme: getMuiTheme(ColorTheme.Light),
   };
 };

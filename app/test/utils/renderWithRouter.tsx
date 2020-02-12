@@ -3,8 +3,8 @@ import { createMemoryHistory, History } from 'history';
 import { render } from '@testing-library/react';
 import { Router } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/core';
-import { getMuiTheme } from '../../src/styles/theme';
-import { ColorMode } from '../../src/interfaces/Styles/ColorMode';
+import { getMuiTheme } from '../../src/styles/muiTheme';
+import { ColorTheme } from '../../src/interfaces/Styles/ColorTheme';
 import { useColorTheme } from '../../src/styles/useColorTheme';
 import { ColorModeContext } from '../../src/styles/colorModeContext';
 
@@ -20,12 +20,12 @@ export const renderWithRouter = (
   return {
     ...render(
       <ColorModeContext.Provider value={{ changeColorTheme }}>
-        <ThemeProvider theme={getMuiTheme(ColorMode.Light)}>
+        <ThemeProvider theme={getMuiTheme(ColorTheme.Light)}>
           <Router history={history}>{ui}</Router>
         </ThemeProvider>
       </ColorModeContext.Provider>,
     ),
     history,
-    theme: getMuiTheme(ColorMode.Light),
+    theme: getMuiTheme(ColorTheme.Light),
   };
 };

@@ -4,7 +4,7 @@ import configureStore, { history } from './store/store';
 import ErrorBoundary from './ErrorBoundary';
 import Pages from './pages/Pages';
 import { Global } from '@emotion/core';
-import { getMuiTheme } from './styles/theme';
+import { getMuiTheme } from './styles/muiTheme';
 import { DndProvider } from 'react-dnd';
 import Backend from 'react-dnd-html5-backend';
 import { CssBaseline, StylesProvider } from '@material-ui/core';

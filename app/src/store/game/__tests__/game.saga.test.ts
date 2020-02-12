@@ -1,12 +1,11 @@
 // @ts-nocheck
 import * as stomp from '../../../websocket/stompClient';
 import { testSaga } from 'redux-saga-test-plan';
-import { GameActionTypes } from '../game.types';
 import { initGameSaga } from '../game.saga';
 import MockStomp from '../../../../test/utils/MockStomp';
 import { clearGame, initGameRequested } from '../game.actions';
-import { take } from 'redux-saga-test-plan/matchers';
 import { closeChat } from '../../chat/chat.actions';
+import { CustomRouterActionTypes } from '../../customRouter/customRouter.types';
 
 jest.mock('../../../websocket/stompClient', () => ({
   StompSingleton: {
@@ -28,8 +27,9 @@ describe('initGameSaga', () => {
     testSaga(initGameSaga, action)
       .next()
       .next({ login: 'xd' })
-      .race([take(GameActionTypes.CLOSE_GAME)])
+      .take(CustomRouterActionTypes.LOCATION_CHANGE)
       .next()
+      .next(true)
       .put(clearGame())
       .next()
       .put(closeChat())

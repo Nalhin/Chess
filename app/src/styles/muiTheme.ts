@@ -1,7 +1,7 @@
 import { createMuiTheme } from '@material-ui/core/styles';
-import { ColorMode } from '../interfaces/Styles/ColorMode';
+import { ColorTheme } from '../interfaces/Styles/ColorTheme';
 
-export const getMuiTheme = (mode: ColorMode) =>
+export const getMuiTheme = (mode: ColorTheme) =>
   createMuiTheme({
     palette: {
       type: mode,

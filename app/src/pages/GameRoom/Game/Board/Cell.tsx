@@ -9,7 +9,7 @@ import { DragAndDropTypes } from '../../../../contants/dragAndDropTypes';
 import { CheckState } from '../../../../interfaces/Game/CheckState';
 import mixins from '../../../../styles/mixins';
 import { useTheme } from '@material-ui/core';
-import { ColorMode } from '../../../../interfaces/Styles/ColorMode';
+import { ColorTheme } from '../../../../interfaces/Styles/ColorTheme';
 
 interface StyledCellProps {
   isChecked: boolean;
@@ -31,13 +31,13 @@ const StyledCell = styled.div<StyledCellProps>`
   &:nth-of-type(16n + 14),
   &:nth-of-type(16n + 16) {
     background: ${props =>
-      props.theme.palette.type === ColorMode.Dark ? '#779556' : '#000'};
+      props.theme.palette.type === ColorTheme.Dark ? '#779556' : '#000'};
   }
   background: ${props => {
     if (props.isChecked) {
       return `${props.theme.palette.error.main} !important`;
     }
-    return props.theme.palette.type === ColorMode.Dark ? '#EBECD0' : '#fff';
+    return props.theme.palette.type === ColorTheme.Dark ? '#EBECD0' : '#fff';
   }};
   border-style: solid;
   border-width: 6px;
