@@ -9,5 +9,6 @@ import java.util.List;
 @Repository
 public interface HistoryRepository extends CrudRepository<Game, Long> {
 
-    List<Game> findAllByWhitePlayerNameOrBlackPlayerName(String whitePlayerName, String blackPlayerName);
+    List<Game> findAllByWhitePlayerOrBlackPlayer(String whitePlayer, String blackPlayer);
+
 }

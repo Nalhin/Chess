@@ -23,7 +23,7 @@ class ChatServiceTest {
     }
 
     @Test
-    void setChatId() {
+    void addUser() {
         User user = new User(userLogin, chatId);
         chatService.addUser(sessionId, user);
 

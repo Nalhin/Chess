@@ -89,13 +89,16 @@ class ChatControllerTest {
 
     @Test
     void sessionSubscribeEvent() throws InterruptedException, JSONException {
-        Subscription subscription = stompSession.subscribe(stompHeaders, new CreateStompFrameHandler());
-
+        Subscription firstSubscription = stompSession.subscribe(stompHeaders, new CreateStompFrameHandler());
+        blockingQueue.poll(10, SECONDS);
+        Subscription secondSubscription = stompSession.subscribe(stompHeaders, new CreateStompFrameHandler());
         JSONObject receivedMessage = blockingQueue.poll(10, SECONDS);
+
         assertNotNull(receivedMessage);
         assertEquals(MessageTypes.INFO_MESSAGE.toString(), receivedMessage.get("type"));
 
-        subscription.unsubscribe();
+        firstSubscription.unsubscribe();
+        secondSubscription.unsubscribe();
     }
 
     @Test

@@ -41,7 +41,7 @@ public class ChatController {
     }
 
     @EventListener
-    public void sessionSubscribeEvent(SessionSubscribeEvent subscribeEvent) throws InterruptedException {
+    public void sessionSubscribeEvent(SessionSubscribeEvent subscribeEvent) {
         StompHeaderAccessor accessor = StompHeaderAccessor.wrap(subscribeEvent.getMessage());
         @SuppressWarnings("unchecked") final MultiValueMap<String, String> nativeHeaders = (MultiValueMap<String, String>) accessor.getHeader(StompHeaderAccessor.NATIVE_HEADERS);
         String login = nativeHeaders != null ? nativeHeaders.get("login").get(0) : "User";

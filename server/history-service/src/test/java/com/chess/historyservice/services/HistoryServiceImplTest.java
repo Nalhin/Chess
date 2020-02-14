@@ -30,14 +30,14 @@ class HistoryServiceImplTest {
     @Test
     void findAllGamesByUserLogin() {
         String userLogin = "login";
-        when(historyRepository.findAllByWhitePlayerNameOrBlackPlayerName(userLogin, userLogin))
+        when(historyRepository.findAllByWhitePlayerOrBlackPlayer(userLogin, userLogin))
                 .thenReturn(new ArrayList<>());
 
         List<Game> games = historyService.findAllGamesByUserLogin(userLogin);
 
         assertEquals(0, games.size());
         Mockito.verify(historyRepository, Mockito.times(1))
-                .findAllByWhitePlayerNameOrBlackPlayerName(userLogin, userLogin);
+                .findAllByWhitePlayerOrBlackPlayer(userLogin, userLogin);
     }
 
     @Test
