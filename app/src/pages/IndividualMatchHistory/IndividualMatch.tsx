@@ -102,6 +102,7 @@ const IndividualMatch: React.FC<Props> = ({ game }) => {
               <span>{turn.turnNumber}.</span>
               <ListItemIcon>
                 <StyledPlayerAvatar
+                  theme={theme}
                   name={
                     turn.playerColor === PlayerColor.White
                       ? game.whitePlayerName
@@ -111,10 +112,8 @@ const IndividualMatch: React.FC<Props> = ({ game }) => {
               </ListItemIcon>
               <ListItemIcon>
                 <StyledImage
-                  src={`/assets/images/chess/${getPieceUrl(
-                    turn.playerColor,
-                    turn.pieceType,
-                  )}.png`}
+                  theme={theme}
+                  src={getPieceUrl(turn.playerColor, turn.pieceType)}
                   alt={`${turn.pieceType} ${turn.playerColor}`}
                 />
               </ListItemIcon>

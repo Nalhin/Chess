@@ -74,7 +74,7 @@ const Game: React.FC<Props> = ({
         <GameOverMenu
           isShown={isGameOver}
           closeGame={closeGame}
-          isWinner={isCurrentTurn}
+          isWinner={!isCurrentTurn}
         />
       </StyledBoardContainer>
       <PlayerPanel

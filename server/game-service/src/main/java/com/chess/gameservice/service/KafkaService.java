@@ -31,7 +31,7 @@ public class KafkaService implements ApplicationListener<GameOverEvent> {
                                 .duration(game.getGameDuration())
                                 .blackPlayer(game.getPlayers().get(PlayerColor.BLACK).getName())
                                 .whitePlayer(game.getPlayers().get(PlayerColor.WHITE).getName())
-                                .winner(game.getCurrentTurn().getCurrentPlayerColor()).build())
+                                .winner(game.getPlayers().get(game.getCurrentTurn().getCurrentPlayerColor()).getName()).build())
                         .setHeader(KafkaHeaders.TOPIC, kafkaTopic)
                         .build();
         kafkaTemplate.send(message);

@@ -5,6 +5,7 @@ import { Routes } from '../../interfaces/Router/Routes';
 import styled from '@emotion/styled';
 import { generatePlaceholderAccount } from '../../utils/generatePlaceholderAccount';
 import { UserRegisterData } from '../../interfaces/User/User';
+import { StyledQueueContainer } from './Queue/QueueShared';
 
 const StyledButton = styled(Button)`
   margin: ${props => props.theme.spacing(1)}px;
@@ -22,7 +23,7 @@ const Info: React.FC<Props> = ({ registerUser }) => {
   };
 
   return (
-    <>
+    <StyledQueueContainer>
       <Typography variant="body1">
         Account is required in order to play.
       </Typography>
@@ -39,7 +40,7 @@ const Info: React.FC<Props> = ({ registerUser }) => {
       >
         Placeholder account
       </StyledButton>
-    </>
+    </StyledQueueContainer>
   );
 };
 

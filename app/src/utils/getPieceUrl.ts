@@ -7,5 +7,5 @@ const colorUrl = {
 };
 
 export const getPieceUrl = (playerColor: PlayerColor, type: PieceType) => {
-  return `${colorUrl[playerColor]}_${type}`;
+  return `/assets/images/chess/${colorUrl[playerColor]}_${type}.png`;
 };

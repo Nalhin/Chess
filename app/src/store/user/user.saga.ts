@@ -85,6 +85,7 @@ export function* authenticateUserSaga() {
     yield put(authenticationSucceededAction(response.data));
   } catch (e) {
     Cookies.remove('token');
+    yield put(setToken(''));
     return;
   }
 }

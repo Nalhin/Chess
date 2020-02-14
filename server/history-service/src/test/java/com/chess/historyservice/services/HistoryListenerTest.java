@@ -2,7 +2,7 @@ package com.chess.historyservice.services;
 
 import com.chess.historyservice.models.Game;
 import com.chess.historyservice.models.external.*;
-import com.chess.historyservice.repositories.GameRepository;
+import com.chess.historyservice.repositories.HistoryRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,7 +19,7 @@ import static org.mockito.ArgumentMatchers.isA;
 class HistoryListenerTest {
 
     @Mock
-    private GameRepository gameRepository;
+    private HistoryRepository historyRepository;
 
     @InjectMocks
     private HistoryListener historyListener;
@@ -41,7 +41,7 @@ class HistoryListenerTest {
         historyMessage= HistoryMessage.builder().blackPlayer("a")
                 .gameTurns(turns)
                 .whitePlayer("1")
-                .winner(PlayerColor.BLACK).build();
+                .winner("1").build();
     }
 
     @Test
@@ -49,6 +49,6 @@ class HistoryListenerTest {
 
         historyListener.receiveGameData(historyMessage);
 
-        Mockito.verify(gameRepository, Mockito.times(1)).save(isA(Game.class));
+        Mockito.verify(historyRepository, Mockito.times(1)).save(isA(Game.class));
     }
 }

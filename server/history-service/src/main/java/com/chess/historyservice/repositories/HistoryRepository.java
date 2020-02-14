@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface GameRepository extends CrudRepository<Game, Long> {
+public interface HistoryRepository extends CrudRepository<Game, Long> {
 
     List<Game> findAllByWhitePlayerNameOrBlackPlayerName(String whitePlayerName, String blackPlayerName);
 }

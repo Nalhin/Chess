@@ -5,7 +5,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 
 
 module.exports = env => ({
@@ -32,13 +31,7 @@ module.exports = env => ({
       {
         test: [/\.js$/],
         exclude: [/node_modules/, /test/],
-        loader: [{
-          loader: 'babel-loader',
-          options: {
-            plugins: ['lodash'],
-            presets: [['env', { modules: false, targets: { node: 4 } }]],
-          },
-        }, 'eslint-loader'],
+        loader: ['babel-loader', 'eslint-loader'],
       },
       {
         test: /\.(ts|tsx)$/,
@@ -79,12 +72,8 @@ module.exports = env => ({
     new webpack.EnvironmentPlugin({ ...env }),
     new BundleAnalyzerPlugin({
       analyzerMode: 'disabled',
-      generateStatsFile: true,
+      generateStatsFile: false,
       statsOptions: { source: false },
-    }),
-    new LodashModuleReplacementPlugin({
-      collections: true,
-      paths: true,
     }),
   ],
   optimization: {

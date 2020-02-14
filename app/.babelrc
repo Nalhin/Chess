@@ -17,7 +17,6 @@
         "labelFormat": "[filename]__[local]",
         "cssPropOptimization": true
       }
-    ],
-    "babel-plugin-lodash"
+    ]
   ]
 }

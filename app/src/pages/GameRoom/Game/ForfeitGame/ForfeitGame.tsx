@@ -52,7 +52,7 @@ const ForfeitGame: React.FC<Props> = ({ forfeitGame }) => {
         <DialogTitle>Forfeit?</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Are you sure you want to forfeit the game?
+            Are you sure you want to forfeit?
           </DialogContentText>
         </DialogContent>
         <DialogActions>

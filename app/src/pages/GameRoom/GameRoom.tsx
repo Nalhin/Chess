@@ -4,10 +4,29 @@ import Chat from './Chat/Chat.container';
 import styled from '@emotion/styled';
 import { GameRoomContainerProps } from './GameRoom.container';
 import GameLoader from './GameLoader/GameLoader';
+import { DndProvider } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+import TouchBackend from 'react-dnd-touch-backend';
+import MultiBackend, { TouchTransition } from 'react-dnd-multi-backend';
 
 const StyledContainer = styled.div`
   display: flex;
 `;
+
+const HTML5toTouch = {
+  backends: [
+    {
+      backend: HTML5Backend,
+    },
+    {
+      backend: TouchBackend,
+      options: {
+        enableMouseEvents: true,
+      },
+      transition: TouchTransition,
+    },
+  ],
+};
 
 interface Props extends GameRoomContainerProps {}
 
@@ -28,7 +47,9 @@ const GameRoom: React.FC<Props> = ({
 
   return (
     <StyledContainer>
-      <Game />
+      <DndProvider backend={MultiBackend} options={HTML5toTouch}>
+        <Game />
+      </DndProvider>
       <Chat />
     </StyledContainer>
   );

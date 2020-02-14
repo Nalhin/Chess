@@ -2,7 +2,6 @@ package com.chess.historyservice.dto;
 
 
 import com.chess.historyservice.models.Game;
-import com.chess.historyservice.models.external.PlayerColor;
 import lombok.*;
 
 import java.time.Duration;
@@ -22,7 +21,7 @@ public class GameWithTurnCountDto {
 
         private String whitePlayerName;
 
-        private PlayerColor winner;
+        private String winner;
 
         private LocalDateTime finishTime;
 
@@ -33,10 +32,10 @@ public class GameWithTurnCountDto {
 
         public static GameWithTurnCountDto mapToDto(Game game){
                 return GameWithTurnCountDto.builder()
-                        .blackPlayerName(game.getBlackPlayerName())
+                        .blackPlayerName(game.getBlackPlayer())
                         .duration(game.getDuration())
                         .finishTime(game.getFinishTime())
-                        .whitePlayerName(game.getWhitePlayerName())
+                        .whitePlayerName(game.getWhitePlayer())
                         .totalTurns(game.getTurns().size())
                         .winner(game.getWinner())
                         .gameId(game.getGameId())

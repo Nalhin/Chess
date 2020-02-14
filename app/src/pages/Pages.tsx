@@ -2,7 +2,6 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Navigation from './Navigation/Navigation.container';
 import ProtectedRoute from '../components/UnauthenticatedRoute/UnauthenticatedRoute';
-import NoMatch from './NoMatch/NoMatch';
 import Toasts from './Toaster/Toasts.container';
 import styled from '@emotion/styled';
 import { Routes } from '../interfaces/Router/Routes';
@@ -24,14 +23,15 @@ const MatchHistory = React.lazy(() =>
   import('./MatchHistory/MatchHistory.container'),
 );
 const Logout = React.lazy(() => import('./Logout/Logout'));
+const NoMatch = React.lazy(() => import('./NoMatch/NoMatch'));
 
 const Pages = () => {
   return (
     <div>
       <Navigation />
       <StyledContentContainer>
-        <Switch>
-          <React.Suspense fallback={<Loader isLoading />}>
+        <React.Suspense fallback={<Loader isLoading />}>
+          <Switch>
             <Route path={Routes.home} component={Home} exact />
             <ProtectedRoute path={Routes.logout} component={Logout} exact />
             <ProtectedRoute
@@ -60,9 +60,9 @@ const Pages = () => {
             />
             <ProtectedRoute path={Routes.signIn} component={SignIn} exact />
             <ProtectedRoute path={Routes.signUp} component={SignUp} exact />
-          </React.Suspense>
-          <Route component={NoMatch} />
-        </Switch>
+            <Route component={NoMatch} path="*" />
+          </Switch>
+        </React.Suspense>
       </StyledContentContainer>
       <Toasts />
     </div>

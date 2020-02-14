@@ -3,32 +3,32 @@ import { HomeContainerProps } from './Home.container';
 import styled from '@emotion/styled';
 import { Card, Typography, useTheme } from '@material-ui/core';
 import Board from '../GameRoom/Game/Board/Board';
-import { defaultBoardState } from './defaultBoardState';
+import {
+  defaultBoardState,
+  emptyBoard,
+} from '../../components/BoardStateless/defaultBoardState';
 import Queue from './Queue/Queue.container';
 import Info from './Info';
+import mixins from '../../styles/mixins';
+import BoardStateless from '../../components/BoardStateless/BoardStateless';
+import { StyledPageTitle } from '../../components/StyledPageTitle/StyledPageTitle';
 
 const StyledContainer = styled.div`
   margin: 0 auto;
   text-align: center;
 `;
 
-const StyledHeader = styled(Typography)`
-  padding: ${props => props.theme.spacing(3)}px 0
-    ${props => props.theme.spacing(3)}px;
-`;
-
 const StyledBoardContainer = styled.div`
+  ${mixins.flexCenter};
   position: relative;
 `;
 
+const StyledCardWrapper = styled.div`
+  ${mixins.absoluteCenter}
+  ${mixins.flexCenter};
+`;
+
 const StyledCard = styled(Card)`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   padding: ${props => props.theme.spacing(3)}px;
 `;
 
@@ -39,28 +39,16 @@ const Home: React.FC<Props> = ({ isAuthenticated, registerUser }) => {
 
   return (
     <StyledContainer data-testid="home">
-      <StyledHeader variant="h4" theme={theme}>
+      <StyledPageTitle variant="h4" theme={theme}>
         Chess
-      </StyledHeader>
+      </StyledPageTitle>
       <StyledBoardContainer>
-        <Board
-          boardState={defaultBoardState}
-          getAvailableMoves={null}
-          selectedPosition={null}
-          makeMove={null}
-          availableMoves={[]}
-          checkState={null}
-          currentPlayerColor={null}
-          userColor={null}
-          latestMove={{
-            destinationPosition: { x: -1, y: -1 },
-            initialPosition: { x: -1, y: -1 },
-          }}
-        />
-        <StyledCard theme={theme}>
-          <Typography variant="h6">Play!</Typography>
-          {isAuthenticated ? <Queue /> : <Info registerUser={registerUser} />}
-        </StyledCard>
+        <BoardStateless boardState={emptyBoard} />
+        <StyledCardWrapper>
+          <StyledCard theme={theme}>
+            {isAuthenticated ? <Queue /> : <Info registerUser={registerUser} />}
+          </StyledCard>
+        </StyledCardWrapper>
       </StyledBoardContainer>
     </StyledContainer>
   );

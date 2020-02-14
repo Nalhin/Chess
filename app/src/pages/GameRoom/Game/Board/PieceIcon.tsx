@@ -10,12 +10,13 @@ import mixins from '../../../../styles/mixins';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 
 interface ChessImageProps {
-  isDragging: boolean;
+  isDragging?: boolean;
 }
 
-const StyledChessImage = styled.img<ChessImageProps>`
+export const StyledChessImage = styled.img<ChessImageProps>`
   ${props => mixins.getCellSize(props)};
   opacity: ${props => props.isDragging && '0'};
+  position: absolute;
 `;
 
 interface Props {
@@ -27,18 +28,13 @@ interface Props {
   top?: number;
 }
 
-const PieceIcon: React.FC<Props> = ({
-  type,
-  pieceColor,
-  onDragBegin,
-  className,
-}) => {
+const PieceIcon: React.FC<Props> = ({ type, pieceColor, onDragBegin }) => {
   const pieceUrl = getPieceUrl(pieceColor, type);
   const theme = useTheme();
   const [{ isDragging }, drag, preview] = useDrag({
     item: {
       type: DragAndDropTypes.PIECE,
-      src: `/assets/images/chess/${pieceUrl}.png`,
+      src: pieceUrl,
     },
     begin: () => onDragBegin(),
     collect: (monitor: DragSourceMonitor) => ({
@@ -54,9 +50,8 @@ const PieceIcon: React.FC<Props> = ({
     <StyledChessImage
       ref={drag}
       theme={theme}
-      src={`/assets/images/chess/${pieceUrl}.png`}
-      alt={`${type} ${pieceColor}`}
-      className={className}
+      src={pieceUrl}
+      alt={`${pieceColor} ${type}`}
       isDragging={isDragging}
     />
   );

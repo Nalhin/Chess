@@ -1,6 +1,5 @@
 package com.chess.gameservice.messages.kafka;
 
-import com.chess.gameservice.game.player.PlayerColor;
 import com.chess.gameservice.game.turn.GameTurn;
 import lombok.*;
 
@@ -16,6 +15,6 @@ public class HistoryMessage {
     private ArrayList<GameTurn> gameTurns;
     private String blackPlayer;
     private String whitePlayer;
-    private PlayerColor winner;
+    private String winner;
     private Duration duration;
 }

@@ -4,10 +4,8 @@ import React from 'react';
 import Cookies from 'js-cookie';
 
 export const useColorTheme = () => {
-  const darkModeCookie = Cookies.get('isDarkMode');
-  const { isDarkTheme } = darkModeCookie
-    ? JSON.parse(darkModeCookie)
-    : { isDarkTheme: undefined };
+  const darkModeCookie = Cookies.get('isDarkTheme');
+  const isDarkTheme = darkModeCookie ? JSON.parse(darkModeCookie) : null;
   const isDarkThemePreferred = useMediaQuery('(prefers-color-scheme: dark)');
   const prefersDarkMode = isDarkTheme ?? isDarkThemePreferred;
   const mode = prefersDarkMode ? ColorTheme.Dark : ColorTheme.Light;
@@ -16,11 +14,7 @@ export const useColorTheme = () => {
   const changeColorTheme = () => {
     const isOldThemeDark = colorTheme === ColorTheme.Dark;
     setColorTheme(isOldThemeDark ? ColorTheme.Light : ColorTheme.Dark);
-    Cookies.set(
-      ' isDarkTheme',
-      { isDarkMode: !isOldThemeDark },
-      { expires: 7 },
-    );
+    Cookies.set('isDarkTheme', String(!isOldThemeDark), { expires: 7 });
   };
 
   return { colorTheme, changeColorTheme };

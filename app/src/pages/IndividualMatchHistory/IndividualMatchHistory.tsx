@@ -46,7 +46,6 @@ const IndividualMatchHistory: React.FC<Props> = ({
           <ArrowBackIcon />
         </StyledBackIcon>
       )}
-
       {individualGame && <IndividualMatch game={individualGame} />}
     </StyledLoader>
   );

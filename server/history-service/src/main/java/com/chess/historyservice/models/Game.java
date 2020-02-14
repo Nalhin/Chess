@@ -1,18 +1,22 @@
 package com.chess.historyservice.models;
 
-import com.chess.historyservice.models.external.PlayerColor;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @Entity
 @Table(name = "games")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Game {
 
     @Id
@@ -22,16 +26,16 @@ public class Game {
     @Column(name = "id")
     private Long gameId;
 
-    @Column(name="black_player_name")
-    private String blackPlayerName;
+    @Column(name="black_player")
+    private String blackPlayer;
 
-    @Column(name="white_player_name")
-    private String whitePlayerName;
+    @Column(name="white_player")
+    private String whitePlayer;
 
-    private PlayerColor winner;
+    private String winner;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "game",fetch = FetchType.EAGER)
-    private List<Turn> turns = new ArrayList<>();
+    private List<Turn> turns;
 
     @Column(name="finish_time")
     @CreationTimestamp

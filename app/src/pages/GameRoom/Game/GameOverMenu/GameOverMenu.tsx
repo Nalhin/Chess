@@ -12,6 +12,10 @@ const StyledContainer = styled.div`
   padding: ${props => props.theme.spacing(2)}px;
 `;
 
+const StyledTypography = styled(Typography)`
+  padding-bottom: ${props => props.theme.spacing(2)}px;
+`;
+
 interface Props {
   isShown: boolean;
   closeGame: () => void;
@@ -27,11 +31,11 @@ const GameOverMenu: React.FC<Props> = ({ isShown, closeGame, isWinner }) => {
   };
 
   return (
-    <GameMenu isShown={isShown} header={'Game Over'}>
+    <GameMenu isShown={isShown} header={'Game over!'}>
       <StyledContainer theme={theme}>
-        <Typography variant="h4">
+        <StyledTypography variant="h4" theme={theme}>
           {isWinner ? 'You won' : 'You lost'}
-        </Typography>
+        </StyledTypography>
         <Button color="primary" onClick={goToMainMenu} variant="contained">
           Go to main menu
         </Button>

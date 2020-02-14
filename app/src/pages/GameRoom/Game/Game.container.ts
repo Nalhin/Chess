@@ -35,7 +35,7 @@ const mapDispatchToProps = (dispatch: Dispatch<RootAction>) =>
   bindActionCreators(
     {
       initGame: initGameRequested,
-      getAvailableMoves: getAvailableMoves,
+      getAvailableMoves,
       makeMove: makeMoveRequested,
       promotePawn,
       closeGame,

@@ -1,7 +1,7 @@
 package com.chess.historyservice.services;
 
 import com.chess.historyservice.models.Game;
-import com.chess.historyservice.repositories.GameRepository;
+import com.chess.historyservice.repositories.HistoryRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,20 +12,15 @@ import java.util.Optional;
 @AllArgsConstructor
 public class HistoryServiceImpl implements HistoryService {
 
-    GameRepository gameRepository;
-
-    @Override
-    public Game save(Game game) {
-        return gameRepository.save(game);
-    }
+    HistoryRepository historyRepository;
 
     @Override
     public List<Game> findAllGamesByUserLogin(String userLogin) {
-        return gameRepository.findAllByWhitePlayerNameOrBlackPlayerName(userLogin ,userLogin);
+        return historyRepository.findAllByWhitePlayerNameOrBlackPlayerName(userLogin ,userLogin);
     }
 
     @Override
     public Optional<Game> findGameById(Long gameId) {
-        return gameRepository.findById(gameId);
+        return historyRepository.findById(gameId);
     }
 }

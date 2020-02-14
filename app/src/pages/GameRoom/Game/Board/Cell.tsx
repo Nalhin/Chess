@@ -12,14 +12,14 @@ import { useTheme } from '@material-ui/core';
 import { ColorTheme } from '../../../../interfaces/Styles/ColorTheme';
 
 interface StyledCellProps {
-  isChecked: boolean;
-  isHoverShown: boolean;
-  isSelected: boolean;
-  canBeAttacked: boolean;
-  isLatestMove: boolean;
+  isChecked?: boolean;
+  isHoverShown?: boolean;
+  isSelected?: boolean;
+  canBeAttacked?: boolean;
+  isLatestMove?: boolean;
 }
 
-const StyledCell = styled.div<StyledCellProps>`
+export const StyledCell = styled.div<StyledCellProps>`
   ${mixins.flexCenter};
   position: relative;
   &:nth-of-type(16n + 1),
@@ -60,17 +60,13 @@ const StyledCell = styled.div<StyledCellProps>`
   ${props => props.isHoverShown && 'cursor:pointer'};
 `;
 
-const StyledOverlay = styled.div`
+export const StyledOverlay = styled.div`
   transition: none;
   position: absolute;
   width: 40%;
   height: 40%;
   border-radius: 50%;
   background: ${props => `${props.theme.palette.grey['600']}bb`};
-`;
-
-const StyledPieceIcon = styled(PieceIcon)`
-  position: absolute;
 `;
 
 interface CellProps {
@@ -147,7 +143,7 @@ const Cell: React.FC<CellProps> = ({
       isLatestMove={isLatestMove}
     >
       {type && (
-        <StyledPieceIcon
+        <PieceIcon
           onDragBegin={onDragBegin}
           pieceColor={pieceColor}
           type={type}

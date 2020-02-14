@@ -14,6 +14,6 @@ public class HistoryMessage {
     private ArrayList<GameTurn> gameTurns;
     private String blackPlayer;
     private String whitePlayer;
-    private PlayerColor winner;
+    private String winner;
     private Duration duration;
 }

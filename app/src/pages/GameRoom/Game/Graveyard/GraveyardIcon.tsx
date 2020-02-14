@@ -18,12 +18,11 @@ interface Props {
 
 const GraveyardIcon: React.FC<Props> = ({ type, playerColor }) => {
   const theme = useTheme();
-  const pieceUrl = getPieceUrl(playerColor, type);
 
   return (
     <PieceTooltip pieceType={type}>
       <StyledChessImage
-        src={`/assets/images/chess/${pieceUrl}.png`}
+        src={getPieceUrl(playerColor, type)}
         alt={`${type} ${playerColor}`}
         theme={theme}
       />

@@ -10,8 +10,8 @@ import { PlayerColor } from '../../../../interfaces/Game/Player';
 import { LatestMove } from '../../../../interfaces/Game/LatestMove';
 import BoardDragLayer from './BoardDragLayer';
 
-const StyledBoardContainer = styled.div`
-  display: inline-grid;
+export const StyledBoardContainer = styled.div`
+  display: grid;
   grid-template-columns: repeat(8, 1fr);
   grid-template-rows: repeat(8, 1fr);
   position: relative;

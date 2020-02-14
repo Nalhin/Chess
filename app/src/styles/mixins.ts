@@ -7,7 +7,7 @@ interface Props {
 const cellSizes = {
   desktop: '5rem',
   tablet: '3.5rem',
-  mobile: '2rem',
+  mobile: '2.5rem',
 };
 
 export const getCellSize = (props: Props): SerializedStyles => {

@@ -38,7 +38,7 @@ const PromotionPiece: React.FC<Props> = ({
     <PieceTooltip pieceType={pieceType}>
       <StyledImage
         onClick={onClick}
-        src={`/assets/images/chess/${getPieceUrl(playerColor, pieceType)}.png`}
+        src={getPieceUrl(playerColor, pieceType)}
         alt={`${playerColor} ${pieceType}`}
         theme={theme}
       />

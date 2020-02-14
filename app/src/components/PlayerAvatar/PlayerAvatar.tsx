@@ -20,7 +20,7 @@ const PlayerAvatar: React.FC<Props> = ({
     : `${userImagePath}${name}.jpg`;
   return (
     <Avatar className={className} alt={name} src={src} variant={variant}>
-      {name[0].toUpperCase()}
+      {name ? name[0].toUpperCase() : ''}
     </Avatar>
   );
 };
