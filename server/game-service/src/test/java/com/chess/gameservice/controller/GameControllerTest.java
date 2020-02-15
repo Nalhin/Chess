@@ -86,7 +86,7 @@ class GameControllerTest {
     private final String MAKE_MOVE_ENDPOINT = "/app/move/";
     private final String AVAILABLE_MOVES_ENDPOINT = "/app/available-moves/";
     private final String FORFEIT_ENDPOINT = "/app/forfeit/";
-    private final String PROMOTION_ENDPOINT="/app/promotion/";
+    private final String PROMOTION_ENDPOINT = "/app/promotion/";
 
 
     private LinkedBlockingDeque<JSONObject> blockingQueue;
@@ -124,8 +124,7 @@ class GameControllerTest {
         stompHeaders.setDestination(CONNECT_TO_GAME_ENDPOINT + gameId);
         stompHeaders.set("name", firstPlayerName);
         stompSession.send(stompHeaders, null);
-
-        Thread.sleep(1000); //Ensure that first player connects first
+        blockingQueue.poll(10, SECONDS);
 
         stompHeaders.set("name", secondPlayerName);
         stompSession.send(stompHeaders, null);
@@ -145,7 +144,7 @@ class GameControllerTest {
     }
 
     @Test
-    void isGamePresent() throws InterruptedException, JsonProcessingException {
+    void isGamePresent() throws InterruptedException {
         startGame();
         blockingQueue.poll(10, SECONDS);
 
@@ -154,8 +153,8 @@ class GameControllerTest {
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         ResponseEntity<GamePresentMessage> response = restTemplate
-                .getForEntity("http://localhost:"+port+"/game/is-game-present/"+firstPlayerName,
-                GamePresentMessage.class);
+                .getForEntity("http://localhost:" + port + "/game/is-game-present/" + firstPlayerName,
+                        GamePresentMessage.class);
 
         assertNotNull(response.getBody());
         assertTrue(response.getBody().isPresent());
@@ -195,7 +194,7 @@ class GameControllerTest {
         blockingQueue.poll(10, SECONDS);
         stompHeaders.setDestination(FORFEIT_ENDPOINT + gameId);
         stompHeaders.set("name", firstPlayerName);
-        stompSession.send(stompHeaders,null);
+        stompSession.send(stompHeaders, null);
 
         JSONObject forfeitMessage = blockingQueue.poll(10, SECONDS);
 
