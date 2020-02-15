@@ -16,9 +16,11 @@ import com.chess.gameservice.messages.payloads.PlayerMovePayload;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
+import java.time.Duration;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Optional;
@@ -56,7 +58,7 @@ public class GameService {
             throw new GameException("Player not in game.");
         }
         game.forfeit(playerName);
-        gameFinished(game, gameId);
+        gameFinished(gameId);
         return game;
     }
 
@@ -104,7 +106,7 @@ public class GameService {
         Player player = new Player(playerName);
         game.makeMove(playerMovePayload, player);
         if (game.isOver()) {
-            gameFinished(game, gameId);
+            gameFinished(gameId);
         }
         return game;
     }
@@ -119,11 +121,11 @@ public class GameService {
     public Game playerOutOfTime(UUID gameId) {
         Game game = games.get(gameId);
         game.playerTimedOutOrOutOfTime();
-        gameFinished(game, gameId);
+        gameFinished(gameId);
         return game;
     }
 
-    public Game aiMove(UUID gameId) throws GameException {
+    public Game makeAiMove(UUID gameId) throws GameException {
         Game game = games.get(gameId);
         Player player = new Player("Computer");
         if (game.getBoard().getPositionAwaitingPromotion() == null) {
@@ -138,7 +140,21 @@ public class GameService {
 
     }
 
-    public synchronized void gameFinished(Game game, UUID gameId) {
+    @Scheduled(fixedDelay = 3600000)
+    public synchronized void removeInactiveGames() {
+        ArrayList<UUID> gamesToRemove = new ArrayList<>();
+        for (Game game : games.values()) {
+            Duration duration = Duration.between(LocalDate.now(), game.getStartTime());
+            if (Math.abs(duration.toMinutes()) > 60) {
+                gamesToRemove.add(game.getGameId());
+            }
+        }
+        gamesToRemove.forEach(games::remove);
+    }
+
+
+    public synchronized void gameFinished(UUID gameId) {
+        Game game = games.get(gameId);
         applicationEventPublisher.publishEvent(new GameOverEvent(this, game));
         games.remove(gameId);
     }

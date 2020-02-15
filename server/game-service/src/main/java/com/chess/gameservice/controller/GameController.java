@@ -10,7 +10,6 @@ import com.chess.gameservice.messages.socket.*;
 import com.chess.gameservice.service.GameService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.ApplicationListener;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.*;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -59,7 +58,7 @@ public class GameController implements ApplicationListener<PlayerOutOfTimeEvent>
     }
 
     public void makeMoveAi(String gameId) throws GameException {
-        Game game = gameService.aiMove(UUID.fromString(gameId));
+        Game game = gameService.makeAiMove(UUID.fromString(gameId));
         if (game != null) {
             PlayerMovedMessage playerMovedMessage = new PlayerMovedMessage();
             playerMovedMessage.setPayload(game);

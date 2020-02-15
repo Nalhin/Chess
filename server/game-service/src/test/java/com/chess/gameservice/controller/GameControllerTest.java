@@ -4,10 +4,10 @@ import com.chess.gameservice.game.position.Position;
 import com.chess.gameservice.messages.external.StartGameMessage;
 import com.chess.gameservice.messages.external.User;
 import com.chess.gameservice.messages.payloads.PlayerMovePayload;
+import com.chess.gameservice.messages.rest.GamePresentMessage;
 import com.chess.gameservice.messages.socket.MessageTypes;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.JsonObject;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.json.JSONException;
@@ -19,8 +19,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
@@ -50,15 +54,14 @@ import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.TimeoutException;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @Tag("integration-test")
 @ActiveProfiles("test")
 @EmbeddedKafka(topics = "start-game")
 @DirtiesContext
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class GameControllerTestIntegrationTest {
+class GameControllerTest {
 
 
     @Autowired
@@ -82,6 +85,8 @@ class GameControllerTestIntegrationTest {
     private final String CONNECT_TO_GAME_ENDPOINT = "/app/connect/";
     private final String MAKE_MOVE_ENDPOINT = "/app/move/";
     private final String AVAILABLE_MOVES_ENDPOINT = "/app/available-moves/";
+    private final String FORFEIT_ENDPOINT = "/app/forfeit/";
+    private final String PROMOTION_ENDPOINT="/app/promotion/";
 
 
     private LinkedBlockingDeque<JSONObject> blockingQueue;
@@ -139,6 +144,22 @@ class GameControllerTestIntegrationTest {
         subscription.unsubscribe();
     }
 
+    @Test
+    void isGamePresent() throws InterruptedException, JsonProcessingException {
+        startGame();
+        blockingQueue.poll(10, SECONDS);
+
+        TestRestTemplate restTemplate = new TestRestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        ResponseEntity<GamePresentMessage> response = restTemplate
+                .getForEntity("http://localhost:"+port+"/game/is-game-present/"+firstPlayerName,
+                GamePresentMessage.class);
+
+        assertNotNull(response.getBody());
+        assertTrue(response.getBody().isPresent());
+    }
 
     @Test
     void makeMove() throws InterruptedException, JSONException, JsonProcessingException {
@@ -154,7 +175,7 @@ class GameControllerTestIntegrationTest {
 
         blockingQueue.poll(10, SECONDS);
 
-        byte[]  secondPlayerMove = objectMapper.writeValueAsBytes(new PlayerMovePayload(new Position(1, 0), new Position(2, 0)));
+        byte[] secondPlayerMove = objectMapper.writeValueAsBytes(new PlayerMovePayload(new Position(1, 0), new Position(2, 0)));
         stompHeaders.setDestination(MAKE_MOVE_ENDPOINT + gameId);
         stompHeaders.set("name", secondPlayerName);
         stompSession.send(stompHeaders, secondPlayerMove);
@@ -163,6 +184,23 @@ class GameControllerTestIntegrationTest {
 
         assertNotNull(secondPlayerMessage);
         assertEquals(MessageTypes.PLAYER_MOVED.toString(), secondPlayerMessage.get("type"));
+        subscription.unsubscribe();
+    }
+
+    @Test
+    void forfeit() throws InterruptedException, JSONException {
+        Subscription subscription = stompSession.subscribe(SUBSCRIBE_STATE_ENDPOINT + gameId, new CreateStompFrameHandler());
+
+        startGame();
+        blockingQueue.poll(10, SECONDS);
+        stompHeaders.setDestination(FORFEIT_ENDPOINT + gameId);
+        stompHeaders.set("name", firstPlayerName);
+        stompSession.send(stompHeaders,null);
+
+        JSONObject forfeitMessage = blockingQueue.poll(10, SECONDS);
+
+        assertNotNull(forfeitMessage);
+        assertEquals(MessageTypes.GAME_FORFEIT.toString(), forfeitMessage.get("type"));
         subscription.unsubscribe();
     }
 

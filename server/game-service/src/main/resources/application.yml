@@ -21,6 +21,7 @@ spring:
   kafka:
     bootstrap-servers: localhost:9092
 
+
 ---
 
 spring:
@@ -30,4 +31,3 @@ eureka:
   client:
     registerWithEureka: false
     fetchRegistry: false
-

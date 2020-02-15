@@ -111,6 +111,7 @@ class QueueControllerTest {
         stompHeaders.setDestination(JOIN_QUEUE_ENDPOINT);
         stompHeaders.set("name", firstPlayerName);
         stompSession.send(stompHeaders, null);
+        Thread.sleep(1000); //ensure that first message was delivered
         stompHeaders.set("name", secondPlayerName);
         stompSession.send(stompHeaders, null);
         JSONObject message = blockingQueue.poll(10, SECONDS);
