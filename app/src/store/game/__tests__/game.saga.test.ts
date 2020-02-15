@@ -14,6 +14,10 @@ jest.mock('../../../websocket/stompClient', () => ({
   },
 }));
 
+beforeEach(() => {
+  jest.clearAllMocks();
+});
+
 describe('initGameSaga', () => {
   it('Should run correctly', () => {
     const mockStomp = new MockStomp();

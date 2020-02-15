@@ -44,10 +44,20 @@ export interface LeaveQueueAction {
 
 export interface QueueLeftAction {
   type: typeof QueueActionTypes.QUEUE_LEFT;
+  payload: {
+    name: string;
+  };
 }
 
-export interface JoinQueueAi {
+export interface JoinQueueAiAction {
   type: typeof QueueActionTypes.JOIN_QUEUE_AI;
+}
+
+export interface QueueErrorAction {
+  type: typeof QueueActionTypes.QUEUE_ERROR;
+  payload: {
+    error: string;
+  };
 }
 
 export type QueueActions =
@@ -56,4 +66,5 @@ export type QueueActions =
   | QueueJoinedAction
   | LeaveQueueAction
   | QueueLeftAction
-  | JoinQueueAi;
+  | JoinQueueAiAction
+  | QueueErrorAction;

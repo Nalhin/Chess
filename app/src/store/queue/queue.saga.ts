@@ -4,7 +4,7 @@ import { race, select, take, takeEvery } from '@redux-saga/core/effects';
 import { userSelector } from '../user/user.selectors';
 import {
   JoinQueueAction,
-  JoinQueueAi,
+  JoinQueueAiAction,
   LeaveQueueAction,
   QueueActionTypes,
   QueueGameFoundAction,
@@ -22,6 +22,7 @@ import { isInQueueSelector } from './queue.selectors';
 import { Routes } from '../../interfaces/Router/Routes';
 import { fetchJoinQueueAi } from './queue.api';
 import { queueGameFound } from './queue.actions';
+import { generateErrorMessage } from '../../utils/generateErrorMessage';
 
 export function* queueRootSaga() {
   yield all([
@@ -73,7 +74,7 @@ export function* leaveQueueSaga(action: LeaveQueueAction) {
   });
 }
 
-export function* joinQueueAiSaga(action: JoinQueueAi) {
+export function* joinQueueAiSaga(action: JoinQueueAiAction) {
   const { login } = yield select(userSelector);
   try {
     const response = yield call(fetchJoinQueueAi, login);
@@ -81,7 +82,11 @@ export function* joinQueueAiSaga(action: JoinQueueAi) {
       queueGameFoundSaga,
       queueGameFound(response.data.payload.gameId),
     );
-  } catch (e) {}
+  } catch (e) {
+    yield put(
+      addToast(generateToast(generateErrorMessage(e), ToastTypes.Error)),
+    );
+  }
 }
 
 export function* queueGameFoundSaga(action: QueueGameFoundAction) {

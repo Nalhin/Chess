@@ -170,7 +170,7 @@ describe('logoutSaga', () => {
 
     expect(Cookies.remove).toHaveBeenCalledTimes(1);
   });
-  it('should put correct actions', () => {
+  it('should dispatch correct actions', () => {
     return expectSaga(logoutSaga)
       .put(push(Routes.logout))
       .put(closeChat())
