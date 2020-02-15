@@ -32,13 +32,8 @@ export const loginUserSucceeded = (user: User): LoginUserSucceededAction => ({
   },
 });
 
-export const loginUserFailedAction = (
-  error: string,
-): LoginUserFailedAction => ({
+export const loginUserFailed = (): LoginUserFailedAction => ({
   type: UserActionTypes.LOGIN_USER_FAILED,
-  payload: {
-    error,
-  },
 });
 
 export const registerUserRequested = (
@@ -59,16 +54,11 @@ export const registerUserSucceeded = (
   },
 });
 
-export const registerUserFailedAction = (
-  error: string,
-): RegisterUserFailedAction => ({
+export const registerUserFailed = (): RegisterUserFailedAction => ({
   type: UserActionTypes.REGISTER_USER_FAILED,
-  payload: {
-    error,
-  },
 });
 
-export const authenticationSucceededAction = (
+export const authenticationSucceeded = (
   user: User,
 ): AuthenticationSucceededAction => ({
   type: UserActionTypes.AUTHENTICATION_SUCCEEDED,

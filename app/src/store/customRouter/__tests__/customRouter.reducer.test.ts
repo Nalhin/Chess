@@ -2,7 +2,7 @@ import customRouterReducer, {
   CUSTOM_ROUTER_INITIAL_STATE,
 } from '../customRouter.reducer';
 import produce from 'immer';
-import { mockLocation } from '../../../../test/fixtures/router/location';
+import { fakeLocation } from '../../../../test/fixtures/router/location';
 import { LocationChangeAction } from 'connected-react-router';
 import { CustomRouterActionTypes } from '../customRouter.types';
 
@@ -12,13 +12,13 @@ describe('customRouter.reducer', () => {
       ...CUSTOM_ROUTER_INITIAL_STATE,
     };
     const expectedState = produce(CUSTOM_ROUTER_INITIAL_STATE, draft => {
-      draft.previousLocations.push(mockLocation);
+      draft.previousLocations.push(fakeLocation);
     });
 
     const action: LocationChangeAction = {
       type: CustomRouterActionTypes.LOCATION_CHANGE,
       payload: {
-        location: mockLocation,
+        location: fakeLocation,
         isFirstRendering: false,
         action: 'PUSH',
       },

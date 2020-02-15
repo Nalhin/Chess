@@ -5,14 +5,16 @@ import { RootAction } from '../../store/rootAction';
 import { connect } from 'react-redux';
 import { getHistoryGameByIdRequested } from '../../store/matchHistory/matchHistory.actions';
 import MatchDetailsPage from './MatchDetailsPage';
-import { shouldDisplayBack } from '../../store/customRouter/customRouter.selectors';
+import { shouldDisplayBackSelector } from '../../store/customRouter/customRouter.selectors';
 import { Routes } from '../../interfaces/Router/Routes';
 import { userSelector } from '../../store/user/user.selectors';
 
 const mapStateToProps = (state: AppState) => {
   const matchDetails = state.matchHistory.matchDetails.data;
   const isLoading = state.matchHistory.matchDetails.isLoading;
-  const shouldDisplayBackButton = shouldDisplayBack(state, Routes.matchHistory);
+  const shouldDisplayBackButton = shouldDisplayBackSelector(
+    Routes.matchHistory,
+  );
   const user = userSelector(state);
   return {
     matchDetails,

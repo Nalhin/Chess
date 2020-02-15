@@ -19,7 +19,7 @@ export const queueJoined = (timeJoined: string): QueueJoinedAction => ({
   },
 });
 
-export const gameFound = (gameId: string): QueueGameFoundAction => ({
+export const queueGameFound = (gameId: string): QueueGameFoundAction => ({
   type: QueueActionTypes.QUEUE_GAME_FOUND,
   payload: {
     gameId,

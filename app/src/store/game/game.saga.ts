@@ -32,7 +32,7 @@ import { generateToast } from '../../utils/toastFactory';
 import { ToastTypes } from '../../interfaces/Toaster/ToastTypes';
 import { closeChat, initChat } from '../chat/chat.actions';
 import { CustomRouterActionTypes } from '../customRouter/customRouter.types';
-import { didRouteChange } from '../customRouter/customRouter.selectors';
+import { didRouteChangeSelector } from '../customRouter/customRouter.selectors';
 
 export function* gameRootSaga(): SagaIterator {
   yield all([
@@ -97,7 +97,7 @@ export function* initGameSaga(action: InitGameAction) {
   let isOver = false;
   while (!isOver) {
     yield take(CustomRouterActionTypes.LOCATION_CHANGE);
-    isOver = yield select(didRouteChange);
+    isOver = yield select(didRouteChangeSelector);
   }
 
   yield put(clearGame());

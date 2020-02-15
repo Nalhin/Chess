@@ -1,4 +1,4 @@
-export const mockLocation = {
+export const fakeLocation = {
   pathname: 'pathname',
   search: '',
   state: '',

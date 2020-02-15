@@ -3,11 +3,11 @@ import { ChatMessageTypes } from '../../interfaces/Chat/ChatMessage';
 import { createSelector } from 'reselect';
 import { userSelector } from '../user/user.selectors';
 
-export const chatPureMessagesSelector = (state: AppState) =>
+export const chatUnmodifiedMessagesSelector = (state: AppState) =>
   state.chat.messages;
 
 export const chatMessagesSelector = createSelector(
-  chatPureMessagesSelector,
+  chatUnmodifiedMessagesSelector,
   userSelector,
   (messages, user) => {
     return messages

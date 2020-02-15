@@ -2,6 +2,7 @@ import { SagaIterator } from '@redux-saga/core';
 import { all, takeEvery } from '@redux-saga/core/effects';
 import {
   LoginUserRequestedAction,
+  LogoutUserAction,
   RegisterUserRequestedAction,
   UserActionTypes,
 } from './user.types';
@@ -12,10 +13,10 @@ import {
 } from './user.api';
 import { call, fork, put } from 'redux-saga-test-plan/matchers';
 import {
-  authenticationSucceededAction,
-  loginUserFailedAction,
+  authenticationSucceeded,
+  loginUserFailed,
   loginUserSucceeded,
-  registerUserFailedAction,
+  registerUserFailed,
   registerUserSucceeded,
   setToken,
 } from './user.actions';
@@ -51,10 +52,10 @@ export function* loginUserSaga(action: LoginUserRequestedAction) {
       ),
     );
   } catch (e) {
+    yield put(loginUserFailed());
     yield put(
       addToast(generateToast(generateErrorMessage(e), ToastTypes.Error)),
     );
-    yield put(registerUserFailedAction('error'));
   }
 }
 
@@ -72,7 +73,7 @@ export function* registerUserSaga(action: RegisterUserRequestedAction) {
     yield put(
       addToast(generateToast(generateErrorMessage(e), ToastTypes.Error)),
     );
-    yield put(loginUserFailedAction(generateErrorMessage(e)));
+    yield put(registerUserFailed());
   }
 }
 
@@ -84,15 +85,14 @@ export function* authenticateUserSaga() {
     }
     yield put(setToken(token));
     const response = yield call(fetchAuthenticateUser, token);
-    yield put(authenticationSucceededAction(response.data));
+    yield put(authenticationSucceeded(response.data));
   } catch (e) {
     Cookies.remove('token');
     yield put(setToken(''));
-    return;
   }
 }
 
-export function* logoutSaga() {
+export function* logoutSaga(action: LogoutUserAction) {
   Cookies.remove('token');
   yield put(push(Routes.logout));
   yield put(closeChat());

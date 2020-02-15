@@ -3,7 +3,7 @@ import produce from 'immer';
 import { fakeChatMessage } from '../../../../test/fixtures/chat/chatMessage';
 import { closeChat, initChat, newMessageReceived } from '../chat.actions';
 
-describe('Chat Reducer', () => {
+describe('Chat reducer', () => {
   it('Should handle INIT_CHAT action', () => {
     const chatId = 'cad20f64-f6c2-46e0-b334-397790dbf69c';
     const initialState = {

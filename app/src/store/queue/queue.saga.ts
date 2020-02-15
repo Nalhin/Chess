@@ -21,7 +21,7 @@ import { ToastTypes } from '../../interfaces/Toaster/ToastTypes';
 import { isInQueueSelector } from './queue.selectors';
 import { Routes } from '../../interfaces/Router/Routes';
 import { fetchJoinQueueAi } from './queue.api';
-import { gameFound } from './queue.actions';
+import { queueGameFound } from './queue.actions';
 
 export function* queueRootSaga() {
   yield all([
@@ -77,7 +77,10 @@ export function* joinQueueAiSaga(action: JoinQueueAi) {
   const { login } = yield select(userSelector);
   try {
     const response = yield call(fetchJoinQueueAi, login);
-    yield fork(queueGameFoundSaga, gameFound(response.data.payload.gameId));
+    yield fork(
+      queueGameFoundSaga,
+      queueGameFound(response.data.payload.gameId),
+    );
   } catch (e) {}
 }
 

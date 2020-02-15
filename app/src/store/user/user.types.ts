@@ -40,9 +40,6 @@ export interface LoginUserSucceededAction {
 
 export interface LoginUserFailedAction {
   type: typeof UserActionTypes.LOGIN_USER_FAILED;
-  payload: {
-    error: string;
-  };
 }
 
 export interface RegisterUserRequestedAction {
@@ -61,9 +58,6 @@ export interface RegisterUserSucceededAction {
 
 export interface RegisterUserFailedAction {
   type: typeof UserActionTypes.REGISTER_USER_FAILED;
-  payload: {
-    error: string;
-  };
 }
 
 export interface AuthenticationSucceededAction {

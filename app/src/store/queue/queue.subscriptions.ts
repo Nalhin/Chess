@@ -1,7 +1,7 @@
 import { RxStomp } from '@stomp/rx-stomp';
 import { map } from 'rxjs/operators';
 import { QueueActionTypes } from './queue.types';
-import { gameFound, queueJoined, queueLeft } from './queue.actions';
+import { queueGameFound, queueJoined, queueLeft } from './queue.actions';
 import { store } from '../store';
 import { addToast } from '../toaster/toaster.action';
 import { generateToast } from '../../utils/toastFactory';
@@ -27,7 +27,7 @@ export const queuePersonalSubscription = (stomp: RxStomp, login: string) => {
           );
           break;
         case QueueActionTypes.QUEUE_GAME_FOUND:
-          store.dispatch(gameFound(payload.gameId));
+          store.dispatch(queueGameFound(payload.gameId));
           break;
         case QueueActionTypes.QUEUE_LEFT:
           store.dispatch(queueLeft());

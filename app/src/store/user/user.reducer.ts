@@ -16,8 +16,6 @@ const userReducer: Reducer<UserState, UserActions> = (
 ) => {
   return produce(state, draft => {
     switch (action.type) {
-      case UserActionTypes.LOGIN_USER_REQUESTED:
-        break;
       case UserActionTypes.LOGIN_USER_SUCCEEDED:
       case UserActionTypes.REGISTER_USER_SUCCEEDED:
       case UserActionTypes.AUTHENTICATION_SUCCEEDED:
@@ -27,12 +25,6 @@ const userReducer: Reducer<UserState, UserActions> = (
         break;
       case UserActionTypes.SET_TOKEN:
         draft.data.token = action.payload.token;
-        break;
-      case UserActionTypes.LOGIN_USER_FAILED:
-        break;
-      case UserActionTypes.REGISTER_USER_REQUESTED:
-        break;
-      case UserActionTypes.REGISTER_USER_FAILED:
         break;
       case UserActionTypes.LOGOUT_USER:
         draft.data = USER_INITIAL_STATE.data;

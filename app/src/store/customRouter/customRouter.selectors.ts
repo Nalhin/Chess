@@ -1,18 +1,27 @@
 import { AppState } from '../rootReducer';
+import { createSelector } from 'reselect';
 
-export const shouldDisplayBack = (state: AppState, path: string) =>
-  state.customRouter.previousLocations.length >= 2 &&
-  state.customRouter.previousLocations[
-    state.customRouter.previousLocations.length - 2
-  ].pathname === path;
+const previousLocationsSelector = (state: AppState) =>
+  state.customRouter.previousLocations;
 
-export const didRouteChange = (state: AppState) => {
-  const length = state.customRouter.previousLocations.length;
-  if (length < 2) {
-    return false;
-  }
-  return (
-    state.customRouter.previousLocations[length - 1].pathname !==
-    state.customRouter.previousLocations[length - 2].pathname
+export const shouldDisplayBackSelector = (path: string) =>
+  createSelector(
+    previousLocationsSelector,
+    previousLocations =>
+      previousLocations.length >= 2 &&
+      previousLocations[previousLocations.length - 2].pathname === path,
   );
-};
+
+export const didRouteChangeSelector = createSelector(
+  previousLocationsSelector,
+  previousLocations => {
+    const length = previousLocations.length;
+    if (length < 2) {
+      return false;
+    }
+    return (
+      previousLocations[length - 1].pathname !==
+      previousLocations[length - 2].pathname
+    );
+  },
+);
