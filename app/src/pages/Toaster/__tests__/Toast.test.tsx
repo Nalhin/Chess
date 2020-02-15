@@ -29,11 +29,11 @@ describe('Snackbar Component', () => {
   it('Should fire onClose function when closeIcon is clicked', () => {
     const onClose = jest.fn();
     const id = '1';
-    const { getByTestId } = renderWithStyles(
+    const { getByLabelText } = renderWithStyles(
       <Toast {...props} onClose={onClose} id={id} />,
     );
 
-    fireEvent.click(getByTestId(/toast__close-icon/));
+    fireEvent.click(getByLabelText('Close'));
 
     expect(onClose).toHaveBeenCalledWith(id);
   });

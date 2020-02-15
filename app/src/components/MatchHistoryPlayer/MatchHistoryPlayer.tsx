@@ -13,7 +13,8 @@ const StyledContainer = styled.div`
 const StyledCrown = styled(Crown)`
   position: absolute;
   top: -36px;
-  left: 7px;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 1000;
   width: 50px;
   height: 50px;
@@ -22,10 +23,12 @@ const StyledCrown = styled(Crown)`
 const StyledPlayerAvatar = styled(PlayerAvatar)`
   width: 60px;
   height: 60px;
+  margin: 0 auto;
 `;
 
 const StyledAvatarContainer = styled.div`
   position: relative;
+  text-align: center;
 `;
 
 interface Props {

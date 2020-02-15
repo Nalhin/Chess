@@ -72,7 +72,7 @@ module.exports = env => ({
     new webpack.EnvironmentPlugin({ ...env }),
     new BundleAnalyzerPlugin({
       analyzerMode: 'disabled',
-      generateStatsFile: false,
+      generateStatsFile: true,
       statsOptions: { source: false },
     }),
   ],

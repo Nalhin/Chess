@@ -1,12 +1,8 @@
 import React from 'react';
 import { HomeContainerProps } from './Home.container';
 import styled from '@emotion/styled';
-import { Card, Typography, useTheme } from '@material-ui/core';
-import Board from '../GameRoom/Game/Board/Board';
-import {
-  defaultBoardState,
-  emptyBoard,
-} from '../../components/BoardStateless/defaultBoardState';
+import { Card, useTheme } from '@material-ui/core';
+import { emptyBoard } from '../../components/BoardStateless/defaultBoardState';
 import Queue from './Queue/Queue.container';
 import Info from './Info';
 import mixins from '../../styles/mixins';
@@ -40,7 +36,7 @@ const Home: React.FC<Props> = ({ isAuthenticated, registerUser }) => {
   return (
     <StyledContainer data-testid="home">
       <StyledPageTitle variant="h4" theme={theme}>
-        Chess
+        Play
       </StyledPageTitle>
       <StyledBoardContainer>
         <BoardStateless boardState={emptyBoard} />

@@ -6,15 +6,16 @@ import {
   ListItemIcon,
   ListItemText,
   SwipeableDrawer,
+  useTheme,
 } from '@material-ui/core';
 import HistoryIcon from '@material-ui/icons/History';
 import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import styled from '@emotion/styled';
-import { StyledLink } from '../../components/StyledLink/StyledLink';
 import { Routes } from '../../interfaces/Router/Routes';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
+import { Link } from 'react-router-dom';
 
 const StyledList = styled(List)`
   width: 220px;
@@ -22,6 +23,11 @@ const StyledList = styled(List)`
 
 const StyledDivider = styled(Divider)`
   height: 2px;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
 `;
 
 interface Props {
@@ -37,6 +43,7 @@ const NavigationDrawer: React.FC<Props> = ({
   isAuthenticated,
   logoutUser,
 }) => {
+  const theme = useTheme();
   return (
     <SwipeableDrawer
       open={isOpen}
@@ -60,7 +67,7 @@ const NavigationDrawer: React.FC<Props> = ({
                 <ListItemIcon>
                   <HistoryIcon />
                 </ListItemIcon>
-                <ListItemText primary="My matches" />
+                <ListItemText primary="Match history" />
               </ListItem>
             </StyledLink>
           )}
@@ -76,12 +83,12 @@ const NavigationDrawer: React.FC<Props> = ({
             </ListItem>
           ) : (
             <>
-              <StyledLink to={Routes.signIn}>
+              <StyledLink to={Routes.login}>
                 <ListItem button>
                   <ListItemIcon>
                     <ExitToAppIcon />
                   </ListItemIcon>
-                  <ListItemText primary="Sign in" />
+                  <ListItemText primary="Login" />
                 </ListItem>
               </StyledLink>
               <StyledLink to={Routes.signUp}>

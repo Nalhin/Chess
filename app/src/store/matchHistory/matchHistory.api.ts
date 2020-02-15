@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-export const fetchGetGamesByLogin = (login: string) =>
+export const fetchGetMatchHistory = (login: string) =>
   axios.get(`${process.env.BASE_API_URL}/history/games/${login}`);
 
-export const fetchGetGameById = (id: string) =>
+export const fetchGetMatchDetails = (id: string) =>
   axios.get(`${process.env.BASE_API_URL}/history/game/${id}`);

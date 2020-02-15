@@ -5,10 +5,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Data
@@ -39,7 +41,8 @@ public class Game {
 
     @Column(name="finish_time")
     @CreationTimestamp
-    private LocalDateTime finishTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
+    private ZonedDateTime finishTime;
 
     @Column(name="duration")
     private Duration duration;

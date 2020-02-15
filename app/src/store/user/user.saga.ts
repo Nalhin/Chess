@@ -28,6 +28,8 @@ import { addToast } from '../toaster/toaster.action';
 import { ToastTypes } from '../../interfaces/Toaster/ToastTypes';
 import { generateToast } from '../../utils/toastFactory';
 import { generateErrorMessage } from '../../utils/generateErrorMessage';
+import { leaveQueue } from '../queue/queue.actions';
+import { clearMatchHistory } from '../matchHistory/matchHistory.actions';
 
 export function* userRootSaga(): SagaIterator {
   yield all([
@@ -95,5 +97,7 @@ export function* logoutSaga() {
   yield put(push(Routes.logout));
   yield put(closeChat());
   yield put(closeGame());
+  yield put(leaveQueue());
+  yield put(clearMatchHistory());
   yield put(addToast(generateToast('Logout successful', ToastTypes.Info)));
 }

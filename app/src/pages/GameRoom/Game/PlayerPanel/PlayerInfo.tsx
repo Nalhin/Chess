@@ -25,6 +25,7 @@ const StyledPlayerAvatar = styled(PlayerAvatar)`
 `;
 
 const StyledName = styled.div`
+  font-weight: ${props => props.theme.typography.fontWeightBold};
   padding-right: ${props => props.theme.spacing(1)}px;
 `;
 

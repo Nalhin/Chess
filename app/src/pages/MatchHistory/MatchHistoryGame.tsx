@@ -1,12 +1,15 @@
 import React from 'react';
-import { HistoryGameWithTurnCount } from '../../interfaces/History/HistoryGame';
+import { MatchHistoryGameWithTurnCount } from '../../interfaces/MatchHistoryGame/MatchHistoryGameBase';
 import { useHistory } from 'react-router-dom';
 import styled from '@emotion/styled';
+import isPropValid from '@emotion/is-prop-valid';
 import { Card, CardActionArea, Typography, useTheme } from '@material-ui/core';
 import { PlayerColor } from '../../interfaces/Game/Player';
 import MatchHistoryPlayer from '../../components/MatchHistoryPlayer/MatchHistoryPlayer';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import mixins from '../../styles/mixins';
+import { Routes } from '../../interfaces/Router/Routes';
 
 dayjs.extend(relativeTime);
 
@@ -14,10 +17,9 @@ interface StyledCardProps {
   isWinner: boolean;
 }
 
-const StyledCardActionArea = styled(CardActionArea)<StyledCardProps>`
-  display: flex;
-  flex-direction: column;
-  cursor: pointer;
+const StyledCardActionArea = styled(CardActionArea, {
+  shouldForwardProp: prop => isPropValid(prop) && prop !== 'isWinner',
+})<StyledCardProps>`
   border-left: 5px solid
     ${props =>
       props.isWinner
@@ -38,14 +40,13 @@ const StyledWrapper = styled.div`
 
 const StyledGameTimeContainer = styled(Typography)`
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  ${mixins.flexCenter};
   flex-direction: column;
 `;
 
 const StyledDateContainer = styled(Typography)`
   text-align: right;
+  padding-bottom: ${props => props.theme.spacing(1)}px;
 `;
 
 const StyledCard = styled(Card)`
@@ -55,42 +56,38 @@ const StyledCard = styled(Card)`
 `;
 
 interface Props {
-  game: HistoryGameWithTurnCount;
+  game: MatchHistoryGameWithTurnCount;
   login: string;
 }
 
 const MatchHistoryGame: React.FC<Props> = ({ game, login }) => {
   const history = useHistory();
   const theme = useTheme();
-  const winningPlayerName =
-    game.winner === PlayerColor.Black
-      ? game.blackPlayerName
-      : game.whitePlayerName;
+
+  const winnerColor =
+    game.winner == game.blackPlayer ? PlayerColor.Black : PlayerColor.White;
 
   return (
     <StyledCard
       theme={theme}
-      onClick={() => history.push(`/match-history/${game.gameId}`)}
+      onClick={() => history.push(`${Routes.matchDetails}${game.gameId}`)}
     >
-      <StyledCardActionArea
-        isWinner={winningPlayerName === login}
-        theme={theme}
-      >
-        <StyledDateContainer variant="subtitle2">
+      <StyledCardActionArea isWinner={game.winner === login} theme={theme}>
+        <StyledDateContainer variant="subtitle2" theme={theme}>
           {dayjs(game.finishTime).from(dayjs())}
         </StyledDateContainer>
         <StyledWrapper>
           <MatchHistoryPlayer
-            name={game.whitePlayerName}
-            isWinner={game.winner === PlayerColor.White}
+            name={game.whitePlayer}
+            isWinner={winnerColor === PlayerColor.White}
           />
           <StyledGameTimeContainer theme={theme} variant="body1">
             <span>{game.totalTurns} Turns</span>
-            <span>{game.duration.toFixed(2)}s</span>
+            <span>{game.duration.toFixed(2)} s</span>
           </StyledGameTimeContainer>
           <StyledBlackPlayer
-            name={game.blackPlayerName}
-            isWinner={game.winner === PlayerColor.Black}
+            name={game.blackPlayer}
+            isWinner={winnerColor === PlayerColor.Black}
           />
         </StyledWrapper>
       </StyledCardActionArea>

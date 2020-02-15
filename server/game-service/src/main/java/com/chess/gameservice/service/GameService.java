@@ -48,13 +48,16 @@ public class GameService {
 
     public Game forfeitGame(UUID gameId, String playerName) throws GameException {
         Game game = games.get(gameId);
-        Optional<UUID> response = game.isPlayerPresentInGame(playerName);
-        if (response.isPresent()) {
-            game.forfeit(playerName);
-            gameFinished(game, gameId);
-            return game;
+        if (game == null) {
+            throw new GameException("Game is already over.");
         }
-        throw new GameException("Player not in game.");
+        Optional<UUID> response = game.isPlayerPresentInGame(playerName);
+        if (response.isEmpty()) {
+            throw new GameException("Player not in game.");
+        }
+        game.forfeit(playerName);
+        gameFinished(game, gameId);
+        return game;
     }
 
     public Optional<Game> connect(UUID gameId, String playerName) throws InterruptedException {

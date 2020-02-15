@@ -3,9 +3,10 @@ package com.chess.historyservice.dto;
 
 import com.chess.historyservice.models.Game;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.Duration;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 
 @Getter
@@ -13,17 +14,17 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class GameWithTurnCountDto {
+public class GameWithTurnCountDto{
 
         private Long gameId;
 
-        private String blackPlayerName;
+        private String blackPlayer;
 
-        private String whitePlayerName;
+        private String whitePlayer;
 
         private String winner;
 
-        private LocalDateTime finishTime;
+        private ZonedDateTime finishTime;
 
         private Duration duration;
 
@@ -32,10 +33,10 @@ public class GameWithTurnCountDto {
 
         public static GameWithTurnCountDto mapToDto(Game game){
                 return GameWithTurnCountDto.builder()
-                        .blackPlayerName(game.getBlackPlayer())
+                        .blackPlayer(game.getBlackPlayer())
                         .duration(game.getDuration())
                         .finishTime(game.getFinishTime())
-                        .whitePlayerName(game.getWhitePlayer())
+                        .whitePlayer(game.getWhitePlayer())
                         .totalTurns(game.getTurns().size())
                         .winner(game.getWinner())
                         .gameId(game.getGameId())

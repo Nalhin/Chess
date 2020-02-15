@@ -3,9 +3,8 @@ export enum Routes {
   game = '/game/',
   profile = '/profile',
   matchHistory = '/match-history',
-  individualMatchHistory = '/match-history/',
-  signIn = '/sign-in',
+  matchDetails = '/match-history/',
+  login = '/login',
   signUp = '/sign-up',
   logout = '/logout',
-  play = '/play',
 }

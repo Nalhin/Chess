@@ -1,8 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Routes } from '../../interfaces/Router/Routes';
 import { Card, Typography, useTheme } from '@material-ui/core';
 import styled from '@emotion/styled';
+import { StyledLink } from '../../components/StyledLink/StyledLink';
 
 const StyledCard = styled(Card)`
   max-width: 500px;
@@ -13,15 +13,6 @@ const StyledCard = styled(Card)`
 
 const StyledTitle = styled(Typography)`
   margin-bottom: ${props => props.theme.spacing(3)}px;
-`;
-
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  color: ${props => props.theme.palette.primary.light};
-
-  &:visited {
-    color: ${props => props.theme.palette.primary.light};
-  }
 `;
 
 interface Props {}
@@ -39,7 +30,7 @@ const Logout: React.FC<Props> = () => {
           return to the home page
         </StyledLink>{' '}
         or{' '}
-        <StyledLink to={Routes.signIn} theme={theme}>
+        <StyledLink to={Routes.login} theme={theme}>
           sign in again
         </StyledLink>
         .

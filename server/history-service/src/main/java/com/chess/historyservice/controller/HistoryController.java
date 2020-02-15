@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,6 +28,7 @@ public class HistoryController {
         List<Game> games = historyService.findAllGamesByUserLogin(login);
 
         return new ResponseEntity<>(games.stream()
+                .sorted(Comparator.comparing(Game::getFinishTime).reversed())
                 .map(GameWithTurnCountDto::mapToDto)
                 .collect(Collectors.toList()), HttpStatus.OK);
     }

@@ -25,8 +25,4 @@ const PlayerAvatar: React.FC<Props> = ({
   );
 };
 
-PlayerAvatar.defaultProps = {
-  isThumbnail: false,
-};
-
 export default PlayerAvatar;

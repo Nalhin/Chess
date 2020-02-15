@@ -14,10 +14,10 @@ const StyledContentContainer = styled.div`
 const GameRoom = React.lazy(() => import('./GameRoom/GameRoom.container'));
 const Home = React.lazy(() => import('./Home/Home.container'));
 const Profile = React.lazy(() => import('./Profile/Profile.container'));
-const SignIn = React.lazy(() => import('./SignIn/SignIn'));
+const SignIn = React.lazy(() => import('./Login/Login'));
 const SignUp = React.lazy(() => import('./SignUp/SignUp'));
 const IndividualGameHistory = React.lazy(() =>
-  import('./IndividualMatchHistory/IndividualMatchHistory.container'),
+  import('./MatchDetails/MatchDetailsPage.container'),
 );
 const MatchHistory = React.lazy(() =>
   import('./MatchHistory/MatchHistory.container'),
@@ -53,12 +53,12 @@ const Pages = () => {
               shouldBeAuthenticated
             />
             <ProtectedRoute
-              path={`${Routes.individualMatchHistory}:id`}
+              path={`${Routes.matchDetails}:id`}
               component={IndividualGameHistory}
               exact
               shouldBeAuthenticated
             />
-            <ProtectedRoute path={Routes.signIn} component={SignIn} exact />
+            <ProtectedRoute path={Routes.login} component={SignIn} exact />
             <ProtectedRoute path={Routes.signUp} component={SignUp} exact />
             <Route component={NoMatch} path="*" />
           </Switch>

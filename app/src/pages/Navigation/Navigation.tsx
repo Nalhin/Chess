@@ -11,7 +11,6 @@ import {
 import { AccountCircle, Menu as MenuIcon } from '@material-ui/icons';
 import styled from '@emotion/styled';
 import NavigationDrawer from './NavigationDrawer';
-import { StyledLink } from '../../components/StyledLink/StyledLink';
 import { Routes } from '../../interfaces/Router/Routes';
 import { NavigationContainerProps } from './Navigation.container';
 import { useColorModeContext } from '../../styles/colorModeContext';
@@ -19,6 +18,7 @@ import { ColorTheme } from '../../interfaces/Styles/ColorTheme';
 import Brightness3Icon from '@material-ui/icons/Brightness3';
 import WbSunnyIcon from '@material-ui/icons/WbSunny';
 import mixins from '../../styles/mixins';
+import { Link } from 'react-router-dom';
 
 const StyledToolbar = styled(Toolbar)`
   user-select: none;
@@ -34,6 +34,11 @@ const StyledAppBar = styled(AppBar)`
 const DarkModeContainer = styled.div`
   margin: 0 ${props => props.theme.spacing(2)}px 0 auto;
   ${mixins.flexCenter}
+`;
+
+const StyledLink = styled(Link)`
+  color: inherit;
+  text-decoration: none;
 `;
 
 interface Props extends NavigationContainerProps {}

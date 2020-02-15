@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -59,7 +60,7 @@ class HistoryControllerTest {
                 .whitePlayer("loser")
                 .winner(LOGIN)
                 .duration(Duration.ofSeconds(12))
-                .finishTime(LocalDateTime.now())
+                .finishTime(ZonedDateTime.now())
                 .gameId(GAME_ID)
                 .turns(turns)
                 .build();

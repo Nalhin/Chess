@@ -1,15 +1,11 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
-import BounceLoader from 'react-spinners/BounceLoader';
 import mixins from '../../styles/mixins';
-
-const Wrapper = styled.div`
-  position: relative;
-`;
+import { CircularProgress, Fade } from '@material-ui/core';
 
 const SpinnerWrapper = styled.div`
   ${mixins.fixedCenter};
-  ${mixins.absoluteCenter};
+  ${mixins.flexCenter}
 `;
 
 interface Props {
@@ -18,16 +14,30 @@ interface Props {
   className?: string;
 }
 
+const WAIT_TIME = 200;
+
 const Loader: React.FC<Props> = ({ isLoading, children, className }) => {
+  const [isShown, setIsShown] = React.useState(false);
+
+  React.useEffect(() => {
+    let timeout: NodeJS.Timeout = null;
+    if (isLoading) {
+      timeout = setTimeout(() => setIsShown(true), WAIT_TIME);
+    } else {
+      clearTimeout(timeout);
+    }
+    return () => clearTimeout(timeout);
+  }, [isLoading]);
+
   return (
-    <Wrapper className={className}>
-      {isLoading && (
-        <SpinnerWrapper>
-          <BounceLoader loading={true} color={'#36D7B7'} size={150} />
-        </SpinnerWrapper>
-      )}
+    <div className={className}>
+      <SpinnerWrapper>
+        <Fade in={isShown} unmountOnExit>
+          <CircularProgress />
+        </Fade>
+      </SpinnerWrapper>
       {children}
-    </Wrapper>
+    </div>
   );
 };
 

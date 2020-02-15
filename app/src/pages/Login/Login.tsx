@@ -1,8 +1,8 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { UserRegisterData } from '../../interfaces/User/User';
-import { registerUserRequested } from '../../store/user/user.actions';
-import { Routes } from '../../interfaces/Router/Routes';
+import { loginUserRequested } from '../../store/user/user.actions';
+import { UserLoginData } from '../../interfaces/User/User';
+import styled from '@emotion/styled';
 import {
   Button,
   FormControl,
@@ -10,6 +10,7 @@ import {
   InputLabel,
   useTheme,
 } from '@material-ui/core';
+import { Routes } from '../../interfaces/Router/Routes';
 import PasswordInput from '../../components/PasswordInput/PasswordInput';
 import AuthForm from '../../components/AuthForm/AuthForm';
 import { useFormState } from '../../components/AuthForm/useFormState';
@@ -17,29 +18,28 @@ import { ifFormFieldEmpty } from '../../utils/isFormFieldEmpty';
 import { addToast } from '../../store/toaster/toaster.action';
 import { generateToast } from '../../utils/toastFactory';
 import { ToastTypes } from '../../interfaces/Toaster/ToastTypes';
-import styled from '@emotion/styled';
 import { StyledLink } from '../../components/StyledLink/StyledLink';
+
+const StyledSpan = styled.span`
+  padding-right: ${props => props.theme.spacing(1)}px;
+`;
 
 const StyledLinkContainer = styled.div`
   display: flex;
+  flex-direction: row;
   justify-content: flex-end;
-`;
-
-const StyledText = styled.span`
-  margin-right: ${props => props.theme.spacing(0.5)}px;
 `;
 
 const INITIAL_STATE = {
   login: '',
   password: '',
-  email: '',
 };
 
-const SignUp = () => {
-  const theme = useTheme();
-  const { formState, onFormChange } = useFormState<UserRegisterData>(
+const Login = () => {
+  const { formState, onFormChange } = useFormState<UserLoginData>(
     INITIAL_STATE,
   );
+  const theme = useTheme();
   const dispatch = useDispatch();
 
   const submitForm = () => {
@@ -49,11 +49,11 @@ const SignUp = () => {
       );
       return;
     }
-    dispatch(registerUserRequested(formState));
+    dispatch(loginUserRequested(formState));
   };
 
   return (
-    <AuthForm headerText="Sign up">
+    <AuthForm headerText="Login">
       <FormControl>
         <InputLabel htmlFor="login-input" color="primary" required>
           Login
@@ -66,34 +66,22 @@ const SignUp = () => {
           value={formState.login}
         />
       </FormControl>
-      <FormControl>
-        <InputLabel htmlFor="email-input" color="primary" required>
-          Email
-        </InputLabel>
-        <Input
-          id="email-input"
-          name="email"
-          color="primary"
-          onChange={onFormChange}
-          value={formState.email}
-        />
-      </FormControl>
       <PasswordInput
         value={formState.password}
         onChange={onFormChange}
         color="primary"
       />
       <StyledLinkContainer>
-        <StyledText theme={theme}>Already have an account?</StyledText>
-        <StyledLink to={Routes.login} theme={theme}>
-          Login
+        <StyledSpan theme={theme}>No account?</StyledSpan>
+        <StyledLink to={Routes.signUp} color="primary" theme={theme}>
+          Sign up
         </StyledLink>
       </StyledLinkContainer>
-      <Button color="primary" onClick={submitForm} variant="contained">
-        Sign up
+      <Button color="primary" variant="contained" onClick={submitForm}>
+        Login
       </Button>
     </AuthForm>
   );
 };
 
-export default SignUp;
+export default Login;
