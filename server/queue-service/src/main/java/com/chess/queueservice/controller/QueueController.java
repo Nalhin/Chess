@@ -1,8 +1,14 @@
 package com.chess.queueservice.controller;
 
 import com.chess.queueservice.exception.QueueException;
-import com.chess.queueservice.messages.websocket.*;
-import com.chess.queueservice.messages.websocket.payload.*;
+import com.chess.queueservice.messages.websocket.ErrorMessage;
+import com.chess.queueservice.messages.websocket.GameFoundMessage;
+import com.chess.queueservice.messages.websocket.QueueJoinedMessage;
+import com.chess.queueservice.messages.websocket.QueueLeftMessage;
+import com.chess.queueservice.messages.websocket.payload.ErrorPayload;
+import com.chess.queueservice.messages.websocket.payload.GameFoundPayload;
+import com.chess.queueservice.messages.websocket.payload.QueueJoinedMessagePayload;
+import com.chess.queueservice.messages.websocket.payload.QueueLeftPayload;
 import com.chess.queueservice.models.User;
 import com.chess.queueservice.service.KafkaService;
 import com.chess.queueservice.service.QueueService;
@@ -13,7 +19,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,12 +36,12 @@ public class QueueController {
     private final KafkaService kafkaService;
 
     @MessageMapping("/queue")
-    public void joinQueue(SimpMessageHeaderAccessor headerAccessor, @Header("name") String name) throws QueueException {
-        ArrayList<User> users = queueService.joinQueue(new User(name, headerAccessor.getSessionId()));
-        if (users.size()>0) {
+    public void joinQueue(@Header("simpSessionId") String sessionId, @Header("name") String name) throws QueueException {
+        ArrayList<User> users = queueService.joinQueue(new User(name, sessionId));
+        if (users.size() > 0) {
             UUID gameId = UUID.randomUUID();
             GameFoundMessage gameFoundMessage = new GameFoundMessage(new GameFoundPayload(gameId.toString()));
-            kafkaService.sendGameFound(gameId, users,false);
+            kafkaService.sendGameFound(gameId, users, false);
             for (User user : users) {
                 simpMessagingTemplate.convertAndSend("/queue/personal/" + user.getName(), gameFoundMessage);
             }
@@ -47,11 +52,11 @@ public class QueueController {
     }
 
     @MessageMapping("/leave-queue")
-    public void leaveQueue(@Header("name") String name,@Header("simpSessionId") String sessionId){
+    public void leaveQueue(@Header("name") String name, @Header("simpSessionId") String sessionId) {
         queueService.removeUser(sessionId);
-        QueueLeftMessage message = new QueueLeftMessage( new QueueLeftPayload(name));
-        simpMessagingTemplate.convertAndSend("/queue/personal/" + name, message );
-    };
+        QueueLeftMessage message = new QueueLeftMessage(new QueueLeftPayload(name));
+        simpMessagingTemplate.convertAndSend("/queue/personal/" + name, message);
+    }
 
     @PostMapping(value = "/queue/with-ai")
     public ResponseEntity<GameFoundMessage> playWithAi(@RequestBody User user) {
@@ -59,8 +64,8 @@ public class QueueController {
         GameFoundMessage gameFoundMessage = new GameFoundMessage(new GameFoundPayload(gameId.toString()));
         ArrayList<User> users = new ArrayList<>();
         users.add(user);
-        users.add(new User("Computer","Computer"));
-        kafkaService.sendGameFound(gameId, users,true);
+        users.add(new User("Computer", "Computer"));
+        kafkaService.sendGameFound(gameId, users, true);
         return ResponseEntity.ok(gameFoundMessage);
     }
 

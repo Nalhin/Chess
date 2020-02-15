@@ -12,7 +12,6 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 import org.springframework.web.socket.messaging.SessionSubscribeEvent;
 import org.springframework.web.socket.messaging.SessionUnsubscribeEvent;
 
@@ -57,16 +56,6 @@ public class ChatController {
     @EventListener
     public void sessionUnsubscribeEvent(SessionUnsubscribeEvent unsubscribeEvent) {
         StompHeaderAccessor accessor = StompHeaderAccessor.wrap(unsubscribeEvent.getMessage());
-        sendDisconnectMessage(accessor);
-    }
-
-    @EventListener
-    public void sessionDisconnectEvent(SessionDisconnectEvent disconnectEvent) {
-        StompHeaderAccessor accessor = StompHeaderAccessor.wrap(disconnectEvent.getMessage());
-        sendDisconnectMessage(accessor);
-    }
-
-    private void sendDisconnectMessage(StompHeaderAccessor accessor) {
         User user = chatService.getChatIdAndRemoveUser(accessor.getSubscriptionId());
         if (user != null) {
             sendInfoMessage(user.getChatId().toString(), user.getLogin() + " disconnected.", user.getLogin());
@@ -81,6 +70,4 @@ public class ChatController {
         message.setId(UUID.randomUUID().toString());
         messagingTemplate.convertAndSend("/topic/chat/" + chatId, message);
     }
-
-
 }
