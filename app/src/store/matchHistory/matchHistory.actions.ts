@@ -13,7 +13,7 @@ import {
   MatchHistoryGameWithTurnCount,
 } from '../../interfaces/MatchHistoryGame/MatchHistoryGameBase';
 
-export const getHistoryGameByIdRequested = (
+export const getMatchDetailsRequested = (
   gameId: number,
 ): GetMatchDetailsRequestedAction => ({
   type: MatchHistoryActionTypes.GET_MATCH_DETAILS_REQUESTED,
@@ -22,41 +22,38 @@ export const getHistoryGameByIdRequested = (
   },
 });
 
-export const getHistoryGameByIdSucceeded = (
+export const getMatchDetailsSucceeded = (
   historyGame: MatchHistoryGameWithDetails,
 ): GetMatchDetailsSucceededAction => ({
   type: MatchHistoryActionTypes.GET_MATCH_DETAILS_SUCCEEDED,
   payload: {
-    historyGame,
+    matchDetails: historyGame,
   },
 });
 
-export const getHistoryGameByIdFailed = (
-  error: string,
-): GetMatchDetailsFailedAction => ({
+export const getMatchDetailsFailed = (): GetMatchDetailsFailedAction => ({
   type: MatchHistoryActionTypes.GET_MATCH_DETAILS_FAILED,
-  payload: { error },
 });
 
-export const getHistoryGamesRequested = (): GetMatchHistoryRequestedAction => ({
+export const getMatchHistoryRequested = (
+  login: string,
+): GetMatchHistoryRequestedAction => ({
   type: MatchHistoryActionTypes.GET_MATCH_HISTORY_REQUESTED,
-});
-
-export const getHistoryGamesFailed = (
-  error: string,
-): GetMatchHistoryFailedAction => ({
-  type: MatchHistoryActionTypes.GET_MATCH_HISTORY_FAILED,
   payload: {
-    error,
+    login,
   },
 });
 
-export const getHistoryGamesSucceeded = (
-  historyGames: MatchHistoryGameWithTurnCount[],
+export const getMatchHistoryFailed = (): GetMatchHistoryFailedAction => ({
+  type: MatchHistoryActionTypes.GET_MATCH_HISTORY_FAILED,
+});
+
+export const getMatchHistorySucceeded = (
+  matchHistory: MatchHistoryGameWithTurnCount[],
 ): GetMatchHistorySucceededAction => ({
   type: MatchHistoryActionTypes.GET_MATCH_HISTORY_SUCCEEDED,
   payload: {
-    historyGames,
+    matchHistory,
   },
 });
 

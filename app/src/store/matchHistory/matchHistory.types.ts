@@ -34,32 +34,29 @@ export interface GetMatchDetailsRequestedAction {
 export interface GetMatchDetailsSucceededAction {
   type: typeof MatchHistoryActionTypes.GET_MATCH_DETAILS_SUCCEEDED;
   payload: {
-    historyGame: MatchHistoryGameWithDetails;
+    matchDetails: MatchHistoryGameWithDetails;
   };
 }
 
 export interface GetMatchDetailsFailedAction {
   type: typeof MatchHistoryActionTypes.GET_MATCH_DETAILS_FAILED;
-  payload: {
-    error: string;
-  };
 }
 
 export interface GetMatchHistoryRequestedAction {
   type: typeof MatchHistoryActionTypes.GET_MATCH_HISTORY_REQUESTED;
+  payload: {
+    login: string;
+  };
 }
 
 export interface GetMatchHistoryFailedAction {
   type: typeof MatchHistoryActionTypes.GET_MATCH_HISTORY_FAILED;
-  payload: {
-    error: string;
-  };
 }
 
 export interface GetMatchHistorySucceededAction {
   type: typeof MatchHistoryActionTypes.GET_MATCH_HISTORY_SUCCEEDED;
   payload: {
-    historyGames: MatchHistoryGameWithTurnCount[];
+    matchHistory: MatchHistoryGameWithTurnCount[];
   };
 }
 

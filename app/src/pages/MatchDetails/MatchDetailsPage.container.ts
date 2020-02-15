@@ -3,7 +3,7 @@ import { AppState } from '../../store/rootReducer';
 import { bindActionCreators, Dispatch } from 'redux';
 import { RootAction } from '../../store/rootAction';
 import { connect } from 'react-redux';
-import { getHistoryGameByIdRequested } from '../../store/matchHistory/matchHistory.actions';
+import { getMatchDetailsRequested } from '../../store/matchHistory/matchHistory.actions';
 import MatchDetailsPage from './MatchDetailsPage';
 import { shouldDisplayBackSelector } from '../../store/customRouter/customRouter.selectors';
 import { Routes } from '../../interfaces/Router/Routes';
@@ -27,7 +27,7 @@ const mapStateToProps = (state: AppState) => {
 const mapDispatchToProps = (dispatch: Dispatch<RootAction>) =>
   bindActionCreators(
     {
-      getHistoryGameById: getHistoryGameByIdRequested,
+      getHistoryGameById: getMatchDetailsRequested,
     },
     dispatch,
   );

@@ -24,8 +24,8 @@ const matchHistoryReducer: Reducer<MatchHistoryState, MatchHistoryActions> = (
         draft.matchDetails.isLoading = false;
         break;
       case MatchHistoryActionTypes.GET_MATCH_DETAILS_SUCCEEDED:
-        draft.matchDetails.data[action.payload.historyGame.gameId] =
-          action.payload.historyGame;
+        draft.matchDetails.data[action.payload.matchDetails.gameId] =
+          action.payload.matchDetails;
         draft.matchDetails.isLoading = false;
         break;
       case MatchHistoryActionTypes.GET_MATCH_HISTORY_REQUESTED:
@@ -35,7 +35,7 @@ const matchHistoryReducer: Reducer<MatchHistoryState, MatchHistoryActions> = (
         draft.matches.isLoading = false;
         break;
       case MatchHistoryActionTypes.GET_MATCH_HISTORY_SUCCEEDED:
-        draft.matches.data = action.payload.historyGames;
+        draft.matches.data = action.payload.matchHistory;
         draft.matches.isLoading = false;
         break;
       case MatchHistoryActionTypes.CLEAR_MATCH_HISTORY:

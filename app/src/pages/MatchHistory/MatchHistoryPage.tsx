@@ -14,7 +14,7 @@ interface Props extends MatchHistoryContainerProps {}
 
 const MatchHistoryPage: React.FC<Props> = ({
   matches,
-  getHistoryGames,
+  getMatchHistory,
   isLoading,
   user,
 }) => {
@@ -22,7 +22,7 @@ const MatchHistoryPage: React.FC<Props> = ({
 
   React.useEffect(() => {
     if (!matches.length && user.login) {
-      getHistoryGames();
+      getMatchHistory(user.login);
     }
   }, [user.login]);
 

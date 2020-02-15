@@ -1,6 +1,7 @@
 import queueReducer, { QUEUE_INITIAL_STATE } from '../queue.reducer';
 import produce from 'immer';
 import { queueGameFound, queueJoined, queueLeft } from '../queue.actions';
+import { fakeUser } from '../../../../test/fixtures/user/user';
 
 describe('Queue reducer', () => {
   it('should handle QUEUE_JOINED action', () => {
@@ -34,7 +35,7 @@ describe('Queue reducer', () => {
     });
     const expectedState = { ...QUEUE_INITIAL_STATE };
 
-    const action = queueLeft();
+    const action = queueLeft(fakeUser.login);
     const reducer = queueReducer(initialState, action);
 
     expect(reducer).toEqual(expectedState);

@@ -2,7 +2,7 @@ import { AppState } from '../../store/rootReducer';
 import { userSelector } from '../../store/user/user.selectors';
 import { bindActionCreators, Dispatch } from 'redux';
 import { RootAction } from '../../store/rootAction';
-import { getHistoryGamesRequested } from '../../store/matchHistory/matchHistory.actions';
+import { getMatchHistoryRequested } from '../../store/matchHistory/matchHistory.actions';
 import { addToast } from '../../store/toaster/toaster.action';
 import { connect } from 'react-redux';
 import MatchHistoryPage from './MatchHistoryPage';
@@ -20,7 +20,7 @@ const mapStateToProps = (state: AppState) => {
 
 const mapDispatchToProps = (dispatch: Dispatch<RootAction>) =>
   bindActionCreators(
-    { getHistoryGames: getHistoryGamesRequested, addToast },
+    { getMatchHistory: getMatchHistoryRequested, addToast },
     dispatch,
   );
 
