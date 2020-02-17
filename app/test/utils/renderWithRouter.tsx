@@ -5,7 +5,6 @@ import { Router } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/core';
 import { getMuiTheme } from '../../src/styles/muiTheme';
 import { ColorTheme } from '../../src/interfaces/Styles/ColorTheme';
-import { useColorTheme } from '../../src/styles/useColorTheme';
 import { ColorModeContext } from '../../src/styles/colorModeContext';
 
 export const renderWithRouter = (
@@ -15,11 +14,9 @@ export const renderWithRouter = (
     history = createMemoryHistory({ initialEntries: [route] }),
   }: { route?: string; history?: History } = {},
 ) => {
-  const { changeColorTheme } = useColorTheme();
-
   return {
     ...render(
-      <ColorModeContext.Provider value={{ changeColorTheme }}>
+      <ColorModeContext.Provider value={{ changeColorTheme: () => {} }}>
         <ThemeProvider theme={getMuiTheme(ColorTheme.Light)}>
           <Router history={history}>{ui}</Router>
         </ThemeProvider>

@@ -12,6 +12,7 @@ interface Props {
   className?: string;
   value: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   color: 'primary' | 'secondary';
 }
 
@@ -20,6 +21,7 @@ const PasswordInput: React.FC<Props> = ({
   value,
   className,
   color,
+  onKeyDown,
 }) => {
   const [showPassword, setShowPassword] = React.useState(false);
 
@@ -39,6 +41,7 @@ const PasswordInput: React.FC<Props> = ({
         type={showPassword ? 'password' : 'text'}
         onChange={onChange}
         value={value}
+        onKeyDown={onKeyDown}
         endAdornment={
           <InputAdornment position="end">
             <IconButton

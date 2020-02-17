@@ -44,6 +44,7 @@ jest.mock('../user.api', () => ({
 Cookies.set = jest.fn();
 Cookies.get = jest.fn();
 Cookies.remove = jest.fn();
+
 beforeEach(() => {
   jest.clearAllMocks();
 });

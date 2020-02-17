@@ -42,6 +42,12 @@ const SignUp = () => {
   );
   const dispatch = useDispatch();
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      submitForm();
+    }
+  };
+
   const submitForm = () => {
     if (ifFormFieldEmpty(formState)) {
       dispatch(
@@ -64,6 +70,7 @@ const SignUp = () => {
           color="primary"
           onChange={onFormChange}
           value={formState.login}
+          onKeyDown={handleKeyDown}
         />
       </FormControl>
       <FormControl>
@@ -76,12 +83,14 @@ const SignUp = () => {
           color="primary"
           onChange={onFormChange}
           value={formState.email}
+          onKeyDown={handleKeyDown}
         />
       </FormControl>
       <PasswordInput
         value={formState.password}
         onChange={onFormChange}
         color="primary"
+        onKeyDown={handleKeyDown}
       />
       <StyledLinkContainer>
         <StyledText theme={theme}>Already have an account?</StyledText>
@@ -89,7 +98,12 @@ const SignUp = () => {
           Login
         </StyledLink>
       </StyledLinkContainer>
-      <Button color="primary" onClick={submitForm} variant="contained">
+      <Button
+        color="primary"
+        onClick={submitForm}
+        variant="contained"
+        data-testid="sign-up__button"
+      >
         Sign up
       </Button>
     </AuthForm>

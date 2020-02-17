@@ -30,6 +30,7 @@
     "@material-ui/lab": "^4.0.0-alpha.42",
     "@stomp/rx-stomp": "^0.3.4",
     "@stomp/stompjs": "^5.4.2",
+    "@testing-library/jest-dom": "^5.1.1",
     "@types/js-cookie": "^2.2.4",
     "axios": "^0.19.0",
     "connected-react-router": "^6.6.1",

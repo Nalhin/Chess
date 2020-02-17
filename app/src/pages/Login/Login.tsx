@@ -42,6 +42,12 @@ const Login = () => {
   const theme = useTheme();
   const dispatch = useDispatch();
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      submitForm();
+    }
+  };
+
   const submitForm = () => {
     if (ifFormFieldEmpty(formState)) {
       dispatch(
@@ -64,12 +70,14 @@ const Login = () => {
           color="primary"
           onChange={onFormChange}
           value={formState.login}
+          onKeyDown={handleKeyDown}
         />
       </FormControl>
       <PasswordInput
         value={formState.password}
         onChange={onFormChange}
         color="primary"
+        onKeyDown={handleKeyDown}
       />
       <StyledLinkContainer>
         <StyledSpan theme={theme}>No account?</StyledSpan>
@@ -77,7 +85,12 @@ const Login = () => {
           Sign up
         </StyledLink>
       </StyledLinkContainer>
-      <Button color="primary" variant="contained" onClick={submitForm}>
+      <Button
+        color="primary"
+        variant="contained"
+        onClick={submitForm}
+        data-testid="login__button"
+      >
         Login
       </Button>
     </AuthForm>

@@ -22,6 +22,10 @@ const StyledButton = styled(Button)`
   margin: ${props => props.theme.spacing(2)}px;
 `;
 
+const StyledInput = styled.input`
+  display: none;
+`;
+
 interface Props {
   user: User;
   addToast: (toast: Toast) => void;
@@ -49,7 +53,12 @@ const UserImageForm: React.FC<Props> = ({ user, addToast }) => {
       setLoading(false);
       setFile(null);
     } catch (e) {
-      addToast(generateToast('Uploading image failed!', ToastTypes.Error));
+      addToast(
+        generateToast(
+          'There is a problem uploading your image!',
+          ToastTypes.Error,
+        ),
+      );
     }
   };
 
@@ -60,9 +69,8 @@ const UserImageForm: React.FC<Props> = ({ user, addToast }) => {
         alt={user.login}
       />
       <div>
-        <input
+        <StyledInput
           accept="image/*"
-          style={{ display: 'none' }}
           id="raised-button-file"
           multiple
           type="file"

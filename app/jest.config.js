@@ -6,5 +6,7 @@ module.exports = {
   testRegex: "/__tests__/.*\\.(ts|tsx|js)$",
   collectCoverageFrom: [
     "src/**/*.{ts,tsx}",
-  ]
+  ],
+  setupFilesAfterEnv: ['./test/setup/setup.js'],
+
 };

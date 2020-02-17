@@ -69,8 +69,7 @@ const Navigation: React.FC<Props> = ({ isAuthenticated, logoutUser }) => {
 
   const handleDrawer = (event: React.KeyboardEvent | React.MouseEvent) => {
     if (
-      event &&
-      event.type === 'keydown' &&
+      event?.type === 'keydown' &&
       ((event as React.KeyboardEvent).key === 'Tab' ||
         (event as React.KeyboardEvent).key === 'Shift')
     ) {
