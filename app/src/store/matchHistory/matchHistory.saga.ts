@@ -14,7 +14,7 @@ import {
 } from './matchHistory.actions';
 import { fetchGetMatchDetails, fetchGetMatchHistory } from './matchHistory.api';
 import { addToast } from '../toaster/toaster.action';
-import { generateToast } from '../../utils/toastFactory';
+import { generateToast } from '../../utils/generateToast';
 import { generateErrorMessage } from '../../utils/generateErrorMessage';
 import { ToastTypes } from '../../interfaces/Toaster/ToastTypes';
 

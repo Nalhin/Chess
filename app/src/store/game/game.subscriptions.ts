@@ -8,7 +8,7 @@ import {
 import { RxStomp } from '@stomp/rx-stomp';
 import { GameActionTypes } from './game.types';
 import { addToast } from '../toaster/toaster.action';
-import { generateToast } from '../../utils/toastFactory';
+import { generateToast } from '../../utils/generateToast';
 import { ToastTypes } from '../../interfaces/Toaster/ToastTypes';
 import { store } from '../store';
 

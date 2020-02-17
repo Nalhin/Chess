@@ -28,7 +28,7 @@ interface Props extends IndividualGameHistoryContainerProps {}
 const MatchDetailsPage: React.FC<Props> = ({
   isLoading,
   matchDetails,
-  getHistoryGameById,
+  getMatchDetails,
   shouldDisplayBackButton,
   user,
 }) => {
@@ -41,7 +41,7 @@ const MatchDetailsPage: React.FC<Props> = ({
 
   React.useEffect(() => {
     if (!selectedMatchDetails && user.login) {
-      getHistoryGameById(id);
+      getMatchDetails(id);
     }
   }, [id, user.login]);
 
@@ -55,7 +55,12 @@ const MatchDetailsPage: React.FC<Props> = ({
         Match details
       </StyledPageTitle>
       {shouldDisplayBackButton && (
-        <StyledBackIcon onClick={onIconClick} color="inherit" theme={theme}>
+        <StyledBackIcon
+          onClick={onIconClick}
+          color="inherit"
+          theme={theme}
+          aria-label="go back"
+        >
           <ArrowBackIcon />
         </StyledBackIcon>
       )}

@@ -51,7 +51,6 @@ const Navigation: React.FC<Props> = ({ isAuthenticated, logoutUser }) => {
   const isUserMenuOpen = Boolean(anchorEl);
 
   const changeTheme = () => {
-    console.log('xd');
     changeColorTheme();
   };
 

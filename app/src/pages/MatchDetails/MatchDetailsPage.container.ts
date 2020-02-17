@@ -14,7 +14,7 @@ const mapStateToProps = (state: AppState) => {
   const isLoading = state.matchHistory.matchDetails.isLoading;
   const shouldDisplayBackButton = shouldDisplayBackSelector(
     Routes.matchHistory,
-  );
+  )(state);
   const user = userSelector(state);
   return {
     matchDetails,
@@ -27,7 +27,7 @@ const mapStateToProps = (state: AppState) => {
 const mapDispatchToProps = (dispatch: Dispatch<RootAction>) =>
   bindActionCreators(
     {
-      getHistoryGameById: getMatchDetailsRequested,
+      getMatchDetails: getMatchDetailsRequested,
     },
     dispatch,
   );

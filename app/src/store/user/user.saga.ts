@@ -27,7 +27,7 @@ import { push } from 'connected-react-router';
 import { Routes } from '../../interfaces/Router/Routes';
 import { addToast } from '../toaster/toaster.action';
 import { ToastTypes } from '../../interfaces/Toaster/ToastTypes';
-import { generateToast } from '../../utils/toastFactory';
+import { generateToast } from '../../utils/generateToast';
 import { generateErrorMessage } from '../../utils/generateErrorMessage';
 import { leaveQueue } from '../queue/queue.actions';
 import { clearMatchHistory } from '../matchHistory/matchHistory.actions';

@@ -11,16 +11,16 @@ import { Visibility, VisibilityOff } from '@material-ui/icons';
 interface Props {
   className?: string;
   value: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
-  color: 'primary' | 'secondary';
+  color?: 'primary' | 'secondary';
 }
 
 const PasswordInput: React.FC<Props> = ({
   onChange,
   value,
   className,
-  color,
+  color = 'primary',
   onKeyDown,
 }) => {
   const [showPassword, setShowPassword] = React.useState(false);
@@ -49,7 +49,11 @@ const PasswordInput: React.FC<Props> = ({
               onMouseDown={handleShowPassword}
               color={color}
             >
-              {showPassword ? <Visibility /> : <VisibilityOff />}
+              {showPassword ? (
+                <Visibility aria-label="hide visibility" />
+              ) : (
+                <VisibilityOff aria-label="set visible" />
+              )}
             </IconButton>
           </InputAdornment>
         }

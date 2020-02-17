@@ -14,9 +14,9 @@ import { Routes } from '../../interfaces/Router/Routes';
 import PasswordInput from '../../components/PasswordInput/PasswordInput';
 import AuthForm from '../../components/AuthForm/AuthForm';
 import { useFormState } from '../../components/AuthForm/useFormState';
-import { ifFormFieldEmpty } from '../../utils/isFormFieldEmpty';
+import { isAnyFormFieldEmpty } from '../../utils/isAnyFormFieldEmpty';
 import { addToast } from '../../store/toaster/toaster.action';
-import { generateToast } from '../../utils/toastFactory';
+import { generateToast } from '../../utils/generateToast';
 import { ToastTypes } from '../../interfaces/Toaster/ToastTypes';
 import { StyledLink } from '../../components/StyledLink/StyledLink';
 
@@ -49,7 +49,7 @@ const Login = () => {
   };
 
   const submitForm = () => {
-    if (ifFormFieldEmpty(formState)) {
+    if (isAnyFormFieldEmpty(formState)) {
       dispatch(
         addToast(generateToast('Please fill in all fields.', ToastTypes.Error)),
       );

@@ -1,4 +1,3 @@
-import { cleanup } from '@testing-library/react';
 import { renderWithStore } from '../../../test/utils/renderWithStore';
 import React from 'react';
 import Pages from '../Pages';
@@ -6,8 +5,6 @@ import { DndProvider } from 'react-dnd';
 import Backend from 'react-dnd-html5-backend';
 
 describe('Pages Component', () => {
-  afterEach(cleanup);
-
   it('Should handle "/game/:id route', async () => {
     const route = '/game/1';
 

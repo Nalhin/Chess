@@ -29,7 +29,7 @@ import {
 import { push } from 'connected-react-router';
 import { Routes } from '../../interfaces/Router/Routes';
 import { addToast } from '../toaster/toaster.action';
-import { generateToast } from '../../utils/toastFactory';
+import { generateToast } from '../../utils/generateToast';
 import { ToastTypes } from '../../interfaces/Toaster/ToastTypes';
 import { closeChat, initChat } from '../chat/chat.actions';
 import { CustomRouterActionTypes } from '../customRouter/customRouter.types';

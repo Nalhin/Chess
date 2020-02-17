@@ -3,7 +3,6 @@ import { userSelector } from '../../store/user/user.selectors';
 import { bindActionCreators, Dispatch } from 'redux';
 import { RootAction } from '../../store/rootAction';
 import { getMatchHistoryRequested } from '../../store/matchHistory/matchHistory.actions';
-import { addToast } from '../../store/toaster/toaster.action';
 import { connect } from 'react-redux';
 import MatchHistoryPage from './MatchHistoryPage';
 
@@ -19,10 +18,7 @@ const mapStateToProps = (state: AppState) => {
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<RootAction>) =>
-  bindActionCreators(
-    { getMatchHistory: getMatchHistoryRequested, addToast },
-    dispatch,
-  );
+  bindActionCreators({ getMatchHistory: getMatchHistoryRequested }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(MatchHistoryPage);
 

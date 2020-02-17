@@ -67,11 +67,12 @@ const MatchHistoryGame: React.FC<Props> = ({ game, login }) => {
   const winnerColor =
     game.winner == game.blackPlayer ? PlayerColor.Black : PlayerColor.White;
 
+  const redirectToMatchDetails = () => {
+    history.push(`${Routes.matchDetails}${game.gameId}`);
+  };
+
   return (
-    <StyledCard
-      theme={theme}
-      onClick={() => history.push(`${Routes.matchDetails}${game.gameId}`)}
-    >
+    <StyledCard theme={theme} onClick={redirectToMatchDetails}>
       <StyledCardActionArea isWinner={game.winner === login} theme={theme}>
         <StyledDateContainer variant="subtitle2" theme={theme}>
           {dayjs(game.finishTime).from(dayjs())}

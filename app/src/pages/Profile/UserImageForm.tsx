@@ -4,7 +4,7 @@ import Loader from '../../components/Loader/Loader';
 import { fetchSaveImage } from '../../store/user/user.api';
 import { Avatar, Button, useTheme } from '@material-ui/core';
 import styled from '@emotion/styled';
-import { generateToast } from '../../utils/toastFactory';
+import { generateToast } from '../../utils/generateToast';
 import { Toast, ToastTypes } from '../../interfaces/Toaster/ToastTypes';
 import mixins from '../../styles/mixins';
 

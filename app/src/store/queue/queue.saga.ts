@@ -16,7 +16,7 @@ import { initChat } from '../chat/chat.actions';
 import { initGameRequested } from '../game/game.actions';
 import { push } from 'connected-react-router';
 import { addToast } from '../toaster/toaster.action';
-import { generateToast } from '../../utils/toastFactory';
+import { generateToast } from '../../utils/generateToast';
 import { ToastTypes } from '../../interfaces/Toaster/ToastTypes';
 import { isInQueueSelector } from './queue.selectors';
 import { Routes } from '../../interfaces/Router/Routes';
