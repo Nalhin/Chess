@@ -11,6 +11,7 @@ export interface GameState {
   };
   readonly gameId: string;
   readonly isReconnectAvailable: boolean;
+  readonly isConnected: boolean;
 }
 
 enum GameBaseActionTypes {

@@ -4,7 +4,7 @@ import { queueGameFound, queueJoined, queueLeft } from '../queue.actions';
 import { fakeUser } from '../../../../test/fixtures/user/user';
 
 describe('Queue reducer', () => {
-  it('should handle QUEUE_JOINED action', () => {
+  it('should handle QUEUE_JOINED action type', () => {
     const timeJoined = '1';
     const initialState = { ...QUEUE_INITIAL_STATE };
     const expectedState = produce(QUEUE_INITIAL_STATE, draft => {
@@ -17,7 +17,7 @@ describe('Queue reducer', () => {
     expect(reducer).toEqual(expectedState);
   });
 
-  it('should handle QUEUE_GAME_FOUND action', () => {
+  it('should handle QUEUE_GAME_FOUND action type', () => {
     const initialState = produce(QUEUE_INITIAL_STATE, draft => {
       draft.timeJoined = '1';
     });
@@ -29,7 +29,7 @@ describe('Queue reducer', () => {
     expect(reducer).toEqual(expectedState);
   });
 
-  it('should handle QUEUE_LEFT action', () => {
+  it('should handle QUEUE_LEFT action type', () => {
     const initialState = produce(QUEUE_INITIAL_STATE, draft => {
       draft.timeJoined = '1';
     });

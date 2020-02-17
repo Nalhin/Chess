@@ -37,6 +37,7 @@ export const GAME_INITIAL_STATE: GameState = {
   },
   gameId: '',
   isReconnectAvailable: false,
+  isConnected: false,
 };
 
 const gameReducer: Reducer<GameState, GameActions> = (
@@ -51,6 +52,7 @@ const gameReducer: Reducer<GameState, GameActions> = (
       case GameActionTypes.GAME_STARTED:
         draft.gameState = action.payload.game;
         draft.isReconnectAvailable = false;
+        draft.isConnected = true;
         break;
       case GameActionTypes.PLAYER_MOVED:
         draft.gameState = action.payload.game;
@@ -63,7 +65,10 @@ const gameReducer: Reducer<GameState, GameActions> = (
         draft.selectedPiece = action.payload;
         break;
       case GameActionTypes.CLEAR_GAME:
-        draft = GAME_INITIAL_STATE;
+        draft.gameState = GAME_INITIAL_STATE.gameState;
+        draft.gameId = GAME_INITIAL_STATE.gameId;
+        draft.isConnected = GAME_INITIAL_STATE.isConnected;
+        draft.isReconnectAvailable = GAME_INITIAL_STATE.isReconnectAvailable;
         break;
       case GameActionTypes.CHECK_IS_GAME_PRESENT_SUCCEEDED:
         draft.isReconnectAvailable = true;

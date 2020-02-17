@@ -10,7 +10,7 @@ import {
 } from '../user.actions';
 
 describe('User reducer', () => {
-  it('should handle LOGIN_USER_SUCCEEDED action', () => {
+  it('should handle LOGIN_USER_SUCCEEDED action type', () => {
     const initialState = {
       ...USER_INITIAL_STATE,
     };
@@ -24,7 +24,7 @@ describe('User reducer', () => {
     expect(reducer).toEqual(expectedState);
   });
 
-  it('should handle REGISTER_USER_SUCCEEDED action', () => {
+  it('should handle REGISTER_USER_SUCCEEDED action type', () => {
     const initialState = {
       ...USER_INITIAL_STATE,
     };
@@ -38,7 +38,7 @@ describe('User reducer', () => {
     expect(reducer).toEqual(expectedState);
   });
 
-  it('should handle AUTHENTICATION_SUCCEEDED action', () => {
+  it('should handle AUTHENTICATION_SUCCEEDED action type', () => {
     const initialState = {
       ...USER_INITIAL_STATE,
     };
@@ -52,7 +52,7 @@ describe('User reducer', () => {
     expect(reducer).toEqual(expectedState);
   });
 
-  it('should handle SET_TOKEN action', () => {
+  it('should handle SET_TOKEN action type', () => {
     const initialState = {
       ...USER_INITIAL_STATE,
     };
@@ -65,7 +65,7 @@ describe('User reducer', () => {
 
     expect(reducer).toEqual(expectedState);
   });
-  it('should handle LOGOUT_USER action', () => {
+  it('should handle LOGOUT_USER action type', () => {
     const initialState = produce(USER_INITIAL_STATE, draft => {
       draft.data = fakeUser;
     });

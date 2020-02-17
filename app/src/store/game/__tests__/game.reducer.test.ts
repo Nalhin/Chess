@@ -1,6 +1,8 @@
 import gameReducer, { GAME_INITIAL_STATE } from '../game.reducer';
 import {
   availableMoves,
+  checkIsGamePresentSucceeded,
+  clearGame,
   gameOver,
   gameStarted,
   initGameRequested,
@@ -19,6 +21,7 @@ describe('Game Reducer', () => {
     };
     const expectedState = produce(GAME_INITIAL_STATE, draft => {
       draft.gameState = fakeGame;
+      draft.isConnected = true;
     });
 
     const action = gameStarted(fakeGame);
@@ -27,7 +30,7 @@ describe('Game Reducer', () => {
     expect(reducer).toEqual(expectedState);
   });
 
-  it('Should handle INIT_GAME_REQUESTED action type', () => {
+  it('Should handle INIT_GAME action type', () => {
     const initialState = {
       ...GAME_INITIAL_STATE,
     };
@@ -69,6 +72,21 @@ describe('Game Reducer', () => {
     expect(reducer).toEqual(expectedState);
   });
 
+  it('should handle CLEAR_GAME action type', () => {
+    const initialState = produce(GAME_INITIAL_STATE, draft => {
+      draft.gameState = fakeGame;
+      draft.gameId = fakeGameId;
+    });
+    const expectedState = {
+      ...GAME_INITIAL_STATE,
+    };
+
+    const action = clearGame();
+    const reducer = gameReducer(initialState, action);
+
+    expect(reducer).toEqual(expectedState);
+  });
+
   it('Should handle AVAILABLE_MOVES action type', () => {
     const initialState = {
       ...GAME_INITIAL_STATE,
@@ -79,6 +97,21 @@ describe('Game Reducer', () => {
     });
 
     const action = availableMoves(fakeAvailableMoves, fakeBoardPosition);
+    const reducer = gameReducer(initialState, action);
+
+    expect(reducer).toEqual(expectedState);
+  });
+
+  it('should handle CHECK_IS_GAME_PRESENT_SUCCEEDED', () => {
+    const initialState = {
+      ...GAME_INITIAL_STATE,
+    };
+    const expectedState = produce(GAME_INITIAL_STATE, draft => {
+      draft.isReconnectAvailable = true;
+      draft.gameId = fakeGameId;
+    });
+
+    const action = checkIsGamePresentSucceeded(fakeGameId);
     const reducer = gameReducer(initialState, action);
 
     expect(reducer).toEqual(expectedState);

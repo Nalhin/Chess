@@ -12,7 +12,7 @@ describe('Toast Reducer', () => {
     expect(reducer).toEqual(initialState);
   });
 
-  it('Should handle ADD_TOAST action', () => {
+  it('Should handle ADD_TOAST action type', () => {
     const initialState = {
       ...TOASTER_INITIAL_STATE,
     };
@@ -27,7 +27,7 @@ describe('Toast Reducer', () => {
     expect(reducer).toEqual(expectedState);
   });
 
-  it('Should handle REMOVE_TOAST', () => {
+  it('Should handle REMOVE_TOAST type', () => {
     const initialState = {
       ...TOASTER_INITIAL_STATE,
       toasterData: [fakeToaster],

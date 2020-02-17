@@ -2,6 +2,7 @@ import { SagaIterator } from '@redux-saga/core';
 import { all, select, take, takeEvery } from '@redux-saga/core/effects';
 import {
   CheckIsGamePresentRequestedAction,
+  ForfeitGameAction,
   GameActionTypes,
   GetAvailableMovesAction,
   InitGameAction,
@@ -107,7 +108,7 @@ export function* initGameSaga(action: InitGameAction) {
   StompSingleton.deactivateInstance(WebsocketTypes.GAME);
 }
 
-export function* forfeitGameSaga() {
+export function* forfeitGameSaga(action: ForfeitGameAction) {
   const gameStomp = StompSingleton.getInstance(WebsocketTypes.GAME);
 
   const [gameId, { login }] = yield all([
@@ -129,13 +130,17 @@ export function* checkIsGamePresentSaga(
     const response = yield call(fetchIsGamePresent, user.login);
     if (response.data.isPresent) {
       yield put(checkIsGamePresentSucceeded(response.data.gameId));
+    } else {
+      yield put(checkIsGamePresentFailed());
     }
   } catch (e) {
     yield put(checkIsGamePresentFailed());
   }
 }
 
-function* getAvailableMovesSaga(action: GetAvailableMovesAction): SagaIterator {
+export function* getAvailableMovesSaga(
+  action: GetAvailableMovesAction,
+): SagaIterator {
   const gameStomp = StompSingleton.getInstance(WebsocketTypes.GAME);
   const [gameId, user] = yield all([
     select(gameIdSelector),
@@ -150,7 +155,7 @@ function* getAvailableMovesSaga(action: GetAvailableMovesAction): SagaIterator {
   });
 }
 
-function* makeMoveSaga(action: MakeMoveRequestedAction): SagaIterator {
+export function* makeMoveSaga(action: MakeMoveRequestedAction): SagaIterator {
   const gameStomp = StompSingleton.getInstance(WebsocketTypes.GAME);
 
   const [initialPosition, gameId, user] = yield all([
@@ -167,7 +172,7 @@ function* makeMoveSaga(action: MakeMoveRequestedAction): SagaIterator {
   });
 }
 
-function* promotePawnSaga(action: PromotePawnAction) {
+export function* promotePawnSaga(action: PromotePawnAction) {
   const gameStomp = StompSingleton.getInstance(WebsocketTypes.GAME);
 
   const [gameId, user] = yield all([
