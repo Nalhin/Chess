@@ -9,12 +9,12 @@ import {
   ListItem,
   ListItemAvatar,
   ListItemText,
-  Typography,
   useTheme,
 } from '@material-ui/core';
 import styled from '@emotion/styled';
 import mixins from '../../styles/mixins';
 import { StyledPageTitle } from '../../components/StyledPageTitle/StyledPageTitle';
+import { Routes } from '../../interfaces/Router/Routes';
 
 const StyledContainer = styled.div`
   ${mixins.flexCenter};
@@ -27,7 +27,7 @@ const Profile: React.FC<Props> = ({ user, addToast }) => {
   const theme = useTheme();
 
   return (
-    <StyledContainer theme={theme}>
+    <StyledContainer theme={theme} data-testid={Routes.profile}>
       <StyledPageTitle theme={theme} variant="h4">
         Your Profile
       </StyledPageTitle>

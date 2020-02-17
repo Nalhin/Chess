@@ -7,7 +7,7 @@ interface Props {}
 const NoMatch: React.FC<Props> = () => {
   const theme = useTheme();
   return (
-    <StyledPageTitle variant="h5" theme={theme}>
+    <StyledPageTitle variant="h5" theme={theme} data-testid="not found">
       No match for a given route
     </StyledPageTitle>
   );

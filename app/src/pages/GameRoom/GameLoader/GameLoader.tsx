@@ -9,8 +9,8 @@ import {
 import mixins from '../../../styles/mixins';
 import BoardStateless from '../../../components/BoardStateless/BoardStateless';
 import { defaultBoardState } from '../../../components/BoardStateless/defaultBoardState';
-import PlayerPanel from '../Game/PlayerPanel/PlayerPanel';
 import { StyledPageTitle } from '../../../components/StyledPageTitle/StyledPageTitle';
+import { Routes } from '../../../interfaces/Router/Routes';
 
 const StyledContainer = styled.div`
   ${mixins.flexCenter};
@@ -39,7 +39,11 @@ const GameLoader: React.FC<Props> = () => {
   const theme = useTheme();
   return (
     <div>
-      <StyledPageTitle variant="h4" theme={theme}>
+      <StyledPageTitle
+        variant="h4"
+        theme={theme}
+        data-testid={`${Routes.game}id`}
+      >
         Loading...
       </StyledPageTitle>
       <StyledContainer theme={theme}>

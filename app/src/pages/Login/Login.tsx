@@ -60,7 +60,7 @@ const Login = () => {
 
   return (
     <AuthForm headerText="Login">
-      <FormControl>
+      <FormControl data-testid={Routes.login}>
         <InputLabel htmlFor="login-input" color="primary" required>
           Login
         </InputLabel>

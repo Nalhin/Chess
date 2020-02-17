@@ -8,6 +8,7 @@ import Info from './Info';
 import mixins from '../../styles/mixins';
 import BoardStateless from '../../components/BoardStateless/BoardStateless';
 import { StyledPageTitle } from '../../components/StyledPageTitle/StyledPageTitle';
+import { Routes } from '../../interfaces/Router/Routes';
 
 const StyledContainer = styled.div`
   margin: 0 auto;
@@ -34,7 +35,7 @@ const Home: React.FC<Props> = ({ isAuthenticated, registerUser }) => {
   const theme = useTheme();
 
   return (
-    <StyledContainer data-testid="home">
+    <StyledContainer data-testid={Routes.home}>
       <StyledPageTitle variant="h4" theme={theme}>
         Play
       </StyledPageTitle>

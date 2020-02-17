@@ -7,6 +7,7 @@ import { IconButton, Typography, useTheme } from '@material-ui/core';
 import MatchDetails from './MatchDetails';
 import styled from '@emotion/styled';
 import { StyledPageTitle } from '../../components/StyledPageTitle/StyledPageTitle';
+import { Routes } from '../../interfaces/Router/Routes';
 
 const StyledContainer = styled(Loader)`
   margin: 0 auto;
@@ -51,7 +52,11 @@ const MatchDetailsPage: React.FC<Props> = ({
 
   return (
     <StyledContainer isLoading={isLoading}>
-      <StyledPageTitle variant="h4" theme={theme}>
+      <StyledPageTitle
+        variant="h4"
+        theme={theme}
+        data-testid={`${Routes.matchDetails}id`}
+      >
         Match details
       </StyledPageTitle>
       {shouldDisplayBackButton && (

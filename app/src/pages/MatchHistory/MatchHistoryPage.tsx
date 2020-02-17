@@ -5,6 +5,7 @@ import { MatchHistoryContainerProps } from './MatchHistory.container';
 import { Typography, useTheme } from '@material-ui/core';
 import { StyledPageTitle } from '../../components/StyledPageTitle/StyledPageTitle';
 import styled from '@emotion/styled';
+import { Routes } from '../../interfaces/Router/Routes';
 
 const StyledTypography = styled(Typography)`
   text-align: center;
@@ -30,7 +31,11 @@ const MatchHistoryPage: React.FC<Props> = ({
 
   return (
     <Loader isLoading={isLoading}>
-      <StyledPageTitle variant="h4" theme={theme}>
+      <StyledPageTitle
+        variant="h4"
+        theme={theme}
+        data-testid={Routes.matchHistory}
+      >
         Match history
       </StyledPageTitle>
       {matches.map(match => (
