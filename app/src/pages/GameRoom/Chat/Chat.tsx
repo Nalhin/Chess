@@ -88,7 +88,7 @@ const Chat: React.FC<Props> = ({ chatMessages, sendMessage, userLogin }) => {
   return (
     <div>
       <StyledChatWrapper
-        id="customized-menu"
+        id="chat-menu"
         anchorEl={anchorEl}
         keepMounted
         open={isOpen}

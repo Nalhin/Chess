@@ -7,6 +7,8 @@ import {
   getAvailableMovesSaga,
   initGameSaga,
   makeMoveSaga,
+  promotePawnSaga,
+  reconnectToGameSaga,
 } from '../game.saga';
 import MockStomp from '../../../../test/utils/MockStomp';
 import {
@@ -17,8 +19,11 @@ import {
   forfeitGame,
   getAvailableMoves,
   initGameRequested,
+  makeMoveRequested,
+  promotePawn,
+  reconnectToGame,
 } from '../game.actions';
-import { closeChat } from '../../chat/chat.actions';
+import { closeChat, initChat } from '../../chat/chat.actions';
 import { CustomRouterActionTypes } from '../../customRouter/customRouter.types';
 import { gameIdSelector, selectedPieceSelector } from '../game.selectors';
 import { userSelector } from '../../user/user.selectors';
@@ -27,6 +32,7 @@ import { fakeGameId } from '../../../../test/fixtures/game/gameId';
 import { fakeUser } from '../../../../test/fixtures/user/user';
 import { fakeBoardPosition } from '../../../../test/fixtures/game/boardPosition';
 import * as gameApi from '../game.api';
+import { PieceType } from '../../../interfaces/Game/Piece';
 
 jest.mock('../game.api', () => ({
   fetchIsGamePresent: jest.fn(),
@@ -41,6 +47,36 @@ jest.mock('../../../websocket/stompClient', () => ({
 
 beforeEach(() => {
   jest.clearAllMocks();
+});
+
+describe('reconnectToGameSaga', () => {
+  it('should reconnect successfully', () => {
+    testSaga(reconnectToGameSaga, reconnectToGame)
+      .next()
+      .select(userSelector)
+      .next(fakeUser)
+      .call(gameApi.fetchIsGamePresent, fakeUser.login)
+      .next({ data: { isPresent: true, gameId: fakeGameId } })
+      .next()
+      .put(initChat(fakeGameId))
+      .next()
+      .put(initGameRequested(fakeGameId))
+      .next()
+      .next()
+      .isDone();
+  });
+
+  it('should handle missing game', () => {
+    testSaga(reconnectToGameSaga, reconnectToGame)
+      .next()
+      .select(userSelector)
+      .next(fakeUser)
+      .call(gameApi.fetchIsGamePresent, fakeUser.login)
+      .next({ data: { isPresent: false, gameId: fakeGameId } })
+      .next()
+      .next()
+      .isDone();
+  });
 });
 
 describe('initGameSaga', () => {
@@ -154,7 +190,7 @@ describe('makeMoveSaga', () => {
       return mockStomp;
     });
 
-    testSaga(makeMoveSaga, getAvailableMoves(fakeBoardPosition))
+    testSaga(makeMoveSaga, makeMoveRequested(fakeBoardPosition))
       .next()
       .all([
         select(selectedPieceSelector),
@@ -177,7 +213,7 @@ describe('promotePawnSaga', () => {
       return mockStomp;
     });
 
-    testSaga(getAvailableMovesSaga, getAvailableMoves(fakeBoardPosition))
+    testSaga(promotePawnSaga, promotePawn(PieceType.KING, fakeBoardPosition))
       .next()
       .all([select(gameIdSelector), select(userSelector)])
       .next([fakeGameId, fakeUser])

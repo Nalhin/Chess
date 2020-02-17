@@ -51,6 +51,7 @@ const Navigation: React.FC<Props> = ({ isAuthenticated, logoutUser }) => {
   const isUserMenuOpen = Boolean(anchorEl);
 
   const changeTheme = () => {
+    console.log('xd');
     changeColorTheme();
   };
 
@@ -91,7 +92,7 @@ const Navigation: React.FC<Props> = ({ isAuthenticated, logoutUser }) => {
           <IconButton
             edge="start"
             color="inherit"
-            aria-label="menu"
+            aria-label="drawer menu"
             onClick={handleDrawer}
           >
             <MenuIcon />
@@ -124,6 +125,7 @@ const Navigation: React.FC<Props> = ({ isAuthenticated, logoutUser }) => {
                 }}
                 open={isUserMenuOpen}
                 onClose={handleClose}
+                aria-label="user menu"
               >
                 <StyledLink to={Routes.profile}>
                   <MenuItem onClick={handleClose}>Profile</MenuItem>

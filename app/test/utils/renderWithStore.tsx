@@ -26,9 +26,10 @@ export const renderWithStore = (
     history?: History;
   } = {},
 ) => {
+  const changeColorTheme = jest.fn();
   return {
     ...render(
-      <ColorModeContext.Provider value={{ changeColorTheme: () => {} }}>
+      <ColorModeContext.Provider value={{ changeColorTheme }}>
         <ThemeProvider theme={getMuiTheme(ColorTheme.Light)}>
           <Router history={history}>
             <Provider store={store}>{ui}</Provider>
@@ -38,6 +39,7 @@ export const renderWithStore = (
     ),
     store,
     history,
+    changeColorTheme,
     theme: getMuiTheme(ColorTheme.Light),
   };
 };

@@ -63,11 +63,7 @@ const ChatUserMessage: React.FC<Props> = ({ chatMessage, userLogin }) => {
             {sender[0].toUpperCase()}
           </StyledPlayerAvatar>
         )}
-        <StyledMessageText
-          data-testid="chat__chat-message"
-          isSender={isSender}
-          theme={theme}
-        >
+        <StyledMessageText isSender={isSender} theme={theme}>
           {content}
         </StyledMessageText>
       </StyledContainer>

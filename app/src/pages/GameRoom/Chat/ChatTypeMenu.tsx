@@ -43,18 +43,18 @@ const ChatTypeMenu: React.FC<Props> = ({ sendMessage }) => {
   return (
     <StyledContainer theme={theme}>
       <StyledInput
-        data-testid="chat_message-input"
         onChange={handleSetNewMessageValue}
         onKeyDown={handleKeyDown}
         value={messageInputValue}
+        aria-label="message input"
         placeholder="Type a message..."
         color="primary"
         theme={theme}
       />
       <IconButton
-        data-testid="chat__send-message-button"
         onClick={handleSendMessage}
         color="primary"
+        aria-label="send message"
       >
         <SendIcon />
       </IconButton>

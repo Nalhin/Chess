@@ -26,7 +26,7 @@ describe('SignUp page', () => {
       registerUserRequested(fakeRegisterUser),
     );
   });
-  it('should sadd toast, if there is an empty field', () => {
+  it('should add toast, if there is an empty field', () => {
     const { getByTestId, getByLabelText, store } = renderWithStore(<SignUp />);
     store.dispatch = jest.fn();
 

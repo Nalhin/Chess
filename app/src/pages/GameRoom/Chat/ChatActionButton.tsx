@@ -31,7 +31,12 @@ const ChatActionButton: React.FC<Props> = ({
   const theme = useTheme();
   return (
     <Fade in={isDisplayed}>
-      <StyledFab onClick={handleClick} color="secondary" theme={theme}>
+      <StyledFab
+        onClick={handleClick}
+        color="secondary"
+        theme={theme}
+        aria-label="toggle chat"
+      >
         <Badge
           color="primary"
           badgeContent={unreadMessagesCount}

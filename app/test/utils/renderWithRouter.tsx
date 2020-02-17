@@ -14,15 +14,18 @@ export const renderWithRouter = (
     history = createMemoryHistory({ initialEntries: [route] }),
   }: { route?: string; history?: History } = {},
 ) => {
+  const changeColorTheme = jest.fn();
+
   return {
     ...render(
-      <ColorModeContext.Provider value={{ changeColorTheme: () => {} }}>
+      <ColorModeContext.Provider value={{ changeColorTheme }}>
         <ThemeProvider theme={getMuiTheme(ColorTheme.Light)}>
           <Router history={history}>{ui}</Router>
         </ThemeProvider>
       </ColorModeContext.Provider>,
     ),
     history,
+    changeColorTheme,
     theme: getMuiTheme(ColorTheme.Light),
   };
 };

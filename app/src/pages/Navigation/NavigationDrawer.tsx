@@ -6,7 +6,6 @@ import {
   ListItemIcon,
   ListItemText,
   SwipeableDrawer,
-  useTheme,
 } from '@material-ui/core';
 import HistoryIcon from '@material-ui/icons/History';
 import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
@@ -43,7 +42,6 @@ const NavigationDrawer: React.FC<Props> = ({
   isAuthenticated,
   logoutUser,
 }) => {
-  const theme = useTheme();
   return (
     <SwipeableDrawer
       open={isOpen}
