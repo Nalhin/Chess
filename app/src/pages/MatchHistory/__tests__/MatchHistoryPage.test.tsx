@@ -19,8 +19,8 @@ describe('MatchHistoryGame component', () => {
       <MatchHistoryGame {...props} game={game} />,
     );
 
-    expect(getByText(game.whitePlayer)).toBeTruthy();
-    expect(getByText(game.blackPlayer)).toBeTruthy();
+    expect(getByText(game.whitePlayer)).toBeInTheDocument();
+    expect(getByText(game.blackPlayer)).toBeInTheDocument();
   });
   it('should redirect to MatchDetails on click', () => {
     const game = fakeMatchHistory[0];

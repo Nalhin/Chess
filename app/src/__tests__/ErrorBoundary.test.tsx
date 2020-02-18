@@ -21,7 +21,7 @@ describe('ErrorBoundary Component', () => {
 
     const error = queryByTestId('error-boundary');
 
-    expect(error).toBeFalsy();
+    expect(error).not.toBeInTheDocument();
   });
 
   it('Should react to error', () => {
@@ -33,6 +33,6 @@ describe('ErrorBoundary Component', () => {
 
     const error = getByTestId('error-boundary');
 
-    expect(error).toBeTruthy();
+    expect(error).toBeInTheDocument();
   });
 });

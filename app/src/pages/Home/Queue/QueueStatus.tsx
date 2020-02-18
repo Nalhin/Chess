@@ -45,7 +45,7 @@ const QueueStatus: React.FC<Props> = ({ timeJoined, leaveQueue }) => {
   }, [timeJoined]);
 
   return (
-    <StyledContainer>
+    <StyledContainer data-testid="queue__status">
       <StyledTypography variant="body1" theme={theme}>
         In queue for {shownTime} seconds.
       </StyledTypography>

@@ -16,7 +16,7 @@ describe('MatchHistoryPage', () => {
     const { getByText } = renderWithRouter(
       <MatchHistoryPage {...props} matches={[]} isLoading={false} />,
     );
-    expect(getByText(/no matches found/i)).toBeTruthy();
+    expect(getByText(/no matches found/i)).toBeInTheDocument();
   });
   it('should fire getMatchHistory action', () => {
     const getMatchHistory = jest.fn();

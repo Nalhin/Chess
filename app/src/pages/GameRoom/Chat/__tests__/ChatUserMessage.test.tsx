@@ -13,6 +13,6 @@ describe('UserMessageComponent', () => {
   it('should display message content', () => {
     const { getByText } = render(<ChatUserMessage {...props} />);
 
-    expect(getByText(fakeChatMessage.content)).toBeTruthy();
+    expect(getByText(fakeChatMessage.content)).toBeInTheDocument();
   });
 });

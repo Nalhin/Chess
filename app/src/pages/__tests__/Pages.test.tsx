@@ -10,7 +10,7 @@ describe('Pages Component', () => {
 
     const { findByTestId } = renderWithStore(<Pages />, { route });
 
-    expect(await findByTestId(route)).toBeTruthy();
+    expect(await findByTestId(route)).toBeInTheDocument();
   });
 
   it('should handle profile route', async () => {
@@ -21,7 +21,7 @@ describe('Pages Component', () => {
       initialState,
     });
 
-    expect(await findByTestId(route)).toBeTruthy();
+    expect(await findByTestId(route)).toBeInTheDocument();
   });
 
   it('should handle invalid route', async () => {
@@ -29,7 +29,7 @@ describe('Pages Component', () => {
 
     const { findByTestId } = renderWithStore(<Pages />, { route });
 
-    expect(await findByTestId(route)).toBeTruthy();
+    expect(await findByTestId(route)).toBeInTheDocument();
   });
 
   it('should handle match history route', async () => {
@@ -41,7 +41,7 @@ describe('Pages Component', () => {
       initialState,
     });
 
-    expect(await findByTestId(route)).toBeTruthy();
+    expect(await findByTestId(route)).toBeInTheDocument();
   });
 
   it('should handle match details route', async () => {
@@ -53,7 +53,7 @@ describe('Pages Component', () => {
       initialState,
     });
 
-    expect(await findByTestId(route)).toBeTruthy();
+    expect(await findByTestId(route)).toBeInTheDocument();
   });
 
   it('should handle logout route', async () => {
@@ -61,7 +61,7 @@ describe('Pages Component', () => {
 
     const { findByTestId } = renderWithStore(<Pages />, { route });
 
-    expect(await findByTestId(route)).toBeTruthy();
+    expect(await findByTestId(route)).toBeInTheDocument();
   });
 
   it('should handle login route', async () => {
@@ -69,7 +69,7 @@ describe('Pages Component', () => {
 
     const { findByTestId } = renderWithStore(<Pages />, { route });
 
-    expect(await findByTestId(route)).toBeTruthy();
+    expect(await findByTestId(route)).toBeInTheDocument();
   });
 
   it('Should handle home route', async () => {
@@ -77,7 +77,7 @@ describe('Pages Component', () => {
 
     const { findByTestId } = renderWithStore(<Pages />, { route });
 
-    expect(await findByTestId(route)).toBeTruthy();
+    expect(await findByTestId(route)).toBeInTheDocument();
   });
 
   it('should handle game route', async () => {
@@ -91,6 +91,6 @@ describe('Pages Component', () => {
       initialState,
     });
 
-    expect(await findByTestId(route)).toBeTruthy();
+    expect(await findByTestId(route)).toBeInTheDocument();
   });
 });

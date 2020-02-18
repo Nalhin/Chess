@@ -6,6 +6,6 @@ describe('GameLoader component', () => {
   it('should display loading', () => {
     const { getByText } = render(<GameLoader />);
 
-    expect(getByText(/loading/i)).toBeTruthy();
+    expect(getByText(/loading/i)).toBeInTheDocument();
   });
 });

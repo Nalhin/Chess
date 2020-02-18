@@ -12,7 +12,7 @@ describe('Profile page', () => {
   it('should display user data', () => {
     const { getByText } = render(<Profile user={fakeUser} {...props} />);
 
-    expect(getByText(fakeUser.login)).toBeTruthy();
-    expect(getByText(fakeUser.email)).toBeTruthy();
+    expect(getByText(fakeUser.login)).toBeInTheDocument();
+    expect(getByText(fakeUser.email)).toBeInTheDocument();
   });
 });

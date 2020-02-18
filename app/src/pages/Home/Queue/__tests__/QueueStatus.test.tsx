@@ -25,6 +25,6 @@ describe('QueueStatus component', () => {
       <QueueStatus {...props} timeJoined={timeJoined} />,
     );
 
-    expect(await findByText(/1/)).toBeTruthy();
+    expect(await findByText(/1/)).toBeInTheDocument();
   });
 });

@@ -7,10 +7,10 @@ describe('PasswordInput component', () => {
     const { getByLabelText, queryByLabelText } = render(
       <PasswordInput value={''} />,
     );
-    expect(queryByLabelText(/hide visibility/)).toBeFalsy();
+    expect(queryByLabelText(/hide visibility/)).not.toBeInTheDocument();
 
     fireEvent.click(getByLabelText(/set visible/));
 
-    expect(queryByLabelText(/hide visibility/)).toBeTruthy();
+    expect(queryByLabelText(/hide visibility/)).toBeInTheDocument();
   });
 });

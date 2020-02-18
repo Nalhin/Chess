@@ -15,14 +15,14 @@ describe('Home Page', () => {
       <Home {...props} isAuthenticated={isAuthenticated} />,
     );
 
-    expect(getByTestId(/info/i)).toBeTruthy();
+    expect(getByTestId(/info/i)).toBeInTheDocument();
   });
   it('should display queue, if user is authenticated', () => {
     const isAuthenticated = true;
-    const { getByTestId } = renderWithStore(
+    const { getAllByTestId } = renderWithStore(
       <Home {...props} isAuthenticated={isAuthenticated} />,
     );
 
-    expect(getByTestId(/queue/i)).toBeTruthy();
+    expect(getAllByTestId(/queue/i)[0]).toBeInTheDocument();
   });
 });

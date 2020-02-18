@@ -27,6 +27,6 @@ describe('ChatActionButton', () => {
     messageCount++;
     rerender(<ChatActionButton {...props} messageCount={messageCount} />);
 
-    expect(getByText('2')).toBeTruthy();
+    expect(getByText('2')).toBeInTheDocument();
   });
 });

@@ -9,7 +9,7 @@ interface Props {
 const QueueReconnect: React.FC<Props> = ({ reconnectToGame }) => {
   const theme = useTheme();
   return (
-    <StyledQueueContainer>
+    <StyledQueueContainer data-testid="queue__reconnect">
       <Typography variant="body1">Game in progress</Typography>
       <StyledQueueButton
         theme={theme}

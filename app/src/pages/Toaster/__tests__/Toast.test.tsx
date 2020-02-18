@@ -23,7 +23,7 @@ describe('Snackbar Component', () => {
       <Toast {...props} message={message} />,
     );
 
-    expect(getByText(message)).toBeTruthy();
+    expect(getByText(message)).toBeInTheDocument();
   });
 
   it('Should fire onClose function when closeIcon is clicked', () => {

@@ -6,6 +6,6 @@ describe('NoMatch page', () => {
   it('should render correctly', () => {
     const { getByText } = render(<NoMatch />);
 
-    expect(getByText(/no match/i)).toBeTruthy();
+    expect(getByText(/no match/i)).toBeInTheDocument();
   });
 });

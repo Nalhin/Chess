@@ -51,7 +51,7 @@ describe('Cell component', () => {
   it('should display available move', () => {
     const { getByTestId } = renderWithDnd(<Cell {...props} isMoveAvailable />);
 
-    expect(getByTestId(/cell--move-available/)).toBeInTheDocument();
+    expect(getByTestId(/board__cell--move-available/)).toBeInTheDocument();
   });
 
   it('should hide available move', () => {
@@ -59,6 +59,8 @@ describe('Cell component', () => {
       <Cell {...props} isMoveAvailable={false} />,
     );
 
-    expect(queryByTestId(/cell--move-available/)).not.toBeInTheDocument();
+    expect(
+      queryByTestId(/board__cell--move-available/),
+    ).not.toBeInTheDocument();
   });
 });

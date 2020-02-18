@@ -14,7 +14,7 @@ const StyledFormControl = styled(FormControl)`
   margin: ${props => props.theme.spacing(2)}px;
 `;
 
-enum GameModes {
+export enum GameModes {
   Pvp,
   Ai,
 }
@@ -46,11 +46,11 @@ const QueueJoin: React.FC<Props> = ({ joinQueue, joinQueueAi }) => {
   };
 
   return (
-    <StyledQueueContainer>
+    <StyledQueueContainer data-testid="queue__join">
       <StyledFormControl theme={theme}>
-        <InputLabel id="select-game-mode">Mode</InputLabel>
+        <InputLabel htmlFor="select-game-mode">Mode</InputLabel>
         <Select
-          labelId="select-game-mode"
+          id="select-game-mode"
           value={selectedMode}
           onChange={handleChange}
         >

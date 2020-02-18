@@ -150,7 +150,10 @@ const Cell: React.FC<CellProps> = ({
         />
       )}
       {isMoveAvailable && !canBeAttacked && (
-        <StyledOverlay theme={theme} data-testid="cell--move-available" />
+        <StyledOverlay
+          theme={theme}
+          data-testid="board__cell--move-available"
+        />
       )}
     </StyledCell>
   );

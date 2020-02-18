@@ -14,7 +14,7 @@ describe('GameRoom component', () => {
       <GameRoom {...props} isGameLoading />,
     );
 
-    expect(getByText(/loading/i)).toBeTruthy();
+    expect(getByText(/loading/i)).toBeInTheDocument();
   });
   it('should fire reconnect function, if should reconnect is true', () => {
     const reconnectToGame = jest.fn();
@@ -29,6 +29,6 @@ describe('GameRoom component', () => {
       <GameRoom {...props} isGameLoading={false} />,
     );
 
-    expect(queryByText(/loading/i)).toBeFalsy();
+    expect(queryByText(/loading/i)).not.toBeInTheDocument();
   });
 });

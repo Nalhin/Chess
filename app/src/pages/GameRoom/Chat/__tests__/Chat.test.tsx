@@ -15,6 +15,6 @@ describe('Chat component', () => {
     const messages = [fakeChatMessage];
     const { getByText } = render(<Chat {...props} chatMessages={messages} />);
 
-    expect(getByText(messages[0].content)).toBeTruthy();
+    expect(getByText(messages[0].content)).toBeInTheDocument();
   });
 });

@@ -14,6 +14,6 @@ describe('Toasts Component', () => {
 
     const snackbar = getByText(fakeToaster.message);
 
-    expect(snackbar).toBeTruthy();
+    expect(snackbar).toBeInTheDocument();
   });
 });

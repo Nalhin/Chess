@@ -36,7 +36,7 @@ describe('Navigation component', () => {
 
     fireEvent.click(getByLabelText(/drawer menu/i));
 
-    expect(getByText(/play/i)).toBeTruthy();
+    expect(getByText(/play/i)).toBeInTheDocument();
   });
 
   it('should hide user menu, if user is not authenticated', () => {
@@ -44,6 +44,6 @@ describe('Navigation component', () => {
       <Navigation {...props} isAuthenticated={false} />,
     );
 
-    expect(queryByText(/user menu/i)).toBeFalsy();
+    expect(queryByText(/user menu/i)).not.toBeInTheDocument();
   });
 });

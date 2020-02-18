@@ -10,7 +10,7 @@ describe('MatchDetails component', () => {
     const login = fakeUser.login;
     const { getByText } = render(<MatchDetails game={game} login={login} />);
 
-    expect(getByText(game.blackPlayer)).toBeTruthy();
-    expect(getByText(game.whitePlayer)).toBeTruthy();
+    expect(getByText(game.blackPlayer)).toBeInTheDocument();
+    expect(getByText(game.whitePlayer)).toBeInTheDocument();
   });
 });
