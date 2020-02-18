@@ -9,7 +9,6 @@ export const renderWithStyles = (ui: JSX.Element) => {
     ...render(
       <ThemeProvider theme={getMuiTheme(ColorTheme.Light)}>{ui}</ThemeProvider>,
     ),
-    history,
     theme: getMuiTheme(ColorTheme.Light),
   };
 };

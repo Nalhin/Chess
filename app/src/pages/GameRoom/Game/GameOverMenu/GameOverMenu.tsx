@@ -3,6 +3,7 @@ import GameMenu from '../GameMenu/GameMenu';
 import { useHistory } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { Button, Typography, useTheme } from '@material-ui/core';
+import { Routes } from '../../../../interfaces/Router/Routes';
 
 const StyledContainer = styled.div`
   display: flex;
@@ -27,7 +28,7 @@ const GameOverMenu: React.FC<Props> = ({ isShown, closeGame, isWinner }) => {
   const theme = useTheme();
   const goToMainMenu = () => {
     closeGame();
-    history.push('/');
+    history.push(Routes.home);
   };
 
   return (

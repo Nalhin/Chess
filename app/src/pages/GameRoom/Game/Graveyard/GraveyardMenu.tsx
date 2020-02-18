@@ -57,7 +57,7 @@ const GraveyardMenu: React.FC<Props> = ({ userColor, graveyards }) => {
         numberOfOwnPiecesInGraveyard={userGraveyard.length}
       />
       <Dialog onClose={handleChange} open={isOpen}>
-        <StyledDialogTitle>
+        <StyledDialogTitle disableTypography>
           <Typography variant="h6">Graveyards</Typography>
           <StyledCloseButton
             aria-label="close"

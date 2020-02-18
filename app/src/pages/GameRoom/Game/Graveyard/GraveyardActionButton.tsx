@@ -23,7 +23,12 @@ const GraveyardActionButton: React.FC<Props> = ({
   const theme = useTheme();
   return (
     <Fade in={true}>
-      <StyledFab onClick={handleClick} color="secondary" theme={theme}>
+      <StyledFab
+        onClick={handleClick}
+        color="secondary"
+        theme={theme}
+        aria-label="open graveyard"
+      >
         <Badge
           color="primary"
           badgeContent={numberOfOwnPiecesInGraveyard}

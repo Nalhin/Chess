@@ -72,7 +72,12 @@ const ForfeitGame: React.FC<Props> = ({ forfeitGame }) => {
       <Portal>
         <StyledFabContainer theme={theme}>
           <Zoom in={true} unmountOnExit>
-            <Fab color="secondary" onClick={handleClose} size={size}>
+            <Fab
+              color="secondary"
+              onClick={handleClose}
+              size={size}
+              aria-label="forfeit game"
+            >
               <MeetingRoomIcon />
             </Fab>
           </Zoom>

@@ -56,7 +56,13 @@ const BoardDragLayer: React.FC<Props> = () => {
 
   const renderItem = () => {
     if (DragAndDropTypes.PIECE === itemType) {
-      return <StyledChessImage {...item} theme={theme} />;
+      return (
+        <StyledChessImage
+          {...item}
+          theme={theme}
+          data-testid={`board__${item.src}--dragged`}
+        />
+      );
     }
     return null;
   };
