@@ -1,4 +1,5 @@
 import { arePositionsEqual } from '../arePositionsEqual';
+import { BoardPosition } from '../../interfaces/Game/BoardPosition';
 
 describe('arePositionsEqual', () => {
   it('should return true, if positions are equal', () => {
@@ -19,7 +20,7 @@ describe('arePositionsEqual', () => {
   });
   it('should return false if position is falsy', () => {
     const firstPosition = { x: 2, y: 2 };
-    const secondPosition = { x: 2, y: null as number };
+    const secondPosition = null as BoardPosition;
 
     const result = arePositionsEqual(firstPosition, secondPosition);
 

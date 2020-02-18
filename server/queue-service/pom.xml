@@ -15,7 +15,7 @@
     <description>Queue Service for Chess Project</description>
 
     <properties>
-        <java.version>11</java.version>
+        <java.version>13</java.version>
         <spring-cloud.version>Hoxton.SR1</spring-cloud.version>
     </properties>
 

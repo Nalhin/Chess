@@ -28,7 +28,7 @@ const Info: React.FC<Props> = ({ registerUser }) => {
   };
 
   return (
-    <StyledQueueContainer>
+    <StyledQueueContainer data-testid="info">
       <Typography variant="body1">
         Account is required in order to play.
       </Typography>

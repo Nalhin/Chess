@@ -40,7 +40,7 @@ const Queue: React.FC<Props> = ({
     return <QueueJoin joinQueue={joinQueue} joinQueueAi={joinQueueAi} />;
   };
 
-  return <StyledQueue>{renderComponent()}</StyledQueue>;
+  return <StyledQueue data-testid="queue">{renderComponent()}</StyledQueue>;
 };
 
 export default Queue;
