@@ -28,9 +28,9 @@ import { CustomRouterActionTypes } from '../../customRouter/customRouter.types';
 import { gameIdSelector, selectedPieceSelector } from '../game.selectors';
 import { userSelector } from '../../user/user.selectors';
 import { select } from 'redux-saga-test-plan/matchers';
-import { fakeGameId } from '../../../../test/fixtures/game/gameId';
-import { fakeUser } from '../../../../test/fixtures/user/user';
-import { fakeBoardPosition } from '../../../../test/fixtures/game/boardPosition';
+import { fakeGameId } from '../../../../test/fixtures/game/fakeGameId';
+import { fakeUser } from '../../../../test/fixtures/user/fakeUser';
+import { fakeBoardPosition } from '../../../../test/fixtures/game/fakeBoardPosition';
 import * as gameApi from '../game.api';
 import { PieceType } from '../../../interfaces/Game/Piece';
 

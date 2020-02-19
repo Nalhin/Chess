@@ -2,10 +2,10 @@ import {
   didRouteChangeSelector,
   shouldDisplayBackSelector,
 } from '../customRouter.selectors';
-import { fakeLocation } from '../../../../test/fixtures/router/location';
+import { fakeLocation } from '../../../../test/fixtures/router/fakeLocation';
 
 describe('shouldDisplayBack', () => {
-  it('should be truthy, if prev location is diffrent', () => {
+  it('should be truthy, if prev location is different', () => {
     const pathname = 'yes';
     const fakeLocations = [
       { ...fakeLocation },

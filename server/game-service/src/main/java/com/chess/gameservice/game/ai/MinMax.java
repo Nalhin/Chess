@@ -7,14 +7,17 @@ import com.chess.gameservice.game.move.PlayerMove;
 import com.chess.gameservice.game.piece.Piece;
 import com.chess.gameservice.game.player.PlayerColor;
 import com.chess.gameservice.game.position.Position;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-
+@Component
 public class MinMax {
 
-    private final int DEPTH = 4;
+    @Value("${game.config.ai-depth}:3")
+    private int DEPTH;
     private final PlayerColor AI_COLOR = PlayerColor.BLACK;
 
     private final Evaluation evaluation = new Evaluation();
@@ -39,11 +42,15 @@ public class MinMax {
     }
 
     public PlayerMove getBestMove(Board board, PlayerColor playerColor) {
-        return negamaxRoot(Integer.MIN_VALUE + 1, Integer.MAX_VALUE, DEPTH, board, playerColor);
+        return negamaxRoot(board, playerColor);
 
     }
 
-    private PlayerMove negamaxRoot(int alpha, int beta, int depth, Board board, PlayerColor playerColor) {
+    private PlayerMove negamaxRoot(Board board, PlayerColor playerColor) {
+        int beta = Integer.MAX_VALUE;
+        int alpha = Integer.MIN_VALUE + 1;
+
+
         ArrayList<PlayerMove> moves = generatePlayerMoves(board, playerColor);
         PlayerMove bestMove = null;
         int bestValue = Integer.MIN_VALUE + 1;
@@ -60,7 +67,7 @@ public class MinMax {
             } catch (Exception exception) {
                 continue;
             }
-            int value = -negamax(-beta, -alpha, depth - 1, newBoard, PlayerColor.getOtherColor(playerColor));
+            int value = -negamax(-beta, -alpha, DEPTH - 1, newBoard, PlayerColor.getOtherColor(playerColor));
 
             if (value > bestValue) {
                 bestMove = pieceMove;
@@ -82,6 +89,7 @@ public class MinMax {
         }
         ArrayList<PlayerMove> moves = generatePlayerMoves(board, playerColor);
         Collections.shuffle(moves);
+        int updatedAlpha = alpha;
         int value = Integer.MIN_VALUE + 1;
         for (PlayerMove pieceMove : moves) {
             Board newBoard;
@@ -96,12 +104,12 @@ public class MinMax {
             if (res > value) {
                 value = res;
             }
-            alpha = Math.max(alpha, value);
-            if (alpha >= beta) {
+            updatedAlpha = Math.max(updatedAlpha, value);
+            if (updatedAlpha >= beta) {
                 break;
             }
         }
-        return alpha;
+        return updatedAlpha;
     }
 
 }

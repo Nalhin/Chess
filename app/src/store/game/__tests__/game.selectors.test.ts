@@ -1,7 +1,7 @@
 import { isCurrentTurnSelector, userColorSelector } from '../game.selectors';
-import { fakeGame } from '../../../../test/fixtures/game/game';
+import { fakeGame } from '../../../../test/fixtures/game/fakeGame';
 import { PlayerColor } from '../../../interfaces/Game/Player';
-import { fakeUser } from '../../../../test/fixtures/user/user';
+import { fakeUser } from '../../../../test/fixtures/user/fakeUser';
 
 describe('isCurrentTurnSelector', () => {
   it('should be truthy if its user"s turn', () => {

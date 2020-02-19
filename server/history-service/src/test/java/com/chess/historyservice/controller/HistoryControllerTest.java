@@ -40,7 +40,7 @@ class HistoryControllerTest {
     private Game game;
     private Turn turn;
 
-    private ArrayList<Turn> turns = new ArrayList<>();
+    private final ArrayList<Turn> turns = new ArrayList<>();
 
     @BeforeEach
     void setUp() {

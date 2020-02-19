@@ -1,6 +1,6 @@
-import { fakeChatMessage } from '../../../../test/fixtures/chat/chatMessage';
+import { fakeChatMessage } from '../../../../test/fixtures/chat/fakeChatMessage';
 import { ChatMessageTypes } from '../../../interfaces/Chat/ChatMessage';
-import { fakeUser } from '../../../../test/fixtures/user/user';
+import { fakeUser } from '../../../../test/fixtures/user/fakeUser';
 import { chatMessagesSelector } from '../chat.selectors';
 
 describe('chatMessageSelector', () => {

@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 @Service
 public class ChatService {
-    private HashMap<String, User> userHashMap = new HashMap<>();
+    private final HashMap<String, User> userHashMap = new HashMap<>();
 
     public void addUser(String playerSessionId, User user) {
         userHashMap.put(playerSessionId, user);

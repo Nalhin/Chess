@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.lang.NonNull;
 import org.springframework.messaging.simp.stomp.StompFrameHandler;
 import org.springframework.messaging.simp.stomp.StompHeaders;
 import org.springframework.messaging.simp.stomp.StompSession;
@@ -123,12 +124,12 @@ class ChatControllerTest {
 
     private class CreateStompFrameHandler implements StompFrameHandler {
         @Override
-        public Type getPayloadType(StompHeaders stompHeaders) {
+        public Type getPayloadType(@NonNull StompHeaders stompHeaders) {
             return byte[].class;
         }
 
         @Override
-        public void handleFrame(StompHeaders stompHeaders, Object o) {
+        public void handleFrame(@NonNull StompHeaders stompHeaders, Object o) {
 
             try {
                 blockingQueue.offer(new JSONObject(new String((byte[]) o)));

@@ -1,8 +1,8 @@
 // @ts-nocheck
-import { fakeSubscriptionChatMessage } from '../../../../test/fixtures/chat/subscriptionMessages/subscriptionChatMessage';
+import { fakeSubscriptionChatMessage } from '../../../../test/fixtures/chat/subscriptionMessages/fakeSubscriptionChatMessage';
 import MockStomp from '../../../../test/utils/MockStomp';
 import { chatSubscription } from '../chat.subscriptions';
-import { fakeChatId } from '../../../../test/fixtures/chat/chatId';
+import { fakeChatId } from '../../../../test/fixtures/chat/fakeChatId';
 import { RootAction } from '../../rootAction';
 
 const mockDispatchedActions = [];

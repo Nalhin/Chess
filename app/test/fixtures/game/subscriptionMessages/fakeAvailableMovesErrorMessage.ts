@@ -1,6 +1,9 @@
+import { GameActionTypes } from '../../../../src/store/game/game.types';
+import { fakeAvailableMovesError } from '../fakeAvailableMovesError';
+
 export const fakeAvailableMovesErrorMessage = {
   body: JSON.stringify({
-    type: 'ERROR',
-    payload: { error: 'error' },
+    type: GameActionTypes.ERROR,
+    payload: { error: fakeAvailableMovesError },
   }),
 };

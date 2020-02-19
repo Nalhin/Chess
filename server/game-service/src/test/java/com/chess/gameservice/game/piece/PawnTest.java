@@ -133,35 +133,35 @@ class PawnTest {
     }
 
     @Test
-    void makeMoveEnPessant(){
+    void makeMoveEnPessant() {
         Pawn pawn = new Pawn(PlayerColor.BLACK);
-        Position pawnPosition = new Position(0,0);
-        Position pawnDestination=new Position(1,1);
-        board.setBoardPosition(pawnPosition,pawn);
+        Position pawnPosition = new Position(0, 0);
+        Position pawnDestination = new Position(1, 1);
+        board.setBoardPosition(pawnPosition, pawn);
 
         Pawn pawnEnPassable = new Pawn(PlayerColor.WHITE);
-        Position pawnEnPassablePosition = new Position(2,1);
-        Position destinationEnPassable = new Position(0,1);
-        board.setBoardPosition(pawnEnPassablePosition,pawnEnPassable);
+        Position pawnEnPassablePosition = new Position(2, 1);
+        Position destinationEnPassable = new Position(0, 1);
+        board.setBoardPosition(pawnEnPassablePosition, pawnEnPassable);
         board.setEnPessantPosition(pawnEnPassablePosition);
 
-        pawn.makeMove(pawnPosition,pawnDestination,board);
+        pawn.makeMove(pawnPosition, pawnDestination, board);
 
-        assertTrue(board.getPieceByPosition(destinationEnPassable)==null);
+        assertNull(board.getPieceByPosition(destinationEnPassable));
     }
 
     @Test
-    void isMoveLegalEnPassant(){
+    void isMoveLegalEnPassant() {
         Pawn pawn = new Pawn(PlayerColor.BLACK);
-        Position pawnPosition = new Position(0,0);
-        board.setBoardPosition(pawnPosition,pawn);
+        Position pawnPosition = new Position(0, 0);
+        board.setBoardPosition(pawnPosition, pawn);
 
         Pawn pawnEnPassable = new Pawn(PlayerColor.WHITE);
-        Position pawnEnPassablePosition = new Position(2,1);
-        Position destinationEnPassable = new Position(0,1);
-        board.setBoardPosition(pawnEnPassablePosition,pawnEnPassable);
+        Position pawnEnPassablePosition = new Position(2, 1);
+        Position destinationEnPassable = new Position(0, 1);
+        board.setBoardPosition(pawnEnPassablePosition, pawnEnPassable);
 
-        pawnEnPassable.makeMove(pawnEnPassablePosition,destinationEnPassable,board);
-        assertTrue(pawn.isMoveLegal(pawnPosition,new Position(1,1),board));
+        pawnEnPassable.makeMove(pawnEnPassablePosition, destinationEnPassable, board);
+        assertTrue(pawn.isMoveLegal(pawnPosition, new Position(1, 1), board));
     }
 }

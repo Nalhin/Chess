@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface HistoryService  {
 
-    public Optional<Game> findGameById(Long gameId);
+    Optional<Game> findGameById(Long gameId);
 
-    public List<Game> findAllGamesByUserLogin(String login);
+    List<Game> findAllGamesByUserLogin(String login);
 }

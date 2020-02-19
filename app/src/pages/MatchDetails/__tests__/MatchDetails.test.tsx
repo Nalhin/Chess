@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 import MatchDetails from '../MatchDetails';
 import { fakeMatchDetails } from '../../../../test/fixtures/matchHistory/fakeMatchDetails';
-import { fakeUser } from '../../../../test/fixtures/user/user';
+import { fakeUser } from '../../../../test/fixtures/user/fakeUser';
 import React from 'react';
 
 describe('MatchDetails component', () => {

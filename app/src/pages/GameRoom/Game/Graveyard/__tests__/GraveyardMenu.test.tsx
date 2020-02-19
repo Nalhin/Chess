@@ -1,5 +1,5 @@
 import { PlayerColor } from '../../../../../interfaces/Game/Player';
-import { fakePiece } from '../../../../../../test/fixtures/game/piece';
+import { fakePiece } from '../../../../../../test/fixtures/game/fakePiece';
 import { fireEvent, render } from '@testing-library/react';
 import React from 'react';
 import GraveyardMenu from '../GraveyardMenu';

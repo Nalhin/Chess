@@ -32,7 +32,7 @@ public class GameService {
 
     private final HashMap<UUID, Game> games = new HashMap<>();
     private final MinMax minMax = new MinMax();
-    private ApplicationEventPublisher applicationEventPublisher;
+    private final ApplicationEventPublisher applicationEventPublisher;
 
     public GameService(ApplicationEventPublisher applicationEventPublisher) {
         this.applicationEventPublisher = applicationEventPublisher;

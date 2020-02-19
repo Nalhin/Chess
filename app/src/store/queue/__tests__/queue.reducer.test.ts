@@ -1,7 +1,7 @@
 import queueReducer, { QUEUE_INITIAL_STATE } from '../queue.reducer';
 import produce from 'immer';
 import { queueGameFound, queueJoined, queueLeft } from '../queue.actions';
-import { fakeUser } from '../../../../test/fixtures/user/user';
+import { fakeUser } from '../../../../test/fixtures/user/fakeUser';
 
 describe('Queue reducer', () => {
   it('should handle QUEUE_JOINED action type', () => {

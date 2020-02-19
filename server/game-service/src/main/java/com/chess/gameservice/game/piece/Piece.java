@@ -10,7 +10,6 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.UUID;
 
 
 @Getter
@@ -29,7 +28,7 @@ public abstract class Piece implements Serializable {
     }
 
     ArrayList<Position> getMovesInDirection(Board board, Position initialPosition, int dx, int dy) {
-        ArrayList<Position> availableMoves = new ArrayList<Position>();
+        ArrayList<Position> availableMoves = new ArrayList<>();
         Position position = new Position(initialPosition.getX(), initialPosition.getY());
 
         while (true) {

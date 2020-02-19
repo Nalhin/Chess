@@ -1,4 +1,4 @@
-import { fakePiece } from '../../../../../../test/fixtures/game/piece';
+import { fakePiece } from '../../../../../../test/fixtures/game/fakePiece';
 import { render } from '@testing-library/react';
 import Graveyard from '../Graveyard';
 import React from 'react';

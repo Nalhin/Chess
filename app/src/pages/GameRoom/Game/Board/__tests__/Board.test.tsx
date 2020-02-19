@@ -1,9 +1,9 @@
 import React from 'react';
 import Board from '../Board';
 import { renderWithDnd } from '../../../../../../test/utils/renderWithDnd';
-import { fakeBoard } from '../../../../../../test/fixtures/game/board';
-import { fakeBoardPosition } from '../../../../../../test/fixtures/game/boardPosition';
-import { fakeAvailableMoves } from '../../../../../../test/fixtures/game/availableMoves';
+import { fakeBoard } from '../../../../../../test/fixtures/game/fakeBoard';
+import { fakeBoardPosition } from '../../../../../../test/fixtures/game/fakeBoardPosition';
+import { fakeAvailableMoves } from '../../../../../../test/fixtures/game/fakeAvailableMoves';
 import { CheckState } from '../../../../../interfaces/Game/CheckState';
 import { PlayerColor } from '../../../../../interfaces/Game/Player';
 import { PieceType } from '../../../../../interfaces/Game/Piece';

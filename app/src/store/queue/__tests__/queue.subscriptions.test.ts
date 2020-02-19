@@ -2,7 +2,7 @@
 import { RootAction } from '../../rootAction';
 import MockStomp from '../../../../test/utils/MockStomp';
 import { queuePersonalSubscription } from '../queue.subscriptions';
-import { fakeUser } from '../../../../test/fixtures/user/user';
+import { fakeUser } from '../../../../test/fixtures/user/fakeUser';
 import { fakeQueueGameFoundMessage } from '../../../../test/fixtures/queue/subscriptionMessages/fakeQueueGameFoundMessage';
 import { fakeQueueLeftMessage } from '../../../../test/fixtures/queue/subscriptionMessages/fakeQueueLeftMessage';
 import { fakeQueueErrorMessage } from '../../../../test/fixtures/queue/subscriptionMessages/fakeQueueErrorMessage';

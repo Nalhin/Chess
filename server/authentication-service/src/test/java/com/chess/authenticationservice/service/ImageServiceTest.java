@@ -36,10 +36,10 @@ class ImageServiceTest {
 
         BufferedImage image = new BufferedImage(20, 20, BufferedImage.TYPE_BYTE_GRAY);
         image.setRGB(15, 15, 123123123);
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ImageIO.write(image, "jpg", baos);
-        baos.flush();
-        byte[] imageInByte = baos.toByteArray();
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        ImageIO.write(image, "jpg", outputStream);
+        outputStream.flush();
+        byte[] imageInByte = outputStream.toByteArray();
 
         MockMultipartFile mockMultipartFile = new MockMultipartFile("file", fileName,
                 "image/jpeg", imageInByte);

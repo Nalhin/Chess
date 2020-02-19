@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "kafka-topics.game-history",
+      "type": "java.lang.String",
+      "description": "Kafka game history topic name."
+  }
+] }

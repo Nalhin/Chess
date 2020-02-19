@@ -1,5 +1,5 @@
-import { fakeChatMessage } from '../../../../../test/fixtures/chat/chatMessage';
-import { fakeUser } from '../../../../../test/fixtures/user/user';
+import { fakeChatMessage } from '../../../../../test/fixtures/chat/fakeChatMessage';
+import { fakeUser } from '../../../../../test/fixtures/user/fakeUser';
 import { render } from '@testing-library/react';
 import Chat from '../Chat';
 import React from 'react';

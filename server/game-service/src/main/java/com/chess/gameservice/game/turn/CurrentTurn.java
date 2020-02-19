@@ -2,7 +2,6 @@ package com.chess.gameservice.game.turn;
 
 import com.chess.gameservice.game.player.PlayerColor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter

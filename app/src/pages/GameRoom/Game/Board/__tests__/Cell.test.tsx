@@ -1,5 +1,5 @@
 import { PieceType } from '../../../../../interfaces/Game/Piece';
-import { fakeBoardPosition } from '../../../../../../test/fixtures/game/boardPosition';
+import { fakeBoardPosition } from '../../../../../../test/fixtures/game/fakeBoardPosition';
 import { PlayerColor } from '../../../../../interfaces/Game/Player';
 import { CheckState } from '../../../../../interfaces/Game/CheckState';
 import { renderWithDnd } from '../../../../../../test/utils/renderWithDnd';

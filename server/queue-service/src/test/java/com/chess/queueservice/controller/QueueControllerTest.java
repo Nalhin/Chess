@@ -17,6 +17,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.test.context.EmbeddedKafka;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.NonNullApi;
 import org.springframework.messaging.simp.stomp.StompFrameHandler;
 import org.springframework.messaging.simp.stomp.StompHeaders;
 import org.springframework.messaging.simp.stomp.StompSession;
@@ -111,7 +113,7 @@ class QueueControllerTest {
         stompHeaders.setDestination(JOIN_QUEUE_ENDPOINT);
         stompHeaders.set("login", firstPlayerLogin);
         stompSession.send(stompHeaders, null);
-        Thread.sleep(1000); //ensure that first message was delivered
+        Thread.sleep(1000); //ensure that first message has been delivered
         stompHeaders.set("login", secondPlayerLogin);
         stompSession.send(stompHeaders, null);
         JSONObject message = blockingQueue.poll(10, SECONDS);
@@ -184,12 +186,12 @@ class QueueControllerTest {
 
     private class CreateStompFrameHandler implements StompFrameHandler {
         @Override
-        public Type getPayloadType(StompHeaders stompHeaders) {
+        public Type getPayloadType(@NonNull StompHeaders stompHeaders) {
             return byte[].class;
         }
 
         @Override
-        public void handleFrame(StompHeaders stompHeaders, Object o) {
+        public void handleFrame(@NonNull StompHeaders stompHeaders, Object o) {
 
             try {
                 blockingQueue.offer(new JSONObject(new String((byte[]) o)));

@@ -1,5 +1,5 @@
 import { PlayerColor } from '../../../../../interfaces/Game/Player';
-import { fakeBoardPosition } from '../../../../../../test/fixtures/game/boardPosition';
+import { fakeBoardPosition } from '../../../../../../test/fixtures/game/fakeBoardPosition';
 import { fireEvent, render } from '@testing-library/react';
 import PromotionMenu from '../PromotionMenu';
 import React from 'react';

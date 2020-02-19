@@ -8,7 +8,7 @@ import {
   getMatchHistoryRequested,
   getMatchHistorySucceeded,
 } from '../matchHistory.actions';
-import { fakeUser } from '../../../../test/fixtures/user/user';
+import { fakeUser } from '../../../../test/fixtures/user/fakeUser';
 import * as matchHistoryApi from '../matchHistory.api';
 import { fakeMatchHistory } from '../../../../test/fixtures/matchHistory/fakeMatchHistory';
 import { call } from 'redux-saga-test-plan/matchers';

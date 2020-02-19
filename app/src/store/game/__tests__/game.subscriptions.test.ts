@@ -9,7 +9,7 @@ import { fakePlayerMovedMessage } from '../../../../test/fixtures/game/subscript
 import { fakeGameOverMessage } from '../../../../test/fixtures/game/subscriptionMessages/fakeGameOverMessage';
 import { fakeAvailableMovesErrorMessage } from '../../../../test/fixtures/game/subscriptionMessages/fakeAvailableMovesErrorMessage';
 import { fakeAvailableMovesMessage } from '../../../../test/fixtures/game/subscriptionMessages/fakeAvailableMovesMessage';
-import { fakeGameId } from '../../../../test/fixtures/game/gameId';
+import { fakeGameId } from '../../../../test/fixtures/game/fakeGameId';
 import { RootAction } from '../../rootAction';
 
 const mockDispatchedActions = [];

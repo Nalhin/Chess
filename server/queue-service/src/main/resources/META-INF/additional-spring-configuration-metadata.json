@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "kafka-topics.start-game",
+      "type": "java.lang.String",
+      "description": "Kafka start game topic name."
+  }
+] }

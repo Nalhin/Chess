@@ -1,5 +1,5 @@
 import { fakeMatchDetails } from '../../../../test/fixtures/matchHistory/fakeMatchDetails';
-import { fakeUser } from '../../../../test/fixtures/user/user';
+import { fakeUser } from '../../../../test/fixtures/user/fakeUser';
 import MatchDetailsPage from '../MatchDetailsPage';
 import { renderWithRouter } from '../../../../test/utils/renderWithRouter';
 import { Routes } from '../../../interfaces/Router/Routes';

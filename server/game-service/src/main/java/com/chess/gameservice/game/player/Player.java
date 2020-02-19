@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.Duration;
+import java.util.Objects;
 import java.util.UUID;
 
 @Getter
@@ -47,6 +48,11 @@ public class Player {
         turnStartDate = null;
         Duration turnDuration = playerStopwatch.end();
         setTotalTurnTimeRemaining(totalTurnTimeRemaining.minus(turnDuration));
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 
     @Override

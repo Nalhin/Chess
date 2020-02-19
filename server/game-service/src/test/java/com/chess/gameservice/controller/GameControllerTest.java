@@ -32,6 +32,7 @@ import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 import org.springframework.kafka.test.EmbeddedKafkaBroker;
 import org.springframework.kafka.test.context.EmbeddedKafka;
+import org.springframework.lang.NonNull;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.simp.stomp.StompFrameHandler;
 import org.springframework.messaging.simp.stomp.StompHeaders;
@@ -150,8 +151,6 @@ class GameControllerTest {
         blockingQueue.poll(10, SECONDS);
 
         TestRestTemplate restTemplate = new TestRestTemplate();
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
 
         ResponseEntity<GamePresentMessage> response = restTemplate
                 .getForEntity("http://localhost:" + port + "/game/is-game-present/" + firstPlayerName,
@@ -261,12 +260,12 @@ class GameControllerTest {
 
     private class CreateStompFrameHandler implements StompFrameHandler {
         @Override
-        public Type getPayloadType(StompHeaders stompHeaders) {
+        public Type getPayloadType(@NonNull StompHeaders stompHeaders) {
             return byte[].class;
         }
 
         @Override
-        public void handleFrame(StompHeaders stompHeaders, Object o) {
+        public void handleFrame(@NonNull StompHeaders stompHeaders, Object o) {
 
             try {
                 blockingQueue.offer(new JSONObject(new String((byte[]) o)));

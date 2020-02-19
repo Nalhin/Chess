@@ -84,7 +84,7 @@ public class GameController implements ApplicationListener<PlayerOutOfTimeEvent>
     }
 
     @MessageMapping("/promotion/{gameId}")
-    public void pawnPromotion(@DestinationVariable String gameId, @Payload UserPromotionPayload userPromotionPayload, @Header("name") String name) throws GameException, IOException, ClassNotFoundException {
+    public void pawnPromotion(@DestinationVariable String gameId, @Payload UserPromotionPayload userPromotionPayload, @Header("name") String name) throws GameException {
         Game game = gameService.makePromotion(UUID.fromString(gameId), userPromotionPayload.getPosition(), userPromotionPayload.getPieceType(), name);
         PlayerMovedMessage playerMovedMessage = new PlayerMovedMessage();
         playerMovedMessage.setPayload(game);

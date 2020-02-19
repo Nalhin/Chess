@@ -1,0 +1,18 @@
+{
+  "properties": [
+    {
+      "name": "security.jwt.token.secret-key",
+      "type": "java.lang.String",
+      "description": "JWT token secret key."
+    },
+    {
+      "name": "security.jwt.token.expire-length",
+      "type": "java.lang.String",
+      "description": "JWT token expire length."
+    },
+    {
+      "name": "image-path",
+      "type": "java.lang.String",
+      "description": "Directory where user images will be stored."
+    }
+  ] }

@@ -2,7 +2,7 @@ import { renderWithStore } from '../../../../test/utils/renderWithStore';
 import React from 'react';
 import SignUp from '../SignUp';
 import { fireEvent } from '@testing-library/react';
-import { fakeRegisterUser } from '../../../../test/fixtures/user/user';
+import { fakeRegisterUser } from '../../../../test/fixtures/user/fakeUser';
 import { registerUserRequested } from '../../../store/user/user.actions';
 import { ToasterActionTypes } from '../../../store/toaster/toaster.types';
 

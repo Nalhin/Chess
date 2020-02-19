@@ -2,7 +2,7 @@ import { renderWithStore } from '../../../test/utils/renderWithStore';
 import React from 'react';
 import Pages from '../Pages';
 import { Routes } from '../../interfaces/Router/Routes';
-import { fakeUser } from '../../../test/fixtures/user/user';
+import { fakeUser } from '../../../test/fixtures/user/fakeUser';
 
 describe('Pages Component', () => {
   it('should handle sign up route', async () => {

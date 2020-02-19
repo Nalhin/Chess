@@ -29,11 +29,6 @@ class PlayersTest {
     }
 
     @Test
-    void changeTurn() throws InterruptedException {
-
-    }
-
-    @Test
     void getGameDuration() throws InterruptedException {
         Player blackPlayer = new Player("black");
         Player whitePlayer = new Player("white");

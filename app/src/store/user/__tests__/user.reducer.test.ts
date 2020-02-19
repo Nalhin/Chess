@@ -1,6 +1,6 @@
 import userReducer, { USER_INITIAL_STATE } from '../user.reducer';
 import produce from 'immer';
-import { fakeUser } from '../../../../test/fixtures/user/user';
+import { fakeUser } from '../../../../test/fixtures/user/fakeUser';
 import {
   authenticationSucceeded,
   loginUserSucceeded,

@@ -1,6 +1,5 @@
 package com.chess.gameservice.game.board;
 
-import com.chess.gameservice.exception.GameException;
 import com.chess.gameservice.game.piece.*;
 import com.chess.gameservice.game.player.PlayerColor;
 import com.chess.gameservice.game.position.Position;

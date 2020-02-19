@@ -2,7 +2,7 @@ import customRouterReducer, {
   CUSTOM_ROUTER_INITIAL_STATE,
 } from '../customRouter.reducer';
 import produce from 'immer';
-import { fakeLocation } from '../../../../test/fixtures/router/location';
+import { fakeLocation } from '../../../../test/fixtures/router/fakeLocation';
 import { LocationChangeAction } from 'connected-react-router';
 import { CustomRouterActionTypes } from '../customRouter.types';
 

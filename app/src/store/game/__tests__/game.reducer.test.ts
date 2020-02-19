@@ -9,10 +9,10 @@ import {
   playerMoved,
 } from '../game.actions';
 import produce from 'immer';
-import { fakeGame } from '../../../../test/fixtures/game/game';
-import { fakeAvailableMoves } from '../../../../test/fixtures/game/availableMoves';
-import { fakeBoardPosition } from '../../../../test/fixtures/game/boardPosition';
-import { fakeGameId } from '../../../../test/fixtures/game/gameId';
+import { fakeGame } from '../../../../test/fixtures/game/fakeGame';
+import { fakeAvailableMoves } from '../../../../test/fixtures/game/fakeAvailableMoves';
+import { fakeBoardPosition } from '../../../../test/fixtures/game/fakeBoardPosition';
+import { fakeGameId } from '../../../../test/fixtures/game/fakeGameId';
 
 describe('Game Reducer', () => {
   it('Should handle GAME_STARTED action type', () => {

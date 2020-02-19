@@ -1,6 +1,6 @@
 import chatReducer, { CHAT_INITIAL_STATE } from '../chat.reducer';
 import produce from 'immer';
-import { fakeChatMessage } from '../../../../test/fixtures/chat/chatMessage';
+import { fakeChatMessage } from '../../../../test/fixtures/chat/fakeChatMessage';
 import { closeChat, initChat, newMessageReceived } from '../chat.actions';
 
 describe('Chat reducer', () => {

@@ -1,6 +1,6 @@
 import { renderWithStore } from '../../../../test/utils/renderWithStore';
 import { fireEvent } from '@testing-library/react';
-import { fakeLoginUser } from '../../../../test/fixtures/user/user';
+import { fakeLoginUser } from '../../../../test/fixtures/user/fakeUser';
 import { loginUserRequested } from '../../../store/user/user.actions';
 import { ToasterActionTypes } from '../../../store/toaster/toaster.types';
 import React from 'react';

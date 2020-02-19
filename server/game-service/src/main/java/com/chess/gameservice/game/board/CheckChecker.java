@@ -47,7 +47,7 @@ public class CheckChecker {
                     if (isThreatInDirection(piece, distanceFromOrigin, dir, pawnThreats)) {
                         return true;
                     } else {
-                        //direction is blocked;
+                        //direction has been blocked;
                         break;
                     }
                 }
@@ -73,11 +73,7 @@ public class CheckChecker {
         if (piece instanceof Rook && rookThreats[direction]) {
             return true;
         }
-        if (piece instanceof Queen && queenThreats[direction]) {
-            return true;
-        }
-
-        return false;
+        return piece instanceof Queen && queenThreats[direction];
     }
 
     private static boolean isThreatenedByKnight(Board board, Position position, PlayerColor threatenedColor) {

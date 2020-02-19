@@ -17,9 +17,9 @@ import {
   leaveQueueSaga,
   queueGameFoundSaga,
 } from '../queue.saga';
-import { fakeGameId } from '../../../../test/fixtures/game/gameId';
+import { fakeGameId } from '../../../../test/fixtures/game/fakeGameId';
 
-import { fakeUser } from '../../../../test/fixtures/user/user';
+import { fakeUser } from '../../../../test/fixtures/user/fakeUser';
 import * as queueApi from '../queue.api';
 import { call, select, take } from 'redux-saga-test-plan/matchers';
 import * as queueSubscriptions from '../queue.subscriptions';

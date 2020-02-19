@@ -1,4 +1,4 @@
-import { fakeChatMessage } from '../chatMessage';
+import { fakeChatMessage } from '../fakeChatMessage';
 
 export const fakeSubscriptionChatMessage = {
   body: JSON.stringify({

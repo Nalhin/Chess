@@ -14,7 +14,7 @@ class ChatServiceTest {
     private ChatService chatService;
     private final String sessionId = "123";
     private UUID chatId;
-    private String userLogin = "login";
+    private final String userLogin = "login";
 
     @BeforeEach
     void setUp() {

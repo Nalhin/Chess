@@ -21,7 +21,7 @@ import {
   fakeLoginUser,
   fakeRegisterUser,
   fakeUser,
-} from '../../../../test/fixtures/user/user';
+} from '../../../../test/fixtures/user/fakeUser';
 import * as userApi from '../user.api';
 import Cookies from 'js-cookie';
 import { call } from 'redux-saga-test-plan/matchers';

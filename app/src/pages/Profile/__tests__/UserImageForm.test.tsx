@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { fireEvent, render, waitForElement } from '@testing-library/react';
 import UserImageForm from '../UserImageForm';
-import { fakeUser } from '../../../../test/fixtures/user/user';
+import { fakeUser } from '../../../../test/fixtures/user/fakeUser';
 import React from 'react';
 import * as userApi from '../../../store/user/user.api';
 import { ToastTypes } from '../../../interfaces/Toaster/ToastTypes';

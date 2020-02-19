@@ -5,6 +5,10 @@ kafka-topics:
   start-game: start-game
   game-history: game-history
 
+game:
+  config:
+    ai-depth: 4
+
 spring:
   profiles:
     active: dev

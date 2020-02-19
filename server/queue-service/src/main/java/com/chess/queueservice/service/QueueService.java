@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.Optional;
 
 
 @Service
@@ -21,7 +20,7 @@ public class QueueService {
 
     public synchronized ArrayList<User> joinQueue(User user) throws QueueException {
         if (queue.contains(user)) {
-            throw new QueueException("Player already in queue.");
+            throw new QueueException("Player already in a queue.");
         }
         ArrayList<User> users = new ArrayList<>();
         queue.offer(user);

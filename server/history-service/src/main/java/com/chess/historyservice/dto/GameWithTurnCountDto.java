@@ -3,7 +3,6 @@ package com.chess.historyservice.dto;
 
 import com.chess.historyservice.models.Game;
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.Duration;
 import java.time.ZonedDateTime;

@@ -1,6 +1,5 @@
 package com.chess.gameservice.game.player;
 
-import com.chess.gameservice.game.turn.CurrentTurn;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;

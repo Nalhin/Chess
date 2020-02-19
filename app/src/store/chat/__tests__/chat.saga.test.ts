@@ -5,7 +5,7 @@ import MockStomp from '../../../../test/utils/MockStomp';
 import { initChatSaga, sendMessageSaga } from '../chat.saga';
 import { initChat, sendMessage } from '../chat.actions';
 import { ChatActionTypes, ChatBaseActionTypes } from '../chat.types';
-import { fakeUser } from '../../../../test/fixtures/user/user';
+import { fakeUser } from '../../../../test/fixtures/user/fakeUser';
 
 jest.mock('../../../websocket/stompClient', () => ({
   StompSingleton: {

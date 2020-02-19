@@ -37,9 +37,9 @@ class GameServiceTest {
     @Mock
     private ApplicationEventPublisher applicationEventPublisher;
 
-    private UUID gameId = new UUID(8, 8);
-    private String firstPlayerName = "firstPlayer";
-    private String secondPlayerName = "Computer";
+    private final UUID gameId = new UUID(8, 8);
+    private final String firstPlayerName = "firstPlayer";
+    private final String secondPlayerName = "Computer";
     private StartGameMessage startGameMessage;
 
 

@@ -1,7 +1,9 @@
 {
   "root": true,
   "env": {
-    "node": true
+    "node": true,
+    "browser": true,
+    "es6": true
   },
   "extends": [
     "plugin:@typescript-eslint/recommended",
@@ -11,35 +13,12 @@
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "project": "./tsconfig.json",
-    "sourceType": "module"
-  },
-  "plugins": [
-    "@typescript-eslint",
-    "jest"
-  ],
-  "settings": {
-    "import/extensions": [
-      ".ts",
-      ".tsx"
-    ],
-    "import/parsers": {
-      "@typescript-eslint/parser": [
-        ".ts",
-        ".tsx"
-      ]
-    },
-    "import/resolver": {
-      "node": {
-        "extensions": [
-          ".ts",
-          ".tsx"
-        ]
-      }
-    },
-    "react": {
-      "version": "detect"
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
     }
   },
+  "plugins": ["react", "@typescript-eslint", "prettier"],
   "rules": {
     "@typescript-eslint/ban-ts-ignore": 0,
     "prettier/prettier": 1,

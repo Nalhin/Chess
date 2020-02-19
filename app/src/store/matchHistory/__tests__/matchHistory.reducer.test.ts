@@ -11,7 +11,7 @@ import {
   getMatchHistoryRequested,
   getMatchHistorySucceeded,
 } from '../matchHistory.actions';
-import { fakeUser } from '../../../../test/fixtures/user/user';
+import { fakeUser } from '../../../../test/fixtures/user/fakeUser';
 import { fakeMatchHistory } from '../../../../test/fixtures/matchHistory/fakeMatchHistory';
 import { fakeMatchDetails } from '../../../../test/fixtures/matchHistory/fakeMatchDetails';
 

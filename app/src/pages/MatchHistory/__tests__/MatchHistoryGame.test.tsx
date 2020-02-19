@@ -1,5 +1,5 @@
 import { fakeMatchHistory } from '../../../../test/fixtures/matchHistory/fakeMatchHistory';
-import { fakeUser } from '../../../../test/fixtures/user/user';
+import { fakeUser } from '../../../../test/fixtures/user/fakeUser';
 import { renderWithRouter } from '../../../../test/utils/renderWithRouter';
 import MatchHistoryPage from '../MatchHistoryPage';
 import React from 'react';
