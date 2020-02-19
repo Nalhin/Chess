@@ -1,6 +1,6 @@
 import { useDragLayer, XYCoord } from 'react-dnd';
 import React from 'react';
-import { DragAndDropTypes } from '../../../../interfaces/DragAndDrop/dragAndDropTypes';
+import { DragAndDropTypes } from '../../../../interfaces/DragAndDrop/DragAndDropTypes';
 import styled from '@emotion/styled';
 import { useTheme } from '@material-ui/core';
 import mixins from '../../../../styles/mixins';
