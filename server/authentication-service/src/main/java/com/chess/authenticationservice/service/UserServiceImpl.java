@@ -13,7 +13,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
 
 @Service
 @AllArgsConstructor
@@ -24,10 +23,9 @@ public class UserServiceImpl implements UserService {
     private final JwtTokenProvider jwtTokenProvider;
     private final AuthenticationManager authenticationManager;
 
-
     @Override
     public UserDto save(User user) throws CustomException {
-        if(user.getPassword()==null||user.getEmail()==null||user.getLogin()==null){
+        if (user.getPassword() == null || user.getEmail() == null || user.getLogin() == null) {
             throw CustomException.builder().message("Empty field provided.").httpStatus(HttpStatus.UNPROCESSABLE_ENTITY).build();
         }
         if (userRepository.existsByEmail(user.getEmail()) || userRepository.existsByLogin(user.getLogin())) {
@@ -42,24 +40,26 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto login(User user) throws CustomException {
         try {
+            if (user.getPassword() == null || user.getLogin() == null) {
+                throw CustomException.builder().message("Empty field provided.").httpStatus(HttpStatus.UNPROCESSABLE_ENTITY).build();
+            }
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getLogin(), user.getPassword()));
             User foundUser = userRepository.findByLogin(user.getLogin());
             String token = jwtTokenProvider.createToken(foundUser.getLogin());
             return UserDto.builder().email(foundUser.getEmail()).login(foundUser.getLogin()).token(token).build();
         } catch (AuthenticationException e) {
-            throw CustomException.builder().message("Incorrect credentials.").httpStatus(HttpStatus.UNPROCESSABLE_ENTITY).build();
+            throw CustomException.builder().message("Incorrect credentials.").httpStatus(HttpStatus.NOT_FOUND).build();
         }
     }
 
     @Override
-    public UserDto authorize(HttpServletRequest req) throws CustomException {
-        String token = jwtTokenProvider.resolveToken(req);
-        User user = userRepository.findByLogin(jwtTokenProvider.getLogin(token));
+    public UserDto authorize(String login) throws CustomException {
+        String token = jwtTokenProvider.createToken(login);
+        User user = userRepository.findByLogin(login);
         if (user == null) {
             throw CustomException.builder().message("Incorrect credentials.").httpStatus(HttpStatus.NOT_FOUND).build();
         }
         return UserDto.builder().email(user.getEmail()).login(user.getLogin()).token(token).build();
     }
-
 
 }

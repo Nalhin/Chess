@@ -19,15 +19,17 @@ const MatchHistoryPage: React.FC<Props> = ({
   isLoading,
   user,
 }) => {
+  const [isDisplayed, setDisplayed] = React.useState(false);
   const theme = useTheme();
 
   React.useEffect(() => {
     if (!matches.length && user.login) {
       getMatchHistory(user.login);
+      setDisplayed(true);
     }
   }, [user.login]);
 
-  const displayNoFound = !matches.length && !isLoading;
+  const displayNoFound = !matches.length && isDisplayed && !isLoading;
 
   return (
     <Loader isLoading={isLoading}>

@@ -2,6 +2,7 @@ package com.chess.queueservice.service;
 
 import com.chess.queueservice.messages.kafka.StartGameMessage;
 import com.chess.queueservice.models.User;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.Message;
@@ -14,7 +15,8 @@ import java.util.UUID;
 @Service
 public class KafkaService {
 
-    private final String KAFKA_TOPIC = "start-game";
+    @Value("${kafka-topics.start-game}")
+    private String KAFKA_START_GAME_TOPIC;
     private final KafkaTemplate<String, StartGameMessage> kafkaTemplate;
 
     public KafkaService(KafkaTemplate<String, StartGameMessage> kafkaTemplate) {
@@ -26,7 +28,7 @@ public class KafkaService {
                 .withPayload(StartGameMessage
                         .builder().gameId(gameId)
                         .users(users).withAi(withAi).build())
-                .setHeader(KafkaHeaders.TOPIC, KAFKA_TOPIC).build();
+                .setHeader(KafkaHeaders.TOPIC, KAFKA_START_GAME_TOPIC).build();
 
         kafkaTemplate.send(message);
     }

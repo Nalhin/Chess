@@ -22,7 +22,7 @@ const StyledBlackPlayer = styled(MatchHistoryPlayer)`
   flex-direction: row-reverse;
 `;
 
-const StyledGameTimeContainer = styled.div`
+const StyledGameTimeContainer = styled(Typography)`
   width: 100%;
   display: flex;
   align-items: center;
@@ -56,7 +56,7 @@ const MatchDetails: React.FC<Props> = ({ game, login }) => {
           name={game.whitePlayer}
           isWinner={game.whitePlayer === login}
         />
-        <StyledGameTimeContainer theme={theme}>
+        <StyledGameTimeContainer theme={theme} variant="body1">
           <span>{game.turns.length} Turns</span>
           <span>{game.duration.toFixed(2)} s</span>
         </StyledGameTimeContainer>

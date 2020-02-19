@@ -43,7 +43,7 @@ export function* joinQueueSaga(action: JoinQueueAction) {
 
   queueStomp.publish({
     destination: `/app/queue`,
-    headers: { name: user.login },
+    headers: { login: user.login },
   });
 
   if (isInQueue) {
@@ -70,7 +70,7 @@ export function* leaveQueueSaga(action: LeaveQueueAction) {
 
   queueStomp.publish({
     destination: `/app/leave-queue`,
-    headers: { name: login },
+    headers: { login: login },
   });
 }
 

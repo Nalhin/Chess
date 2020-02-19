@@ -36,26 +36,26 @@ public class QueueController {
     private final KafkaService kafkaService;
 
     @MessageMapping("/queue")
-    public void joinQueue(@Header("simpSessionId") String sessionId, @Header("name") String name) throws QueueException {
-        ArrayList<User> users = queueService.joinQueue(new User(name, sessionId));
+    public void joinQueue(@Header("simpSessionId") String sessionId, @Header("login") String login) throws QueueException {
+        ArrayList<User> users = queueService.joinQueue(new User(login, sessionId));
         if (users.size() > 0) {
             UUID gameId = UUID.randomUUID();
             GameFoundMessage gameFoundMessage = new GameFoundMessage(new GameFoundPayload(gameId.toString()));
             kafkaService.sendGameFound(gameId, users, false);
             for (User user : users) {
-                simpMessagingTemplate.convertAndSend("/queue/personal/" + user.getName(), gameFoundMessage);
+                simpMessagingTemplate.convertAndSend("/queue/personal/" + user.getLogin(), gameFoundMessage);
             }
         } else {
             QueueJoinedMessage queueJoinedMessage = new QueueJoinedMessage(new QueueJoinedMessagePayload(IsoDate.getCurrentIsoDate()));
-            simpMessagingTemplate.convertAndSend("/queue/personal/" + name, queueJoinedMessage);
+            simpMessagingTemplate.convertAndSend("/queue/personal/" + login, queueJoinedMessage);
         }
     }
 
     @MessageMapping("/leave-queue")
-    public void leaveQueue(@Header("name") String name, @Header("simpSessionId") String sessionId) {
+    public void leaveQueue(@Header("login") String login, @Header("simpSessionId") String sessionId) {
         queueService.removeUser(sessionId);
-        QueueLeftMessage message = new QueueLeftMessage(new QueueLeftPayload(name));
-        simpMessagingTemplate.convertAndSend("/queue/personal/" + name, message);
+        QueueLeftMessage message = new QueueLeftMessage(new QueueLeftPayload(login));
+        simpMessagingTemplate.convertAndSend("/queue/personal/" + login, message);
     }
 
     @PostMapping(value = "/queue/with-ai")
@@ -75,8 +75,8 @@ public class QueueController {
     }
 
     @MessageExceptionHandler
-    public void handleQueueException(@Header("name") String name, QueueException ex) {
+    public void handleQueueException(@Header("login") String login, QueueException ex) {
         ErrorMessage errorMessage = new ErrorMessage(new ErrorPayload(ex.getMessage()));
-        simpMessagingTemplate.convertAndSend("/queue/personal/" + name, errorMessage);
+        simpMessagingTemplate.convertAndSend("/queue/personal/" + login, errorMessage);
     }
 }

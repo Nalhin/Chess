@@ -20,14 +20,15 @@ public class MyUserDetails implements UserDetailsService {
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
         final User user = userRepository.findByLogin(login);
 
+
         if (user == null) {
             throw new UsernameNotFoundException("User '" + login + "' not found");
         }
 
         return org.springframework.security.core.userdetails.User
                 .withUsername(login)
-                .authorities("USER")
                 .password(user.getPassword())
+                .roles("USER")
                 .accountExpired(false)
                 .accountLocked(false)
                 .credentialsExpired(false)

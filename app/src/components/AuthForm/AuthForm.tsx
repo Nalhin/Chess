@@ -10,7 +10,7 @@ const StyledForm = styled.form`
   padding: ${props => props.theme.spacing(2)}px;
   > div,
   button {
-    margin: ${props => props.theme.spacing(0.5)}px 0;
+    margin: ${props => props.theme.spacing(0.75)}px 0;
   }
 `;
 

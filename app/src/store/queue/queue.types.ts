@@ -45,7 +45,7 @@ export interface LeaveQueueAction {
 export interface QueueLeftAction {
   type: typeof QueueActionTypes.QUEUE_LEFT;
   payload: {
-    name: string;
+    login: string;
   };
 }
 

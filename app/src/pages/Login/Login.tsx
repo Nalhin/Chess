@@ -91,7 +91,7 @@ const Login = () => {
         onClick={submitForm}
         data-testid="login__button"
       >
-        Login
+        Continue
       </Button>
     </AuthForm>
   );

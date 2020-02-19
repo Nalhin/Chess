@@ -6,6 +6,7 @@ import com.chess.authenticationservice.model.User;
 import com.chess.authenticationservice.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,19 +23,20 @@ public class UserController {
 
     @PostMapping(value = "/authentication/register", consumes = "application/json", produces = "application/json")
     public ResponseEntity<UserDto> register(@RequestBody User user) throws CustomException {
-        var savedUser = userService.save(user);
+        UserDto savedUser = userService.save(user);
         return ResponseEntity.ok().body(savedUser);
     }
 
     @PostMapping(value = "/authentication/login", consumes = "application/json", produces = "application/json")
     public ResponseEntity<UserDto> login(@RequestBody User user) throws CustomException {
-        var savedUser = userService.login(user);
+        UserDto savedUser = userService.login(user);
         return ResponseEntity.ok().body(savedUser);
     }
 
-    @GetMapping(value = "/authentication/authorize",produces = "application/json")
-    public ResponseEntity<UserDto>authorize(HttpServletRequest req) throws CustomException {
-        var user = userService.authorize(req);
+    @GetMapping(value = "/authentication/authorize", produces = "application/json")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<UserDto> authorize(HttpServletRequest req) throws CustomException {
+        UserDto user = userService.authorize(req.getRemoteUser());
         return ResponseEntity.ok().body(user);
     }
 

@@ -36,13 +36,15 @@ const MatchDetailsPage: React.FC<Props> = ({
   const theme = useTheme();
   const history = useHistory();
   const match = useRouteMatch<{ id: string }>();
+  const [isDisplayed, setDisplayed] = React.useState(false);
   const id = Number(match.params.id);
   const selectedMatchDetails = matchDetails[id];
-  const displayNoFound = !selectedMatchDetails && !isLoading;
+  const displayNoFound = !selectedMatchDetails && isDisplayed && !isLoading;
 
   React.useEffect(() => {
     if (!selectedMatchDetails && user.login) {
       getMatchDetails(id);
+      setDisplayed(true);
     }
   }, [id, user.login]);
 

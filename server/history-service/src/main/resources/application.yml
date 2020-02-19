@@ -1,6 +1,9 @@
 server:
   port: 8085
 
+kafka-topics:
+  game-history: game-history
+
 spring:
   profiles:
     active: dev

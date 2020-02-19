@@ -15,8 +15,8 @@ public class HistoryServiceImpl implements HistoryService {
     HistoryRepository historyRepository;
 
     @Override
-    public List<Game> findAllGamesByUserLogin(String userLogin) {
-        return historyRepository.findAllByWhitePlayerOrBlackPlayer(userLogin ,userLogin);
+    public List<Game> findAllGamesByUserLogin(String login) {
+        return historyRepository.findAllByWhitePlayerOrBlackPlayer(login, login);
     }
 
     @Override

@@ -76,15 +76,15 @@ public class GameService {
         }
     }
 
-    @KafkaListener(topics = "start-game")
+    @KafkaListener(topics = "${kafka-topics.start-game}")
     public void initGame(@Payload StartGameMessage message) {
         UUID gameId = message.getGameId();
         Game game = new Game();
         ArrayList<User> players = message.getUsers();
         game.setGameId(gameId);
         game.setWithAi(message.isWithAi());
-        game.setPlayer(new Player(players.get(0).getName()), PlayerColor.WHITE);
-        game.setPlayer(new Player(players.get(1).getName()), PlayerColor.BLACK);
+        game.setPlayer(new Player(players.get(0).getLogin()), PlayerColor.WHITE);
+        game.setPlayer(new Player(players.get(1).getLogin()), PlayerColor.BLACK);
         game.initGame(gameId);
         games.put(gameId, game);
     }

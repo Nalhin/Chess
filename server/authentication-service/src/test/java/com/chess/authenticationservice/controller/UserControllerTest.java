@@ -2,6 +2,8 @@ package com.chess.authenticationservice.controller;
 
 import com.chess.authenticationservice.dto.UserDto;
 import com.chess.authenticationservice.model.User;
+import com.chess.authenticationservice.repositories.UserRepository;
+import com.chess.authenticationservice.security.JwtTokenProvider;
 import com.chess.authenticationservice.service.UserServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,9 +19,11 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -34,6 +38,12 @@ class UserControllerTest {
 
     @MockBean
     private UserServiceImpl userService;
+
+    @MockBean
+    private UserRepository userRepository;
+
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
 
     @Autowired
     ObjectMapper objectMapper;
@@ -58,11 +68,11 @@ class UserControllerTest {
 
     @Test
     void registration() throws Exception {
-        var json = objectMapper.writeValueAsString(mockUser);
 
         Mockito.when(userService.save(ArgumentMatchers.any(User.class))).thenReturn(mockUserDto);
 
-        var result = mockMvc.perform(post("/authentication/register")
+        String json = objectMapper.writeValueAsString(mockUser);
+        MvcResult result = mockMvc.perform(post("/authentication/register")
                 .characterEncoding("utf-8")
                 .content(json)
                 .contentType(MediaType.APPLICATION_JSON))
@@ -70,7 +80,7 @@ class UserControllerTest {
                 .andReturn();
 
         String jsonResponse = result.getResponse().getContentAsString();
-        var userCreated = new ObjectMapper().readValue(jsonResponse, UserDto.class);
+        UserDto userCreated = new ObjectMapper().readValue(jsonResponse, UserDto.class);
 
         assertNotNull(userCreated);
         assertEquals(userCreated.getLogin(), mockUser.getLogin());
@@ -78,10 +88,9 @@ class UserControllerTest {
 
     @Test
     void login() throws Exception {
-
         Mockito.when(userService.login(ArgumentMatchers.any(User.class))).thenReturn(mockUserDto);
 
-        var json = objectMapper.writeValueAsString(mockUser);
+        String json = objectMapper.writeValueAsString(mockUser);
 
         mockMvc.perform(post("/authentication/login")
                 .characterEncoding("utf-8")
@@ -89,5 +98,23 @@ class UserControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
+    }
+
+    @Test
+    void authorize() throws Exception {
+        Mockito.when(userService.authorize(ArgumentMatchers.any())).thenReturn(mockUserDto);
+        Mockito.when(userRepository.findByLogin(USER_LOGIN)).thenReturn(mockUser);
+        String token = jwtTokenProvider.createToken(USER_LOGIN);
+
+        MvcResult result = mockMvc.perform(get("/authentication/authorize")
+                .header("Authorization", "Bearer " + token)
+                .characterEncoding("utf-8"))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        String jsonResponse = result.getResponse().getContentAsString();
+        UserDto userCreated = new ObjectMapper().readValue(jsonResponse, UserDto.class);
+
+        assertEquals(userCreated.getLogin(), mockUser.getLogin());
     }
 }

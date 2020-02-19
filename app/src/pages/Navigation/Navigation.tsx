@@ -36,6 +36,19 @@ const DarkModeContainer = styled.div`
   ${mixins.flexCenter}
 `;
 
+interface UserMenuProps {
+  isHidden: boolean;
+}
+
+const StyledUserMenu = styled.div<UserMenuProps>`
+  ${props =>
+    props.isHidden &&
+    `
+    pointer-events: none;
+    opacity:0;
+  `}
+`;
+
 const StyledLink = styled(Link)`
   color: inherit;
   text-decoration: none;
@@ -106,33 +119,35 @@ const Navigation: React.FC<Props> = ({ isAuthenticated, logoutUser }) => {
             />
             <Brightness3Icon />
           </DarkModeContainer>
-          {isAuthenticated && (
-            <div>
-              <IconButton onClick={handleMenu} color="inherit">
-                <AccountCircle />
-              </IconButton>
-              <Menu
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={isUserMenuOpen}
-                onClose={handleClose}
-                aria-label="user menu"
-              >
-                <StyledLink to={Routes.profile}>
-                  <MenuItem onClick={handleClose}>Profile</MenuItem>
-                </StyledLink>
-                <MenuItem onClick={logout}>Logout</MenuItem>
-              </Menu>
-            </div>
-          )}
+          <StyledUserMenu isHidden={!isAuthenticated}>
+            <IconButton
+              onClick={handleMenu}
+              color="inherit"
+              disabled={!isAuthenticated}
+            >
+              <AccountCircle />
+            </IconButton>
+            <Menu
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={isUserMenuOpen}
+              onClose={handleClose}
+              aria-label="user menu"
+            >
+              <StyledLink to={Routes.profile}>
+                <MenuItem onClick={handleClose}>Profile</MenuItem>
+              </StyledLink>
+              <MenuItem onClick={logout}>Logout</MenuItem>
+            </Menu>
+          </StyledUserMenu>
         </StyledToolbar>
       </StyledAppBar>
     </nav>

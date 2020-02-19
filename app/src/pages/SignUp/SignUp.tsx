@@ -104,7 +104,7 @@ const SignUp = () => {
         variant="contained"
         data-testid="sign-up__button"
       >
-        Sign up
+        Continue
       </Button>
     </AuthForm>
   );

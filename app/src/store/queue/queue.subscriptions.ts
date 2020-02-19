@@ -30,11 +30,11 @@ export const queuePersonalSubscription = (stomp: RxStomp, login: string) => {
           store.dispatch(queueGameFound(payload.gameId));
           break;
         case QueueActionTypes.QUEUE_LEFT:
-          store.dispatch(queueLeft(payload.name));
+          store.dispatch(queueLeft(payload.login));
           store.dispatch(
             addToast(
               generateToast(
-                `You (${payload.name}) left the queue`,
+                `You (${payload.login}) left the queue`,
                 ToastTypes.Info,
               ),
             ),

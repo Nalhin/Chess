@@ -10,5 +10,5 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class QueueLeftPayload {
-    String name;
+    String login;
 }

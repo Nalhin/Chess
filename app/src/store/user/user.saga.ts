@@ -85,6 +85,7 @@ export function* authenticateUserSaga() {
     }
     yield put(setToken(token));
     const response = yield call(fetchAuthenticateUser, token);
+    Cookies.set('token', response.data.token, { expires: 7 });
     yield put(authenticationSucceeded(response.data));
   } catch (e) {
     Cookies.remove('token');

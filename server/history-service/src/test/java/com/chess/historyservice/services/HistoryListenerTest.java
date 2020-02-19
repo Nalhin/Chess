@@ -35,7 +35,7 @@ class HistoryListenerTest {
                 .playerColor(PlayerColor.BLACK)
                 .build();
 
-        ArrayList<GameTurn> turns = new ArrayList();
+        ArrayList<GameTurn> turns = new ArrayList<>();
         turns.add(gameTurn);
         turns.add(gameTurn);
         historyMessage= HistoryMessage.builder().blackPlayer("a")

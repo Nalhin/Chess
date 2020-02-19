@@ -1,6 +1,9 @@
 server:
   port: 8084
 
+kafka-topics:
+  start-game: start-game
+
 spring:
   profiles:
     active: dev

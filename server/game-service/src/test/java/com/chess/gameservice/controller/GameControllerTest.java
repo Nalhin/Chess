@@ -58,7 +58,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @Tag("integration-test")
 @ActiveProfiles("test")
-@EmbeddedKafka(topics = "start-game")
+@EmbeddedKafka(topics = "${kafka-topics.start-game}")
 @DirtiesContext
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class GameControllerTest {
@@ -74,7 +74,8 @@ class GameControllerTest {
     private StompSession stompSession;
     private StompHeaders stompHeaders;
     private String gameId;
-
+    @Value("${kafka-topics.start-game}")
+    private String KAFKA_TOPICS_START_GAME;
 
     private final String firstPlayerName = "firstPlayerName";
     private final String secondPlayerName = "secondPlayerName";
@@ -108,7 +109,7 @@ class GameControllerTest {
 
         objectMapper = new ObjectMapper();
 
-        template.setDefaultTopic("start-game");
+        template.setDefaultTopic( KAFKA_TOPICS_START_GAME);
         User u1 = new User(firstPlayerName, "1");
         User u2 = new User(secondPlayerName, "2");
         ArrayList<User> users = new ArrayList<>();
@@ -116,7 +117,7 @@ class GameControllerTest {
         users.add(u2);
         Message<StartGameMessage> message = MessageBuilder
                 .withPayload(new StartGameMessage(UUID.fromString(gameId), users, false))
-                .setHeader(KafkaHeaders.TOPIC, "start-game").build();
+                .setHeader(KafkaHeaders.TOPIC,  KAFKA_TOPICS_START_GAME).build();
         template.send(message);
     }
 

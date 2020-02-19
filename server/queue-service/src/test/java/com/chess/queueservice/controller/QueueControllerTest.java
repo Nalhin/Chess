@@ -53,8 +53,8 @@ class QueueControllerTest {
     private StompSession stompSession;
     private StompHeaders stompHeaders;
 
-    private final String firstPlayerName = "firstPlayerName";
-    private final String secondPlayerName = "secondPlayerName";
+    private final String firstPlayerLogin = "firstPlayerLogin";
+    private final String secondPlayerLogin = "secondPlayerLogin";
 
     private final String SUBSCRIBE_PERSONAL_ENDPOINT = "/queue/personal/";
 
@@ -80,11 +80,11 @@ class QueueControllerTest {
 
     @Test
     void joinQueueWaiting() throws InterruptedException, JSONException {
-        Subscription personalSubscription = stompSession.subscribe(SUBSCRIBE_PERSONAL_ENDPOINT + firstPlayerName,
+        Subscription personalSubscription = stompSession.subscribe(SUBSCRIBE_PERSONAL_ENDPOINT + firstPlayerLogin,
                 new CreateStompFrameHandler());
 
         stompHeaders.setDestination(JOIN_QUEUE_ENDPOINT);
-        stompHeaders.set("name", firstPlayerName);
+        stompHeaders.set("login", firstPlayerLogin);
         stompSession.send(stompHeaders, null);
 
         JSONObject joinedMessage = blockingQueue.poll(10, SECONDS);
@@ -92,7 +92,7 @@ class QueueControllerTest {
         assertEquals(MessageTypes.QUEUE_JOINED.toString(), joinedMessage.get("type"));
 
         stompHeaders.setDestination(JOIN_QUEUE_ENDPOINT);
-        stompHeaders.set("name", secondPlayerName);
+        stompHeaders.set("login", secondPlayerLogin);
         stompSession.send(stompHeaders, null);
 
         JSONObject gameFoundMessage = blockingQueue.poll(10, SECONDS);
@@ -105,14 +105,14 @@ class QueueControllerTest {
 
     @Test
     void joinQueueGameFound() throws InterruptedException, JSONException {
-        Subscription subscription = stompSession.subscribe(SUBSCRIBE_PERSONAL_ENDPOINT + secondPlayerName,
+        Subscription subscription = stompSession.subscribe(SUBSCRIBE_PERSONAL_ENDPOINT + secondPlayerLogin,
                 new CreateStompFrameHandler());
 
         stompHeaders.setDestination(JOIN_QUEUE_ENDPOINT);
-        stompHeaders.set("name", firstPlayerName);
+        stompHeaders.set("login", firstPlayerLogin);
         stompSession.send(stompHeaders, null);
         Thread.sleep(1000); //ensure that first message was delivered
-        stompHeaders.set("name", secondPlayerName);
+        stompHeaders.set("login", secondPlayerLogin);
         stompSession.send(stompHeaders, null);
         JSONObject message = blockingQueue.poll(10, SECONDS);
 
@@ -123,15 +123,15 @@ class QueueControllerTest {
 
     @Test
     void leaveQueue() throws InterruptedException, JSONException {
-        Subscription subscription = stompSession.subscribe(SUBSCRIBE_PERSONAL_ENDPOINT + firstPlayerName,
+        Subscription subscription = stompSession.subscribe(SUBSCRIBE_PERSONAL_ENDPOINT + firstPlayerLogin,
                 new CreateStompFrameHandler());
         stompHeaders.setDestination(JOIN_QUEUE_ENDPOINT);
-        stompHeaders.set("name", firstPlayerName);
+        stompHeaders.set("login", firstPlayerLogin);
         stompSession.send(stompHeaders, null);
         blockingQueue.poll(10, SECONDS);
 
         stompHeaders.setDestination(LEAVE_QUEUE_ENDPOINT);
-        stompHeaders.set("name", firstPlayerName);
+        stompHeaders.set("login", firstPlayerLogin);
         stompSession.send(stompHeaders, null);
 
         JSONObject message = blockingQueue.poll(10, SECONDS);
@@ -142,11 +142,11 @@ class QueueControllerTest {
 
     @Test
     void handleQueueException() throws InterruptedException, JSONException {
-        Subscription subscription = stompSession.subscribe(SUBSCRIBE_PERSONAL_ENDPOINT + firstPlayerName, new CreateStompFrameHandler());
-        Subscription personalSubscription = stompSession.subscribe(SUBSCRIBE_PERSONAL_ENDPOINT + firstPlayerName, new CreateStompFrameHandler());
+        Subscription subscription = stompSession.subscribe(SUBSCRIBE_PERSONAL_ENDPOINT + firstPlayerLogin, new CreateStompFrameHandler());
+        Subscription personalSubscription = stompSession.subscribe(SUBSCRIBE_PERSONAL_ENDPOINT + firstPlayerLogin, new CreateStompFrameHandler());
 
         stompHeaders.setDestination(JOIN_QUEUE_ENDPOINT);
-        stompHeaders.set("name", firstPlayerName);
+        stompHeaders.set("login", firstPlayerLogin);
         stompSession.send(stompHeaders, null);
 
         blockingQueue.poll(10, SECONDS);
@@ -155,7 +155,7 @@ class QueueControllerTest {
         assertNotNull(joinedMessage);
         assertEquals(MessageTypes.QUEUE_JOINED.toString(), joinedMessage.get("type"));
 
-        stompHeaders.set("name", firstPlayerName);
+        stompHeaders.set("login", firstPlayerLogin);
         stompSession.send(stompHeaders, null);
 
         JSONObject errorMessage = blockingQueue.poll(10, SECONDS);
@@ -173,7 +173,7 @@ class QueueControllerTest {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> entity = new HttpEntity<>(mapper.writeValueAsString(
-                new User(firstPlayerName, "1")), headers);
+                new User(firstPlayerLogin, "1")), headers);
         ResponseEntity<GameFoundMessage> response = restTemplate.postForEntity("http://localhost:"+port+"/queue/with-ai",
                  entity, GameFoundMessage.class);
 

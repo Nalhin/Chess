@@ -8,5 +8,4 @@ module.exports = {
     "src/**/*.{ts,tsx}",
   ],
   setupFilesAfterEnv: ['./test/setup/setup.js'],
-
 };

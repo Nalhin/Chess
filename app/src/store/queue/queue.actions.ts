@@ -27,10 +27,10 @@ export const queueGameFound = (gameId: string): QueueGameFoundAction => ({
   },
 });
 
-export const queueLeft = (name: string): QueueLeftAction => ({
+export const queueLeft = (login: string): QueueLeftAction => ({
   type: QueueActionTypes.QUEUE_LEFT,
   payload: {
-    name,
+    login,
   },
 });
 

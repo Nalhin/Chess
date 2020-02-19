@@ -19,7 +19,7 @@ public class HistoryListener {
 
     private final HistoryRepository historyRepository;
 
-    @KafkaListener(topics = "game")
+    @KafkaListener(topics = "${kafka-topics.game-history}")
     public void receiveGameData(@Payload HistoryMessage historyMessage) {
 
         Game game = new Game();

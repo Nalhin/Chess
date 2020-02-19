@@ -25,6 +25,7 @@ const Loader: React.FC<Props> = ({ isLoading, children, className }) => {
       timeout = setTimeout(() => setIsShown(true), WAIT_TIME);
     } else {
       clearTimeout(timeout);
+      setIsShown(false);
     }
     return () => clearTimeout(timeout);
   }, [isLoading]);
