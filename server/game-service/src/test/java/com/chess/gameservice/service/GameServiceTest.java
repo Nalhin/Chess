@@ -121,9 +121,9 @@ class GameServiceTest {
         makeMovesUntilPromotionIsAvailable();
 
         Game game = gameService.makePromotion(gameId, new Position(0, 7),
-                PieceType.QUEEN,firstPlayerName);
+                PieceType.QUEEN, firstPlayerName);
 
-        assertEquals(PlayerColor.BLACK,game.getCurrentPlayerColor());
+        assertEquals(PlayerColor.BLACK, game.getCurrentPlayerColor());
     }
 
     @Test

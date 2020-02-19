@@ -7,7 +7,6 @@ import com.chess.gameservice.game.move.PlayerMove;
 import com.chess.gameservice.game.piece.Piece;
 import com.chess.gameservice.game.player.PlayerColor;
 import com.chess.gameservice.game.position.Position;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -16,8 +15,7 @@ import java.util.Collections;
 @Component
 public class MinMax {
 
-    @Value("${game.config.ai-depth}:3")
-    private int DEPTH;
+    private final int DEPTH = 3;
     private final PlayerColor AI_COLOR = PlayerColor.BLACK;
 
     private final Evaluation evaluation = new Evaluation();

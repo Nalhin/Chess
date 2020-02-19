@@ -34,7 +34,7 @@ public class GameService {
     private final MinMax minMax = new MinMax();
     private final ApplicationEventPublisher applicationEventPublisher;
 
-    public GameService(ApplicationEventPublisher applicationEventPublisher) {
+    public GameService( ApplicationEventPublisher applicationEventPublisher) {
         this.applicationEventPublisher = applicationEventPublisher;
     }
 

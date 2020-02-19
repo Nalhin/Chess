@@ -9,10 +9,6 @@
       "name": "kafka-topics.game-history",
       "type": "java.lang.String",
       "description": "Kafka game history topic name."
-    },
-    {
-      "name": "game.config.ai-depth",
-      "type": "java.lang.String",
-      "description": "Depth level used by ai in minmax algorithm."
     }
-  ] }
+  ]
+}

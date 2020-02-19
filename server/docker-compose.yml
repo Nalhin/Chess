@@ -105,6 +105,7 @@ services:
       KAFKA_ADVERTISED_PORT: 9092
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_CREATE_TOPICS: "game:1:1, start-game:1:1"
+      KAFKA_MESSAGE_MAX_BYTES: 200000
 
 volumes:
   db:
