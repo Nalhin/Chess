@@ -75,6 +75,24 @@ class UserServiceImplTest {
     }
 
     @Test
+    void saveEmptyField(){
+        CustomException exception = assertThrows(CustomException.class,
+                () -> userService.save(new User()));
+
+        assertEquals(HttpStatus.UNPROCESSABLE_ENTITY, exception.getHttpStatus());
+    }
+
+    @Test
+    void saveCredentialsTaken(){
+        when(userRepository.existsByEmail(mockUser.getEmail())).thenReturn(true);
+
+        CustomException exception = assertThrows(CustomException.class,
+                () -> userService.save(mockUser));
+
+        assertEquals(HttpStatus.UNPROCESSABLE_ENTITY, exception.getHttpStatus());
+    }
+
+    @Test
     void login() {
         when(userRepository.findByLogin(anyString())).thenReturn(mockUser);
 
@@ -93,6 +111,14 @@ class UserServiceImplTest {
                 () -> userService.login(savedUser));
 
         assertEquals(HttpStatus.NOT_FOUND, exception.getHttpStatus());
+    }
+
+    @Test
+    void loginEmptyField(){
+        CustomException exception = assertThrows(CustomException.class,
+                () -> userService.login(new User()));
+
+        assertEquals(HttpStatus.UNPROCESSABLE_ENTITY, exception.getHttpStatus());
     }
 
     @Test

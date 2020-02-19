@@ -17,11 +17,11 @@ import javax.servlet.http.HttpServletRequest;
 public class ImageController {
     private final ImageService imageService;
 
-    @PostMapping(value ="/authentication/save-image")
+    @PostMapping(value = "/authentication/save-image")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<String> saveImage(HttpServletRequest req, @RequestParam("image") MultipartFile imageFile) throws Exception {
-        imageService.saveImage(req.getRemoteUser(),imageFile);
+        imageService.saveImage(req.getRemoteUser(), imageFile);
 
-        return  ResponseEntity.ok().build();
+        return ResponseEntity.ok().build();
     }
 }
