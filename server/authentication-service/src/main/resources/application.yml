@@ -45,3 +45,4 @@ spring:
     username: sa
     password: sa
 
+image-path:
