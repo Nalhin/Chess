@@ -2,6 +2,7 @@ package com.chess.gameservice.service;
 
 import com.chess.gameservice.exception.GameException;
 import com.chess.gameservice.game.Game;
+import com.chess.gameservice.game.GamePhase;
 import com.chess.gameservice.game.ai.MinMax;
 import com.chess.gameservice.game.move.PlayerMove;
 import com.chess.gameservice.game.piece.PieceType;
@@ -19,8 +20,8 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.time.Duration;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Optional;
@@ -34,7 +35,7 @@ public class GameService {
     private final MinMax minMax = new MinMax();
     private final ApplicationEventPublisher applicationEventPublisher;
 
-    public GameService( ApplicationEventPublisher applicationEventPublisher) {
+    public GameService(ApplicationEventPublisher applicationEventPublisher) {
         this.applicationEventPublisher = applicationEventPublisher;
     }
 
@@ -120,6 +121,9 @@ public class GameService {
 
     public Game playerOutOfTime(UUID gameId) {
         Game game = games.get(gameId);
+        if (game == null) {
+            return null;
+        }
         game.playerTimedOutOrOutOfTime();
         gameFinished(gameId);
         return game;
@@ -127,6 +131,9 @@ public class GameService {
 
     public Game makeAiMove(UUID gameId) throws GameException {
         Game game = games.get(gameId);
+        if (game == null) {
+            return null;
+        }
         Player player = new Player("Computer");
         if (game.getBoard().getPositionAwaitingPromotion() == null) {
             try {
@@ -136,19 +143,21 @@ public class GameService {
                 forfeitGame(gameId, player.getName());
             }
         }
+        if (game.getGamePhase() == GamePhase.GAME_OVER) {
+            gameFinished(gameId);
+        }
         return game;
-
     }
 
     @Scheduled(fixedDelay = 3600000)
     public synchronized void removeInactiveGames() {
         ArrayList<UUID> gamesToRemove = new ArrayList<>();
-        for (Game game : games.values()) {
-            Duration duration = Duration.between(LocalDate.now(), game.getStartTime());
-            if (Math.abs(duration.toMinutes()) > 60) {
+        games.values().forEach(game -> {
+            long minutes = ChronoUnit.MINUTES.between(game.getStartTime(), LocalDateTime.now());
+            if (Math.abs(minutes) > 30) {
                 gamesToRemove.add(game.getGameId());
             }
-        }
+        });
         gamesToRemove.forEach(games::remove);
     }
 

@@ -17,7 +17,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.io.IOException;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -106,11 +105,13 @@ public class GameController implements ApplicationListener<PlayerOutOfTimeEvent>
         UUID gameId = event.getGameId();
         String name = event.getName();
         Game game = gameService.playerOutOfTime(gameId);
-        PlayerMovedMessage playerMovedMessage = new PlayerMovedMessage();
-        playerMovedMessage.setPayload(game);
-        simpMessagingTemplate.convertAndSend("/topic/state/" + gameId, playerMovedMessage);
-        ErrorMessage errorMessage = new ErrorMessage();
-        errorMessage.setPayload(new ErrorPayload("You run out of time!"));
-        simpMessagingTemplate.convertAndSend("/queue/personal/" + name + "/" + gameId, errorMessage);
+        if (game != null) {
+            PlayerMovedMessage playerMovedMessage = new PlayerMovedMessage();
+            playerMovedMessage.setPayload(game);
+            simpMessagingTemplate.convertAndSend("/topic/state/" + gameId, playerMovedMessage);
+            ErrorMessage errorMessage = new ErrorMessage();
+            errorMessage.setPayload(new ErrorPayload("You run out of time!"));
+            simpMessagingTemplate.convertAndSend("/queue/personal/" + name + "/" + gameId, errorMessage);
+        }
     }
 }

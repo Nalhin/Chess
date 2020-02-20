@@ -52,7 +52,7 @@ export const availableMoves = (
   },
 });
 
-export const initGameRequested = (id: string): InitGameAction => ({
+export const initGame = (id: string): InitGameAction => ({
   type: GameActionTypes.INIT_GAME,
   payload: {
     id,

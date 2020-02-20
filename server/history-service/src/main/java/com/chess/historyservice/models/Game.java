@@ -27,22 +27,22 @@ public class Game {
     @Column(name = "id")
     private Long gameId;
 
-    @Column(name="black_player")
+    @Column(name = "black_player")
     private String blackPlayer;
 
-    @Column(name="white_player")
+    @Column(name = "white_player")
     private String whitePlayer;
 
     private String winner;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "game",fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "game", fetch = FetchType.EAGER)
     private List<Turn> turns;
 
-    @Column(name="finish_time")
+    @Column(name = "finish_time")
     @CreationTimestamp
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     private ZonedDateTime finishTime;
 
-    @Column(name="duration")
+    @Column(name = "duration")
     private Duration duration;
 }

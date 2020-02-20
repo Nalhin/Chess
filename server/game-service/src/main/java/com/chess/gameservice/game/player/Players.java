@@ -24,11 +24,10 @@ public class Players extends EnumMap<PlayerColor, Player> {
     }
 
     public PlayerColor forfeitAndGetWinner(PlayerColor currentTurnColor, String playerName) {
+        this.get(currentTurnColor).endTurn();
         if (get(currentTurnColor).getName().equals(playerName)) {
-            this.get(currentTurnColor).endTurn();
             return currentTurnColor;
         }
-        this.get(PlayerColor.getOtherColor(currentTurnColor)).endTurn();
         return PlayerColor.getOtherColor(currentTurnColor);
     }
 

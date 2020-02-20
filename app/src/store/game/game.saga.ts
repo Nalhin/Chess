@@ -24,7 +24,7 @@ import {
   checkIsGamePresentFailed,
   checkIsGamePresentSucceeded,
   clearGame,
-  initGameRequested,
+  initGame,
 } from './game.actions';
 import { push } from 'connected-react-router';
 import { Routes } from '../../interfaces/Router/Routes';
@@ -70,11 +70,10 @@ export function* reconnectToGameSaga(action: ReconnectToGameRequestedAction) {
     yield put(addToast(generateToast('Game not found!', ToastTypes.Error)));
     return;
   }
-
   yield put(push(`${Routes.game}${gameId}`));
 
   yield put(initChat(gameId));
-  yield put(initGameRequested(gameId));
+  yield put(initGame(gameId));
 
   yield put(
     addToast(generateToast('Reconnect successful!', ToastTypes.Success)),

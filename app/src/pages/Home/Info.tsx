@@ -34,7 +34,7 @@ const Info: React.FC<Props> = ({ registerUser }) => {
       </Typography>
       <StyledLink to={Routes.signUp}>
         <StyledButton variant="contained" color="primary" theme={theme}>
-          Register
+          Sign up
         </StyledButton>
       </StyledLink>
       <StyledButton

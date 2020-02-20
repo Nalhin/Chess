@@ -44,7 +44,6 @@
     "react-dnd-multi-backend": "^5.0.0",
     "react-dnd-touch-backend": "^10.0.2",
     "react-dom": "^16.9.0",
-    "react-flip-toolkit": "^7.0.7",
     "react-redux": "^7.1.0",
     "react-router-dom": "^5.1.2",
     "redux": "^4.0.4",

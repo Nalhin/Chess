@@ -46,6 +46,8 @@ interface Props {
 
 const MatchDetails: React.FC<Props> = ({ game, login }) => {
   const theme = useTheme();
+  console.log(login);
+  console.log(game.whitePlayer);
   return (
     <StyledCard theme={theme}>
       <StyledDateContainer variant="subtitle2" theme={theme}>
@@ -54,7 +56,7 @@ const MatchDetails: React.FC<Props> = ({ game, login }) => {
       <StyledContainer>
         <MatchHistoryPlayer
           name={game.whitePlayer}
-          isWinner={game.whitePlayer === login}
+          isWinner={game.whitePlayer === game.winner}
         />
         <StyledGameTimeContainer theme={theme} variant="body1">
           <span>{game.turns.length} Turns</span>
@@ -62,7 +64,7 @@ const MatchDetails: React.FC<Props> = ({ game, login }) => {
         </StyledGameTimeContainer>
         <StyledBlackPlayer
           name={game.blackPlayer}
-          isWinner={game.blackPlayer === login}
+          isWinner={game.blackPlayer === game.winner}
         />
       </StyledContainer>
       <List>

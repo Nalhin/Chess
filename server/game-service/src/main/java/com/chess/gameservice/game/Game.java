@@ -18,7 +18,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.Duration;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.UUID;
@@ -33,7 +33,7 @@ public class Game {
     private GamePhase gamePhase;
     private PlayerMove latestMove;
     @JsonIgnore
-    private LocalDate startTime;
+    private LocalDateTime startTime;
     @JsonIgnore
     private UUID gameId;
     @JsonIgnore
@@ -49,7 +49,7 @@ public class Game {
         gamePhase = GamePhase.WAITING_FOR_PLAYERS;
         currentTurn = new CurrentTurn();
         latestMove = new PlayerMove();
-        startTime = LocalDate.now();
+        startTime = LocalDateTime.now();
     }
 
     public void setPlayer(Player player, PlayerColor playerColor) {
@@ -160,6 +160,11 @@ public class Game {
     @JsonIgnore
     public PlayerColor getCurrentPlayerColor() {
         return currentTurn.getCurrentPlayerColor();
+    }
+
+    @JsonIgnore
+    public String getWinner(){
+       return players.get(PlayerColor.getOtherColor(currentTurn.getCurrentPlayerColor())).getName();
     }
 
     public void initGame(UUID gameId) {

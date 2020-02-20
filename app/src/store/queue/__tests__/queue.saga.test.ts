@@ -3,7 +3,7 @@ import { expectSaga, testSaga } from 'redux-saga-test-plan';
 import { push } from 'connected-react-router';
 import { Routes } from '../../../interfaces/Router/Routes';
 import { initChat } from '../../chat/chat.actions';
-import { initGameRequested } from '../../game/game.actions';
+import { initGame } from '../../game/game.actions';
 import {
   joinQueue,
   joinQueueAi,
@@ -151,7 +151,7 @@ describe('queueGameFoundSaga', () => {
     return expectSaga(queueGameFoundSaga, queueGameFound(fakeGameId))
       .put(push(`${Routes.game}${fakeGameId}`))
       .put(initChat(fakeGameId))
-      .put(initGameRequested(fakeGameId))
+      .put(initGame(fakeGameId))
       .put.like({ action: { type: addToast().type } })
       .run();
   });

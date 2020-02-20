@@ -11,6 +11,7 @@ import MultiBackend, {
   MouseTransition,
   TouchTransition,
 } from 'react-dnd-multi-backend';
+import { useReconnect } from './useReconnect';
 
 const StyledContainer = styled.div`
   display: flex;
@@ -32,6 +33,8 @@ const HTML5toTouch = {
   ],
 };
 
+const RECONNECT_TIMEOUT = 3000;
+
 interface Props extends GameRoomContainerProps {}
 
 const GameRoom: React.FC<Props> = ({
@@ -39,11 +42,7 @@ const GameRoom: React.FC<Props> = ({
   shouldReconnect,
   reconnectToGame,
 }) => {
-  React.useEffect(() => {
-    if (shouldReconnect) {
-      reconnectToGame();
-    }
-  }, [shouldReconnect]);
+  useReconnect(shouldReconnect, reconnectToGame, RECONNECT_TIMEOUT);
 
   if (isGameLoading) {
     return <GameLoader />;

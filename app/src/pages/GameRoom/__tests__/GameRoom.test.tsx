@@ -16,14 +16,6 @@ describe('GameRoom component', () => {
 
     expect(getByText(/loading/i)).toBeInTheDocument();
   });
-  it('should fire reconnect function, if should reconnect is true', () => {
-    const reconnectToGame = jest.fn();
-    const {} = renderWithStore(
-      <GameRoom {...props} reconnectToGame={reconnectToGame} shouldReconnect />,
-    );
-
-    expect(reconnectToGame).toHaveBeenCalledTimes(1);
-  });
   it('should hide loading', () => {
     const { queryByText } = renderWithStore(
       <GameRoom {...props} isGameLoading={false} />,

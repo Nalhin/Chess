@@ -13,7 +13,7 @@ import { all } from 'redux-saga/effects';
 import { queuePersonalSubscription } from './queue.subscriptions';
 import { call, fork, put } from 'redux-saga-test-plan/matchers';
 import { initChat } from '../chat/chat.actions';
-import { initGameRequested } from '../game/game.actions';
+import { initGame } from '../game/game.actions';
 import { push } from 'connected-react-router';
 import { addToast } from '../toaster/toaster.action';
 import { generateToast } from '../../utils/generateToast';
@@ -93,6 +93,6 @@ export function* queueGameFoundSaga(action: QueueGameFoundAction) {
   const { gameId } = action.payload;
   yield put(push(`${Routes.game}${gameId}`));
   yield put(initChat(gameId));
-  yield put(initGameRequested(gameId));
+  yield put(initGame(gameId));
   yield put(addToast(generateToast('Game found!', ToastTypes.Info)));
 }

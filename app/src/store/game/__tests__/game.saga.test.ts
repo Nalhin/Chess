@@ -18,7 +18,7 @@ import {
   clearGame,
   forfeitGame,
   getAvailableMoves,
-  initGameRequested,
+  initGame,
   makeMoveRequested,
   promotePawn,
   reconnectToGame,
@@ -60,7 +60,6 @@ describe('reconnectToGameSaga', () => {
       .next()
       .put(initChat(fakeGameId))
       .next()
-      .put(initGameRequested(fakeGameId))
       .next()
       .next()
       .isDone();
@@ -87,7 +86,7 @@ describe('initGameSaga', () => {
       return mockStomp;
     });
     const gameId = '1';
-    const action = initGameRequested(gameId);
+    const action = initGame(gameId);
 
     testSaga(initGameSaga, action)
       .next()

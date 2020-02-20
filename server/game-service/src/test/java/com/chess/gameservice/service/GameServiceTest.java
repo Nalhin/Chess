@@ -15,13 +15,15 @@ import com.chess.gameservice.messages.payloads.PlayerMovePayload;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationEventPublisher;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,13 +31,13 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-@SpringBootTest
 class GameServiceTest {
-
-    GameService gameService;
 
     @Mock
     private ApplicationEventPublisher applicationEventPublisher;
+
+    @InjectMocks
+    GameService gameService;
 
     private final UUID gameId = new UUID(8, 8);
     private final String firstPlayerName = "firstPlayer";
@@ -45,7 +47,6 @@ class GameServiceTest {
 
     @BeforeEach
     void setUp() {
-        gameService = new GameService(applicationEventPublisher);
         startGameMessage = new StartGameMessage();
         User u1 = new User(firstPlayerName, "1");
         User u2 = new User(secondPlayerName, "2");
@@ -205,5 +206,18 @@ class GameServiceTest {
         destinationPosition = new Position(0, 7);
         playerMove = new PlayerMovePayload(initialPosition, destinationPosition);
         gameService.makeMove(gameId, playerMove, firstPlayerName);
+    }
+
+    @Test
+    void removeInactiveGames() throws InterruptedException {
+        gameService.initGame(startGameMessage);
+        Optional<Game> game = gameService.connect(gameId, firstPlayerName);
+        game.get().setStartTime(LocalDateTime.now().minusHours(1));
+
+        gameService.removeInactiveGames();
+
+        Optional<UUID> gameId= gameService.getGameWithUser(firstPlayerName);
+
+        assertTrue(gameId.isEmpty());
     }
 }

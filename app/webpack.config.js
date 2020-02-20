@@ -6,7 +6,6 @@ const CopyPlugin = require('copy-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
-
 module.exports = env => ({
   mode: env.development ? 'development' : 'production',
   entry: path.resolve(__dirname, './src/index.tsx'),

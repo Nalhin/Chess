@@ -5,7 +5,7 @@ import {
   clearGame,
   gameOver,
   gameStarted,
-  initGameRequested,
+  initGame,
   playerMoved,
 } from '../game.actions';
 import produce from 'immer';
@@ -38,7 +38,7 @@ describe('Game Reducer', () => {
       draft.gameId = fakeGameId;
     });
 
-    const action = initGameRequested(fakeGameId);
+    const action = initGame(fakeGameId);
     const reducer = gameReducer(initialState, action);
 
     expect(reducer).toEqual(expectedState);
