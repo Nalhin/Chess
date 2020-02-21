@@ -1,21 +1,59 @@
 import userReducer, { USER_INITIAL_STATE } from '../user.reducer';
 import produce from 'immer';
-import { fakeUser } from '../../../../test/fixtures/user/fakeUser';
+import {
+  fakeLoginUser,
+  fakeRegisterUser,
+  fakeUser,
+} from '../../../../test/fixtures/user/fakeUser';
 import {
   authenticationSucceeded,
+  loginUserFailed,
+  loginUserRequested,
   loginUserSucceeded,
   logoutUser,
+  registerUserFailed,
+  registerUserRequested,
   registerUserSucceeded,
   setToken,
 } from '../user.actions';
 
 describe('User reducer', () => {
-  it('should handle LOGIN_USER_SUCCEEDED action type', () => {
+  it('should handle LOGIN_USER_REQUESTED action type', () => {
     const initialState = {
       ...USER_INITIAL_STATE,
     };
     const expectedState = produce(USER_INITIAL_STATE, draft => {
+      draft.isLoading = true;
+    });
+
+    const action = loginUserRequested(fakeLoginUser);
+    const reducer = userReducer(initialState, action);
+
+    expect(reducer).toEqual(expectedState);
+  });
+
+  it('should handle REGISTER_USER_REQUESTED action type', () => {
+    const initialState = {
+      ...USER_INITIAL_STATE,
+    };
+    const expectedState = produce(USER_INITIAL_STATE, draft => {
+      draft.isLoading = true;
+    });
+
+    const action = registerUserRequested(fakeRegisterUser);
+    const reducer = userReducer(initialState, action);
+
+    expect(reducer).toEqual(expectedState);
+  });
+
+  it('should handle LOGIN_USER_SUCCEEDED action type', () => {
+    const initialState = {
+      ...USER_INITIAL_STATE,
+      isLoading: true,
+    };
+    const expectedState = produce(USER_INITIAL_STATE, draft => {
       draft.data = fakeUser;
+      draft.isLoading = false;
     });
 
     const action = loginUserSucceeded(fakeUser);
@@ -27,12 +65,44 @@ describe('User reducer', () => {
   it('should handle REGISTER_USER_SUCCEEDED action type', () => {
     const initialState = {
       ...USER_INITIAL_STATE,
+      isLoading: true,
     };
     const expectedState = produce(USER_INITIAL_STATE, draft => {
       draft.data = fakeUser;
+      draft.isLoading = false;
     });
 
     const action = registerUserSucceeded(fakeUser);
+    const reducer = userReducer(initialState, action);
+
+    expect(reducer).toEqual(expectedState);
+  });
+
+  it('should handle LOGIN_USER_FAILED action type', () => {
+    const initialState = {
+      ...USER_INITIAL_STATE,
+      isLoading: true,
+    };
+    const expectedState = produce(USER_INITIAL_STATE, draft => {
+      draft.isLoading = false;
+    });
+
+    const action = loginUserFailed();
+    const reducer = userReducer(initialState, action);
+
+    expect(reducer).toEqual(expectedState);
+  });
+
+  it('should handle REGISTER_USER_FAILED action type', () => {
+    const initialState = {
+      ...USER_INITIAL_STATE,
+      isLoading: true,
+    };
+    const expectedState = produce(USER_INITIAL_STATE, draft => {
+      draft.isLoading = false;
+    });
+
+    const action = registerUserFailed();
     const reducer = userReducer(initialState, action);
 
     expect(reducer).toEqual(expectedState);
