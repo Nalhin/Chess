@@ -74,6 +74,8 @@ describe('reconnectToGameSaga', () => {
       .next({ data: { isPresent: false, gameId: fakeGameId } })
       .next()
       .next()
+      .put(clearGame())
+      .next()
       .isDone();
   });
 });

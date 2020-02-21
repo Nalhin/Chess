@@ -68,6 +68,7 @@ export function* reconnectToGameSaga(action: ReconnectToGameRequestedAction) {
   } catch (e) {
     yield put(push(`${Routes.home}`));
     yield put(addToast(generateToast('Game not found!', ToastTypes.Error)));
+    yield put(clearGame());
     return;
   }
   yield put(push(`${Routes.game}${gameId}`));
