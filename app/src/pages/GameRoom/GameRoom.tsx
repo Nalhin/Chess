@@ -33,7 +33,7 @@ const HTML5toTouch = {
   ],
 };
 
-const RECONNECT_TIMEOUT = 2000;
+const RECONNECT_TIMEOUT = 3000;
 
 interface Props extends GameRoomContainerProps {}
 

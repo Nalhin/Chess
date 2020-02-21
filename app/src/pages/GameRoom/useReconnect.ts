@@ -8,11 +8,11 @@ export function useReconnect(
   const [hasTimePassed, setTimePassed] = React.useState(false);
 
   React.useEffect(() => {
-    let timeout: NodeJS.Timeout = null;
+    let timeout: number = null;
     if (shouldReconnect && !hasTimePassed) {
-      timeout = setTimeout(() => setTimePassed(true), timeoutTime);
+      timeout = window.setTimeout(() => setTimePassed(true), timeoutTime);
     }
-    return () => clearTimeout(timeout);
+    return () => window.clearTimeout(timeout);
   }, [shouldReconnect]);
 
   React.useEffect(() => {

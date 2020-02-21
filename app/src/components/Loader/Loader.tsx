@@ -20,14 +20,14 @@ const Loader: React.FC<Props> = ({ isLoading, children, className }) => {
   const [isShown, setIsShown] = React.useState(false);
 
   React.useEffect(() => {
-    let timeout: NodeJS.Timeout = null;
+    let timeout: number = null;
     if (isLoading) {
-      timeout = setTimeout(() => setIsShown(true), WAIT_TIME);
+      timeout = window.setTimeout(() => setIsShown(true), WAIT_TIME);
     } else {
-      clearTimeout(timeout);
+      window.clearTimeout(timeout);
       setIsShown(false);
     }
-    return () => clearTimeout(timeout);
+    return () => window.clearTimeout(timeout);
   }, [isLoading]);
 
   return (

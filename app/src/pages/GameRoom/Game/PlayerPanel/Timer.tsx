@@ -49,10 +49,10 @@ const Timer: React.FC<Props> = ({
   }, [totalTurnTimeRemaining]);
 
   React.useEffect(() => {
-    let timer: NodeJS.Timeout = null;
+    let timer: number = null;
 
     if (isActive) {
-      timer = setInterval(() => {
+      timer = window.setInterval(() => {
         setCounter(prevState => {
           const number = parseFloat(prevState) - 0.1;
           if (number < 0) {
@@ -62,10 +62,10 @@ const Timer: React.FC<Props> = ({
         });
       }, interval);
     } else {
-      clearInterval(timer);
+      window.clearInterval(timer);
     }
     return () => {
-      clearInterval(timer);
+      window.clearInterval(timer);
     };
   }, [isActive]);
 

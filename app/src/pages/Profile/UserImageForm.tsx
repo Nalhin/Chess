@@ -44,7 +44,6 @@ const UserImageForm: React.FC<Props> = ({ user, addToast }) => {
   const saveFile = async () => {
     setLoading(true);
     const formData = new FormData();
-
     formData.append('image', file);
     try {
       await fetchSaveImage(formData, user.token);
@@ -62,10 +61,12 @@ const UserImageForm: React.FC<Props> = ({ user, addToast }) => {
     }
   };
 
+  const image = React.useMemo(() => file && URL.createObjectURL(file), [file]);
+
   return (
     <StyledLoader isLoading={isLoading}>
       <StyledAvatar
-        src={`/assets/images/user/${user.login}.jpg?t=${imageTime}`}
+        src={image ?? `/assets/images/user/${user.login}.jpg?t=${imageTime}`}
         alt={user.login}
       />
       <div>
