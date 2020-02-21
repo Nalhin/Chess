@@ -22,8 +22,6 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -110,7 +108,7 @@ class GameControllerTest {
 
         objectMapper = new ObjectMapper();
 
-        template.setDefaultTopic( KAFKA_TOPICS_START_GAME);
+        template.setDefaultTopic(KAFKA_TOPICS_START_GAME);
         User u1 = new User(firstPlayerName, "1");
         User u2 = new User(secondPlayerName, "2");
         ArrayList<User> users = new ArrayList<>();
@@ -118,7 +116,7 @@ class GameControllerTest {
         users.add(u2);
         Message<StartGameMessage> message = MessageBuilder
                 .withPayload(new StartGameMessage(UUID.fromString(gameId), users, false))
-                .setHeader(KafkaHeaders.TOPIC,  KAFKA_TOPICS_START_GAME).build();
+                .setHeader(KafkaHeaders.TOPIC, KAFKA_TOPICS_START_GAME).build();
         template.send(message);
     }
 
@@ -130,6 +128,13 @@ class GameControllerTest {
 
         stompHeaders.set("name", secondPlayerName);
         stompSession.send(stompHeaders, null);
+    }
+
+    void sendMakeMove(Position initialPosition, Position destinationPosition, String player) throws JsonProcessingException {
+        byte[] playerMove = objectMapper.writeValueAsBytes(new PlayerMovePayload(initialPosition, destinationPosition));
+        stompHeaders.setDestination(MAKE_MOVE_ENDPOINT + gameId);
+        stompHeaders.set("name", player);
+        stompSession.send(stompHeaders, playerMove);
     }
 
 
@@ -167,18 +172,10 @@ class GameControllerTest {
         startGame();
         blockingQueue.poll(10, SECONDS);
 
-        byte[] playerMove = objectMapper.writeValueAsBytes(new PlayerMovePayload(new Position(6, 0), new Position(5, 0)));
-        stompHeaders.setDestination(MAKE_MOVE_ENDPOINT + gameId);
-        stompHeaders.set("name", firstPlayerName);
-        stompSession.send(stompHeaders, playerMove);
-
+        sendMakeMove(new Position(6, 0), new Position(5, 0), firstPlayerName);
         blockingQueue.poll(10, SECONDS);
 
-        byte[] secondPlayerMove = objectMapper.writeValueAsBytes(new PlayerMovePayload(new Position(1, 0), new Position(2, 0)));
-        stompHeaders.setDestination(MAKE_MOVE_ENDPOINT + gameId);
-        stompHeaders.set("name", secondPlayerName);
-        stompSession.send(stompHeaders, secondPlayerMove);
-
+        sendMakeMove(new Position(1, 0), new Position(2, 0), secondPlayerName);
         JSONObject secondPlayerMessage = blockingQueue.poll(10, SECONDS);
 
         assertNotNull(secondPlayerMessage);
@@ -210,10 +207,21 @@ class GameControllerTest {
         startGame();
         blockingQueue.poll(10, SECONDS);
 
-        byte[] playerMove = objectMapper.writeValueAsBytes(new PlayerMovePayload(new Position(1, 0), new Position(2, 0)));
-        stompHeaders.setDestination(MAKE_MOVE_ENDPOINT + gameId);
-        stompHeaders.set("name", firstPlayerName);
-        stompSession.send(stompHeaders, playerMove);
+        sendMakeMove(new Position(1, 0), new Position(2, 0), firstPlayerName);
+        JSONObject message = blockingQueue.poll(10, SECONDS);
+
+        assertNotNull(message);
+        assertEquals(MessageTypes.ERROR.toString(), message.get("type"));
+        subscription.unsubscribe();
+    }
+
+    @Test
+    void promotionError() throws InterruptedException, JsonProcessingException, JSONException {
+        Subscription subscription = stompSession.subscribe(SUBSCRIBE_PERSONAL_ENDPOINT + firstPlayerName + "/" + gameId, new CreateStompFrameHandler());
+
+        startGame();
+        blockingQueue.poll(10, SECONDS);
+        sendMakeMove(new Position(1, 0), new Position(2, 0), firstPlayerName);
 
         JSONObject message = blockingQueue.poll(10, SECONDS);
         assertNotNull(message);
@@ -275,6 +283,12 @@ class GameControllerTest {
         }
     }
 
+
+    static {
+        System.setProperty(EmbeddedKafkaBroker.BROKER_LIST_PROPERTY,
+                "spring.kafka.bootstrap-servers");
+    }
+
     @TestConfiguration
     public static class TestConfig {
 
@@ -305,11 +319,5 @@ class GameControllerTest {
         public KafkaTemplate<String, StartGameMessage> kafkaTestTemplate() {
             return new KafkaTemplate<>(producerTestFactory());
         }
-    }
-
-
-    static {
-        System.setProperty(EmbeddedKafkaBroker.BROKER_LIST_PROPERTY,
-                "spring.kafka.bootstrap-servers");
     }
 }
