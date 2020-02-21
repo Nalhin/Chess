@@ -11,7 +11,7 @@
   ],
   "plugins": [
     [
-      "emotion",
+      "@emotion",
       {
         "sourceMap": true,
         "labelFormat": "[filename]__[local]",
