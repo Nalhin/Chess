@@ -23,6 +23,7 @@ import { Routes } from '../../interfaces/Router/Routes';
 import { fetchJoinQueueAi } from './queue.api';
 import { queueGameFound } from './queue.actions';
 import { generateErrorMessage } from '../../utils/generateErrorMessage';
+import { SagaIterator } from 'redux-saga';
 
 export function* queueRootSaga() {
   yield all([
@@ -33,7 +34,7 @@ export function* queueRootSaga() {
   ]);
 }
 
-export function* joinQueueSaga(action: JoinQueueAction) {
+export function* joinQueueSaga(action: JoinQueueAction): SagaIterator {
   const queueStomp = StompSingleton.getInstance(WebsocketTypes.QUEUE);
 
   const [isInQueue, user] = yield all([

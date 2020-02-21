@@ -6,8 +6,15 @@ import { generatePlaceholderAccount } from '../../utils/generatePlaceholderAccou
 import { UserRegisterData } from '../../interfaces/User/User';
 import { StyledQueueContainer } from './Queue/QueueShared';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { userLoadingSelector } from '../../store/user/user.selectors';
+import ButtonWithLoader from '../../components/ButtonWithLoader/ButtonWithLoader';
 
 const StyledButton = styled(Button)`
+  margin: ${props => props.theme.spacing(1)}px;
+`;
+
+const StyledButtonWithLoader = styled(ButtonWithLoader)`
   margin: ${props => props.theme.spacing(1)}px;
 `;
 
@@ -22,6 +29,7 @@ interface Props {
 
 const Info: React.FC<Props> = ({ registerUser }) => {
   const theme = useTheme();
+  const isUserLoading = useSelector(userLoadingSelector);
 
   const handleRegisterUser = () => {
     registerUser(generatePlaceholderAccount());
@@ -37,14 +45,13 @@ const Info: React.FC<Props> = ({ registerUser }) => {
           Sign up
         </StyledButton>
       </StyledLink>
-      <StyledButton
-        variant="contained"
-        color="primary"
+      <StyledButtonWithLoader
         theme={theme}
+        isLoading={isUserLoading}
         onClick={handleRegisterUser}
       >
         Placeholder account
-      </StyledButton>
+      </StyledButtonWithLoader>
     </StyledQueueContainer>
   );
 };

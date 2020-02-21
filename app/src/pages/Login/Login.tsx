@@ -1,15 +1,9 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginUserRequested } from '../../store/user/user.actions';
 import { UserLoginData } from '../../interfaces/User/User';
 import styled from '@emotion/styled';
-import {
-  Button,
-  FormControl,
-  Input,
-  InputLabel,
-  useTheme,
-} from '@material-ui/core';
+import { FormControl, Input, InputLabel, useTheme } from '@material-ui/core';
 import { Routes } from '../../interfaces/Router/Routes';
 import PasswordInput from '../../components/PasswordInput/PasswordInput';
 import AuthForm from '../../components/AuthForm/AuthForm';
@@ -19,6 +13,8 @@ import { addToast } from '../../store/toaster/toaster.action';
 import { generateToast } from '../../utils/generateToast';
 import { ToastTypes } from '../../interfaces/Toaster/ToastTypes';
 import { StyledLink } from '../../components/StyledLink/StyledLink';
+import { userLoadingSelector } from '../../store/user/user.selectors';
+import ButtonWithLoader from '../../components/ButtonWithLoader/ButtonWithLoader';
 
 const StyledSpan = styled.span`
   padding-right: ${props => props.theme.spacing(1)}px;
@@ -39,6 +35,7 @@ const Login = () => {
   const { formState, onFormChange } = useFormState<UserLoginData>(
     INITIAL_STATE,
   );
+  const isLoading = useSelector(userLoadingSelector);
   const theme = useTheme();
   const dispatch = useDispatch();
 
@@ -85,14 +82,9 @@ const Login = () => {
           Sign up
         </StyledLink>
       </StyledLinkContainer>
-      <Button
-        color="primary"
-        variant="contained"
-        onClick={submitForm}
-        data-testid="login__button"
-      >
+      <ButtonWithLoader isLoading={isLoading} onClick={submitForm}>
         Continue
-      </Button>
+      </ButtonWithLoader>
     </AuthForm>
   );
 };

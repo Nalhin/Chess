@@ -10,6 +10,7 @@ export interface UserState {
     email: string;
     token: string;
   };
+  readonly isLoading: boolean;
 }
 
 export enum UserActionTypes {

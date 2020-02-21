@@ -1,11 +1,11 @@
-import { css, SerializedStyles, Theme } from '@emotion/core';
+import { css, SerializedStyles, Theme } from '@emotion/react';
 
 interface Props {
   theme?: Theme;
 }
 
 const cellSizes = {
-  desktop: '5rem',
+  desktop: '4.5rem',
   tablet: '3.5rem',
   mobile: '2.5rem',
 };

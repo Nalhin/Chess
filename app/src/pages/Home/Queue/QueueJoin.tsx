@@ -1,29 +1,19 @@
 import React from 'react';
 import {
-  CircularProgress,
   FormControl,
   InputLabel,
   MenuItem,
   Select,
   useTheme,
 } from '@material-ui/core';
-import { StyledQueueButton, StyledQueueContainer } from './QueueShared';
+import { StyledQueueContainer } from './QueueShared';
 import styled from '@emotion/styled';
-import mixins from '../../../styles/mixins';
 import { GameModes } from '../../../interfaces/Queue/GameModes';
+import ButtonWithLoader from '../../../components/ButtonWithLoader/ButtonWithLoader';
 
 const StyledFormControl = styled(FormControl)`
   width: calc(100% - ${props => props.theme.spacing(4)}px);
   margin: ${props => props.theme.spacing(2)}px;
-`;
-
-const StyledButtonContainer = styled.div`
-  position: relative;
-`;
-
-const StyledLoaderWrapper = styled.div`
-  ${mixins.absoluteCenter};
-  ${mixins.flexCenter};
 `;
 
 interface Props {
@@ -41,7 +31,8 @@ const QueueJoin: React.FC<Props> = ({ joinQueue, joinQueueAi }) => {
   };
 
   const handleJoinQueue = () => {
-    setClicked(true);
+    setClicked(!isClicked);
+
     switch (selectedMode) {
       case GameModes.Pvp:
         joinQueue();
@@ -67,22 +58,9 @@ const QueueJoin: React.FC<Props> = ({ joinQueue, joinQueueAi }) => {
           <MenuItem value={GameModes.Ai}>AI</MenuItem>
         </Select>
       </StyledFormControl>
-      <StyledButtonContainer>
-        <StyledQueueButton
-          theme={theme}
-          color="primary"
-          variant="contained"
-          disabled={isClicked}
-          onClick={handleJoinQueue}
-        >
-          Find match
-        </StyledQueueButton>
-        {isClicked && (
-          <StyledLoaderWrapper>
-            <CircularProgress size={24} />
-          </StyledLoaderWrapper>
-        )}
-      </StyledButtonContainer>
+      <ButtonWithLoader onClick={handleJoinQueue} isLoading={isClicked}>
+        Find match
+      </ButtonWithLoader>
     </StyledQueueContainer>
   );
 };

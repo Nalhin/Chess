@@ -1,15 +1,9 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { UserRegisterData } from '../../interfaces/User/User';
 import { registerUserRequested } from '../../store/user/user.actions';
 import { Routes } from '../../interfaces/Router/Routes';
-import {
-  Button,
-  FormControl,
-  Input,
-  InputLabel,
-  useTheme,
-} from '@material-ui/core';
+import { FormControl, Input, InputLabel, useTheme } from '@material-ui/core';
 import PasswordInput from '../../components/PasswordInput/PasswordInput';
 import AuthForm from '../../components/AuthForm/AuthForm';
 import { useFormState } from '../../components/AuthForm/useFormState';
@@ -19,6 +13,8 @@ import { generateToast } from '../../utils/generateToast';
 import { ToastTypes } from '../../interfaces/Toaster/ToastTypes';
 import styled from '@emotion/styled';
 import { StyledLink } from '../../components/StyledLink/StyledLink';
+import { userLoadingSelector } from '../../store/user/user.selectors';
+import ButtonWithLoader from '../../components/ButtonWithLoader/ButtonWithLoader';
 
 const StyledLinkContainer = styled.div`
   display: flex;
@@ -40,6 +36,7 @@ const SignUp = () => {
   const { formState, onFormChange } = useFormState<UserRegisterData>(
     INITIAL_STATE,
   );
+  const isLoading = useSelector(userLoadingSelector);
   const dispatch = useDispatch();
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -98,14 +95,9 @@ const SignUp = () => {
           Login
         </StyledLink>
       </StyledLinkContainer>
-      <Button
-        color="primary"
-        onClick={submitForm}
-        variant="contained"
-        data-testid="sign-up__button"
-      >
+      <ButtonWithLoader onClick={submitForm} isLoading={isLoading}>
         Continue
-      </Button>
+      </ButtonWithLoader>
     </AuthForm>
   );
 };

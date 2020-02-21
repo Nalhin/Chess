@@ -107,7 +107,7 @@ export function* initGameSaga(action: InitGameAction) {
   StompSingleton.deactivateInstance(WebsocketTypes.GAME);
 }
 
-export function* forfeitGameSaga(action: ForfeitGameAction) {
+export function* forfeitGameSaga(action: ForfeitGameAction): SagaIterator {
   const gameStomp = StompSingleton.getInstance(WebsocketTypes.GAME);
 
   const [gameId, { login }] = yield all([
@@ -171,7 +171,7 @@ export function* makeMoveSaga(action: MakeMoveRequestedAction): SagaIterator {
   });
 }
 
-export function* promotePawnSaga(action: PromotePawnAction) {
+export function* promotePawnSaga(action: PromotePawnAction): SagaIterator {
   const gameStomp = StompSingleton.getInstance(WebsocketTypes.GAME);
 
   const [gameId, user] = yield all([

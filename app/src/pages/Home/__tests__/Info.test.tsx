@@ -1,14 +1,12 @@
 import { fireEvent } from '@testing-library/react';
 import Info from '../Info';
 import React from 'react';
-import { renderWithRouter } from '../../../../test/utils/renderWithRouter';
+import { renderWithStore } from '../../../../test/utils/renderWithStore';
 
 describe('Info component', () => {
   it('should allow registration', () => {
     const registerUser = jest.fn();
-    const { getByText } = renderWithRouter(
-      <Info registerUser={registerUser} />,
-    );
+    const { getByText } = renderWithStore(<Info registerUser={registerUser} />);
 
     fireEvent.click(getByText(/placeholder account/i));
 

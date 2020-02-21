@@ -8,7 +8,7 @@ import Login from '../Login';
 
 describe('Login page', () => {
   it('should dispatch login user action', () => {
-    const { getByTestId, getByLabelText, store } = renderWithStore(<Login />);
+    const { getByText, getByLabelText, store } = renderWithStore(<Login />);
     store.dispatch = jest.fn();
 
     fireEvent.change(getByLabelText(/login/i), {
@@ -17,20 +17,20 @@ describe('Login page', () => {
     fireEvent.change(getByLabelText(/password/i), {
       target: { value: fakeLoginUser.password },
     });
-    fireEvent.click(getByTestId(/login__button/i));
+    fireEvent.click(getByText(/continue/i));
 
     expect(store.dispatch).toHaveBeenCalledWith(
       loginUserRequested(fakeLoginUser),
     );
   });
   it('should add toast, if there is an empty field', () => {
-    const { getByTestId, getByLabelText, store } = renderWithStore(<Login />);
+    const { getByText, getByLabelText, store } = renderWithStore(<Login />);
     store.dispatch = jest.fn();
 
     fireEvent.change(getByLabelText(/login/i), {
       target: { value: fakeLoginUser.login },
     });
-    fireEvent.click(getByTestId(/login__button/i));
+    fireEvent.click(getByText(/continue/i));
 
     expect(store.dispatch).toHaveBeenCalledWith(
       expect.objectContaining({ type: ToasterActionTypes.ADD_TOAST }),

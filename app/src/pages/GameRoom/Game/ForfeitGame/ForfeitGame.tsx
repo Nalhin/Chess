@@ -13,7 +13,7 @@ import {
   useTheme,
   Zoom,
 } from '@material-ui/core';
-import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
+import FlagIcon from '@material-ui/icons/Flag';
 
 const StyledFabContainer = styled.div`
   position: fixed;
@@ -77,7 +77,7 @@ const ForfeitGame: React.FC<Props> = ({ forfeitGame }) => {
               size={size}
               aria-label="forfeit game"
             >
-              <MeetingRoomIcon />
+              <FlagIcon />
             </Fab>
           </Zoom>
         </StyledFabContainer>

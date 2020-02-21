@@ -13,12 +13,11 @@ export function useReconnect(
       timeout = setTimeout(() => setTimePassed(true), timeoutTime);
     }
     return () => clearTimeout(timeout);
-  }, [hasTimePassed]);
+  }, [shouldReconnect]);
 
   React.useEffect(() => {
     if (hasTimePassed && shouldReconnect) {
       reconnect();
-      console.log('xd');
     }
   }, [hasTimePassed, shouldReconnect]);
 }

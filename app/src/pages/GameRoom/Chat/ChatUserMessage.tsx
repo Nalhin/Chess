@@ -7,17 +7,18 @@ import styled from '@emotion/styled';
 import PlayerAvatar from '../../../components/PlayerAvatar/PlayerAvatar';
 import dayjs from 'dayjs';
 import { Typography, useTheme } from '@material-ui/core';
-import { css } from '@emotion/core';
 
 interface StyledMessageProps {
   isSender: boolean;
 }
 
 const StyledMessageText = styled.div<StyledMessageProps>`
-  ${props => css`
-    background: ${props.isSender
-      ? props.theme.palette.primary.main
-      : props.theme.palette.divider};
+  ${props => `
+    background: ${
+      props.isSender
+        ? props.theme.palette.primary.main
+        : props.theme.palette.divider
+    };
     color: ${props.isSender ? '#fff' : props.theme.palette.text.primary};
     border-radius: 20px;
     padding: ${props.theme.spacing(1)}px;

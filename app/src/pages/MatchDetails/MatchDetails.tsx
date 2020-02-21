@@ -46,8 +46,6 @@ interface Props {
 
 const MatchDetails: React.FC<Props> = ({ game, login }) => {
   const theme = useTheme();
-  console.log(login);
-  console.log(game.whitePlayer);
   return (
     <StyledCard theme={theme}>
       <StyledDateContainer variant="subtitle2" theme={theme}>

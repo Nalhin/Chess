@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { history, store } from './store/store';
 import ErrorBoundary from './ErrorBoundary';
 import Pages from './pages/Pages';
-import { Global } from '@emotion/core';
+import { Global } from '@emotion/react';
 import { getMuiTheme } from './styles/muiTheme';
 import { CssBaseline, StylesProvider } from '@material-ui/core';
 import { ConnectedRouter } from 'connected-react-router';

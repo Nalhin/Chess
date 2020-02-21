@@ -3,6 +3,7 @@ import React from 'react';
 import Pages from '../Pages';
 import { Routes } from '../../interfaces/Router/Routes';
 import { fakeUser } from '../../../test/fixtures/user/fakeUser';
+import { USER_INITIAL_STATE } from '../../store/user/user.reducer';
 
 describe('Pages Component', () => {
   it('should handle sign up route', async () => {
@@ -15,7 +16,7 @@ describe('Pages Component', () => {
 
   it('should handle profile route', async () => {
     const route = Routes.profile;
-    const initialState = { user: { data: fakeUser } };
+    const initialState = { user: { ...USER_INITIAL_STATE, data: fakeUser } };
     const { findByTestId } = renderWithStore(<Pages />, {
       route,
       initialState,
@@ -34,7 +35,7 @@ describe('Pages Component', () => {
 
   it('should handle match history route', async () => {
     const route = Routes.matchHistory;
-    const initialState = { user: { data: fakeUser } };
+    const initialState = { user: { ...USER_INITIAL_STATE, data: fakeUser } };
 
     const { findByTestId } = renderWithStore(<Pages />, {
       route,
@@ -46,7 +47,7 @@ describe('Pages Component', () => {
 
   it('should handle match details route', async () => {
     const route = `${Routes.matchDetails}id`;
-    const initialState = { user: { data: fakeUser } };
+    const initialState = { user: { ...USER_INITIAL_STATE, data: fakeUser } };
 
     const { findByTestId } = renderWithStore(<Pages />, {
       route,
@@ -83,7 +84,7 @@ describe('Pages Component', () => {
   it('should handle game route', async () => {
     const route = `${Routes.game}id`;
     const initialState = {
-      user: { data: fakeUser },
+      user: { ...USER_INITIAL_STATE, data: fakeUser },
     };
 
     const { findByTestId } = renderWithStore(<Pages />, {

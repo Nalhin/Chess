@@ -29,8 +29,10 @@ const ChatTypeMenu: React.FC<Props> = ({ sendMessage }) => {
   };
 
   const handleSendMessage = () => {
-    sendMessage(messageInputValue);
-    setMessageInputValue('');
+    if (messageInputValue) {
+      sendMessage(messageInputValue);
+      setMessageInputValue('');
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {

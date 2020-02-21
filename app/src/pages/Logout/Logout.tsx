@@ -20,11 +20,11 @@ interface Props {}
 const Logout: React.FC<Props> = () => {
   const theme = useTheme();
   return (
-    <StyledCard theme={theme} data-testid={Routes.logout}>
+    <StyledCard theme={theme}>
       <StyledTitle variant="h4" theme={theme}>
         You are now signed out.
       </StyledTitle>
-      <span>
+      <span data-testid={Routes.logout}>
         You can{' '}
         <StyledLink to={Routes.home} theme={theme}>
           return to the home page

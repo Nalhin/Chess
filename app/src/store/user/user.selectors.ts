@@ -7,3 +7,5 @@ export const isAuthenticatedSelector = (state: AppState) =>
 
 export const isUserLoggedInSelector = (state: AppState) =>
   !!state.user.data.login && !!state.user.data.email;
+
+export const userLoadingSelector = (state: AppState) => state.user.isLoading;
