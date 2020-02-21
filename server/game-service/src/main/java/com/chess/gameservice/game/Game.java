@@ -127,7 +127,6 @@ public class Game {
 
     public void playerTimedOutOrOutOfTime() {
         setGamePhase(GamePhase.GAME_OVER);
-        currentTurn.changeTurnWithoutIncrementingTurnNumber();
     }
 
 

@@ -10,6 +10,8 @@ jest.mock('../../../store/user/user.api', () => ({
   fetchSaveImage: jest.fn(),
 }));
 
+global.URL.createObjectURL = jest.fn();
+
 beforeEach(() => {
   jest.clearAllMocks();
 });
@@ -39,6 +41,7 @@ describe('UserImageForm', () => {
         type: ToastTypes.Success,
       }),
     );
+    expect(global.URL.createObjectURL).toHaveBeenCalledWith(file);
   });
   it('should display error, if request is rejected', async () => {
     const file = new File(['(⌐□_□)'], 'file', { type: 'image/png' });

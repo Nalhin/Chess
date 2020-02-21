@@ -20,7 +20,7 @@ const StyledMessageWrapper = styled.div`
     flex-direction: column;
     height: 300px;
     width: 300px;
-    overflow: auto;
+    overflow-y: scroll;
     white-space: pre-line;
 
     ${props.theme.breakpoints.down('sm')} {
@@ -92,7 +92,7 @@ const Chat: React.FC<Props> = ({ chatMessages, sendMessage, userLogin }) => {
         anchorEl={anchorEl}
         keepMounted
         open={isOpen}
-        anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
+        anchorOrigin={{ vertical: 'center', horizontal: 'left' }}
       >
         <StyledContentWrapper>
           <StyledTitle theme={theme}>

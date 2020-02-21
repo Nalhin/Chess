@@ -61,7 +61,9 @@ const UserImageForm: React.FC<Props> = ({ user, addToast }) => {
     }
   };
 
-  const image = React.useMemo(() => file && URL.createObjectURL(file), [file]);
+  const image = React.useMemo(() => file && window.URL.createObjectURL(file), [
+    file,
+  ]);
 
   return (
     <StyledLoader isLoading={isLoading}>
