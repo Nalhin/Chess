@@ -1,4 +1,3 @@
-import { SagaIterator } from '@redux-saga/core';
 import { all, takeEvery } from '@redux-saga/core/effects';
 import {
   LoginUserRequestedAction,
@@ -32,7 +31,7 @@ import { generateErrorMessage } from '../../utils/generateErrorMessage';
 import { leaveQueue } from '../queue/queue.actions';
 import { clearMatchHistory } from '../matchHistory/matchHistory.actions';
 
-export function* userRootSaga(): SagaIterator {
+export function* userRootSaga() {
   yield all([
     yield takeEvery(UserActionTypes.LOGIN_USER_REQUESTED, loginUserSaga),
     yield takeEvery(UserActionTypes.REGISTER_USER_REQUESTED, registerUserSaga),
