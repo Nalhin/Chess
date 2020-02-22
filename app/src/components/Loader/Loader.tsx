@@ -5,7 +5,9 @@ import { CircularProgress, Fade } from '@material-ui/core';
 
 const SpinnerWrapper = styled.div`
   ${mixins.fixedCenter};
-  ${mixins.flexCenter}
+  ${mixins.flexCenter};
+  z-index: 2000;
+  pointer-events: none;
 `;
 
 interface Props {

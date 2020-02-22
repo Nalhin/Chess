@@ -88,7 +88,6 @@ public class Game {
 
         if (board.getPositionAwaitingPromotion() != null) {
             makePromotion(playerMovePayload.getDestinationPosition(), player, PieceType.QUEEN);
-            changeTurn();
         }
     }
 

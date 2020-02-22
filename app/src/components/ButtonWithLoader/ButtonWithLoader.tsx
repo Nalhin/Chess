@@ -20,6 +20,7 @@ interface Props {
   onClick?: () => void;
   isLoading: boolean;
   className?: string;
+  disabled?: boolean;
 }
 
 const ButtonWithLoader: React.FC<Props> = ({
@@ -27,13 +28,14 @@ const ButtonWithLoader: React.FC<Props> = ({
   isLoading,
   children,
   className,
+  disabled,
 }) => {
   return (
     <StyledButtonContainer className={className}>
       <StyledButton
         color="primary"
         variant="contained"
-        disabled={isLoading}
+        disabled={disabled || isLoading}
         onClick={onClick}
       >
         {children}

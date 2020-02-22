@@ -7,8 +7,9 @@ import styled from '@emotion/styled';
 import { generateToast } from '../../utils/generateToast';
 import { Toast, ToastTypes } from '../../interfaces/Toaster/ToastTypes';
 import mixins from '../../styles/mixins';
+import ButtonWithLoader from '../../components/ButtonWithLoader/ButtonWithLoader';
 
-const StyledLoader = styled(Loader)`
+const StyledWrapper = styled.div`
   ${mixins.flexCenter};
   flex-direction: column;
 `;
@@ -24,6 +25,12 @@ const StyledButton = styled(Button)`
 
 const StyledInput = styled.input`
   display: none;
+`;
+
+const StyledButtonContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 `;
 
 interface Props {
@@ -49,15 +56,16 @@ const UserImageForm: React.FC<Props> = ({ user, addToast }) => {
       await fetchSaveImage(formData, user.token);
       setImageTime(new Date().getTime());
       addToast(generateToast('Image saved successfully!', ToastTypes.Success));
-      setLoading(false);
-      setFile(null);
     } catch (e) {
       addToast(
         generateToast(
-          'There is a problem uploading your image!',
+          'There was a problem uploading your image!',
           ToastTypes.Error,
         ),
       );
+    } finally {
+      setLoading(false);
+      setFile(null);
     }
   };
 
@@ -66,20 +74,20 @@ const UserImageForm: React.FC<Props> = ({ user, addToast }) => {
   ]);
 
   return (
-    <StyledLoader isLoading={isLoading}>
+    <StyledWrapper>
       <StyledAvatar
         src={image ?? `/assets/images/user/${user.login}.jpg?t=${imageTime}`}
         alt={user.login}
       />
-      <div>
+      <StyledButtonContainer>
         <StyledInput
           accept="image/*"
-          id="raised-button-file"
+          id="button-file"
           multiple
           type="file"
           onChange={handleFile}
         />
-        <label htmlFor="raised-button-file">
+        <label htmlFor="button-file">
           <StyledButton
             variant="contained"
             color="primary"
@@ -90,17 +98,15 @@ const UserImageForm: React.FC<Props> = ({ user, addToast }) => {
             Change Avatar
           </StyledButton>
         </label>
-        <StyledButton
+        <ButtonWithLoader
           onClick={saveFile}
-          color="primary"
-          variant="contained"
           disabled={!file}
-          theme={theme}
+          isLoading={isLoading}
         >
           Save
-        </StyledButton>
-      </div>
-    </StyledLoader>
+        </ButtonWithLoader>
+      </StyledButtonContainer>
+    </StyledWrapper>
   );
 };
 
