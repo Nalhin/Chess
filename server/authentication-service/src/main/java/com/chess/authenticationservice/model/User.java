@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 @EqualsAndHashCode(callSuper = true)
@@ -16,11 +17,11 @@ import javax.validation.constraints.NotEmpty;
 @Table(name = "users")
 public class User extends BaseEntity {
 
-    @NotEmpty
+    @NotEmpty(message = "Name cannot be empty.")
     @Column(nullable = false, unique = true)
     private String login;
 
-    @NotEmpty
+    @Email(message = "Email must be valid.")
     @Column(nullable = false, unique = true)
     private String email;
 

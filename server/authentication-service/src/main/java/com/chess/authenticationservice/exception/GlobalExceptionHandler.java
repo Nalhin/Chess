@@ -10,11 +10,14 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import java.io.IOException;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestControllerAdvice
-public class GlobalExceptionHandler{
+public class GlobalExceptionHandler {
 
     @Bean
     public ErrorAttributes errorAttributes() {
@@ -24,6 +27,10 @@ public class GlobalExceptionHandler{
                 Map<String, Object> errorAttributes = super.getErrorAttributes(webRequest, includeStackTrace);
                 errorAttributes.remove("exception");
                 errorAttributes.remove("trace");
+                errorAttributes.remove("timestamp");
+                errorAttributes.remove("status");
+                errorAttributes.remove("path");
+                errorAttributes.remove("error");
                 return errorAttributes;
             }
         };
@@ -32,6 +39,16 @@ public class GlobalExceptionHandler{
     @ExceptionHandler(CustomException.class)
     public void handleCustomException(HttpServletResponse res, CustomException ex) throws IOException {
         res.sendError(ex.getHttpStatus().value(), ex.getMessage());
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public void handleCustomException(HttpServletResponse res, ConstraintViolationException ex) throws IOException {
+        String errors = ex.getConstraintViolations()
+                .stream()
+                .map(ConstraintViolation::getMessage)
+                .collect(Collectors.joining(" "));
+
+        res.sendError(HttpStatus.UNPROCESSABLE_ENTITY.value(), errors);
     }
 
     @ExceptionHandler(AccessDeniedException.class)

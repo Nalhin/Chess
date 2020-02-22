@@ -40,16 +40,7 @@ module.exports = env => ({
       {
         test: [/\.(scss|css)$/],
         loader: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
-      },
-      {
-        test: [/\.(png|jpe?g|gif)$/i],
-        loader: 'file-loader',
-        options: {
-          name: '[name].[ext]',
-          useRelativePath: true,
-          outputPath: path.resolve('./public/assets/images'),
-        },
-      },
+      }
     ],
   },
   resolve: {
