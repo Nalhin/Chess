@@ -41,9 +41,11 @@ jest.mock('../user.api', () => ({
   fetchAuthenticateUser: jest.fn(),
 }));
 
-Cookies.set = jest.fn();
-Cookies.get = jest.fn();
-Cookies.remove = jest.fn();
+jest.mock('js-cookie', () => ({
+  set: jest.fn(),
+  get: jest.fn(),
+  remove: jest.fn(),
+}));
 
 beforeEach(() => {
   jest.clearAllMocks();

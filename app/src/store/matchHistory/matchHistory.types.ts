@@ -27,7 +27,7 @@ export enum MatchHistoryActionTypes {
 export interface GetMatchDetailsRequestedAction {
   type: typeof MatchHistoryActionTypes.GET_MATCH_DETAILS_REQUESTED;
   payload: {
-    gameId: number;
+    gameId: string;
   };
 }
 

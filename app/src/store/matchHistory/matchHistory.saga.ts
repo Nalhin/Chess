@@ -1,11 +1,10 @@
 import { SagaIterator } from '@redux-saga/core';
-import { all, takeEvery } from '@redux-saga/core/effects';
+import { all, call, put, takeEvery } from '@redux-saga/core/effects';
 import {
   GetMatchDetailsRequestedAction,
   GetMatchHistoryRequestedAction,
   MatchHistoryActionTypes,
 } from './matchHistory.types';
-import { call, put } from 'redux-saga-test-plan/matchers';
 import {
   getMatchDetailsFailed,
   getMatchDetailsSucceeded,

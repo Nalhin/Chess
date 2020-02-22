@@ -1,4 +1,4 @@
-import { all, takeEvery } from '@redux-saga/core/effects';
+import { all, call, fork, put, takeEvery } from '@redux-saga/core/effects';
 import {
   LoginUserRequestedAction,
   LogoutUserAction,
@@ -10,7 +10,6 @@ import {
   fetchLoginUser,
   fetchRegisterUser,
 } from './user.api';
-import { call, fork, put } from 'redux-saga-test-plan/matchers';
 import {
   authenticationSucceeded,
   loginUserFailed,

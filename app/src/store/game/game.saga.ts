@@ -1,5 +1,12 @@
 import { SagaIterator } from '@redux-saga/core';
-import { all, select, take, takeEvery } from '@redux-saga/core/effects';
+import {
+  all,
+  call,
+  put,
+  select,
+  take,
+  takeEvery,
+} from '@redux-saga/core/effects';
 import {
   CheckIsGamePresentRequestedAction,
   ForfeitGameAction,
@@ -18,7 +25,6 @@ import { StompSingleton } from '../../websocket/stompClient';
 import { gameIdSelector, selectedPieceSelector } from './game.selectors';
 import { userSelector } from '../user/user.selectors';
 import { WebsocketTypes } from '../../websocket/websocketTypes';
-import { call, put } from 'redux-saga-test-plan/matchers';
 import { fetchIsGamePresent } from './game.api';
 import {
   checkIsGamePresentFailed,
@@ -61,7 +67,7 @@ export function* reconnectToGameSaga(action: ReconnectToGameRequestedAction) {
     const { isPresent } = response.data;
 
     if (!isPresent) {
-      throw Error();
+      throw new Error();
     }
 
     gameId = response.data.gameId;
