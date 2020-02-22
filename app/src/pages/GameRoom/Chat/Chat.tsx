@@ -20,8 +20,6 @@ const StyledMessageWrapper = styled.div`
     flex-direction: column;
     height: 300px;
     width: 300px;
-    overflow-y: scroll;
-    white-space: pre-line;
 
     ${props.theme.breakpoints.down('sm')} {
       height: 200px;
@@ -58,6 +56,8 @@ const StyledInner = styled.div`
     flex-direction: column-reverse;
     flex-grow: 1;
     padding: 0 ${props.theme.spacing(2)}px ${props.theme.spacing(2)}px;
+    overflow-y: auto;
+    white-space: pre-line;
   `}
 `;
 
@@ -101,8 +101,8 @@ const Chat: React.FC<Props> = ({ chatMessages, sendMessage, userLogin }) => {
               <CloseIcon />
             </StyledIconButton>
           </StyledTitle>
-          <StyledMessageWrapper theme={theme} ref={ref}>
-            <StyledInner theme={theme}>
+          <StyledMessageWrapper theme={theme}>
+            <StyledInner theme={theme} ref={ref}>
               {chatMessages.map(message => (
                 <ChatUserMessage
                   key={message.id}
