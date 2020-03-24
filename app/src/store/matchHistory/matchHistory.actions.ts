@@ -14,7 +14,7 @@ import {
 } from '../../interfaces/MatchHistoryGame/MatchHistoryGameBase';
 
 export const getMatchDetailsRequested = (
-  gameId: string,
+  gameId: number,
 ): GetMatchDetailsRequestedAction => ({
   type: MatchHistoryActionTypes.GET_MATCH_DETAILS_REQUESTED,
   payload: {

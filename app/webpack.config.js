@@ -4,7 +4,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+  .BundleAnalyzerPlugin;
 
 module.exports = env => ({
   mode: env.development ? 'development' : 'production',
@@ -17,9 +18,7 @@ module.exports = env => ({
   },
   devtool: env.development && 'eval-source-map',
   devServer: {
-    contentBase: [
-      path.join(__dirname, 'public'),
-    ],
+    contentBase: [path.join(__dirname, 'public')],
     hot: true,
     open: false,
     port: 3000,
@@ -40,7 +39,7 @@ module.exports = env => ({
       {
         test: [/\.(scss|css)$/],
         loader: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
-      }
+      },
     ],
   },
   resolve: {
@@ -56,7 +55,10 @@ module.exports = env => ({
       chunkFilename: 'chunk.[chunkhash].css',
     }),
     new CopyPlugin([
-      { from: path.resolve(__dirname, './public'), to: path.resolve(__dirname, './dist') },
+      {
+        from: path.resolve(__dirname, './public'),
+        to: path.resolve(__dirname, './dist'),
+      },
     ]),
     new Dotenv(),
     new webpack.EnvironmentPlugin({ ...env }),

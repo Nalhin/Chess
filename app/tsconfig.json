@@ -10,12 +10,6 @@
     "allowSyntheticDefaultImports": true,
     "lib": ["dom", "dom.iterable", "es5"]
   },
-  "exclude": [
-    "node_modules",
-    "dist"
-  ],
-  "include": [
-    "src/**/*",
-    "test/**/*"
-  ]
+  "exclude": ["node_modules", "dist"],
+  "include": ["src/**/*", "test/**/*"]
 }

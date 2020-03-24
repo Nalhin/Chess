@@ -23,8 +23,8 @@
     ]
   },
   "dependencies": {
-    "@emotion/react": "^11.0.0-next.11",
-    "@emotion/styled": "^11.0.0-next.11",
+    "@emotion/react": "^11.0.0-next.12",
+    "@emotion/styled": "^11.0.0-next.12",
     "@material-ui/core": "^4.9.1",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.42",
@@ -58,7 +58,7 @@
     "@babel/preset-env": "^7.8.4",
     "@babel/preset-react": "^7.0.0",
     "@babel/preset-typescript": "^7.8.3",
-    "@emotion/babel-plugin": "^11.0.0-next.11",
+    "@emotion/babel-plugin": "^11.0.0-next.12",
     "@testing-library/react": "^9.3.0",
     "@testing-library/react-hooks": "^3.2.1",
     "@types/axios": "^0.14.0",
