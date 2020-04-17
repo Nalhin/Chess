@@ -1,7 +1,8 @@
-﻿[![Build Status](https://travis-ci.com/Nalhin/Chess.svg?branch=master)](https://travis-ci.com/Nalhin/Chess)
+﻿[![Test](https://github.com/Nalhin/Chess/workflows/.github/workflows/test.yml/badge.svg?branch=master)](https://github.com/Nalhin/Chess/actions)
 [![Codecov](https://codecov.io/gh/Nalhin/Chess/branch/master/graph/badge.svg)](https://codecov.io/gh/Nalhin/Chess)
 [![CodeFactor](https://www.codefactor.io/repository/github/nalhin/chess/badge)](https://www.codefactor.io/repository/github/nalhin/chess)
 [![GitHub](https://img.shields.io/github/license/nalhin/Chess)](LICENSE.md)
+
 
 # Chess
 
