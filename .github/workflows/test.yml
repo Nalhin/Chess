@@ -42,9 +42,116 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 13
+      - name: Restore cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('./server/game-service/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
       - name: Run tests
         run: mvn verify
-        working-directory: server/game-service
+        working-directory: ./server/game-service
+      - name: Upload coverage
+        uses: codecov/codecov-action@v1
+        env:
+          CI: true
+
+  chat-service-tests:
+    name: Chat service tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: 13
+      - name: Restore cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('./server/chat-service/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - name: Run tests
+        run: mvn verify
+        working-directory: ./server/chat-service
+      - name: Upload coverage
+        uses: codecov/codecov-action@v1
+        env:
+          CI: true
+
+  authentication-service-tests:
+    name: Authentication service tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: 13
+      - name: Restore cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('./server/authentication-service/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - name: Run tests
+        run: mvn verify
+        working-directory: ./server/authentication-service
+      - name: Upload coverage
+        uses: codecov/codecov-action@v1
+        env:
+          CI: true
+
+  queue-service-tests:
+    name: Queue service tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: 13
+      - name: Restore cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('./server/queue-service/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - name: Run tests
+        run: mvn verify
+        working-directory: ./server/queue-service
+      - name: Upload coverage
+        uses: codecov/codecov-action@v1
+        env:
+          CI: true
+
+  history-service-tests:
+    name: History service tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: 13
+      - name: Restore cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('./server/history-service/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - name: Run tests
+        run: mvn verify
+        working-directory: ./server/history-service
       - name: Upload coverage
         uses: codecov/codecov-action@v1
         env:
