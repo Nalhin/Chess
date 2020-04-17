@@ -1,4 +1,4 @@
-﻿[![Test](https://github.com/Nalhin/Chess/workflows/.github/workflows/test.yml/badge.svg?branch=master)](https://github.com/Nalhin/Chess/actions)
+﻿[![Test](https://github.com/Nalhin/Chess/workflows/Test/badge.svg?branch=master)](https://github.com/Nalhin/Chess/actions)
 [![Codecov](https://codecov.io/gh/Nalhin/Chess/branch/master/graph/badge.svg)](https://codecov.io/gh/Nalhin/Chess)
 [![CodeFactor](https://www.codefactor.io/repository/github/nalhin/chess/badge)](https://www.codefactor.io/repository/github/nalhin/chess)
 [![License](https://img.shields.io/github/license/nalhin/Chess)](LICENSE.md)
