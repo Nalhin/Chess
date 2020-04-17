@@ -28,7 +28,7 @@ jobs:
         run: npm run test:cov
         working-directory: ./app
       - name: Upload coverage
-        uses: codecov/codecov-action@v
+        uses: codecov/codecov-action@v1
         env:
           CI: true
 
