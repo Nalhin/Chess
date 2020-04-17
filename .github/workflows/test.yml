@@ -1,0 +1,51 @@
+ame: Test
+
+on: [push]
+
+jobs:
+
+  app-tests:
+    name: App tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Restore cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('./app/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./app
+      - name: Run tests
+        run: npm run test:cov
+        working-directory: ./app
+      - name: Upload coverage
+        uses: codecov/codecov-action@v1
+        env:
+          CI: true
+
+  game-service-tests:
+    name: Game service tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Java
+        uses: actions/setup-java@v1
+          with:
+            java-version: 13
+      - name: Run tests
+        run: mvn verify
+        working-directory: server/game-service
+      - name: Upload coverage
+        uses: codecov/codecov-action@v1
+        env:
+          CI: true
