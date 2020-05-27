@@ -6,7 +6,7 @@
 
 # Chess
 
-A Website that allows users to participate in online chess games.
+Online chess matches with multiple simultaneous game rooms.
 
 ## Table of contents
 
