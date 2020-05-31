@@ -62,10 +62,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class GameControllerTest {
 
-
     @Autowired
     private KafkaTemplate<String, StartGameMessage> template;
-
 
     @LocalServerPort
     private int port;
@@ -86,8 +84,6 @@ class GameControllerTest {
     private final String MAKE_MOVE_ENDPOINT = "/app/move/";
     private final String AVAILABLE_MOVES_ENDPOINT = "/app/available-moves/";
     private final String FORFEIT_ENDPOINT = "/app/forfeit/";
-    private final String PROMOTION_ENDPOINT = "/app/promotion/";
-
 
     private LinkedBlockingDeque<JSONObject> blockingQueue;
 

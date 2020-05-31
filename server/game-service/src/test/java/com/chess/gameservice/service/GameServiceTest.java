@@ -76,7 +76,7 @@ class GameServiceTest {
 
 
     @Test
-    void connectTest() throws InterruptedException {
+    void connectTest() {
         gameService.initGame(startGameMessage);
 
         Game game = gameService.connect(gameId, secondPlayerName).get();

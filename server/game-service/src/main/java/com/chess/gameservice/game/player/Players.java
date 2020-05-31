@@ -31,6 +31,11 @@ public class Players extends EnumMap<PlayerColor, Player> {
         return PlayerColor.getOtherColor(currentTurnColor);
     }
 
+    public void beforeDestroy() {
+        this.get(PlayerColor.BLACK).forceClose();
+        this.get(PlayerColor.WHITE).forceClose();
+    }
+
     @JsonIgnore
     public Duration getGameDuration() {
         return Arrays.stream(PlayerColor.values())

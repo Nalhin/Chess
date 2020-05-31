@@ -50,6 +50,10 @@ public class Player {
         setTotalTurnTimeRemaining(totalTurnTimeRemaining.minus(turnDuration));
     }
 
+    public void forceClose() {
+        playerStopwatch.end();
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(name);

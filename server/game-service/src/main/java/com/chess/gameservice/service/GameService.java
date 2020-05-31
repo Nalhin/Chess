@@ -63,12 +63,18 @@ public class GameService {
         return game;
     }
 
-    public Optional<Game> connect(UUID gameId, String playerName) throws InterruptedException {
+    public Optional<Game> connect(UUID gameId, String playerName) {
         synchronized (games) {
-            while (!games.containsKey(gameId)) {
-                games.wait();
+            try {
+                while (!games.containsKey(gameId)) {
+                    games.wait();
+                }
+            } catch (InterruptedException ignored) {
             }
             Game game = games.get(gameId);
+            if (game == null) {
+                return Optional.empty();
+            }
             Optional<UUID> response = game.isPlayerPresentInGame(playerName);
             if (response.isEmpty()) {
                 return Optional.empty();
@@ -158,13 +164,14 @@ public class GameService {
                 gamesToRemove.add(game.getGameId());
             }
         });
-        gamesToRemove.forEach(games::remove);
+        gamesToRemove.forEach(this::gameFinished);
     }
 
 
     public synchronized void gameFinished(UUID gameId) {
         Game game = games.get(gameId);
         applicationEventPublisher.publishEvent(new GameOverEvent(this, game));
+        game.beforeDestroy();
         games.remove(gameId);
     }
 }

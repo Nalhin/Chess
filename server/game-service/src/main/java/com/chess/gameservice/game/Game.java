@@ -161,12 +161,16 @@ public class Game {
     }
 
     @JsonIgnore
-    public String getWinner(){
-       return players.get(PlayerColor.getOtherColor(currentTurn.getCurrentPlayerColor())).getName();
+    public String getWinner() {
+        return players.get(PlayerColor.getOtherColor(currentTurn.getCurrentPlayerColor())).getName();
     }
 
     public void initGame(UUID gameId) {
         setGamePhase(GamePhase.STARTED);
         setGameId(gameId);
+    }
+
+    public void beforeDestroy() {
+        players.beforeDestroy();
     }
 }

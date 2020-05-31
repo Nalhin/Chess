@@ -29,7 +29,7 @@ public class GameController implements ApplicationListener<PlayerOutOfTimeEvent>
 
 
     @MessageMapping("/connect/{gameId}")
-    public void initialConnect(@DestinationVariable String gameId, @Header("name") String playerName) throws InterruptedException {
+    public void initialConnect(@DestinationVariable String gameId, @Header("name") String playerName) {
         Optional<Game> game = gameService.connect(UUID.fromString(gameId), playerName);
         if (game.isPresent()) {
             GameStartedMessage gameStartedMessage = new GameStartedMessage();

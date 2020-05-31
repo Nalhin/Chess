@@ -23,12 +23,12 @@ Online chess matches with multiple simultaneous game rooms.
 
 ## Description
 
-Frontend is written entirely in React and Typescript.
-Flux architecture (Redux, Redux-Saga and rxjs) allows application's view layer to work independently,
+Frontend was written entirely in Typescript with React as the library of choice.
+Flux architecture (Redux, Redux-Saga and rxjs) allowed application's view layer to work independently,
 resulting in less overhead, cleaner code and easier testing.
 
-On the other hand, backend is written in Java and designed in docker oriented microservice architecture,
-utilizing Spring Boot's versatility. Chess logic is written entirely from scratch, without the use of any chess engine.
+On the other hand, backend was written in Java and implemented in a docker oriented microservice architecture,
+utilizing the versatility of Spring Boot. Game logic was developed entirely from scratch, without the use of any chess engine.
 
 Necessary data is preserved in MySQL database.
 
